@@ -1,5 +1,5 @@
 import React from 'react';
-import style from "./InfoItem.scss";
+import "./InfoItem.scss";
 
 const InfoItem = () => {
     return (

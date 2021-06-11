@@ -1,5 +1,5 @@
 import React from 'react';
-import style from "./Map.scss"
+import "./Map.scss"
 
 const Map = () => {
     return (

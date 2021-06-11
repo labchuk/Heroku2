@@ -27,9 +27,9 @@ export { default as AppRouter } from "./AppRouter";
 
 export { default as InfoItem } from "./admin/statistic/InfoItem/InfoItem";
 export { default as StatisticFilter } from "./admin/statistic/StatisticFilter/StatisticFilter";
-export { default as InformationBlock } from "./admin/statistic/InformationBlock/InformationBlock.js";
+export { default as InformationBlock } from "./admin/statistic/InformationBlock/InformationBlock";
 export { default as StatisticInformation } from "./admin/statistic/StatisticInformation/StatisticInformation";
 export { default as GraphPanel } from "./admin/statistic/GraphPanel/GraphPanel";
-export { default as AdditionalDate } from "./admin/statistic/AdditionalDate/AdditionalDate.js";
+export { default as AdditionalDate } from "./admin/statistic/AdditionalDate/AdditionalDate";
 export { default as GraphInfo } from "./admin/statistic/GraphInfo/GraphInfo";
 export { default as Graph } from "./admin/statistic/Graph/Graph";

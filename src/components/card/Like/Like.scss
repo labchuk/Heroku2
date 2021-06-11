@@ -5,5 +5,20 @@
     cursor: pointer;
     margin-bottom: 15px;
   }
-
+  &__info{
+    display: none;
+    background: transparent;
+    cursor: pointer;
+  }
+}
+@media (max-width: 400px) {
+  .card-buttons{
+    width: 20px;
+    &__item{
+      display: none;
+    }
+    &__info{
+      display: block;
+    }
+  }
 }

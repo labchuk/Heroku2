@@ -1,10 +1,10 @@
 import React from 'react';
 import { CardList, Footer, Header, SearchBar } from "../../index";
-import style from "./HistoryPage.scss";
+import "./HistoryPage.scss"
 
 const HistoryPage = () => {
     return (
-        <div>
+        <div className="history">
             <Header/>
             <SearchBar/>
             <CardList/>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Graph, GraphPanel } from '../../../index';
-import style from "./GraphInfo.scss";
+import "./GraphInfo.scss";
 
 const GraphInfo = () => {
     return (

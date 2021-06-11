@@ -1,6 +1,6 @@
 import React from 'react';
 import { Footer, Header, StatisticInformation } from "../../index";
-import style from "./StatisticPage.scss";
+import "./StatisticPage.scss";
 
 const StatisticPage = () => {
     return (

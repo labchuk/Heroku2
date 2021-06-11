@@ -10,6 +10,9 @@ const Like = () => {
            <button className="card-buttons__item">
                <img src="image/icons/Share.svg" alt=""/>
            </button>
+            <button className="card-buttons__info">
+                <img src="image/icons/Info.svg" alt=""/>
+            </button>
         </div>
     );
 };

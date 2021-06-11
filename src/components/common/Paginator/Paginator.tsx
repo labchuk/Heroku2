@@ -1,5 +1,5 @@
 import React from 'react';
-import style from "./Paginator.scss";
+import "./Paginator.scss";
 
 const Paginator = () => {
     return (
