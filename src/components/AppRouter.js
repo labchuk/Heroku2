@@ -7,10 +7,11 @@ const AppRouter = () => {
     return (
         <Switch>
             {routes.map(({ path, Component }) => 
-                <Route key={path} path={path} component={Component} exact />
+                <Route key={path} path={path} component={ Component} />
             )}
         </Switch>
     );
 };
+
 
 export default AppRouter;

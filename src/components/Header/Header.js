@@ -6,6 +6,7 @@ const Header = () => {
     return (
         <div className={"header"}>
           <Logo/>
+          <div className={"gravatar"}><img src="https://zbyhoo.files.wordpress.com/2011/07/me_pixel_bright_bg.png?w=584" alt=""/></div>
         </div>
     );
 };
