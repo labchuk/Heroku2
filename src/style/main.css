@@ -19,6 +19,9 @@
     font-family: "Poppins";
     font-family: Montserrat;
 }
+body{
+    background: #DCDCDC;
+}
 
 button{
     border: none;
