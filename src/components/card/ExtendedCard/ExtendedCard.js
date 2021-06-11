@@ -1,6 +1,6 @@
 import React from 'react';
 import { DateValid, Discount, Like, Map, Submitbutton, VendorLogo } from "../../index";
-import style from "./ExtendedCard.module.scss"
+import style from "./ExtendedCard.scss"
 
 const ExtendedCard = () => {
     return (

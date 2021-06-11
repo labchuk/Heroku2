@@ -1,0 +1,65 @@
+.header{
+  padding: 0 10px 0 10px;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  height: 70px;
+  vertical-align: center;
+  @media (min-width: 600px) {
+    height: 110px;
+  }
+  .Logo{
+    :nth-child(3) {
+    display: none;
+    }
+    margin: 0;
+
+    flex-direction: row;
+  }
+  .logo__logo{
+    letter-spacing: 0;
+  }
+  .logo__name{
+    margin: 0;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: center;
+    @media (min-width: 600px) {
+      font-size: 24px;
+    }
+  }
+  .gravatar{
+    display: flex;
+    align-items: center;
+    .username{
+      font-family: Poppins;
+      align-items: center;
+      text-align: center;
+      letter-spacing: 0.05em;
+      color: #1877F2;
+      display: none;
+      @media (min-width: 400px) {
+        display: flex;
+        font-size: 18px;
+      }
+      @media (min-width: 600px) {
+        font-size: 26px;
+      }
+    }
+    img{
+      width: 41px;
+      height: 41px;
+      border-radius: 50%;
+      align-items: center;
+      vertical-align: center;
+      @media (min-width: 600px) {
+        width: 57px;
+        height: 57px;
+      }
+    }
+
+  }
+}

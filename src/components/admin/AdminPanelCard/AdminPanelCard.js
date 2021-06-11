@@ -1,6 +1,6 @@
 import React from 'react';
 import { Submitbutton } from '../../index';
-import style from "./AdminPanelCard.module.scss";
+import style from "./AdminPanelCard.scss";
 
 const AdminPanelCard = () => {
     return (

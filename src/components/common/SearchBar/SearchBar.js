@@ -1,6 +1,6 @@
 import React from 'react';
 import { Paragraph, Submitbutton } from '../../index';
-import style from "./SearchBar.module.scss";
+import style from "./SearchBar.scss";
 
 const SearchBar = () => {
     return (

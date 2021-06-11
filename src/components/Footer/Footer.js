@@ -4,6 +4,7 @@ import "./Footer.scss";
 import phone from '../../images/icons/phone.svg';
 import email from '../../images/icons/email.svg';
 
+
 const Footer = () => {
     return (
         <footer className="footer">
