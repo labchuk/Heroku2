@@ -8,12 +8,12 @@ import {
     Header,
     SearchBar,
 } from "../../index";
-import style from "./MainPage.scss";
+import "./MainPage.scss";
 
 const MainPage = () => {
     const admin = false;
     return (
-        <div className={style.homepage}>
+        <div className={"homepage"}>
             <Header />
             <SearchBar />
             {admin && (

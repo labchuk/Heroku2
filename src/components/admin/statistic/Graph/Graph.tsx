@@ -1,5 +1,5 @@
 import React from 'react';
-import style from "./Graph.scss";
+import "./Graph.scss";
 
 const Graph = () => {
     return (

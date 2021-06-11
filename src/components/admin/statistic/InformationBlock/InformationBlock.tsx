@@ -1,6 +1,6 @@
 import React from 'react';
 import { InfoItem } from "../../../index";
-import style from "./InformationBlock.scss";
+import "./InformationBlock.scss";
 
 const InformationBlock = () => {
     return (

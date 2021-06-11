@@ -1,5 +1,5 @@
 import React from 'react';
-import style from "./Submitbutton.scss";
+import "./Submitbutton.scss";
 
 
 const Submitbutton = () => {
