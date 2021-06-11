@@ -10,15 +10,17 @@
   src: url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
   font-weight: 400, 500, 600, 700;
 }
-
 @font-face {
-  font-family: "Mulish";
-  src: url("https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600;700&display=swap");
-  font-weight: 300, 400, 600, 700;
+  font-family: Montserrat;
+  src: url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
 }
 
 #root {
   font-family: "Poppins";
+  font-family: Montserrat;
+}
+body {
+  background: #dcdcdc;
 }
 
 button {
