@@ -1,5 +1,5 @@
 import React from 'react';
-import style from "./StatisticFilter.module.scss";
+import style from "./StatisticFilter.scss";
 
 const StatisticFilter = () => {
     return (

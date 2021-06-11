@@ -1,5 +1,5 @@
 import React from 'react';
-import style from "./AdditionalDate.module.scss";
+import style from "./AdditionalDate.scss";
 
 const AdditionalDate = () => {
     return <div>AdditionalDate</div>;

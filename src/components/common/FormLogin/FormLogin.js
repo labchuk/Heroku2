@@ -1,13 +1,13 @@
 import React from 'react';
-import style from "./FormLogin.module.scss";
+import "./FormLogin.scss";
 
 const FormLogin = () => {
     return (
-        <form className={style.FormLogin}>
+        <form className={"FormLogin"}>
             <input
                 type="email"
                 placeholder="email"
-                className={style.incorrectInput}
+                className={"incorrectInput"}
             />
             <p>
                 The email or password you entered isn’t connected to any
@@ -16,7 +16,7 @@ const FormLogin = () => {
             <input
                 type="text"
                 placeholder="password"
-                className={style.formInputPassword}
+                className={"formInputPassword"}
             />
             <button type="submit"> Log in </button>
         </form>

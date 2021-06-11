@@ -1,5 +1,5 @@
 import React from 'react';
-import style from "./Filter.module.scss";
+import style from "./Filter.scss";
 
 const Filter = () => {
     return (

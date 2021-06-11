@@ -1,6 +1,6 @@
 import React from 'react';
 import { CardList, Footer, Header, SearchBar } from "../../index";
-import style from "./HistoryPage.module.scss";
+import style from "./HistoryPage.scss";
 
 const HistoryPage = () => {
     return (
