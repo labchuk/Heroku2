@@ -1,5 +1,5 @@
 import React from 'react';
-import style from "./Paragraph.module.scss";
+import style from "./Paragraph.scss";
 
 const Paragraph = () => {
     return (

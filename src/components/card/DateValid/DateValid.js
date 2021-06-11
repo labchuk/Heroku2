@@ -1,5 +1,5 @@
 import React from 'react';
-import style from "./DateValid.module.scss"
+import style from "./DateValid.scss"
 
 const DateValid = () => {
     return (

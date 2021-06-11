@@ -1,6 +1,6 @@
 import React from 'react';
 import { Submitbutton } from '../../index';
-import style from "./DelateVendorMenu.module.scss";
+import style from "./DelateVendorMenu.scss";
 
 const DelateVendorMenu = () => {
     return (

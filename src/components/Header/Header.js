@@ -1,10 +1,10 @@
 import React from 'react';
 import { Logo } from '../index';
-import style from "./Header.module.scss";
+import "./Header.scss";
 
 const Header = () => {
     return (
-        <div>
+        <div className={"header"}>
           <Logo/>
         </div>
     );

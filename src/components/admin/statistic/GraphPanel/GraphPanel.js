@@ -1,5 +1,5 @@
 import React from 'react';
-import style from "./GraphPanel.module.scss";
+import style from "./GraphPanel.scss";
 
 const GraphPanel = () => {
     return (
