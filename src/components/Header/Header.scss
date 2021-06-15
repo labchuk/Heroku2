@@ -1,5 +1,5 @@
 .header{
-  padding: 10px 10px 0 10px;
+  padding: 5px 10px 0 10px;
   background: #fff;
   display: flex;
   justify-content: space-between;
@@ -84,7 +84,7 @@
       color: #1877F2;
       position: relative;
       display: none;
-      @media (min-width: 1023px) {
+      @media (min-width: 960px) {
         display: block;
       }
 
@@ -110,29 +110,25 @@
 .link{
   text-decoration: none;
   color: #1877F2;
-}
-.mobile-link{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 
 }
-.linked{
-  color: #ED1818;
+.logout{
+color: #E44949;
+  border-bottom: none;
 }
+
+
 .MuiMenu-paper{
   background: #ED1818;
-  padding: 0 0 0 0;
 }
 .MuiMenu-list {
-  display: flex;
-  flex-direction: column;
+
+
 }
 
-  .MuiMenuItem-root{
-    justify-content: flex-end;
-    border-bottom: #222222 1px solid;
-    .link{
-      width: 100%;
-    }
-    :nth-child(3){
-      border: none;
-    }
+.MuiMenuItem-root{
+
   }
