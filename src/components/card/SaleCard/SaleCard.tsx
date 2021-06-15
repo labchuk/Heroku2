@@ -1,13 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { DateValid, Discount, Like, VendorLogo } from '../../index';
 import './SaleCard.scss'
 
-const SaleCard = () => {
+const SaleCard: React.FC = () => {
     return (
         <div className="sale-card">
            <VendorLogo/>
            <Discount/>
-           <Like/>
+           <Like />
         </div>
     );
 };
