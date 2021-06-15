@@ -1,5 +1,5 @@
 .header{
-  padding: 0 10px 0 10px;
+  padding: 10px 10px 0 10px;
   background: #fff;
   display: flex;
   justify-content: space-between;
@@ -34,6 +34,11 @@
   .gravatar{
     display: flex;
     align-items: center;
+    position: relative;
+
+    button{
+      background: #fff;
+    }
     .username{
       font-family: Poppins;
       align-items: center;
@@ -41,12 +46,13 @@
       letter-spacing: 0.05em;
       color: #1877F2;
       display: none;
+
       @media (min-width: 400px) {
         display: flex;
         font-size: 18px;
       }
       @media (min-width: 600px) {
-        font-size: 26px;
+        font-size: 21px;
       }
     }
     img{
@@ -62,8 +68,71 @@
     }
 
   }
-  a{
-    text-decoration: none;
-    color: black;
+  .desktop-nav{
+    display: flex;
+    align-items: center;
+    a{
+      text-decoration: none;
+      margin: 0 40px 0 40px;
+      font-family: Poppins;
+      font-size: 21px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 39px;
+      letter-spacing: 0.05em;
+      text-align: center;
+      color: #1877F2;
+      position: relative;
+      display: none;
+      @media (min-width: 1023px) {
+        display: block;
+      }
+
+    }
+    .activelink{
+      &:after{
+        content: "";
+        height: 3px;
+        width: 100%;
+        background-color: #1877F2;
+        position: absolute;
+        left: 0;
+        top: 40px;
+      }
+    }
   }
+
 }
+.menu-link{
+  text-decoration: none;
+}
+
+.link{
+  text-decoration: none;
+  color: #1877F2;
+}
+.mobile-link{
+
+}
+.linked{
+  color: #ED1818;
+}
+.MuiMenu-paper{
+  background: #ED1818;
+  padding: 0 0 0 0;
+}
+.MuiMenu-list {
+  display: flex;
+  flex-direction: column;
+}
+
+  .MuiMenuItem-root{
+    justify-content: flex-end;
+    border-bottom: #222222 1px solid;
+    .link{
+      width: 100%;
+    }
+    :nth-child(3){
+      border: none;
+    }
+  }
