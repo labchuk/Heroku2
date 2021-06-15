@@ -2,7 +2,6 @@ export { default as Logo } from "./common/Logo/Logo";
 export { default as FormLogin } from "./common/FormLogin/FormLogin";
 export { default as Footer } from "./Footer/Footer";
 export { default as Header } from "./Header/Header";
-export { default as Plaginator } from "./common/Paginator/Paginator";
 export { default as SearchBar } from "./common/SearchBar/SearchBar";
 export { default as Paragraph } from "./common/Paragraph/Paragraph";
 export { default as Filter } from "./common/Filter/Filter";
