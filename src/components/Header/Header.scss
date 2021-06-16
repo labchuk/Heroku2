@@ -80,23 +80,9 @@
     align-items: center;
     justify-items: flex-end;
     :nth-child(1){
-      @media (min-width: 960px) {
-        margin-left: 75px;
-      }
-      @media (min-width: 1060px) {
-        margin-left: 150px;
-      }
-      @media (min-width: 1160px) {
-        margin-left: 250px;
-      }
-      @media (min-width: 1260px) {
-        margin-left: 350px;
-      }
-      @media (min-width: 1360px) {
-        margin-left: 450px;
-      }
-
+      margin-left: 10em;
     }
+
     a{
       text-decoration: none;
       margin: 0 0 0 70px;
@@ -139,7 +125,7 @@
   text-decoration: none;
   color: #1877F2;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   width: 1200px;
   @media (min-width: 600px) {
     width: 130px;

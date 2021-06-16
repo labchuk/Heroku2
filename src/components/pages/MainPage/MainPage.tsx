@@ -16,7 +16,6 @@ const MainPage = () => {
     return (
         <div className={"homepage"}>
             <Header />
-            <AdminBtn />
             <SearchBar />
             {admin && (
                 <div>
