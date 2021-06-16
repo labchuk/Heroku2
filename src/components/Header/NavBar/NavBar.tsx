@@ -25,11 +25,10 @@ const useStyles = makeStyles((theme) => ({
     menu: {
         marginTop: "67px",
         display: "flex",
-        marginLeft: "7px",
-        width: "calc(100% + 29px)",
+        width: "calc(100% + 30px)",
+        marginLeft: "-15px",
         [theme.breakpoints.down('xs')]: {
             marginTop: "55px",
-            marginLeft: "14px",
         }
     },
 }));
@@ -67,7 +66,14 @@ export default function NavBar() {
             </Button>
 
             <Menu
-                style={{left: "0"}}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: 'right',
+                }}
                 className={classes.menu}
                 id="simple-menu"
                 anchorEl={anchorEl}
