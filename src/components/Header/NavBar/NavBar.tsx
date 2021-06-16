@@ -14,7 +14,7 @@ const useStyles = makeStyles({
         width: "100%",
         justifyContent: "flex-end",
         borderBottom: "1px solid #9e9e9e",
-        flex: "1 1 auto",
+
     },
     logout: {
         color: "#E44949",
@@ -23,13 +23,14 @@ const useStyles = makeStyles({
     },
 
     menu: {
-        marginTop: "50px",
+        marginTop: "56px",
         display: "flex",
-        position: "absolute",
-        right: 10,
+        marginLeft: "14px",
+        width: "calc(100% + 29px)"
 
-    }
+    },
 });
+
 
 export default function NavBar() {
     const classes = useStyles();
@@ -42,7 +43,11 @@ export default function NavBar() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+
     let admin = true;
+
+
    return <>
         <div className={"desktop-nav"}>
             <NavLink to={"/main-page"} activeClassName={"activelink"}>Home</NavLink>
@@ -53,12 +58,13 @@ export default function NavBar() {
 
         </div>
         <div className={"gravatar"}>
-            <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                <div className={"username"}>username</div>
+            <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} >
+
                 <Gravatar email="ov4lil@icloud.com" size={100}/>
             </Button>
 
             <Menu
+                style={{left: "0"}}
                 className={classes.menu}
                 id="simple-menu"
                 anchorEl={anchorEl}
@@ -69,9 +75,9 @@ export default function NavBar() {
                     disablePadding: true,
                 }}
 
-
             >
-                <MenuItem onClick={handleClose} className={classes.link}>Username</MenuItem>
+
+                <MenuItem onClick={handleClose} className={classes.link}><p className={"link"} >Username</p></MenuItem>
                 <Hidden mdUp>
                     <MenuItem onClick={handleClose} className={classes.link}><NavLink to={"/main-page"}
                                                                                       className={"link"}>Home</NavLink></MenuItem>
@@ -80,9 +86,9 @@ export default function NavBar() {
                 </Hidden>
                 {admin &&
                 <Hidden mdUp>
-                    <MenuItem onClick={handleClose} className={classes.link}>vendors</MenuItem>
-                    <MenuItem onClick={handleClose} className={classes.link}>add a promotion</MenuItem>
-                    <MenuItem onClick={handleClose} className={classes.link}>add a vendor </MenuItem>
+                    <MenuItem onClick={handleClose} className={classes.link}><p className={"link"} >vendors</p></MenuItem>
+                    <MenuItem onClick={handleClose} className={classes.link}><p className={"link"} >add a promotion</p></MenuItem>
+                    <MenuItem onClick={handleClose} className={classes.link}><p className={"link"} >add a vendor</p></MenuItem>
                 </Hidden>
                 }
                 <MenuItem onClick={handleClose} className={classes.logout} ><NavLink to={"/login"}

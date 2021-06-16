@@ -1,10 +1,33 @@
+@mixin anim($time, $delay) {
+  -webkit-transition: all $time ease $delay;
+  -moz-transition: all $time ease $delay;
+  -ms-transition: all $time ease $delay;
+  -o-transition: all $time ease $delay;
+  transition: all $time ease $delay;
+}
+@mixin scale($num) {
+  -moz-transform: scale($num);
+  -ms-transform: scale($num);
+  -webkit-transform: scale($num);
+  -o-transform: scale($num);
+  transform: scale($num);
+}
+@mixin rotate($deg) {
+  -moz-transform: rotate($deg);
+  -ms-transform: rotate($deg);
+  -webkit-transform: rotate($deg);
+  -o-transform: rotate($deg);
+  transform: rotate($deg);
+}
+
+
 .header{
   padding: 5px 10px 0 10px;
   background: #fff;
   display: flex;
-  justify-content: space-between;
   height: 70px;
   vertical-align: center;
+  justify-content: space-between;
   @media (min-width: 600px) {
     height: 110px;
   }
@@ -13,8 +36,8 @@
     display: none;
     }
     margin: 0;
-
     flex-direction: row;
+    justify-self: flex-start;
   }
   .logo__logo{
     letter-spacing: 0;
@@ -35,6 +58,7 @@
     display: flex;
     align-items: center;
     position: relative;
+    justify-items: flex-end;
 
     button{
       background: #fff;
@@ -71,9 +95,28 @@
   .desktop-nav{
     display: flex;
     align-items: center;
+    justify-items: flex-end;
+    :nth-child(1){
+      @media (min-width: 960px) {
+        margin-left: 0;
+      }
+      @media (min-width: 1060px) {
+        margin-left: 150px;
+      }
+      @media (min-width: 1160px) {
+        margin-left: 250px;
+      }
+      @media (min-width: 1260px) {
+        margin-left: 350px;
+      }
+      @media (min-width: 1360px) {
+        margin-left: 450px;
+      }
+
+    }
     a{
       text-decoration: none;
-      margin: 0 40px 0 40px;
+      margin: 0 0 0 70px;
       font-family: Poppins;
       font-size: 21px;
       font-style: normal;
@@ -110,9 +153,13 @@
 .link{
   text-decoration: none;
   color: #1877F2;
-  width: 100%;
   display: flex;
   justify-content: flex-end;
+  width: 1200px;
+  @media (min-width: 760px) {
+    width: 130px;
+    justify-content: flex-start;
+  }
 
 }
 .logout{
@@ -122,13 +169,5 @@ color: #E44949;
 
 
 .MuiMenu-paper{
-  background: #ED1818;
-}
-.MuiMenu-list {
-
-
 }
 
-.MuiMenuItem-root{
-
-  }
