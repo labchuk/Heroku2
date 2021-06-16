@@ -17,8 +17,12 @@ const useStyles = makeStyles({
 const FormLogin: React.FC = () => {
     const classes = useStyles();
     const history: any = useHistory();
-    const pRef: any = useRef();
-    const inpPassRef: any = useRef();
+    const emailErrorTextRef: any = useRef();
+    const inputPasswordRef: any = useRef();
+
+
+    const  regularEmail: any = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i; 
+    const regularPassword: any = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/i;
     interface IData {
         email: string,
         password: string
@@ -28,45 +32,52 @@ const FormLogin: React.FC = () => {
  
     const checkForm = (e:any) => {
         e.preventDefault()
-        if(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data.email) 
-        && /^(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)[0-9a-zA-Z]{8,}$/i.test(data.password)){
-            sigIn() 
-        } else pRef.current.style.visibility="visible";
+        if(regularEmail.test(data.email) && regularPassword.test(data.password)){
+            signIn() 
+        } else showError()
     }
 
-    const sigIn = async () =>{
+    const signIn = async () =>{
         try{
             const response = await login(data);
             localStorage.setItem("token", jwt_decode(response.data.token));
             history.push(MAIN_ROUTE);
         }catch(e){
-            pRef.current.style.visibility="visible";
+            showError()
         }
+    }
+
+    const showError = () => {
+        emailErrorTextRef.current.style.visibility="visible";
+    }
+
+    const hideError =() => {
+        emailErrorTextRef.current.style.visibility="hidden"
     }
 
     const visiblePassword = (bool: boolean,type: string) => {
         setVisible(bool);
-        inpPassRef.current.type = type;
+        inputPasswordRef.current.type = type;
     } 
     
     
     
     return (
         <form className="FormLogin">
-            <input
-                type="text"
+            <input 
+                type="email"
                 placeholder="email"
                 onChange = {(e:React.ChangeEvent<HTMLInputElement>) => setData({...data, email: e.target.value})}
-                onFocus = {() => pRef.current.style.visibility="hidden"}
+                onFocus = {hideError}
             />
             
-            <p ref = {pRef} >
+            <p ref = {emailErrorTextRef} >
                 The email or password you entered isn’t connected to any
                 account. Find your account and log in.
             </p>
             
-            <input ref={inpPassRef}
-                onFocus = {() => pRef.current.style.visibility="hidden"}
+            <input ref={inputPasswordRef}
+                onFocus = {hideError}
                 type="password"
                 placeholder="password"
                 className="formInputPassword"
