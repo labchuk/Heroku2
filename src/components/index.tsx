@@ -2,7 +2,6 @@ export { default as Logo } from "./common/Logo/Logo";
 export { default as FormLogin } from "./common/FormLogin/FormLogin";
 export { default as Footer } from "./Footer/Footer";
 export { default as Header } from "./Header/Header";
-export { default as Plaginator } from "./common/Paginator/Paginator";
 export { default as SearchBar } from "./common/SearchBar/SearchBar";
 export { default as Paragraph } from "./common/Paragraph/Paragraph";
 export { default as Filter } from "./common/Filter/Filter";
@@ -24,7 +23,6 @@ export { default as DateValid } from "./card/DateValid/DateValid";
 export { default as VendorLogo } from "./card/VendorLogo/VendorLogo";
 
 export { default as AppRouter } from "./AppRouter";
-
 export { default as InfoItem } from "./admin/statistic/InfoItem/InfoItem";
 export { default as StatisticFilter } from "./admin/statistic/StatisticFilter/StatisticFilter";
 export { default as InformationBlock } from "./admin/statistic/InformationBlock/InformationBlock";
@@ -33,3 +31,12 @@ export { default as GraphPanel } from "./admin/statistic/GraphPanel/GraphPanel";
 export { default as AdditionalDate } from "./admin/statistic/AdditionalDate/AdditionalDate";
 export { default as GraphInfo } from "./admin/statistic/GraphInfo/GraphInfo";
 export { default as Graph } from "./admin/statistic/Graph/Graph";
+
+export { default as SelectMultiple} from "./common/SearchBar/SelectMultiple/SelectMultiple"
+export { default as MySelect } from "./common/SearchBar/Select/MySelect";
+export { default as ControlLabel } from "./common/SearchBar/ControlLable/ControlLabel";
+export { default as RatingStar } from "./common/SearchBar/Rating/RatingStar/RatingStar"
+export { default as ContainerDataPiker } from "./common/SearchBar/ContainerDatePiker/ContainerDatePiker";
+export { default as DatePiker } from "./common/SearchBar/ContainerDatePiker/DatePiker/DatePiker";
+export { default as SearchForm } from "./common/SearchBar/SearchForm/SearchForm";
+export { default as Rating } from "./common/SearchBar/Rating/Rating";

@@ -16,8 +16,9 @@ const MainPage = () => {
     return (
         <div className={"homepage"}>
             <Header />
+
             <SearchBar />
-            {admin && (
+             {admin && (
                 <div>
                     <AdminPanelCard />
                     <AdminPanelVendor />
@@ -26,7 +27,7 @@ const MainPage = () => {
             )}
 
             <CardList />
-            <Footer />
+            <Footer /> 
         </div>
     );
 };
