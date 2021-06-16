@@ -1,55 +1,85 @@
-import React, { useState} from "react";
+import React, { useState, useRef} from "react";
 import "./FormLogin.scss";
-import {useAuth0} from '@auth0/auth0-react';
 import { login } from "../../../http/userApi";
-import axios from "axios";
+import jwt_decode from "jwt-decode";
+import { useHistory } from "react-router-dom";
+import { MAIN_ROUTE } from "../../../utils/consts";
+import {VisibilityOutlined, VisibilityOffOutlined} from "@material-ui/icons"
+import { makeStyles } from "@material-ui/styles";
 
+const useStyles = makeStyles({
+    root: {
+        color: "rgb(112, 107, 107)",
+        cursor: "pointer"
+    },
+});
 
 const FormLogin: React.FC = () => {
-    const {loginWithRedirect, logout, isAuthenticated } = useAuth0();
+    const classes = useStyles();
+    const history: any = useHistory();
+    const pRef: any = useRef();
+    const inpPassRef: any = useRef();
     interface IData {
         email: string,
         password: string
     }
-    const [date, setDate] = useState<IData>({email:"", password: ""})
-    
-    const sigIn = async () =>{
-        // const response = axios.get(`https://exadel-discounts-project.herokuapp.com/`)
-        // console.log(response)
-        const response = await login(date);
-        console.log(response)
-        localStorage.setItem("token", response.data().token)
-  }
+    const [data, setData] = useState<IData>({email:"", password: ""})
+    const [visible,setVisible] = useState<boolean>(false)
+ 
+    const checkForm = (e:any) => {
+        e.preventDefault()
+        if(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data.email) 
+        && /^(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)[0-9a-zA-Z]{8,}$/i.test(data.password)){
+            sigIn() 
+        } else pRef.current.style.visibility="visible";
+    }
 
-        
+    const sigIn = async () =>{
+        try{
+            const response = await login(data);
+            localStorage.setItem("token", jwt_decode(response.data.token));
+            history.push(MAIN_ROUTE);
+        }catch(e){
+            pRef.current.style.visibility="visible";
+        }
+    }
+
+    const visiblePassword = (bool: boolean,type: string) => {
+        setVisible(bool);
+        inpPassRef.current.type = type;
+    } 
+    
     
     
     return (
-        <div className="FormLogin">
+        <form className="FormLogin">
             <input
-                type="email"
+                type="text"
                 placeholder="email"
-                className="incorrectInput"
-                onChange = {(e:React.ChangeEvent<HTMLInputElement>) => setDate({...date, email: e.target.value})}
+                onChange = {(e:React.ChangeEvent<HTMLInputElement>) => setData({...data, email: e.target.value})}
+                onFocus = {() => pRef.current.style.visibility="hidden"}
             />
-            <p>
+            
+            <p ref = {pRef} >
                 The email or password you entered isn’t connected to any
                 account. Find your account and log in.
             </p>
-            <input
+            
+            <input ref={inpPassRef}
+                onFocus = {() => pRef.current.style.visibility="hidden"}
                 type="password"
                 placeholder="password"
                 className="formInputPassword"
-                onChange = {(e:React.ChangeEvent<HTMLInputElement>) => setDate({...date, password: e.target.value})}
+                onChange = {(e:React.ChangeEvent<HTMLInputElement>) => setData({...data, password: e.target.value})}
             />
-            <button  onClick={()=> sigIn()}> Log in </button>
-            {/* <button  onClick={ ()=> loginWithRedirect() }> Log in </button>
-            {isAuthenticated && <button  onClick={()=>logout()}>
-                Log out
-            </button>   } */}
             
+                {!visible?<VisibilityOffOutlined  className={classes.root} onClick={()=> visiblePassword(true,"text")}/>:
+                < VisibilityOutlined className={classes.root} onClick={()=> visiblePassword(false,"password")}/>}
+                
+            <input type="submit" onClick={(e)=> checkForm(e)}  hidden/>  
+            <button type="submit" onClick={(e)=> checkForm(e)}> Log in </button>
             
-        </div>
+        </form>
     );
 };
 

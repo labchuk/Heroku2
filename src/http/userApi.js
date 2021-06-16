@@ -1,7 +1,9 @@
 import {authHost} from "./index";
 
+
 export const login = async({email, password}) =>{
     const response = await authHost.post("user/login", { email, password });
+    
     return response;
 }
 
