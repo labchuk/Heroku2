@@ -9,12 +9,14 @@ import {
     SearchBar,
 } from "../../index";
 import "./MainPage.scss";
+import AdminBtn from "../../admin/AdminBtn/AdminBtn";
 
 const MainPage = () => {
     const admin = false;
     return (
         <div className={"homepage"}>
             <Header />
+            <AdminBtn />
             <SearchBar />
             {admin && (
                 <div>
