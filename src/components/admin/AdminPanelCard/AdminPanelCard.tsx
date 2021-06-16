@@ -9,6 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
+import ContainerDataPiker from '../../common/SearchBar/ContainerDatePiker/ContainerDatePiker';
 import "./AdminPanelCard.scss";
 
 const AdminPanelCard = () => {
@@ -66,15 +67,11 @@ const AdminPanelCard = () => {
       position: 'absolute',
       fontSize: 16,
     },
-    input: {
+    marginBottom: {
       marginBottom: 15
     },
     loadphoto: {
       fontSize: 14,
-    },
-    select_input: {
-      marginBottom: 15,
-      
     },
     // button: {
     //   border: '2px solid #1877F2',
@@ -99,12 +96,12 @@ const AdminPanelCard = () => {
             <img src="/src/images/icons/back-arrow.svg" alt=""/>
             Back
           </span>
-          <TextField className={styles.input} id="outlined-basic" label="title" variant="outlined" />
+          <TextField className={styles.marginBottom} id="outlined-basic" label="title" variant="outlined" />
           <FormControl variant="outlined">
             <InputLabel>tags</InputLabel>
             <Select value={tagsValue}
                     onChange={handleChangeTags}
-                    className={styles.select_input}>
+                    className={styles.marginBottom}>
               <MenuItem value={'sport'}>sport</MenuItem>
               <MenuItem value={'clothes'}> clothes</MenuItem>
               <MenuItem value={'food'}>food</MenuItem>
@@ -112,13 +109,12 @@ const AdminPanelCard = () => {
               <MenuItem value={'video games'}>video games</MenuItem>
             </Select>
           </FormControl>
-          <TextField className={styles.input} id="outlined-basic" label="vendor name" variant="outlined" />
+          <TextField className={styles.marginBottom} id="outlined-basic" label="vendor name" variant="outlined" />
           <FormControl variant="outlined">
             <InputLabel>country</InputLabel>
-            <Select 
-                    value={countryValue}
+            <Select value={countryValue}
                     onChange={handleChangeCountry}
-                    className={styles.select_input}>
+                    className={styles.marginBottom}>
               <MenuItem value={'Ukraine'}>Ukraine</MenuItem>
               <MenuItem value={'Belarus'}>Belarus</MenuItem>
               <MenuItem value={'USA'}>USA</MenuItem>
@@ -129,22 +125,24 @@ const AdminPanelCard = () => {
             <Select 
                     value={cityValue}
                     onChange={handleChangeCity}
-                    className={styles.select_input}>
+                    className={styles.marginBottom}>
               <MenuItem value={'Lviv'}>Lviv</MenuItem>
               <MenuItem value={'Kyiv'}>Kyiv</MenuItem>
               <MenuItem value={'Kharkiv'}>Kharkiv</MenuItem>
             </Select>
           </FormControl>
-          <TextField className={styles.input} id="outlined-basic" label="address" variant="outlined" />
+          <TextField className={styles.marginBottom} id="outlined-basic" label="address" variant="outlined" />
           <div className={styles.checkbox__wrapper}>
             <input type="checkbox"  className={styles.checkbox}/>
             <label className={styles.checkbox__label}>Online</label>
           </div>
-          <TextField className={styles.input} id="outlined-basic" label="date" variant="outlined" />
-          <TextField className={styles.input} id="outlined-basic" label="price" variant="outlined" />
-          <TextField className={styles.input} id="outlined-basic" label="discount %" variant="outlined" />
-          <TextField className={styles.input} id="outlined-basic" type="number" InputProps={{ inputProps: { min: 0 } }} label="number of discounts" variant="outlined" />
-          <TextField className={styles.input} multiline  rows={5} id="outlined-basic" label="description" variant="outlined" />
+          <div className={styles.marginBottom}>
+            <ContainerDataPiker/>
+          </div>
+          <TextField className={styles.marginBottom} id="outlined-basic" label="price" variant="outlined" />
+          <TextField className={styles.marginBottom} id="outlined-basic" label="discount %" variant="outlined" />
+          <TextField className={styles.marginBottom} id="outlined-basic" type="number" InputProps={{ inputProps: { min: 0 } }} label="number of discounts" variant="outlined" />
+          <TextField className={styles.marginBottom} multiline  rows={5} id="outlined-basic" label="description" variant="outlined" />
           <input className={styles.loadphoto} type="file" accept=".jpg, .jpeg, .png"/> 
         </Grid>
       </ListItem>

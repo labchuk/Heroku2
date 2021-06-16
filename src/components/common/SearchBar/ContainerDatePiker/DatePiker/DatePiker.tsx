@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import {KeyboardDatePicker,} from "@material-ui/pickers";
-import { createMuiTheme } from "@material-ui/core";
+import { KeyboardDatePicker } from "@material-ui/pickers";
+import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 
-const materialTheme = createMuiTheme({
+const materialTheme = (createMuiTheme as any)({
     overrides: {
         MuiPickersDay: {
             day: {
@@ -29,12 +29,12 @@ const materialTheme = createMuiTheme({
     },
 });
 
-const DatePiker = ({lable}) => {
+const DatePiker = (props: {label: string}) => {
      const [selectedDate, setSelectedDate] = useState(
          new Date()
      );
 
-     const handleDateChange = (date) => {
+     const handleDateChange = (date: any) => {
          setSelectedDate(date);
      };
     return (
@@ -45,7 +45,7 @@ const DatePiker = ({lable}) => {
                 format="MM/dd/yyyy"
                 margin="normal"
                 id="date-picker-inline"
-                label={lable}
+                label={props.label}
                 value={selectedDate}
                 onChange={handleDateChange}
                 KeyboardButtonProps={{

@@ -2,9 +2,7 @@ import React from 'react';
 import {MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import "./ContainerDatePiker.scss"
-import { DatePiker, ControlLabel,  } from "../../../index";
-
-
+import DatePiker from './DatePiker/DatePiker';
 
 const ContainerDataPiker = () => {
     return (
@@ -12,9 +10,8 @@ const ContainerDataPiker = () => {
             <span className="containerData__span">Date</span>
                 <div className="containerData__picker">
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <DatePiker lable={"from"} />
-                        <DatePiker lable={"to"} />
-                        <ControlLabel lable={"for all period"} />
+                        <DatePiker label="from" />
+                        <DatePiker label="to" />
                     </MuiPickersUtilsProvider>
                 </div>
         </div>
