@@ -7,9 +7,11 @@ import "./style/main.css";
 const  App = () => {
 
   return (
+      <div className={"app-wrapper-container"}>
       <BrowserRouter>
           <AppRouter/>
       </BrowserRouter>
+      </div>
   );
 }
 

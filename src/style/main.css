@@ -20,8 +20,7 @@
   font-family: Montserrat;
 }
 body{
-  margin: 0 auto;
-  max-width: 1200px;
+
 }
 button {
   border: none;
@@ -32,4 +31,9 @@ button,
 button:active,
 button:focus {
   outline: none;
+}
+.app-wrapper-container{
+  margin: 0 auto;
+  max-width: 1260px;
+  background-color: #DCDCDC;
 }

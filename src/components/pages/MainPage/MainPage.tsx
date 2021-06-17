@@ -10,12 +10,13 @@ import {
 } from "../../index";
 import { useAuth0 } from '@auth0/auth0-react';
 import "./MainPage.scss";
+import AdminBtn from '../../admin/AdminBtn/AdminBtn';
 
 
 const MainPage = () => {
     const {user, isAuthenticated } = useAuth0();
     console.log(user)
-    const admin = false;
+    const admin = true;
     return (
         <div className={"homepage"}>
             <Header />
@@ -29,11 +30,13 @@ const MainPage = () => {
             <SearchBar />
              {admin && (
                 <div>
-                    <AdminPanelCard />
+
                     <AdminPanelVendor />
                     <DelateVendorMenu/>
                 </div>
+
             )}
+            <AdminBtn />
 
             <CardList />
             <Footer /> 
