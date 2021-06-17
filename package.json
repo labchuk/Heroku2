@@ -27,6 +27,7 @@
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-share": "^4.4.0",
     "redux-thunk": "^2.3.0",
     "socket.io-client": "^4.0.2",
     "thunk": "0.0.1",
@@ -57,6 +58,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-gravatar": "^2.6.8",
     "redux-devtools-extension": "^2.13.9",
     "typescript": "^4.3.2"
   }

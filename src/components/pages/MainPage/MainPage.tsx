@@ -9,14 +9,16 @@ import {
     SearchBar,
 } from "../../index";
 import "./MainPage.scss";
+import AdminBtn from "../../admin/AdminBtn/AdminBtn";
 
 const MainPage = () => {
     const admin = false;
     return (
         <div className={"homepage"}>
             <Header />
+
             <SearchBar />
-            {admin && (
+             {admin && (
                 <div>
                     <AdminPanelCard />
                     <AdminPanelVendor />
@@ -25,7 +27,7 @@ const MainPage = () => {
             )}
 
             <CardList />
-            <Footer />
+            <Footer /> 
         </div>
     );
 };
