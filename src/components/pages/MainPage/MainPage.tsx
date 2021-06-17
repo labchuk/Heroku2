@@ -10,7 +10,7 @@ import {
 } from "../../index";
 import { useAuth0 } from '@auth0/auth0-react';
 import "./MainPage.scss";
-  
+
 
 const MainPage = () => {
     const {user, isAuthenticated } = useAuth0();
