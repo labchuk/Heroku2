@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) =>
 
 
 const CardList = () => {
-    const mass = [1,1,2,3,4,5,6,7,8,9,0]
+    const mass = [1,1,2,3,4,5,6,7,8,9,0,1,1,2,3,4,5,6,7,8,9,0,1,1,2,3,4,5,6,7,8,9,0,1,1,2,3,4,5,6,7,8,9,0,1,1,2,3,4,2,3,4]
     const classes = useStyles();
     const [page, setPage] = React.useState(1);
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -25,8 +25,8 @@ const CardList = () => {
     };
 
     const paginateCard = () => {
-        let from = (page - 1) * 3
-        let to = from + 3
+        let from = (page - 1) * 6
+        let to = from + 6
         return mass.slice(from, to)
     }
     return (
@@ -38,7 +38,7 @@ const CardList = () => {
             }
             </ul>
             <div className={classes.root}>
-                <Pagination count={10} variant="outlined" color="primary" page={page} onChange={handleChange} />
+                <Pagination count={Math.ceil(mass.length/6)} variant="outlined" color="primary" page={page} onChange={handleChange} />
             </div>
         </div>
     );
