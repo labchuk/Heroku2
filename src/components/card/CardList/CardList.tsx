@@ -1,4 +1,4 @@
-import { Plaginator, SaleCard} from '../../index';
+import { Plaginator, SaleCard, ExtendedCard} from '../../index';
 import "./CardList.scss";
 
 const CardList = () => {
