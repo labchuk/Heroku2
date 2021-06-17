@@ -36,7 +36,6 @@ const AdminPanelCard = () => {
   }
 
   const useStyles = makeStyles({
-
     wrapper: {
       background: '#F7F9FB',
       height: '100%',
@@ -80,21 +79,22 @@ const AdminPanelCard = () => {
       borderRadius: 4,
       fontFamily: 'Poppins',
       textAlign: 'center',
+      marginBottom: 20,
       '&:hover': {
         border: '1px solid black'
       }
-    }
-    // button: {
-    //   border: '2px solid #1877F2',
-    //   fontSize: 14,
-    //   borderRadius: 30,
-    //   padding: '10px 30px',
-    //   color: '#1877F2',
-    //   '&:hover': {
-    //     background: 'transparent'
-    //   }
-    // }
-
+    },
+    submitButton: {
+      height: 40,
+      width: 200,
+      background: 'linear-gradient(to right, #1877F2, #1815BE)',
+      color: 'white',
+      fontSize: 15,
+      transition: 'background 0.3s linea',
+      '&:hover': {
+        background: 'linear-gradient(to right, #194ddb, #0d0b69)',
+      }
+  }
   })
 
   const styles = useStyles();
@@ -157,7 +157,7 @@ const AdminPanelCard = () => {
           <div className={styles.dropzone}>
             <DropZone wrapperHeight={100} />
           </div>
-
+          <button className={styles.submitButton} onClick={toggleDrawer(false)}>Submit</button>
         </Grid>
       </ListItem>
     </List>
