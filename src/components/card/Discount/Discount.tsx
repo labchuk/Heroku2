@@ -1,19 +1,31 @@
 import React from 'react';
 import './Discount.scss'
 
-const Discount = () => {
+interface DiscountProps {
+    discount: {
+        place: string,
+        nameDiscount: string,
+        sizeDiscount: string,
+        date: string
+    }
+}
+
+const Discount:React.FC<DiscountProps> = ({discount}) => {
+    React.useEffect(()=>{
+        console.log(discount.sizeDiscount)
+    },[])
     return (
         <div className="discount">
-           <h1 className="discount__title">Mi-mi store</h1>
+           <h1 className="discount__title">{discount.nameDiscount}</h1>
             <div className="discount__info">
-                <strong className="discount__size">50% </strong>
+                <strong className="discount__size">{discount.sizeDiscount}</strong>
                 off
             </div>
             <div className="discount__date">
-                Valid until 05 May 2021
+                Valid until {discount.date}
             </div>
             <div className="discount__place">
-                Yakuba Kolasa St,37
+                {discount.place}
             </div>
         </div>
     );

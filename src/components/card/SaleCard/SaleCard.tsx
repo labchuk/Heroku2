@@ -2,12 +2,21 @@ import React, {useState} from 'react';
 import { DateValid, Discount, Like, VendorLogo } from '../../index';
 import './SaleCard.scss'
 
-const SaleCard: React.FC = () => {
+interface SaleCardProps {
+    discount: {
+        place: string,
+        nameDiscount: string,
+        sizeDiscount: string,
+        date: string
+    }
+}
+
+const SaleCard: React.FC<SaleCardProps> = ({discount}) => {
     return (
         <div className="sale-card">
            <VendorLogo/>
-           <Discount/>
-           <Like />
+           <Discount discount={discount}/>
+           <Like discount={discount}/>
         </div>
     );
 };
