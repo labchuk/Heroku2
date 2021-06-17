@@ -9,6 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
+import DropZone from '../../common/DropZone/DropZone';
 import ContainerDataPiker from '../../common/SearchBar/ContainerDatePiker/ContainerDatePiker';
 import "./AdminPanelCard.scss";
 
@@ -70,9 +71,19 @@ const AdminPanelCard = () => {
     marginBottom: {
       marginBottom: 15
     },
-    loadphoto: {
+    dropzone: {
+      border: '1px solid #ced4da',
       fontSize: 14,
-    },
+      paddingTop: 30,
+      cursor: 'pointer',
+      color: '#ced4da',
+      borderRadius: 4,
+      fontFamily: 'Poppins',
+      textAlign: 'center',
+      '&:hover': {
+        border: '1px solid black'
+      }
+    }
     // button: {
     //   border: '2px solid #1877F2',
     //   fontSize: 14,
@@ -143,7 +154,10 @@ const AdminPanelCard = () => {
           <TextField className={styles.marginBottom} id="outlined-basic" label="discount %" variant="outlined" />
           <TextField className={styles.marginBottom} id="outlined-basic" type="number" InputProps={{ inputProps: { min: 0 } }} label="number of discounts" variant="outlined" />
           <TextField className={styles.marginBottom} multiline  rows={5} id="outlined-basic" label="description" variant="outlined" />
-          <input className={styles.loadphoto} type="file" accept=".jpg, .jpeg, .png"/> 
+          <div className={styles.dropzone}>
+            <DropZone wrapperHeight={100} />
+          </div>
+
         </Grid>
       </ListItem>
     </List>
