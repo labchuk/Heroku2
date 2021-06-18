@@ -11,6 +11,7 @@ import {
 import { useAuth0 } from '@auth0/auth0-react';
 import "./MainPage.scss";
 import AdminBtn from '../../admin/AdminBtn/AdminBtn';
+import Sort from "../../common/Sort/Sort";
 
 
 const MainPage = () => {
@@ -20,6 +21,7 @@ const MainPage = () => {
     return (
         <div className={"homepage"}>
             <Header />
+            <Sort />
             {isAuthenticated && (
             <div>
                 <img src={user?.picture} alt={user?.name} />
