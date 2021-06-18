@@ -11,20 +11,18 @@ import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import DropZone from '../../common/DropZone/DropZone';
 import ContainerDataPiker from '../../common/SearchBar/ContainerDatePiker/ContainerDatePiker';
+import SelectMultiple from '../../common/SearchBar/SelectMultiple/SelectMultiple';
 import "./AdminPanelCard.scss";
 
 const AdminPanelCard = () => {
   const [state, setState] = React.useState(false);
-  const [tagsValue, setTagsValue] = React.useState('');
   const [countryValue, setCountryValue] = React.useState('');
   const [cityValue, setCityValue] = React.useState('');
+  const [disableInput, setDisableInput] = React.useState(false);
+  const tags = ["sport","food","clothes", "games"];
 
   const toggleDrawer = (open: any) => (event: any) => {
     setState(open);
-  }
-
-  const handleChangeTags = (event: any) => {
-    setTagsValue(event.target.value)
   }
 
   const handleChangeCountry = (event: any) => {
@@ -33,6 +31,10 @@ const AdminPanelCard = () => {
 
   const handleChangeCity = (event: any) => {
     setCityValue(event.target.value)
+  }
+
+  let changeDisable = () => {
+    setDisableInput(!disableInput)
   }
 
   const useStyles = makeStyles({
@@ -94,7 +96,10 @@ const AdminPanelCard = () => {
       '&:hover': {
         background: 'linear-gradient(to right, #194ddb, #0d0b69)',
       }
-  }
+    },
+    tags: {
+      marginBottom: 12
+    }
   })
 
   const styles = useStyles();
@@ -107,22 +112,11 @@ const AdminPanelCard = () => {
             <img src="/src/images/icons/back-arrow.svg" alt=""/>
             Back
           </span>
-          <TextField className={styles.marginBottom} id="outlined-basic" label="title" variant="outlined" />
-          <FormControl variant="outlined">
-            <InputLabel>tags</InputLabel>
-            <Select value={tagsValue}
-                    onChange={handleChangeTags}
-                    className={styles.marginBottom}>
-              <MenuItem value={'sport'}>sport</MenuItem>
-              <MenuItem value={'clothes'}> clothes</MenuItem>
-              <MenuItem value={'food'}>food</MenuItem>
-              <MenuItem value={'activity'}>activity</MenuItem>
-              <MenuItem value={'video games'}>video games</MenuItem>
-            </Select>
-          </FormControl>
-          <TextField className={styles.marginBottom} id="outlined-basic" label="vendor name" variant="outlined" />
-          <FormControl variant="outlined">
-            <InputLabel>country</InputLabel>
+          <TextField className={styles.marginBottom} id="outlined-basic" label="Title" />
+          <SelectMultiple data={tags} clName={styles.tags} name={"Tags"} width={500} />
+          <TextField className={styles.marginBottom} id="outlined-basic" label="Vendor Name" />
+          <FormControl  disabled={disableInput}>
+            <InputLabel>Country</InputLabel>
             <Select value={countryValue}
                     onChange={handleChangeCountry}
                     className={styles.marginBottom}>
@@ -131,10 +125,9 @@ const AdminPanelCard = () => {
               <MenuItem value={'USA'}>USA</MenuItem>
             </Select>
           </FormControl>
-          <FormControl variant="outlined">
-            <InputLabel>city</InputLabel>
-            <Select 
-                    value={cityValue}
+          <FormControl disabled={disableInput}>
+            <InputLabel>City</InputLabel>
+            <Select value={cityValue}
                     onChange={handleChangeCity}
                     className={styles.marginBottom}>
               <MenuItem value={'Lviv'}>Lviv</MenuItem>
@@ -142,18 +135,17 @@ const AdminPanelCard = () => {
               <MenuItem value={'Kharkiv'}>Kharkiv</MenuItem>
             </Select>
           </FormControl>
-          <TextField className={styles.marginBottom} id="outlined-basic" label="address" variant="outlined" />
+          <TextField className={styles.marginBottom} id="outlined-basic" label="Address" disabled={disableInput} />
           <div className={styles.checkbox__wrapper}>
-            <input type="checkbox"  className={styles.checkbox}/>
-            <label className={styles.checkbox__label}>Online</label>
+            <input type="checkbox" className={styles.checkbox} onClick={changeDisable}/>
+            <label className={styles.checkbox__label} >Online</label>
           </div>
           <div className={styles.marginBottom}>
             <ContainerDataPiker/>
           </div>
-          <TextField className={styles.marginBottom} id="outlined-basic" label="price" variant="outlined" />
-          <TextField className={styles.marginBottom} id="outlined-basic" label="discount %" variant="outlined" />
-          <TextField className={styles.marginBottom} id="outlined-basic" type="number" InputProps={{ inputProps: { min: 0 } }} label="number of discounts" variant="outlined" />
-          <TextField className={styles.marginBottom} multiline  rows={5} id="outlined-basic" label="description" variant="outlined" />
+          <TextField className={styles.marginBottom} label="Price" />
+          <TextField className={styles.marginBottom} label="Discount %" />
+          <TextField className={styles.marginBottom} multiline  rows={5} id="outlined-basic" label="Description" variant="outlined"  />
           <div className={styles.dropzone}>
             <DropZone wrapperHeight={100} />
           </div>
