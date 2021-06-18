@@ -6,6 +6,8 @@ import { useHistory } from "react-router-dom";
 import { MAIN_ROUTE } from "../../../utils/consts";
 import {VisibilityOutlined, VisibilityOffOutlined} from "@material-ui/icons"
 import { makeStyles } from "@material-ui/styles";
+import {useAppDispatch, useAppSelector} from "../../../store/Redux-toolkit-hook"
+import {setEmail, setIsAuth, setUserId, setAdmine} from "../../../store/userSlise"
 
 const useStyles = makeStyles({
     root: {
@@ -19,7 +21,9 @@ const FormLogin: React.FC = () => {
     const history: any = useHistory();
     const emailErrorTextRef: any = useRef();
     const inputPasswordRef: any = useRef();
-
+    const dispatch = useAppDispatch();
+    const userState = useAppSelector(state => state.user)
+   
 
     const  regularEmail: any = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i; 
     const regularPassword: any = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/i;
@@ -40,7 +44,15 @@ const FormLogin: React.FC = () => {
     const signIn = async () =>{
         try{
             const response = await login(data);
-            localStorage.setItem("token", jwt_decode(response.data.token));
+            const user: any = jwt_decode(response.data.token)
+            user.isAuth = true;
+            localStorage.setItem("user", user);
+            console.log(jwt_decode(response.data.token));
+            dispatch(setEmail(user.sub));
+            dispatch(setIsAuth(true));
+            dispatch(setAdmine(user.admin));
+            dispatch(setUserId(user.userId));
+            console.log(userState);
             history.push(MAIN_ROUTE);
         }catch(e){
             showError()

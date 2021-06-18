@@ -9,6 +9,7 @@ export const login = async({email, password}) =>{
 
 export const logout = async ({ email, password }) => {
     const response = await authHost.post("user/logout", { email, password });
+    
     return response;
 };
 

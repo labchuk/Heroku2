@@ -31,7 +31,6 @@ const SearchBar =()=>{
             <div className="containerFavorite">
                 <ControlLabel lable={"Favorite"} />
             </div>
-            <Rating/>
             <MySelect data={arr} name={"location"} clName={"location"} />
             <SelectMultiple data={arr} clName={"location"} name={"brands"} />
             <SelectMultiple data={arr} clName={"location"} name={"tags"} />
