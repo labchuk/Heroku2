@@ -99,7 +99,7 @@ const AdminPanelCard = () => {
     },
     tags: {
       marginBottom: 12
-    }
+    },
   })
 
   const styles = useStyles();
@@ -115,27 +115,31 @@ const AdminPanelCard = () => {
           <TextField className={styles.marginBottom} id="outlined-basic" label="Title" />
           <SelectMultiple data={tags} clName={styles.tags} name={"Tags"} width={500} />
           <TextField className={styles.marginBottom} id="outlined-basic" label="Vendor Name" />
-          <FormControl  disabled={disableInput}>
-            <InputLabel>Country</InputLabel>
-            <Select value={countryValue}
-                    onChange={handleChangeCountry}
-                    className={styles.marginBottom}>
-              <MenuItem value={'Ukraine'}>Ukraine</MenuItem>
-              <MenuItem value={'Belarus'}>Belarus</MenuItem>
-              <MenuItem value={'USA'}>USA</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl disabled={disableInput}>
-            <InputLabel>City</InputLabel>
-            <Select value={cityValue}
-                    onChange={handleChangeCity}
-                    className={styles.marginBottom}>
-              <MenuItem value={'Lviv'}>Lviv</MenuItem>
-              <MenuItem value={'Kyiv'}>Kyiv</MenuItem>
-              <MenuItem value={'Kharkiv'}>Kharkiv</MenuItem>
-            </Select>
-          </FormControl>
-          <TextField className={styles.marginBottom} id="outlined-basic" label="Address" disabled={disableInput} />
+          {disableInput ? '' : (
+            <>
+              <FormControl>
+                <InputLabel>Country</InputLabel>
+                <Select value={countryValue}
+                        onChange={handleChangeCountry}
+                        className={styles.marginBottom}>
+                  <MenuItem value={'Ukraine'}>Ukraine</MenuItem>
+                  <MenuItem value={'Belarus'}>Belarus</MenuItem>
+                  <MenuItem value={'USA'}>USA</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl>
+                <InputLabel>City</InputLabel>
+                <Select value={cityValue}
+                        onChange={handleChangeCity}
+                        className={styles.marginBottom}>
+                  <MenuItem value={'Lviv'}>Lviv</MenuItem>
+                  <MenuItem value={'Kyiv'}>Kyiv</MenuItem>
+                  <MenuItem value={'Kharkiv'}>Kharkiv</MenuItem>
+                </Select>
+              </FormControl>
+              <TextField className={styles.marginBottom} id="outlined-basic" label="Address" />
+            </>
+          )}
           <div className={styles.checkbox__wrapper}>
             <input type="checkbox" className={styles.checkbox} onClick={changeDisable}/>
             <label className={styles.checkbox__label} >Online</label>
