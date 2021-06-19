@@ -2,13 +2,22 @@ import React from 'react';
 import { DateValid, Discount, Like, Map, Submitbutton, VendorLogo } from "../../index";
 import "./ExtendedCard.scss"
 
-const ExtendedCard = () => {
+interface ExtendedCardProps {
+    discount: {
+        place: string,
+        nameDiscount: string,
+        sizeDiscount: string,
+        date: string
+    }
+}
+
+const ExtendedCard:React.FC<ExtendedCardProps> = ({discount}) => {
     return (
         <div>
             <VendorLogo />
-            <Discount />
+            <Discount discount={discount} />
             <DateValid />
-            <Like />
+            <Like discount={discount}/>
             <Map/>
             <Submitbutton/>
         </div>

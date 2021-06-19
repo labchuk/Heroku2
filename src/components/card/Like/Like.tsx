@@ -3,9 +3,16 @@ import './Like.scss'
 import {VKShareButton,TelegramShareButton,FacebookShareButton} from 'react-share'
 import {VKIcon,FacebookIcon,TelegramIcon} from "react-share";
 
+interface LikeProps {
+    discount?: {
+        place: string,
+        nameDiscount: string,
+        sizeDiscount: string,
+        date: string
+    }
+}
 
-
-const Like: FC = () => {
+const Like: FC<LikeProps> = ({discount}) => {
     const [state, setState] = useState({
         firstModal: false,
         secondModal: false
