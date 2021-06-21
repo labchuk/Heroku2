@@ -5,7 +5,16 @@ import Button from "@material-ui/core/Button";
 /*import Rating from "../../common/SearchBar/Rating/Rating";*/
 import CloseIcon from "@material-ui/icons/Close";
 
-const ExtendedCard: React.FC = () => {
+interface ExtendedCardProps {
+    discount: {
+        place: string,
+        nameDiscount: string,
+        sizeDiscount: string,
+        date: string
+    }
+}
+
+const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
     const handleClick = () => {
         const myElement: HTMLElement | null =
             document.querySelector(".ExtendedCard");
@@ -39,13 +48,13 @@ const ExtendedCard: React.FC = () => {
                 <div className="ExtendedCard__Info">
                     <div className="brandTitle">
                         <h3 className="brandName">
-                            Mi-mi store <span className="discount">-50%</span>
+                            {discount.nameDiscount} <span className="discount">-{discount.sizeDiscount}</span>
                         </h3>
 
                     </div>
                     <div className="valid">
                         <span className="valid__INfo">
-            valid until<strong className="valid__Date">05 May 2021</strong>
+            valid until<strong className="valid__Date">{discount.date}</strong>
           </span>{" "}
                     </div>
 

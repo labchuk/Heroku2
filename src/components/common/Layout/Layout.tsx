@@ -9,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import SaleCard from "../../card/SaleCard/SaleCard";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import Pagination from "@material-ui/lab/Pagination/Pagination";
+import { CardList } from "../../index";
 
 
 
@@ -36,25 +37,7 @@ const useStyles = makeStyles((theme) => ({
 export default function FullWidthGrid() {
     const classes = useStyles();
 
-    const handleClick = (e: any) => {
-        console.log(e.target.className);
-        const cName: any = e.target.className;
-        const tName: any = e.target.tagName;
-        console.log(tName);
 
-        if ((cName === '') || (cName === 'card-more') || (cName === 'card-drop') || (tName === 'circle') || (tName === 'path')) {
-            return null} else {
-            const myElement: HTMLElement | null =
-                document.querySelector(".ExtendedCard");
-            if (myElement === null) {
-                console.log("no element");
-            } else {
-                myElement.style.display = "block";
-                document.getElementById("excard")!.scrollIntoView({behavior: 'smooth'});
-            }
-        }
-
-    };
 
     const filterClick = () => {
         const myElement: HTMLElement | null = document.querySelector(".filterBar");
@@ -81,22 +64,23 @@ export default function FullWidthGrid() {
                     <SearchBar />
                 </div>
 
-                <div className="cards">
-                    <ExtendedCard />
-                    <Grid container spacing={3} justify="center">
-                      {/*  {[0, 1, 2, 3, 4, 5].map((value) => (
-                            <Grid key={value} item onClick={handleClick}>
-                                <SaleCard
+                {/*<div className="cards">*/}
+                {/*    <ExtendedCard />*/}
+                {/*    <Grid container spacing={3} justify="center">*/}
+                {/*      /!*  {[0, 1, 2, 3, 4, 5].map((value) => (*/}
+                {/*            <Grid key={value} item onClick={handleClick}>*/}
+                {/*                <SaleCard*/}
 
 
-                                 />
-                            </Grid>
-                        ))}*/}
-                    </Grid>
-                    <Grid xs={12} justify="center">
-                      Pagination block
-                    </Grid>
-                </div>
+                {/*                 />*/}
+                {/*            </Grid>*/}
+                {/*        ))}*!/*/}
+                {/*    </Grid>*/}
+                {/*    <Grid xs={12} justify="center">*/}
+                {/*      Pagination block*/}
+                {/*    </Grid>*/}
+                {/*</div>*/}
+                <CardList/>
             </div>
             {/*main content in page*/}
 
