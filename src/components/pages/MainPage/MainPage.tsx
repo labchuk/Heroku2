@@ -12,7 +12,7 @@ import "./MainPage.scss";
 import AdminBtn from "../../admin/AdminBtn/AdminBtn";
 
 const MainPage = () => {
-    const admin = false;
+    const admin = true;
     return (
         <div className={"homepage"}>
             <Header />

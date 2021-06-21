@@ -8,7 +8,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
-import React from 'react';
+import React, { useRef } from 'react';
 import DropZone from '../../common/DropZone/DropZone';
 import ContainerDataPiker from '../../common/SearchBar/ContainerDatePiker/ContainerDatePiker';
 import SelectMultiple from '../../common/SearchBar/SelectMultiple/SelectMultiple';
@@ -19,6 +19,8 @@ const AdminPanelCard = () => {
   const [countryValue, setCountryValue] = React.useState('');
   const [cityValue, setCityValue] = React.useState('');
   const [disableInput, setDisableInput] = React.useState(false);
+    const [uploadFileName, setUploadFileName] = React.useState('');
+  const parentRef = useRef<any>();
   const tags = ["sport","food","clothes", "games"];
 
   const toggleDrawer = (open: any) => (event: any) => {
@@ -100,6 +102,43 @@ const AdminPanelCard = () => {
     tags: {
       marginBottom: 12
     },
+    uploadPhotoMobile: {
+      display: 'none',
+    },
+    fileName: {
+      width: 135,
+      height: 38,
+      opacity: 0,
+      overflow: 'hidden',
+      position: 'absolute',    
+    },
+    uploadFile__btn: {
+      background: 'transparent',
+      color: '#1877F2',
+      padding: '10px 20px',
+      border: '2px solid #1877F2'
+    },
+    uploadedFileName: {
+      fontSize: 14,
+      marginTop: '-14px',
+      marginBottom: 20
+    },
+    '@media(max-width:700px)': {
+      wrapper: {
+        width: '100%'
+      },
+      dropzone: {
+        display: 'none'
+      },
+      uploadPhotoMobile: {
+        display: 'flex',
+        marginBottom: 20,
+        fontSize: 15,
+        'span': {
+          position: 'relative'
+        }
+      }
+    }
   })
 
   const styles = useStyles();
@@ -153,6 +192,16 @@ const AdminPanelCard = () => {
           <div className={styles.dropzone}>
             <DropZone wrapperHeight={100} />
           </div>
+          <div className={styles.uploadPhotoMobile}>
+            <input type="file" 
+                  ref={parentRef} 
+                  className={styles.fileName} 
+                  id='fileName' 
+                  accept=".png, .jpg, .jpeg" 
+                  onChange={(e)=>{setUploadFileName(parentRef.current.files[0].name)}}/>
+            <button className={styles.uploadFile__btn}>Upload photo</button>
+          </div>
+          <span className={styles.uploadedFileName}>{uploadFileName}</span>
           <button className={styles.submitButton} onClick={toggleDrawer(false)}>Submit</button>
         </Grid>
       </ListItem>
