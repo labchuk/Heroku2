@@ -1,13 +1,21 @@
-import React from "react";
+import React, {useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "./Layout.scss";
 import Header from "../../../components/Header/Header";
 import Footer from "../../Footer/Footer";
 import SearchBar from "../SearchBar/SearchBar";
-import ExtendedCard from "../../card/ExtendedCard/ExtendedCard";
+import ExtendedCard from "../../card/ExtendedCard2/ExtendedCard";
 import Grid from "@material-ui/core/Grid";
 import SaleCard from "../../card/SaleCard/SaleCard";
 import FilterListIcon from "@material-ui/icons/FilterList";
+import Pagination from "@material-ui/lab/Pagination/Pagination";
+
+
+
+
+
+
+
 
 
 
@@ -76,15 +84,17 @@ export default function FullWidthGrid() {
                 <div className="cards">
                     <ExtendedCard />
                     <Grid container spacing={3} justify="center">
-                        {[0, 1, 2, 3, 4, 5].map((value) => (
+                      {/*  {[0, 1, 2, 3, 4, 5].map((value) => (
                             <Grid key={value} item onClick={handleClick}>
-                                <SaleCard/>
+                                <SaleCard
+
+
+                                 />
                             </Grid>
-                        ))}
+                        ))}*/}
                     </Grid>
                     <Grid xs={12} justify="center">
-                        {/*block for pagination*/}
-                        1 2 3 4 5 6 7 8
+                      Pagination block
                     </Grid>
                 </div>
             </div>
