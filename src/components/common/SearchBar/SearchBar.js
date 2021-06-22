@@ -15,7 +15,7 @@ const SearchBar =()=>{
     const arr = ["aaaaaaa","dddddddddddd,","sssssssssss"];
     
     return (
-        <div className="container" ref={SearchBarRef}>
+        <div className="container-searchbar" ref={SearchBarRef}>
             <div className="close">
                 <button
                     className="btn-close"
