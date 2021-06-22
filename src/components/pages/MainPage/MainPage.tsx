@@ -15,7 +15,7 @@ import "./MainPage.scss";
 const MainPage = () => {
     const {user, isAuthenticated } = useAuth0();
     console.log(user)
-    const admin = false;
+    const admin = true;
     return (
         <div className={"homepage"}>
             <Header />
@@ -25,17 +25,16 @@ const MainPage = () => {
                 <h2>{user?.name}</h2>
                 <p>{user?.email}</p>
             </div>
-        )}
-           {/* <SearchBar />*/}
-             {admin && (
-                <div>
+            )}
+            {/* <SearchBar />*/}
+            {admin && (
+                <div className='hideAdminMenu'>
                     <AdminPanelCard />
                     <AdminPanelVendor />
                     <DelateVendorMenu/>
                 </div>
             )}
             <Layout />
-
             <Footer /> 
         </div>
     );

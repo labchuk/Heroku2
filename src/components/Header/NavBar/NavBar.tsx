@@ -6,6 +6,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import {NavLink} from "react-router-dom";
 import {Hidden, makeStyles} from "@material-ui/core";
 import Gravatar from "react-gravatar";
+import DelateVendorMenu from '../../admin/DelateVendorMenu/DelateVendorMenu';
+import AdminPanelCard from '../../admin/AdminPanelCard/AdminPanelCard';
+import AdminPanelVendor from '../../admin/AdminPanelVendor/AdminPanelVendor';
 
 const useStyles = makeStyles((theme) => ({
     link: {
@@ -33,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
 export default function NavBar() {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -46,9 +48,7 @@ export default function NavBar() {
         setAnchorEl(null);
     };
 
-
     let admin = true;
-
 
     return <>
         <div className={"desktop-nav"}>
@@ -82,30 +82,29 @@ export default function NavBar() {
                 onClose={handleClose}
                 MenuListProps={{
                     disablePadding: true,
-                }}
-
-            >
-
+                }}>
                 <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}>Username</p></MenuItem>
                 <Hidden mdUp>
-                    <MenuItem onClick={handleClose} className={classes.link}><NavLink to={"/main-page"}
-                                                                                      className={"link"}>Home</NavLink></MenuItem>
-                    <MenuItem onClick={handleClose} className={classes.link}><NavLink to={"/history"}
-                                                                                      className={"link"}>History</NavLink></MenuItem>
+                    <MenuItem onClick={handleClose} className={classes.link}>
+                        <NavLink to={"/main-page"} className={"link"}>Home</NavLink>
+                    </MenuItem>
+                    <MenuItem onClick={handleClose} className={classes.link}>
+                        <NavLink to={"/history"} className={"link"}>History</NavLink>
+                    </MenuItem>
                 </Hidden>
                 {admin &&
                 <Hidden smUp>
-                    <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}>vendors</p>
+                    <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}><DelateVendorMenu /></p>
                     </MenuItem>
-                    <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}>add a promotion</p>
+                    <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}><AdminPanelCard /></p>
                     </MenuItem>
-                    <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}>add a vendor</p>
+                    <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}><AdminPanelVendor /></p>
                     </MenuItem>
                 </Hidden>
                 }
-                <MenuItem onClick={handleClose} className={classes.logout}><NavLink to={"/login"}
-                                                                                    className={"link logout"}>Logout</NavLink></MenuItem>
-
+                <MenuItem onClick={handleClose} className={classes.logout}>
+                    <NavLink to={"/login"} className={"link logout"}>Logout</NavLink>
+                </MenuItem>
             </Menu>
         </div>
     </>
