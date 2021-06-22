@@ -1,12 +1,11 @@
 import React, { useState, useRef} from "react";
 import "./FormLogin.scss";
-import { login } from "../../../http/userApi";
-import jwt_decode from "jwt-decode";
+import { login, getUserDetails,} from "../../../http/userApi";
 import { useHistory } from "react-router-dom";
 import { MAIN_ROUTE } from "../../../utils/consts";
 import {VisibilityOutlined, VisibilityOffOutlined} from "@material-ui/icons"
 import { makeStyles } from "@material-ui/styles";
-import {useAppDispatch, useAppSelector} from "../../../store/Redux-toolkit-hook"
+import {useAppDispatch,} from "../../../store/Redux-toolkit-hook"
 import {setEmail, setIsAuth, setUserId, setAdmine} from "../../../store/userSlise"
 
 const useStyles = makeStyles({
@@ -16,13 +15,14 @@ const useStyles = makeStyles({
     },
 });
 
+
 const FormLogin: React.FC = () => {
     const classes = useStyles();
     const history: any = useHistory();
     const emailErrorTextRef: any = useRef();
     const inputPasswordRef: any = useRef();
     const dispatch = useAppDispatch();
-    const userState = useAppSelector(state => state.user)
+    
    
 
     const  regularEmail: any = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i; 
@@ -43,16 +43,13 @@ const FormLogin: React.FC = () => {
 
     const signIn = async () =>{
         try{
-            const response = await login(data);
-            const user: any = jwt_decode(response.data.token)
-            user.isAuth = true;
-            localStorage.setItem("user", user);
-            console.log(jwt_decode(response.data.token));
+            const user: any = await login(data);
             dispatch(setEmail(user.sub));
             dispatch(setIsAuth(true));
             dispatch(setAdmine(user.admin));
             dispatch(setUserId(user.userId));
-            console.log(userState);
+            // const userDatails = getUserDetails(user.userId);
+            // console.log(userDatails)
             history.push(MAIN_ROUTE);
         }catch(e){
             showError()

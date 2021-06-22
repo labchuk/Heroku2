@@ -5,9 +5,9 @@ import "./StatisticPage.scss";
 const StatisticPage = () => {
     return (
         <div>
-           <Header/>
+           
            <StatisticInformation/>
-           <Footer/>
+           
         </div>
     );
 };

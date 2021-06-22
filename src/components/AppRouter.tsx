@@ -3,22 +3,18 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { authRoutes, publikRoute } from '../routes';
 import { LOGIN_ROUTE, MAIN_ROUTE } from '../utils/consts';
 import { useAppSelector} from "../store/Redux-toolkit-hook"; 
-
 const AppRouter = () => {
-    const userState = useAppSelector(state => state.user);
-    console.log(userState);
-    console.log(useAppSelector(state => state.user.isAuth));
+    const isAuth = useAppSelector(state => state.user.isAuth);
     return (
         <Switch>
-            {useAppSelector(state => state.user.isAuth) && authRoutes.map(({ path, Component }) => 
-                <Route key={path} path={path} component={ Component} />
+            {isAuth && authRoutes.map(({path, Component}) =>
+                <Route key={path} path={path} component={Component} exact/>
             )}
-            {publikRoute.map(({ path, Component }) => 
-                <Route key={path} path={path} component={ Component} />
+            {!isAuth && publikRoute.map(({path, Component}) =>
+                <Route key={path} path={path} component={Component} exact/>
             )}
-            {
-               useAppSelector(state => state.user.isAuth) ?  <Redirect to ={MAIN_ROUTE}/> : <Redirect to={LOGIN_ROUTE}/>
-            }    
+                {!isAuth ? <Redirect to={LOGIN_ROUTE} /> : <Redirect to={MAIN_ROUTE} />} 
+
         </Switch>
     );
 };

@@ -4,12 +4,12 @@ import "./ControloLable.scss"
 
 
 
-const ControlLabel = ({ lable }) => {
+const ControlLabel = ({lable}:{ lable:string }) => {
     const [state, setState] = useState({
         checked: true,
     });
 
-    const handleChange = (event) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setState({ checked: event.target.checked });
     };
     return (
