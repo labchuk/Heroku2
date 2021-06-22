@@ -5,23 +5,22 @@ import {
     CardList,
     DelateVendorMenu,
     Footer,
-    Header,
+    Header, SaleCard,
     SearchBar,
+
 } from "../../index";
+import Layout from "../../common/Layout/Layout";
 import { useAuth0 } from '@auth0/auth0-react';
 import "./MainPage.scss";
-import AdminBtn from '../../admin/AdminBtn/AdminBtn';
-import Sort from "../../common/Sort/Sort";
 
 
 const MainPage = () => {
     const {user, isAuthenticated } = useAuth0();
     console.log(user)
-    const admin = true;
+    const admin = false;
     return (
         <div className={"homepage"}>
             <Header />
-            <Sort />
             {isAuthenticated && (
             <div>
                 <img src={user?.picture} alt={user?.name} />
@@ -29,18 +28,16 @@ const MainPage = () => {
                 <p>{user?.email}</p>
             </div>
         )}
-            <SearchBar />
+           {/* <SearchBar />*/}
              {admin && (
                 <div>
-
+                    <AdminPanelCard />
                     <AdminPanelVendor />
                     <DelateVendorMenu/>
                 </div>
-
             )}
-            <AdminBtn />
+            <Layout />
 
-            <CardList />
             <Footer /> 
         </div>
     );
