@@ -1,24 +1,9 @@
-import React, {useState} from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "./Layout.scss";
-import Header from "../../../components/Header/Header";
-import Footer from "../../Footer/Footer";
 import SearchBar from "../SearchBar/SearchBar";
-import ExtendedCard from "../../card/ExtendedCard2/ExtendedCard";
-import Grid from "@material-ui/core/Grid";
-import SaleCard from "../../card/SaleCard/SaleCard";
 import FilterListIcon from "@material-ui/icons/FilterList";
-import Pagination from "@material-ui/lab/Pagination/Pagination";
 import { CardList } from "../../index";
-
-
-
-
-
-
-
-
-
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,9 +35,7 @@ export default function FullWidthGrid() {
 
     return (
         <div className={classes.root}>
-            {/*Header component*/}
-            {/* <Header/>*/}
-            {/*Header component*/}
+
 
             {/*main content in page*/}
             <div className="mainContent" style={{ position: "relative" }}>
@@ -64,29 +47,9 @@ export default function FullWidthGrid() {
                     <SearchBar />
                 </div>
 
-                {/*<div className="cards">*/}
-                {/*    <ExtendedCard />*/}
-                {/*    <Grid container spacing={3} justify="center">*/}
-                {/*      /!*  {[0, 1, 2, 3, 4, 5].map((value) => (*/}
-                {/*            <Grid key={value} item onClick={handleClick}>*/}
-                {/*                <SaleCard*/}
-
-
-                {/*                 />*/}
-                {/*            </Grid>*/}
-                {/*        ))}*!/*/}
-                {/*    </Grid>*/}
-                {/*    <Grid xs={12} justify="center">*/}
-                {/*      Pagination block*/}
-                {/*    </Grid>*/}
-                {/*</div>*/}
                 <CardList/>
             </div>
-            {/*main content in page*/}
 
-            {/*Footer component*/}
-          {/*  <Footer />*/}
-            {/*Footer component*/}
         </div>
     );
 }
