@@ -9,7 +9,7 @@ import AdminPanelCard from "../AdminPanelCard/AdminPanelCard";
 
 const useStyles = makeStyles((theme) => ({
     btn: {
-        color: "#1877F2"
+        color: "#1877F2",
     },
     item: {
         border: "#1877F2 solid 1px",
@@ -24,11 +24,15 @@ const useStyles = makeStyles((theme) => ({
     },
     menu: {
         display: "flex",
-        color: "#DCDCDC",
-        borderRadius: "40px"
+        borderRadius: "40px",
+        justifyContent: 'flex-end',
+        marginTop: "25px",
+        '& > *': {
+            background: "transparent"
+        },
     },
     backgroundMenu: {
-        background: "#DCDCDC"
+
     }
 }));
 
@@ -65,11 +69,11 @@ export default function AdminBtn(){
             <Menu
                 transformOrigin={{
                     vertical: 'top',
-                    horizontal: 'left',
+                    horizontal: 'right',
                 }}
                 anchorOrigin={{
                     vertical: "bottom",
-                    horizontal: 'right',
+                    horizontal: 'left',
                 }}
                 elevation={0}
             className={classes.menu}

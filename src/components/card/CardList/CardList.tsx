@@ -5,6 +5,9 @@ import Pagination from "@material-ui/lab/Pagination";
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid";
 import ExtendedCard from "../../card/ExtendedCard2/ExtendedCard";
+import AdminBtn from '../../admin/AdminBtn/AdminBtn';
+import Sort from "../../common/Sort/Sort";
+
 
 
 const useStyles = makeStyles((theme) =>
@@ -90,6 +93,11 @@ const CardList:React.FC = () => {
     return (
         <div className="card-list">
             <ExtendedCard discount={data[card]}/>
+            <div className={"sort-admin"}>
+                <Sort />
+                <AdminBtn />
+            </div>
+
             <Grid container spacing={3} justify="center">
                 {
                     paginateCard().map((item, index) => {

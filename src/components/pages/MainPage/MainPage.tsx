@@ -10,6 +10,8 @@ import {
 import Layout from "../../common/Layout/Layout";
 import { useAuth0 } from '@auth0/auth0-react';
 import "./MainPage.scss";
+import Sort from "../../common/Sort/Sort";
+import AdminBtn from "../../admin/AdminBtn/AdminBtn";
 
 
 const MainPage = () => {
@@ -34,6 +36,7 @@ const MainPage = () => {
                     <DelateVendorMenu/>
                 </div>
             )}
+
             <Layout />
 
             <Footer /> 
