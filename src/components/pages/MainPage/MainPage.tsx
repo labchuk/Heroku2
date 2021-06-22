@@ -2,11 +2,9 @@ import React from 'react';
 import {
     AdminPanelCard,
     AdminPanelVendor,
-    CardList,
     DelateVendorMenu,
     Footer,
-    Header, SaleCard,
-    SearchBar,
+    Header,
 
 } from "../../index";
 import Layout from "../../common/Layout/Layout";
