@@ -33,8 +33,8 @@ const SearchBar =()=>{
             </div>
             <Rating/>
             <MySelect data={arr} name={"location"} clName={"location"} />
-            <SelectMultiple data={arr} clName={"location"} name={"brands"} />
-            <SelectMultiple data={arr} clName={"location"} name={"tags"} />
+            <SelectMultiple data={arr} clName={"location"} name={"brands"} width={250} />
+            <SelectMultiple data={arr} clName={"location"} name={"tags"} width={250} />
             <SelectMultiple
                 data={arr}
                 clName={"location"}
