@@ -19,7 +19,6 @@ const DelateVendorMenu = () => {
     const [countryValue, setCountryValue] = React.useState('');
     const [cityValue, setCityValue] = React.useState('');
     const [uploadFileName, setUploadFileName] = React.useState('');
-    const [isEdit, setEdit] = React.useState(false);
     const parentRef = useRef<any>();
     const [vendors, setVendor] = React.useState([
         { id: 1, 
@@ -29,7 +28,8 @@ const DelateVendorMenu = () => {
             address: "Horodotska Str, 16", 
             email: "company.nike@gmail.com",
             description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid fuga, ab odit delectus suscipit dignissimos nemo accusamus repellat eius ipsum excepturi optio quis eligendi in ullam nobis sapiente officia vero!",
-            image: 'logo1.jpg'
+            image: 'logo1.jpg',
+            editing: false
         },
         { id: 2, 
             name: "Puma", 
@@ -38,7 +38,8 @@ const DelateVendorMenu = () => {
             address: "Horodotska Str, 16", 
             email: "company.puma@gmail.com",
             description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid fuga, ab odit delectus suscipit dignissimos nemo accusamus repellat eius ipsum excepturi optio quis eligendi in ullam nobis sapiente officia vero!",
-            image: 'logo1.jpg'
+            image: 'logo1.jpg',
+            editing: false
         },
         { id: 3, 
             name: "Zara", 
@@ -47,7 +48,8 @@ const DelateVendorMenu = () => {
             address: "Horodotska Str, 16", 
             email: "company.zara@gmail.com",
             description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid fuga, ab odit delectus suscipit dignissimos nemo accusamus repellat eius ipsum excepturi optio quis eligendi in ullam nobis sapiente officia vero!",
-            image: 'logo1.jpg'
+            image: 'logo1.jpg',
+            editing: false
         },
         { id: 4, 
             name: "Domino's", 
@@ -56,10 +58,11 @@ const DelateVendorMenu = () => {
             address: "Horodotska Str, 16", 
             email: "company.dominos@gmail.com",
             description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid fuga, ab odit delectus suscipit dignissimos nemo accusamus repellat eius ipsum excepturi optio quis eligendi in ullam nobis sapiente officia vero!",
-            image: 'logo1.jpg'
+            image: 'logo1.jpg',
+            editing: false
         },
     ]);
-   
+
     const toggleDrawer = (open: any) => (event: any) => {
         setState(open);
     }
@@ -76,14 +79,20 @@ const DelateVendorMenu = () => {
         let removedArr = vendors.filter((item) => item.id !== id);
         setVendor(removedArr);
     }
-
     
     const editVendor = (id: number) => {
-        console.log(id);
-        setEdit(!isEdit);
+        let edits:any = vendors.map( (item: any) => {
+            if (item.id === id){
+                item.editing = !item.editing
+            }
+            return item;
+        })
+        setVendor(edits)
     }
 
-
+    const submitEditVendor = (item: any) => {
+        item.editing = false
+    }
 
     const useStyles = makeStyles({
         root: {
@@ -130,21 +139,6 @@ const DelateVendorMenu = () => {
             display: 'grid',
             width: '100%',
         },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         marginBottom: {
             marginBottom: 15
         },
@@ -234,7 +228,7 @@ const DelateVendorMenu = () => {
                         <ErrorOutlineIcon style={{ color: '#d32f2f', fontSize: 30 }}/>
                         <span className={styles.attention__span}>Removing a vendor will delete all its discounts</span>
                     </div>
-                    {vendors.map((value) => {
+                    {vendors.map((value: any) => {
                         return <div className={styles.vendorName}>
                                     {value.name}
                                     <section className={styles.vendor__icons}>
@@ -243,7 +237,7 @@ const DelateVendorMenu = () => {
                                         <DeleteOutlineIcon onClick={() => {deleteVendor(value.id)}}
                                                             style={{ color: '#d32f2f', fontSize: 22, position: 'relative', bottom: 4 }}/>
                                     </section>
-                                    {isEdit ? (
+                                    {value.editing ? (
                                         <div className={styles.editingForm}>
                                             <TextField className={styles.marginBottom} defaultValue={value.name} label="Name" />
                                             <FormControl>
@@ -288,21 +282,11 @@ const DelateVendorMenu = () => {
                                                 <button className={styles.uploadFile__btn}>Change photo</button>
                                             </div>
                                             <span className={styles.uploadedFileName}>{uploadFileName}</span>
-                                            <button className={styles.submitButton} onClick={()=>{setEdit(false)}}>Submit</button>
+                                            <button className={styles.submitButton} onClick={()=>{submitEditVendor(value)}}>Submit</button>
                                         </div>
                                     ) : ''}
                                 </div>
                     })}
-
-
-
-
-
-
-
-
-
-
                 </Grid>
             </ListItem>
         </List>
