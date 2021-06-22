@@ -15,7 +15,7 @@ import "./MainPage.scss";
 const MainPage = () => {
     const {user, isAuthenticated } = useAuth0();
     console.log(user)
-    const admin = false;
+    const admin = true;
     return (
         <div className={"homepage"}>
             <Header />
