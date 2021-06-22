@@ -1,9 +1,7 @@
 import React, { useRef } from "react";
 import  "./SearchBar.scss";
 import {
-    Rating,
     SearchForm,
-    ContainerDataPiker,
     MySelect,
     SelectMultiple,
     ControlLabel,
@@ -11,8 +9,8 @@ import {
 import { Clear } from "@material-ui/icons";
 
 const SearchBar =()=>{
-    const SearchBarRef = useRef(null);
-    const arr = ["aaaaaaa","dddddddddddd,","sssssssssss"];
+    const SearchBarRef:any = useRef();
+    const arr: string[] = ["aaaaaaa","dddddddddddd,","sssssssssss"];
     
     return (
         <div className="container" ref={SearchBarRef}>
@@ -27,11 +25,9 @@ const SearchBar =()=>{
                 </button>
             </div>
             <SearchForm />
-            <ContainerDataPiker />
             <div className="containerFavorite">
                 <ControlLabel lable={"Favorite"} />
             </div>
-            <Rating/>
             <MySelect data={arr} name={"location"} clName={"location"} />
             <SelectMultiple data={arr} clName={"location"} name={"brands"} />
             <SelectMultiple data={arr} clName={"location"} name={"tags"} />

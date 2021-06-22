@@ -4,11 +4,11 @@ import "./Select.scss"
 
 
 
-const MySelect = ({data, name, clName}) => {
+const MySelect = ({clName,data,name}:{clName:string, data:string[], name:string}) => {
     const [age, setAge] = React.useState("");
-    const handleChange = (event) => {
-        setAge(event.target.value);
-    };
+    const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setAge(event.target.value as string);
+  };
     return (
         <FormControl className={clName}>
             <InputLabel id="select">
