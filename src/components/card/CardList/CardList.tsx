@@ -64,7 +64,7 @@ const CardList:React.FC = () => {
         console.log(e.target.className);
         const cName: any = e.target.className;
         const tName: any = e.target.tagName;
-        console.log(tName);
+        console.log('tName', tName);
 
         if ((cName === '') || (cName === 'card-more') || (cName === 'card-drop') || (tName === 'circle') || (tName === 'path')) {
             return null} else {
@@ -75,8 +75,14 @@ const CardList:React.FC = () => {
             } else {
                 myElement.style.display = "block";
                 document.getElementById("excard")!.scrollIntoView({behavior: 'smooth'});
-                setCard(index)
-                console.log(index)
+                if (page === 1) {
+                    setCard(index)
+                } else {
+                    setCard(index + (page - 1)*NUMBER_CARD)
+                }
+
+                console.log('index', index)
+                console.log('page', page);
             }
         }
 
