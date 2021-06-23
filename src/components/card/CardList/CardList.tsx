@@ -8,6 +8,7 @@ import ExtendedCard from "../../card/ExtendedCard2/ExtendedCard";
 import AdminBtn from '../../admin/AdminBtn/AdminBtn';
 import Sort from "../../common/Sort/Sort";
 import ChipsArray from "../../common/ChipsArray/ChipsArray";
+import {useAppSelector} from "../../../store/Redux-toolkit-hook";
 
 
 
@@ -91,7 +92,8 @@ const CardList:React.FC = (props) => {
         }
 
     };
-    console.log(props.isAdmin)
+    const isAdmin = useAppSelector(state => state.user.admine);
+    console.log(isAdmin)
     return (
         <div className="card-list">
             <ExtendedCard discount={data[card]}/>
@@ -100,7 +102,8 @@ const CardList:React.FC = (props) => {
             </div>
             <div className={"sort-admin"}>
                 <Sort />
-                {props.isAdmin } <AdminBtn />
+                {isAdmin &&
+                <AdminBtn />}
             </div>
 
             <Grid container spacing={3} justify="center">

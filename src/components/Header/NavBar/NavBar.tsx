@@ -9,6 +9,7 @@ import Gravatar from "react-gravatar";
 import DelateVendorMenu from '../../admin/DelateVendorMenu/DelateVendorMenu';
 import AdminPanelCard from '../../admin/AdminPanelCard/AdminPanelCard';
 import AdminPanelVendor from '../../admin/AdminPanelVendor/AdminPanelVendor';
+import {useAppSelector} from "../../../store/Redux-toolkit-hook";
 
 const useStyles = makeStyles((theme) => ({
     link: {
@@ -53,6 +54,8 @@ const NavBar = () => {
 
 
     let admin = true;
+    const userName = useAppSelector(state => state.user.userName);
+    console.log(userName)
 
 
     return <>
@@ -91,7 +94,7 @@ const NavBar = () => {
 
             >
 
-                <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}>Username</p></MenuItem>
+                <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}>{userName}</p></MenuItem>
                 <Hidden mdUp>
                     <MenuItem onClick={handleClose} className={classes.link}><NavLink to={"/main-page"}
                                                                                       className={"link"}>Home</NavLink></MenuItem>

@@ -16,8 +16,8 @@ const AdminPanelVendor = () => {
     const [state, setState] = React.useState(false);
     const [countryValue, setCountryValue] = React.useState('');
     const [cityValue, setCityValue] = React.useState('');
-    const [uploadFileName, setUploadFileName] = React.useState('');
-    const parentRef = useRef<any>();
+    const [uploadFileName, setUploadFileName] = React.useState('');
+    const parentRef = useRef<any>();
 
     const toggleDrawer = (open: any) => (event: any) => {
         setState(open);
@@ -89,40 +89,40 @@ const AdminPanelVendor = () => {
                 background: 'none'
             }
         },
-        uploadPhotoMobile: {
-            display: 'none',
+        uploadPhotoMobile: {
+            display: 'none',
         },
-        fileName: {
-            width: 135,
-            height: 38,
-            opacity: 0,
-            overflow: 'hidden',
-            position: 'absolute',    
+        fileName: {
+            width: 135,
+            height: 38,
+            opacity: 0,
+            overflow: 'hidden',
+            position: 'absolute',
         },
-        uploadFile__btn: {
-            background: 'transparent',
-            color: '#1877F2',
+        uploadFile__btn: {
+            background: 'transparent',
+            color: '#1877F2',
             padding: '10px 20px',
             border: '2px solid #1877F2'
         },
-        uploadedFileName: {
-            fontSize: 14,
-            marginTop: '-14px',
-            marginBottom: 20
+        uploadedFileName: {
+            fontSize: 14,
+            marginTop: '-14px',
+            marginBottom: 20
         },
         '@media(max-width:700px)': {
             wrapper: {
                 width: '100%'
             },
-            dropzone: {
-                display: 'none'
+            dropzone: {
+                display: 'none'
             },
-            uploadPhotoMobile: {
-                display: 'flex',
-                marginBottom: 20,
-                fontSize: 15,
-                'span': {
-                    position: 'relative'
+            uploadPhotoMobile: {
+                display: 'flex',
+                marginBottom: 20,
+                fontSize: 15,
+                'span': {
+                   position: 'relative'
                 }
             }
         }
@@ -165,16 +165,16 @@ const AdminPanelVendor = () => {
                     <div className={styles.dropzone}>
                         <DropZone wrapperHeight={100} />
                     </div>
-                    <div className={styles.uploadPhotoMobile}>
-                        <input type="file" 
-                                ref={parentRef} 
-                                className={styles.fileName} 
-                                id='fileName' 
-                                accept=".png, .jpg, .jpeg" 
+                    <div className={styles.uploadPhotoMobile}>
+                        <input type="file"
+                                ref={parentRef}
+                                className={styles.fileName}
+                                id='fileName'
+                                accept=".png, .jpg, .jpeg"
                                 onChange={(e)=>{setUploadFileName(parentRef.current.files[0].name)}}/>
-                        <button className={styles.uploadFile__btn}>Upload photo</button>
+                        <button className={styles.uploadFile__btn}>Upload photo</button>
                     </div>
-                    <span className={styles.uploadedFileName}>{uploadFileName}</span>
+                    <span className={styles.uploadedFileName}>{uploadFileName}</span>
                     <button className={styles.submitButton} onClick={toggleDrawer(false)}>Submit</button>
                 </Grid>
             </ListItem>

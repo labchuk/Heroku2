@@ -14,7 +14,7 @@ import { useAppSelector} from "../../../store/Redux-toolkit-hook";
 import ChipsArray from "../../common/ChipsArray/ChipsArray";
 
 const MainPage = () => {
-    const isAdmin = useAppSelector(state => state.user.admine);
+
     const userId = useAppSelector(state => state.user.userId);
     const userDatails = getUserDetails(userId);
     const a = check();
@@ -31,7 +31,7 @@ const MainPage = () => {
                 </div>
             )}*/}
 
-            <Layout isAdmin={isAdmin} />
+            <Layout />
 
 
         </div>
