@@ -9,6 +9,7 @@ import {
 } from "../../index";
 import "./MainPage.scss";
 import { useAppSelector} from "../../../store/Redux-toolkit-hook";
+import ChipsArray from "../../common/ChipsArray/ChipsArray";
 
 const MainPage = () => {
     const isAdmin = useAppSelector(state => state.user.admine);
@@ -20,7 +21,7 @@ const MainPage = () => {
     
     return (
         <div className={"homepage"}>
-            
+            <ChipsArray/>
             <SearchBar />
              {isAdmin && (
                 <div>
