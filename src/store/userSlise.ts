@@ -6,7 +6,7 @@ interface IinitialUserState {
         userId: string,
         admine: boolean,
         isAuth: boolean,
-        location: string,
+        location: any,
         userName:string,
 
 };

@@ -5,6 +5,7 @@ import {
     CardList,
     SearchBar,
     DelateVendorMenu,
+    LogoutButton
 } from "../../index";
 import "./MainPage.scss";
 import { useAppSelector} from "../../../store/Redux-toolkit-hook";
@@ -15,6 +16,7 @@ const MainPage = () => {
     
     return (
         <div className={"homepage"}>
+            <LogoutButton/>
             <SearchBar/>
              {isAdmin && (
                 <div>

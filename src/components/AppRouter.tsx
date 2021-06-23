@@ -8,8 +8,6 @@ const AppRouter = () => {
     const location = useLocation()
     useEffect(() => {
         setFirstLocation(location.pathname);
-        
-        console.log(FIRST_ROUTE)
   },[]);
 
     const isAuth = useAppSelector(state => state.user.isAuth);
