@@ -4,7 +4,8 @@ import "./DropZone.scss";
 
 const DropZone = (props: {wrapperHeight: number}) => {
     const style = {
-        height: props.wrapperHeight
+        height: props.wrapperHeight,
+        padding: 20
     }
     const [fileName, setFileName] = React.useState('')
     const onDrop = useCallback(acceptedFiles => {

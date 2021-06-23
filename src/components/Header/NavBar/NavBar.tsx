@@ -6,7 +6,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import {NavLink} from "react-router-dom";
 import {Hidden, makeStyles} from "@material-ui/core";
 import Gravatar from "react-gravatar";
-import AdminPanelCard from "../../admin/AdminPanelCard/AdminPanelCard";
+import DelateVendorMenu from '../../admin/DelateVendorMenu/DelateVendorMenu';
+import AdminPanelCard from '../../admin/AdminPanelCard/AdminPanelCard';
+import AdminPanelVendor from '../../admin/AdminPanelVendor/AdminPanelVendor';
 
 const useStyles = makeStyles((theme) => ({
     link: {
@@ -100,17 +102,17 @@ const NavBar = () => {
                 </Hidden>
                 {admin &&
                 <Hidden smUp>
-                    <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}>vendors</p>
-                    </MenuItem>
-                    <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}>add a vendor</p>
+                    <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}><DelateVendorMenu /></p>
                     </MenuItem>
                     <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}><AdminPanelCard /></p>
                     </MenuItem>
+                    <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}><AdminPanelVendor /></p>
+                    </MenuItem>
                 </Hidden>
                 }
-                <MenuItem onClick={handleClose} className={classes.logout}><NavLink to={"/login"}
-                                                                                    className={"link logout"}>Logout</NavLink></MenuItem>
-
+                <MenuItem onClick={handleClose} className={classes.logout}>
+                    <NavLink to={"/login"} className={"link logout"}>Logout</NavLink>
+                </MenuItem>
             </Menu>
         </div>
     </>

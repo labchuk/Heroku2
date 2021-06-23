@@ -1,3 +1,9 @@
-.homepage{
-flex: 1 1 auto;
+.hideAdminMenu {
+    display: block;
+}
+
+@media(max-width: 760px) {
+    .hideAdminMenu {
+        display: none;
+    }
 }
