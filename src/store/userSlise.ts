@@ -9,7 +9,7 @@ interface IinitialUserState {
         location: string,
         userName:string,
 
-    }
+};
 
 export const initialUserState: IinitialUserState={
     userId: "",
@@ -18,9 +18,9 @@ export const initialUserState: IinitialUserState={
     admine: false,
     location: "",
     userName: "",
-}
+};
 
-const userSlise = createSlice({
+export const userSlise = createSlice({
     name: "userSlise",
     initialState: initialUserState,
     reducers: {
@@ -44,6 +44,9 @@ const userSlise = createSlice({
         },
     },
 });
+
+
+
 
 export default userSlise.reducer
 export const { setEmail, setUserId, setIsAuth, setAdmine, setUserName, setLocation } = userSlise.actions;
