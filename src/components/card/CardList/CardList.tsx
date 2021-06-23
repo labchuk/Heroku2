@@ -96,7 +96,7 @@ const CardList:React.FC = (props) => {
     console.log(isAdmin)
     return (
         <div className="card-list">
-            <ExtendedCard discount={data[card]}/>
+            {/*<ExtendedCard discount={data[card]}/>*/}
             <div className={"chips"}>
                 <ChipsArray/>
             </div>

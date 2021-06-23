@@ -24,8 +24,8 @@ const MySelect = ({clName,data,name}:{clName:string, data:string[], name:string}
     };
     const filterChips = () => {
         for (const i in chipData) {
-            if (chipData[i].label === age){
-                return age
+            if (chipData[i].id.slice(0,4) === name.slice(0,4)){
+                return chipData[i].label
             }
         }
         return ''
