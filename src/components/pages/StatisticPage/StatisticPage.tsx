@@ -4,7 +4,7 @@ import "./StatisticPage.scss";
 
 const StatisticPage = () => {
     return (
-        <div>
+        <div className={"statistic"}>
            
            <StatisticInformation/>
            

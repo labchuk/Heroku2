@@ -18,9 +18,17 @@
 #root {
   font-family: "Poppins";
   font-family: Montserrat;
+
+}
+.app-wrapper{
+
+  display: flex;
+  flex-direction: column;
+
 }
 body{
-
+  background-color: #DCDCDC;
+  min-height: 100%;
 }
 button {
   border: none;
@@ -35,6 +43,5 @@ button:focus {
 .app-wrapper-container{
   margin: 0 auto;
   max-width: 1260px;
-  background-color: #DCDCDC;
-
+  flex: 1 1 auto;
 }

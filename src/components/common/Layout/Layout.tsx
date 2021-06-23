@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function FullWidthGrid() {
+export default function FullWidthGrid(props) {
     const classes = useStyles();
 
 
@@ -47,7 +47,7 @@ export default function FullWidthGrid() {
                     <SearchBar />
                 </div>
 
-                <CardList/>
+                <CardList isAdmin={props.isAdmin}/>
             </div>
 
         </div>

@@ -7,6 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import ExtendedCard from "../../card/ExtendedCard2/ExtendedCard";
 import AdminBtn from '../../admin/AdminBtn/AdminBtn';
 import Sort from "../../common/Sort/Sort";
+import ChipsArray from "../../common/ChipsArray/ChipsArray";
 
 
 
@@ -16,7 +17,7 @@ const useStyles = makeStyles((theme) =>
             '& > *': {
                 marginTop: theme.spacing(2),
                 display: 'flex',
-                justifyContent: 'center'
+                justifyContent: 'center',
             },
         },
     }),
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) =>
 
 
 
-const CardList:React.FC = () => {
+const CardList:React.FC = (props) => {
 
     const NUMBER_CARD = 8
 
@@ -90,12 +91,16 @@ const CardList:React.FC = () => {
         }
 
     };
+    console.log(props.isAdmin)
     return (
         <div className="card-list">
             <ExtendedCard discount={data[card]}/>
+            <div className={"chips"}>
+                <ChipsArray/>
+            </div>
             <div className={"sort-admin"}>
                 <Sort />
-                <AdminBtn />
+                {props.isAdmin } <AdminBtn />
             </div>
 
             <Grid container spacing={3} justify="center">

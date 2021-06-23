@@ -9,8 +9,10 @@ export default function Header() {
 
     return (
         <div className={"header"}>
-            <Logo/>
-            <NavBar />
+            <div className={"header__container"}>
+                <Logo/>
+                <NavBar/>
+            </div>
         </div>
     );
 };

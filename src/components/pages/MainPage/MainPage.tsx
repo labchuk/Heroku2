@@ -20,20 +20,18 @@ const MainPage = () => {
     const a = check();
     console.log(a)
     console.log(userDatails)
-
     return (
         <div className={"homepage"}>
-            <ChipsArray/>
-            <SearchBar />
-             {isAdmin && (
+
+             {/*{isAdmin && (
                 <div>
                     <AdminPanelCard />
                     <AdminPanelVendor />
                     <DelateVendorMenu/>
                 </div>
-            )}
+            )}*/}
 
-            <Layout />
+            <Layout isAdmin={isAdmin} />
 
 
         </div>
