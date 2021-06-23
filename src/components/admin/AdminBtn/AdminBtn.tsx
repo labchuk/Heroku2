@@ -5,6 +5,8 @@ import { Menu } from '@material-ui/core';
 import { MenuItem } from '@material-ui/core';
 import "./AdminBtn.scss"
 import AdminPanelCard from "../AdminPanelCard/AdminPanelCard";
+import AdminPanelVendor from "../AdminPanelVendor/AdminPanelVendor";
+import DelateVendorMenu from "../DelateVendorMenu/DelateVendorMenu";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -87,8 +89,8 @@ export default function AdminBtn(){
                 }}
             >
                     <div className={classes.backgroundMenu}>
-                <MenuItem className={classes.item}>vendors</MenuItem>
-                <MenuItem className={classes.item}>add a promotion</MenuItem>
+                <MenuItem className={classes.item}><DelateVendorMenu /></MenuItem>
+                <MenuItem className={classes.item}><AdminPanelVendor /></MenuItem>
                 <MenuItem className={classes.item}><AdminPanelCard /></MenuItem>
                     </div>
             </Menu>

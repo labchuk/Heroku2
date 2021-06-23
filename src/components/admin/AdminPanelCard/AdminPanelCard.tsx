@@ -138,7 +138,14 @@ const AdminPanelCard = () => {
           position: 'relative'
         }
       }
-    }
+    },
+    adminModalButton: {
+      color: '#1877F2',
+      background: 'transparent',
+      '&:hover': {
+        background: 'none'
+      }
+    },
   })
 
   const styles = useStyles();
@@ -209,7 +216,7 @@ const AdminPanelCard = () => {
   )
     return (
         <div>
-          <Button onClick={toggleDrawer(true)}>Add a promotion</Button>
+          <Button onClick={toggleDrawer(true)} className={styles.adminModalButton}>Add a promotion</Button>
           <Drawer anchor={'right'}
                   open={state}
                   onClose={toggleDrawer(false)}>
