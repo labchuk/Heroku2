@@ -1,9 +1,7 @@
 import React, { useRef } from "react";
 import  "./SearchBar.scss";
 import {
-    Rating,
     SearchForm,
-    ContainerDataPiker,
     MySelect,
     SelectMultiple,
     ControlLabel,
@@ -11,9 +9,11 @@ import {
 import { Clear } from "@material-ui/icons";
 
 const SearchBar =()=>{
-    const SearchBarRef = useRef(null);
-    const arr = ["aaaaaaa","dddddddddddd,","sssssssssss"];
-    
+    const SearchBarRef:any = useRef();
+    const arr0: string[] = ["44444444","5555555","66666666"];
+    const arr: string[] = ["aaaaaaa","dddddddddddd","sssssssssss"];
+    const arr2: string[] = ["1111111","222222222","3333333333"];
+    const arr3: string[] = ["77777777","88888888","9999999999"];
     return (
         <div className="container-searchbar" ref={SearchBarRef}>
             <div className="close">
@@ -27,16 +27,14 @@ const SearchBar =()=>{
                 </button>
             </div>
             <SearchForm />
-            <ContainerDataPiker />
             <div className="containerFavorite">
                 <ControlLabel lable={"Favorite"} />
             </div>
-            <Rating/>
-            <MySelect data={arr} name={"location"} clName={"location"} />
+            <MySelect data={arr0} name={"location"} clName={"location"} />
             <SelectMultiple data={arr} clName={"location"} name={"brands"} />
-            <SelectMultiple data={arr} clName={"location"} name={"tags"} />
+            <SelectMultiple data={arr2} clName={"location"} name={"tags"} />
             <SelectMultiple
-                data={arr}
+                data={arr3}
                 clName={"location"}
                 name={"discount size"}
             />

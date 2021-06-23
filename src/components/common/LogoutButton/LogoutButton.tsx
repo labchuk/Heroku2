@@ -1,13 +1,16 @@
-import { useAuth0 } from '@auth0/auth0-react';
-import React from 'react';
+import React from "react";
+import "./LogoutButton.scss";
+import {  useAppDispatch} from "../../../store/Redux-toolkit-hook";
+import { setIsAuth } from "../../../store/userSlise"
+
 
 const LogoutButton = () => {
-    const {logout} = useAuth0()
-    return (
-        <div onClick={()=>logout()}>
-            Log out
-        </div>
-    );
+    const dispatch = useAppDispatch();
+    const logout = () =>{
+        dispatch(setIsAuth(false));
+        localStorage.removeItem("token");
+    };
+    return <button onClick={logout}/> 
 };
 
 export default LogoutButton;
