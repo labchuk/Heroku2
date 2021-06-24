@@ -4,7 +4,7 @@
 
 .mainContent {
   display: flex;
-  padding-top: 20px;
+  padding-top: 40px;
 }
 
 .filterBar {
@@ -12,11 +12,12 @@
   min-width: 320px;
 
 
+
   @media (max-width: 762px) {
     display: none;
-    min-width: 300px;
+
     max-width: 320px;
-    padding-left: 10px;
+
   }
 
 }
@@ -35,7 +36,8 @@
   @media (max-width: 762px) {
     display: block;
     position: absolute;
-    top: -5px;
+    top: 5px;
+
   }
 }
 
@@ -50,12 +52,12 @@
 
 .open {display: block;
   @media (max-width: 758px) {
-    z-index: 9999;
+    z-index: 999;
     position: absolute;
     background-color: white;
     padding-left: 0;
     margin-right: 0;
-    margin-left: 5px;
+
   }
 }
 
@@ -64,4 +66,17 @@
   @media (max-width: 330px) {
     max-width: 285px;
   }
+}
+
+.chips {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+.sort-bar {
+  @media (max-width: 596px) {
+    margin: 0 auto;
+  }
+
 }
