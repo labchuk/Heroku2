@@ -98,6 +98,11 @@ const CardList:React.FC = (props) => {
         <div className="card-list">
             <ExtendedCard discount={data[card]}/>
 
+
+            <div className={"chips"}>
+                <ChipsArray/>
+            </div>
+
             <div className={"sort-admin"}>
                 <Sort />
                 {isAdmin &&
