@@ -1,7 +1,6 @@
 import { ListItem } from '@material-ui/core';
 import { Drawer, List } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
-import { Button } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -12,6 +11,7 @@ import React, { useRef } from 'react';
 import DropZone from '../../common/DropZone/DropZone';
 import ContainerDataPiker from '../../common/SearchBar/ContainerDatePiker/ContainerDatePiker';
 import SelectMultiple from '../../common/SearchBar/SelectMultiple/SelectMultiple';
+import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import "./AdminPanelCard.scss";
 
 const AdminPanelCard = () => {
@@ -57,7 +57,7 @@ const AdminPanelCard = () => {
       textAlign: 'right'
     },
     checkbox__wrapper: {
-      marginBottom: 15,
+      marginBottom: 30,
       position: 'relative',
     },
     checkbox: {
@@ -125,7 +125,7 @@ const AdminPanelCard = () => {
     },
     '@media(max-width:700px)': {
       wrapper: {
-        width: '100%'
+        width: '320px'
       },
       dropzone: {
         display: 'none'
@@ -146,7 +146,7 @@ const AdminPanelCard = () => {
       '&:hover': {
         background: 'none'
       }
-    },
+    }
   })
 
   const styles = useStyles();
@@ -156,7 +156,7 @@ const AdminPanelCard = () => {
       <ListItem>
         <Grid container direction='column'>
           <span className={styles.wrapper__title} onClick={toggleDrawer(false)}>
-            <img src="/src/images/icons/back-arrow.svg" alt=""/>
+          <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 11 }} />
             Back
           </span>
           <TextField className={styles.marginBottom} id="outlined-basic" label="Title" />
@@ -194,7 +194,6 @@ const AdminPanelCard = () => {
           <div className={styles.marginBottom}>
             <ContainerDataPiker/>
           </div>
-          <TextField className={styles.marginBottom} label="Price" />
           <TextField className={styles.marginBottom} label="Discount %" />
           <TextField className={styles.marginBottom} multiline  rows={5} id="outlined-basic" label="Description" variant="outlined"  />
           <div className={styles.dropzone}>

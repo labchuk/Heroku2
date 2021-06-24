@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#fff',
         "&:nth-child(1)": {
             marginTop: "0"
+        },
+        '&:hover': {
+            background: '#F1F5F8',
         }
     },
     menu: {
@@ -33,9 +36,6 @@ const useStyles = makeStyles((theme) => ({
             background: "transparent"
         },
     },
-    backgroundMenu: {
-
-    }
 }));
 
 
@@ -86,17 +86,14 @@ export default function AdminBtn(){
             onClose={handleClose}
             MenuListProps={{
                 disablePadding: true,
-                }}
-            >
-                    <div className={classes.backgroundMenu}>
-                <MenuItem className={classes.item}><DelateVendorMenu /></MenuItem>
-                <MenuItem className={classes.item}><AdminPanelVendor /></MenuItem>
+                }}>
+                <div>
                 <MenuItem className={classes.item}><AdminPanelCard /></MenuItem>
-                    </div>
+                <MenuItem className={classes.item}><AdminPanelVendor /></MenuItem>
+                <MenuItem className={classes.item}><DelateVendorMenu /></MenuItem>
+                </div>
             </Menu>
-
             </div>
-
         </div>
         </Hidden>
     )
