@@ -4,20 +4,20 @@
 
 .mainContent {
   display: flex;
-  padding-top: 20px;
+  padding-top: 40px;
 }
 
 .filterBar {
   margin-right: 40px;
   min-width: 320px;
-  padding-top: 16px;
+
 
 
   @media (max-width: 762px) {
     display: none;
-    min-width: 300px;
+    /*min-width: 300px;*/
     max-width: 320px;
-    padding-left: 10px;
+    /*padding-left: 10px;*/
   }
 
 }
@@ -36,7 +36,7 @@
   @media (max-width: 762px) {
     display: block;
     position: absolute;
-    top: -10px;
+    top: 5px;
   }
 }
 
@@ -56,7 +56,7 @@
     background-color: white;
     padding-left: 0;
     margin-right: 0;
-    margin-left: 5px;
+    /*margin-left: 5px;*/
   }
 }
 
@@ -71,4 +71,11 @@
   display: flex;
   justify-content: center;
   padding-bottom: 20px;
+}
+
+.sort-bar {
+  @media (max-width: 596px) {
+    margin: 0 auto;
+  }
+
 }
