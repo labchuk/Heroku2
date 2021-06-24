@@ -66,17 +66,17 @@ const CardList:React.FC = (props) => {
         return data.slice(from, to)
     }
     const handleClick = (e: any, index:number) => {
-        console.log(e.target.className);
+
         const cName: any = e.target.className;
         const tName: any = e.target.tagName;
-        console.log('tName', tName);
+
 
         if ((cName === '') || (cName === 'card-more') || (cName === 'card-drop') || (tName === 'circle') || (tName === 'path')) {
             return null} else {
             const myElement: HTMLElement | null =
                 document.querySelector(".ExtendedCard");
             if (myElement === null) {
-                console.log("no element");
+
             } else {
                 myElement.style.display = "block";
                 document.getElementById("excard")!.scrollIntoView({behavior: 'smooth'});
@@ -86,14 +86,13 @@ const CardList:React.FC = (props) => {
                     setCard(index + (page - 1)*NUMBER_CARD)
                 }
 
-                console.log('index', index)
-                console.log('page', page);
+
             }
         }
 
     };
     const isAdmin = useAppSelector(state => state.user.admine);
-    console.log(isAdmin)
+
     return (
 
         <div className="card-list">
