@@ -57,7 +57,7 @@ const NavBar = () => {
     let admin = true;
     const userName = useAppSelector(state => state.user.userName);
     console.log(userName)
-
+    const userEmail = useAppSelector(state => state.user.email);
 
     return <>
         <div className={"desktop-nav"}>
@@ -71,7 +71,7 @@ const NavBar = () => {
         <div className={"gravatar"}>
             <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
 
-                <Gravatar email="ov4lil@icloud.com" size={100}/>
+                <Gravatar email={userEmail} size={100}/>
             </Button>
 
             <Menu
