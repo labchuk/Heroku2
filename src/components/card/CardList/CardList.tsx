@@ -95,15 +95,17 @@ const CardList:React.FC = (props) => {
     const isAdmin = useAppSelector(state => state.user.admine);
     console.log(isAdmin)
     return (
+
         <div className="card-list">
             <ExtendedCard discount={data[card]}/>
-            <div className={"chips"}>
-                <ChipsArray/>
-            </div>
+
             <div className={"sort-admin"}>
                 <Sort />
                 {isAdmin &&
                 <AdminBtn />}
+            </div>
+            <div className={"chips"}>
+                <ChipsArray/>
             </div>
 
             <Grid container spacing={3} justify="center">
