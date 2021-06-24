@@ -2,7 +2,8 @@ import React from 'react';
 import { Route, Switch, Redirect, useLocation} from "react-router-dom";
 import { authRoutes, publikRoute } from '../routes';
 import { LOGIN_ROUTE, MAIN_ROUTE, setFirstLocation, FIRST_ROUTE } from '../utils/consts';
-import { useAppSelector} from "../store/Redux-toolkit-hook"; 
+import { useAppSelector} from "../store/Redux-toolkit-hook";
+import { useEffect } from 'react';
 const AppRouter = () => {
     const location = useLocation()
     useEffect(() => {

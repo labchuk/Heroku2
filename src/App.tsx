@@ -18,7 +18,7 @@ const  App = () => {
     }).catch((f)=>dispatch(setIsAuth(false))).finally(() => setLoading(false));
   },[]);
 
-  const isAuth: boolean = useAppSelector(state => state.user.isAuth);
+
   
 
   if(loading){

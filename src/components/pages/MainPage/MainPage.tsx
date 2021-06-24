@@ -24,7 +24,7 @@ const MainPage = () => {
     
     return (
         <div className={"homepage"}>
-            <LogoutButton/>
+
 
              {/*{isAdmin && (
                 <div>

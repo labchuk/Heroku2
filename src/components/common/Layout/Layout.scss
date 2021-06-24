@@ -48,7 +48,16 @@
 }
 .container {padding: 5px;}
 
-.open {display: block}
+.open {display: block;
+  @media (max-width: 758px) {
+    z-index: 9999;
+    position: absolute;
+    background-color: white;
+    padding-left: 0;
+    margin-right: 0;
+    margin-left: 5px;
+  }
+}
 
 
 .MuiPickersCalendarHeader-switchHeader {

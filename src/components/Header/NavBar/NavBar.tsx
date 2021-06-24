@@ -10,6 +10,7 @@ import DelateVendorMenu from '../../admin/DelateVendorMenu/DelateVendorMenu';
 import AdminPanelCard from '../../admin/AdminPanelCard/AdminPanelCard';
 import AdminPanelVendor from '../../admin/AdminPanelVendor/AdminPanelVendor';
 import {useAppSelector} from "../../../store/Redux-toolkit-hook";
+import {LogoutButton} from "../../index";
 
 const useStyles = makeStyles((theme) => ({
     link: {
@@ -114,7 +115,7 @@ const NavBar = () => {
                 </Hidden>
                 }
                 <MenuItem onClick={handleClose} className={classes.logout}>
-                    <NavLink to={"/login"} className={"link logout"}>Logout</NavLink>
+                    <NavLink to={"/login"} className={"link logout"}><LogoutButton/></NavLink>
                 </MenuItem>
             </Menu>
         </div>

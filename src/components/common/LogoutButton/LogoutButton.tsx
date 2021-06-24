@@ -11,7 +11,7 @@ const LogoutButton: React.FC = () => {
         localStorage.removeItem("token");
     };
     return (
-        <button onClick={logout}>Logout </button>
+        <button className={"logout-btn"} onClick={logout}>Logout </button>
     )
 };
 
