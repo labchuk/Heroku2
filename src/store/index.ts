@@ -7,7 +7,6 @@ import {PersistGate} from "redux-persist/integration/react";
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 
-
 export const MyPersistGate: any = PersistGate;
 
 

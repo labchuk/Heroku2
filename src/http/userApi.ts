@@ -9,10 +9,9 @@ export const login = async({email,password}:{ email: string, password:string }) 
 }
 
 export const getUserDetails = async ( id: string) =>{
-    console.log(`user_details/${id}`)
-    const response = await authHost.get(
+    const {data} = await authHost.get(
         `user_details/${id}`);
-    return response;
+    return data;
 }
 
 

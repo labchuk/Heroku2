@@ -2,11 +2,11 @@ import React, { useState, useRef} from "react";
 import "./FormLogin.scss";
 import { login, getUserDetails,} from "../../../http/userApi";
 import { useHistory } from "react-router-dom";
-import { MAIN_ROUTE } from "../../../utils/consts";
+import { MAIN_ROUTE, LOGIN_ROUTE, FIRST_ROUTE } from "../../../utils/consts";
 import {VisibilityOutlined, VisibilityOffOutlined} from "@material-ui/icons"
 import { makeStyles } from "@material-ui/styles";
 import {useAppDispatch,} from "../../../store/Redux-toolkit-hook"
-import {setEmail, setIsAuth, setUserId, setAdmine} from "../../../store/userSlise"
+import {setEmail, setIsAuth, setUserId, setAdmine, setUserName, setLocation} from "../../../store/userSlise"
 
 const useStyles = makeStyles({
     root: {
@@ -22,7 +22,6 @@ const FormLogin: React.FC = () => {
     const emailErrorTextRef: any = useRef();
     const inputPasswordRef: any = useRef();
     const dispatch = useAppDispatch();
-    
    
 
     const  regularEmail: any = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i; 
@@ -48,12 +47,19 @@ const FormLogin: React.FC = () => {
             dispatch(setIsAuth(true));
             dispatch(setAdmine(user.admin));
             dispatch(setUserId(user.userId));
-            // const userDatails = getUserDetails(user.userId);
-            // console.log(userDatails)
-            history.push(MAIN_ROUTE);
+
+            getUserDetails(user.userId).then(data => {
+            dispatch(setUserName(data.name));
+            data.locationId && dispatch(setLocation(data.location));
+            });
+            redirect();
         }catch(e){
             showError()
         }
+    }
+
+    const redirect = () =>{
+        FIRST_ROUTE ===  LOGIN_ROUTE ?  history.push(MAIN_ROUTE): history.push(FIRST_ROUTE)
     }
 
     const showError = () => {
