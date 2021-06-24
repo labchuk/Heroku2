@@ -14,6 +14,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import "./DelateVendorMenu.scss";
+import AdminPanelVendor from '../AdminPanelVendor/AdminPanelVendor';
 
 const DelateVendorMenu = () => {
     const [state, setState] = React.useState(false);
@@ -206,6 +207,14 @@ const DelateVendorMenu = () => {
             marginTop: '-14px',
             marginBottom: 20
         },
+        adminPanel: {
+            marginTop: 20,
+            paddingTop: 3,
+            paddingBottom: 7,
+            width: 200,
+            background: 'transparent',
+            border: '2px solid #1877F2'
+        },
         '@media(max-width:700px)': {
             wrapper: {
                 width: '320px'
@@ -251,24 +260,28 @@ const DelateVendorMenu = () => {
                                         <div className={styles.editingForm}>
                                             <TextField className={styles.marginBottom} defaultValue={value.name} label="Name" />
                                             <FormControl>
-                                                <InputLabel>Country</InputLabel>
+                                                <InputLabel></InputLabel>
                                                 <Select value={countryValue}
                                                         defaultValue={value.country}
                                                         onChange={handleChangeCountry}
-                                                        className={styles.marginBottom}>
+                                                        className={styles.marginBottom}
+                                                        displayEmpty>
                                                 {countries.map((country: string) => {
                                                     return <MenuItem value={country}>{country}</MenuItem>
                                                 })}
+                                                <MenuItem value=''>{value.country}</MenuItem>
                                                 </Select>
                                             </FormControl>
                                             <FormControl>
-                                                <InputLabel>City</InputLabel>
+                                                <InputLabel></InputLabel>
                                                 <Select value={cityValue}
                                                         onChange={handleChangeCity}
-                                                        className={styles.marginBottom}>
+                                                        className={styles.marginBottom}
+                                                        displayEmpty>
                                                 {cities.map((city: string) => {
                                                     return <MenuItem value={city}>{city}</MenuItem>
                                                 })}
+                                                <MenuItem value=''>{value.city}</MenuItem>
                                                 </Select>
                                             </FormControl>
                                             <TextField className={styles.marginBottom} defaultValue={value.address} label="Address" />
@@ -291,12 +304,16 @@ const DelateVendorMenu = () => {
                                                         onChange={(e)=>{setUploadFileName(parentRef.current.files[0].name)}}/>
                                                 <button className={styles.uploadFile__btn}>Change photo</button>
                                             </div>
-                                            <span className={styles.uploadedFileName}>{uploadFileName}</span>
+                                            {/* <span className={styles.uploadedFileName}>{uploadFileName}</span> */}
+                                            <span className={styles.uploadedFileName}>{value.image}</span>
                                             <button className={styles.submitButton} onClick={()=>{submitEditVendor(value)}}>Submit</button>
                                         </div>
                                     ) : ''}
                                 </div>
                     })}
+                    <button className={styles.adminPanel}>
+                        <AdminPanelVendor />
+                    </button>
                 </Grid>
             </ListItem>
         </List>

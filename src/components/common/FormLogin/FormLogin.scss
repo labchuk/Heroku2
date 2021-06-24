@@ -5,18 +5,12 @@
     box-shadow: 0 15px 15px rgb(190, 186, 186);
     padding: 25px;
     position: relative;
+    background: white;
     input {
         height: 32px;
         border: solid 1px rgb(190, 186, 186);
         padding-left: 5px;
     }
-    // input.incorrectInput::-webkit-input-placeholder {
-    //     color: #ED1818;
-    // }
-
-    // input.incorrectInput {
-    //     border: solid 1px #ED1818;
-    // }
 
     button {
         height: 40px;
