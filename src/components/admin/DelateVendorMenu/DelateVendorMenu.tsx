@@ -12,6 +12,7 @@ import DropZone from '../../common/DropZone/DropZone';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import "./DelateVendorMenu.scss";
 
 const DelateVendorMenu = () => {
@@ -62,6 +63,9 @@ const DelateVendorMenu = () => {
             editing: false
         },
     ]);
+    
+    const countries = ['Ukraine', 'Belarus', 'USA'];
+    const cities = ['Lviv', 'Minsk', 'Kharkiv'];
 
     const toggleDrawer = (open: any) => (event: any) => {
         setState(open);
@@ -90,10 +94,15 @@ const DelateVendorMenu = () => {
         setVendor(edits)
     }
 
-    const submitEditVendor = (item: any) => {
-        item.editing = false
+    const submitEditVendor = (v: any) => {
+        let edits:any = vendors.map( (item: any) => {
+            if (item.id === v.id){
+                item.editing = false
+            }
+            return item;
+        })
+        setVendor(edits)
     }
-
     const useStyles = makeStyles({
         root: {
             "& .MuiDrawerPaper-root": {
@@ -123,7 +132,8 @@ const DelateVendorMenu = () => {
         attention__span: {
             position: 'relative',
             bottom: 9,
-            left: 5
+            left: 5,
+            lineHeight: 1.5
         },
         vendorName: {
             fontSize: 16,
@@ -198,7 +208,7 @@ const DelateVendorMenu = () => {
         },
         '@media(max-width:700px)': {
             wrapper: {
-                width: '100%'
+                width: '320px'
             },
             dropzone: {
                 display: 'none'
@@ -208,7 +218,7 @@ const DelateVendorMenu = () => {
                 marginBottom: 20,
                 fontSize: 15,
                 'span': {
-                   position: 'relative'
+                    position: 'relative'
                 }
             }
         }
@@ -221,8 +231,8 @@ const DelateVendorMenu = () => {
             <ListItem>
                 <Grid container direction='column'>
                     <span className={styles.wrapper__title} onClick={toggleDrawer(false)}>
-                        <img src="/src/images/icons/back-arrow.svg" alt=""/>
-                        Back
+                    <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 11 }} />                        
+                    Back
                     </span>
                     <div className={styles.attention}>
                         <ErrorOutlineIcon style={{ color: '#d32f2f', fontSize: 30 }}/>
@@ -246,9 +256,9 @@ const DelateVendorMenu = () => {
                                                         defaultValue={value.country}
                                                         onChange={handleChangeCountry}
                                                         className={styles.marginBottom}>
-                                                    <MenuItem value={'Ukraine'}>Ukraine</MenuItem>
-                                                    <MenuItem value={'Belarus'}>Belarus</MenuItem>
-                                                    <MenuItem value={'USA'}>USA</MenuItem>
+                                                {countries.map((country: string) => {
+                                                    return <MenuItem value={country}>{country}</MenuItem>
+                                                })}
                                                 </Select>
                                             </FormControl>
                                             <FormControl>
@@ -256,9 +266,9 @@ const DelateVendorMenu = () => {
                                                 <Select value={cityValue}
                                                         onChange={handleChangeCity}
                                                         className={styles.marginBottom}>
-                                                    <MenuItem value={'Lviv'}>Lviv</MenuItem>
-                                                    <MenuItem value={'Kyiv'}>Kyiv</MenuItem>
-                                                    <MenuItem value={'Kharkiv'}>Kharkiv</MenuItem>
+                                                {cities.map((city: string) => {
+                                                    return <MenuItem value={city}>{city}</MenuItem>
+                                                })}
                                                 </Select>
                                             </FormControl>
                                             <TextField className={styles.marginBottom} defaultValue={value.address} label="Address" />
@@ -270,7 +280,7 @@ const DelateVendorMenu = () => {
                                                         variant="outlined"
                                                         defaultValue={value.description}/>
                                             <div className={styles.dropzone}>
-                                                <DropZone wrapperHeight={100} />
+                                                <DropZone />
                                             </div>
                                             <div className={styles.uploadPhotoMobile}>
                                                 <input type="file"

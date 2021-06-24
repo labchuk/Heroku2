@@ -1,7 +1,6 @@
 import { ListItem } from '@material-ui/core';
 import { Drawer, List } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
-import { Button } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -10,6 +9,7 @@ import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { useRef } from 'react';
 import DropZone from '../../common/DropZone/DropZone';
+import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import "./AdminPanelVendor.scss";
 
 const AdminPanelVendor = () => {
@@ -37,7 +37,7 @@ const AdminPanelVendor = () => {
             "& .MuiDrawerPaper-root": {
                 background: '#F7F9FB',
             }
-          },
+        },
         wrapper: {
             height: '100%',
             width: 700,
@@ -112,7 +112,7 @@ const AdminPanelVendor = () => {
         },
         '@media(max-width:700px)': {
             wrapper: {
-                width: '100%'
+                width: '320px'
             },
             dropzone: {
                 display: 'none'
@@ -122,7 +122,7 @@ const AdminPanelVendor = () => {
                 marginBottom: 20,
                 fontSize: 15,
                 'span': {
-                   position: 'relative'
+                    position: 'relative'
                 }
             }
         }
@@ -135,8 +135,8 @@ const AdminPanelVendor = () => {
             <ListItem>
                 <Grid container direction='column'>
                     <span className={styles.wrapper__title} onClick={toggleDrawer(false)}>
-                        <img src="/src/images/icons/back-arrow.svg" alt=""/>
-                        Back
+                    <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 11 }} />                        
+                    Back
                     </span>
                     <TextField className={styles.marginBottom} id="outlined-basic" label="Name" />
                     <FormControl>
