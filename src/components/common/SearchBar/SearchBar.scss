@@ -1,11 +1,12 @@
 
-.container{
+.container-searchbar{
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 20px 10px;
+    padding: 20px 20px;
     max-width: 480px;
-    width: 100%;
+    box-shadow: 2px 2px 3px 3px #c5d0d6;
+    background: #FFFFFF;
     .close{
         align-self: flex-end;
         .btn-close {
@@ -44,12 +45,12 @@
     }
 }
 
-@media screen and (min-width:480px) {
-    .container{
-        max-width: 400px;
-        padding: 20px 20px;
-        margin: 20px;
-        box-shadow: 2px 2px 3px 3px #c5d0d6;
-    }
-}
+//@media screen and (min-width:480px) {
+//    .container{
+//        max-width: 400px;
+//        padding: 20px 20px;
+//        margin: 20px;
+//        box-shadow: 2px 2px 3px 3px #c5d0d6;
+//    }
+//}
 

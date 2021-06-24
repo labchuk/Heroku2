@@ -18,10 +18,17 @@
 #root {
   font-family: "Poppins";
   font-family: Montserrat;
+
+}
+.app-wrapper{
+
+  display: flex;
+  flex-direction: column;
+
 }
 body{
-  margin: 0 auto;
-  max-width: 1200px;
+  background: #F1F5F8;
+  min-height: 100%;
 }
 button {
   border: none;
@@ -32,4 +39,9 @@ button,
 button:active,
 button:focus {
   outline: none;
+}
+.app-wrapper-container{
+  margin: 0 auto;
+  max-width: 1260px;
+  flex: 1 1 auto;
 }

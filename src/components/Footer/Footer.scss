@@ -1,6 +1,9 @@
 .footer {
-  margin: 19px 0;
+
   text-align: center;
+  border-top: black 1px solid;
+margin-top: 10px;
+
   // font-family: "Mulish";
   .Logo{
     :nth-child(3) {
@@ -81,10 +84,15 @@
 
 @media screen and (min-width: 992px) {
   .footer {
-    display: flex;
-    justify-content: space-between;
+    &__container{
+        margin: 0 auto;
+        max-width: 1260px;
+      display: flex;
+      justify-content: space-between;
+    }
 
-    margin: 35px 0;
+
+
   }
 
   .footerContact {

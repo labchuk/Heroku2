@@ -1,22 +1,43 @@
 import React from 'react';
 import {FormControl, Select, InputLabel, MenuItem } from "@material-ui/core";
 import "./Select.scss"
+import {addChip, removeChip} from "../../../../store/chipReducer";
+import {useAppDispatch,useAppSelector} from '../../../../store/Redux-toolkit-hook'
 
 
 
 const MySelect = ({clName,data,name}:{clName:string, data:string[], name:string}) => {
     const [age, setAge] = React.useState("");
-    const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setAge(event.target.value as string);
-  };
+    const dispatch = useAppDispatch()
+    const chipData = useAppSelector(state => state.chips.ChipsArray)
+
+    const handleChange = (event: React.ChangeEvent<{ value: any }>,index:any) => {
+        const numberChip = event.target.value
+        const indexChip = index.key.slice(2)
+        const newChip = {id: name+indexChip,label: numberChip}
+        dispatch(addChip(newChip))
+        if (numberChip){
+            const indexRemove = data.indexOf(age)
+            dispatch(removeChip(name+indexRemove))
+        }
+        setAge(event.target.value);
+    };
+    const filterChips = () => {
+        for (const i in chipData) {
+            if (chipData[i].id.slice(0,4) === name.slice(0,4)){
+                return chipData[i].label
+            }
+        }
+        return ''
+    }
     return (
         <FormControl className={clName}>
             <InputLabel id="select">
                 {name} {data.length}
             </InputLabel>
-            <Select labelId="select" value={age} onChange={handleChange}>
-                {data.map((item) => (
-                    <MenuItem value={item} key={item}>
+            <Select labelId="select" value={filterChips()} onChange={handleChange}>
+                {data.map((item,index) => (
+                    <MenuItem value={item} key={index}>
                         {item}
                     </MenuItem>
                 ))}

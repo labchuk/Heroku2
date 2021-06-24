@@ -4,11 +4,14 @@ import React from "react";
 import { Menu } from '@material-ui/core';
 import { MenuItem } from '@material-ui/core';
 import "./AdminBtn.scss"
+import AdminPanelCard from "../AdminPanelCard/AdminPanelCard";
+import AdminPanelVendor from "../AdminPanelVendor/AdminPanelVendor";
+import DelateVendorMenu from "../DelateVendorMenu/DelateVendorMenu";
 
 
 const useStyles = makeStyles((theme) => ({
     btn: {
-        color: "#1877F2"
+        color: "#1877F2",
     },
     item: {
         border: "#1877F2 solid 1px",
@@ -16,15 +19,23 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "10px",
         justifyContent: "center",
         color: "#1877F2",
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        "&:nth-child(1)": {
+            marginTop: "0"
+        },
+        '&:hover': {
+            background: '#F1F5F8',
+        }
     },
     menu: {
-        boxShadow: "none",
-        marginTop: "35px",
-        background: "transparent",
         display: "flex",
-
-    }
+        borderRadius: "40px",
+        justifyContent: 'flex-end',
+        marginTop: "25px",
+        '& > *': {
+            background: "transparent"
+        },
+    },
 }));
 
 
@@ -56,7 +67,16 @@ export default function AdminBtn(){
                 <AddCircleOutlineIcon fontSize="large"/>
             </IconButton>
             <div className={"admin-menu"}>
+
             <Menu
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: 'left',
+                }}
                 elevation={0}
             className={classes.menu}
             id="admin-menu"
@@ -66,17 +86,14 @@ export default function AdminBtn(){
             onClose={handleClose}
             MenuListProps={{
                 disablePadding: true,
-                }}
-            >
-
-                <MenuItem className={classes.item}>vendors</MenuItem>
-                <MenuItem className={classes.item}>add a promotion</MenuItem>
-                <MenuItem className={classes.item}>add a vendor</MenuItem>
-
+                }}>
+                <div>
+                <MenuItem className={classes.item}><AdminPanelCard /></MenuItem>
+                <MenuItem className={classes.item}><AdminPanelVendor /></MenuItem>
+                <MenuItem className={classes.item}><DelateVendorMenu /></MenuItem>
+                </div>
             </Menu>
-
             </div>
-
         </div>
         </Hidden>
     )

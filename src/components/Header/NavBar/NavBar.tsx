@@ -6,13 +6,19 @@ import MenuItem from '@material-ui/core/MenuItem';
 import {NavLink} from "react-router-dom";
 import {Hidden, makeStyles} from "@material-ui/core";
 import Gravatar from "react-gravatar";
+import DelateVendorMenu from '../../admin/DelateVendorMenu/DelateVendorMenu';
+import AdminPanelCard from '../../admin/AdminPanelCard/AdminPanelCard';
+import AdminPanelVendor from '../../admin/AdminPanelVendor/AdminPanelVendor';
+import {useAppSelector} from "../../../store/Redux-toolkit-hook";
+import {LogoutButton} from "../../index";
 
 const useStyles = makeStyles((theme) => ({
     link: {
         backgroundColor: "#F7F9FB",
         color: "#1877F2",
         width: "100%",
-        justifyContent: "flex-end",
+        display: "flex",
+        justifyContent: "center",
         borderBottom: "1px solid #9e9e9e",
 
     },
@@ -23,18 +29,19 @@ const useStyles = makeStyles((theme) => ({
     },
 
     menu: {
-        marginTop: "67px",
+        marginTop: "70px",
         display: "flex",
         width: "calc(100% + 30px)",
-        marginLeft: "-15px",
+        marginLeft: "10px",
         [theme.breakpoints.down('xs')]: {
             marginTop: "55px",
+            marginLeft: "-15px",
         }
     },
 }));
 
 
-export default function NavBar() {
+const NavBar = () => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -48,6 +55,8 @@ export default function NavBar() {
 
 
     let admin = true;
+    const userName = useAppSelector(state => state.user.userName);
+    console.log(userName)
 
 
     return <>
@@ -86,27 +95,30 @@ export default function NavBar() {
 
             >
 
-                <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}>Username</p></MenuItem>
+                <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}>{userName}</p></MenuItem>
                 <Hidden mdUp>
                     <MenuItem onClick={handleClose} className={classes.link}><NavLink to={"/main-page"}
                                                                                       className={"link"}>Home</NavLink></MenuItem>
                     <MenuItem onClick={handleClose} className={classes.link}><NavLink to={"/history"}
                                                                                       className={"link"}>History</NavLink></MenuItem>
+                    <MenuItem onClick={handleClose} className={classes.link}><NavLink to={"/statistic"}
+                                                                                      className={"link"}>Statistic</NavLink></MenuItem>
                 </Hidden>
                 {admin &&
                 <Hidden smUp>
-                    <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}>vendors</p>
+                    <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}><DelateVendorMenu /></p>
                     </MenuItem>
-                    <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}>add a promotion</p>
+                    <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}><AdminPanelCard /></p>
                     </MenuItem>
-                    <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}>add a vendor</p>
+                    <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}><AdminPanelVendor /></p>
                     </MenuItem>
                 </Hidden>
                 }
-                <MenuItem onClick={handleClose} className={classes.logout}><NavLink to={"/login"}
-                                                                                    className={"link logout"}>Logout</NavLink></MenuItem>
-
+                <MenuItem onClick={handleClose} className={classes.logout}>
+                    <NavLink to={"/login"} className={"link logout"}><LogoutButton/></NavLink>
+                </MenuItem>
             </Menu>
         </div>
     </>
 }
+export default NavBar;

@@ -1,0 +1,272 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+
+.ExtendedCard > h3 {
+  font-family: 'Poppins', sans-serif;
+}
+.ExtendedCard {
+  font-family: 'Poppins', sans-serif;
+  position:relative;
+  margin: 0 auto;
+  max-width: 900px;
+  /* border: 1px solid black;*/
+  box-sizing: border-box;
+  -webkit-box-shadow: 1px 1px 8px 0 rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 1px 1px 8px 0 rgba(34, 60, 80, 0.2);
+  box-shadow: 1px 1px 8px 0 rgba(34, 60, 80, 0.2);
+  padding: 40px 40px 20px 40px;
+  margin-bottom: 30px;
+  display: none;
+  background: #FFFFFF;
+
+  @media (max-width: 680px) {
+    /*padding: 10px;*/
+  }
+
+  @media (max-width: 330px) {
+    padding: 5px;
+    h3, span, p {
+      padding:5px;
+    }
+  }
+
+  .MuiButton-outlined {
+    background-color: white;
+  }
+
+  .MuiButton-outlinedSecondary {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    @media (max-width: 548px) {
+      top: 0;
+
+
+    }
+  }
+
+  &__Header {
+    width: 100%;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    /*flex-direction: row;*/
+    border-bottom: 1px solid grey;
+
+  }
+
+  &__Image {
+    max-width: 300px;
+    border-radius: 5px;
+
+  }
+
+  &__Logo {
+    display: flex;
+    flex: 30%;
+    justify-content: center;
+    align-items: center;
+    @media (max-width: 620px) {
+      flex: 100%;
+    }
+
+  }
+
+  &__Info {
+    display: flex;
+    flex-direction: column;
+    flex: 30%;
+    /*padding-left: 10px;*/
+    @media (max-width: 380px) {
+
+    }
+
+    @media (max-width: 1025px) {
+      flex: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .brandTitle {
+      padding-bottom: 10px;
+      margin-top: 40px;
+    }
+
+    .valid {
+      padding-bottom: 20px;
+      &__INfo {
+        color: #1877F2;
+        font-size: 1rem;
+        @media (max-width: 380px) {
+          display: block;
+        }
+      }
+      &__Date {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.2rem;
+        font-weight: 600;
+        padding-left: 10px;
+      }
+    }
+
+
+
+    .shortDescription p {
+      line-height: 1.4rem;
+      text-align: justify;
+      max-width: 300px;
+    }
+
+     .brandName {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    .discount {
+      color: red;
+      font-family: Poppins, sans-serif;
+      font-size: 1.5rem;
+      padding-left: 15px;
+    }
+  }
+  &__Rating {
+    padding-top: 10px;
+
+
+  }
+
+  .rating {
+    border-bottom: none;
+    padding-bottom: 0;
+    padding-top: 10px;
+    @media (max-width: 620px) {
+      justify-content: center;
+    }
+  }
+  .rating span {
+    display: none;
+
+  }
+
+  .MuiSvgIcon-colorPrimary {
+    color: #1877F2;
+    margin-bottom: -4px;}
+
+  .MuiButton-containedPrimary {
+    background-color: #1877F2;
+  }
+
+  .number {
+
+    padding-top: 6px;
+    padding-left: 10px;
+  }
+
+  &__actions {
+    padding-top: 10px;
+
+
+    .submit {
+      height: 40px;
+      background: linear-gradient(to right, #1877F2, #1815BE);
+      color: white;
+      font-size: 15px;
+      transition: background 0.3s linear;
+      margin: 30px 0;
+    }
+
+    .btn--extCard {
+      font-family: Poppins, sans-serif;
+      min-width: 300px;
+      margin-bottom: 20px;
+    }
+
+    .submit:hover {
+      background: linear-gradient(to right, #194ddb, #0d0b69);
+      text-decoration: underline;
+    }
+  }
+
+  .couponsLeft {
+    padding-left: 20px;
+    text-decoration: underline;
+  }
+  &__Description {
+    border-bottom: 1px solid grey;
+    h3 {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-weight: 400;
+      font-size: 2rem;
+      color: #1877F2;
+    }
+
+    p {
+      line-height: 1.4rem;
+      text-align: justify;
+      padding-bottom: 10px;
+    }
+
+  }
+
+  &__Location {
+    border-bottom: 1px solid grey;
+    margin-top: 15px;
+    h3 {
+      margin-top: 10px;
+      margin-bottom: 0;
+      font-weight: 400;
+      font-size: 2rem;
+      color: #1877F2;
+      padding-bottom: 15px;
+    }
+    .map-responsive{
+      overflow:hidden;
+      padding-bottom:350px;
+      position:relative;
+      height:0;
+    }
+    .map-responsive iframe{
+      left:0;
+      top:0;
+      height:320px;
+      width:100%;
+      position:absolute;
+      border: none;
+    }
+  }
+
+  &__Footer {
+    h3 {
+      margin-bottom: 0;
+      margin-top: 15px;
+      font-weight: 400;
+      font-size: 2rem;
+      color: #1877F2;
+    }
+    p {
+      padding-top: 15px;
+      line-height: 1.4rem;
+      text-align: justify;
+    }
+  }
+
+  .shortDescription {
+    font-family: 'Poppins', sans-serif;
+    @media (max-width: 620px) {
+
+      text-align: center;
+    }
+  }
+}
+
+
+
+.close {
+  display: none;
+}
+
+
+

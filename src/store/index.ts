@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userSlise from "./userSlise";
+import chipReducer from "./chipReducer";
 import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import {PersistGate} from "redux-persist/integration/react";
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
-
 
 export const MyPersistGate: any = PersistGate;
 
@@ -17,6 +17,7 @@ const persistConfig = {
 
 const reducers = combineReducers({
   user: userSlise,
+  chips: chipReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

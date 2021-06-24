@@ -6,9 +6,13 @@ import {
     CardList,
     SearchBar,
     DelateVendorMenu,
+    LogoutButton
 } from "../../index";
+import Layout from "../../common/Layout/Layout";
+import { useAuth0 } from '@auth0/auth0-react';
 import "./MainPage.scss";
 import { useAppSelector} from "../../../store/Redux-toolkit-hook";
+import ChipsArray from "../../common/ChipsArray/ChipsArray";
 
 const MainPage = () => {
     const isAdmin = useAppSelector(state => state.user.admine);
@@ -20,18 +24,19 @@ const MainPage = () => {
     
     return (
         <div className={"homepage"}>
-            
-            <SearchBar />
-             {isAdmin && (
+
+
+             {/*{isAdmin && (
                 <div>
                     <AdminPanelCard />
                     <AdminPanelVendor />
                     <DelateVendorMenu/>
                 </div>
-            )}
+            )}*/}
 
-            <CardList />
-             
+            <Layout />
+
+
         </div>
     );
 };

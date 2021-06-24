@@ -1,12 +1,18 @@
 .header{
-  padding: 5px 10px 0 10px;
   background: #fff;
-  display: flex;
   height: 70px;
-  vertical-align: center;
-  justify-content: space-between;
+  box-shadow: 0 5px 5px -5px ;
+  flex: 1 1 auto;
+  &__container{
+    padding: 5px 10px 0 10px;
+    display: flex;
+    justify-content: space-between;
+    max-width: 1260px;
+    margin: 0 auto;
+
+  }
   @media (min-width: 600px) {
-    height: 110px;
+    height: 100px;
   }
   .Logo{
     :nth-child(3) {

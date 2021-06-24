@@ -1,30 +1,30 @@
 import { ListItem } from '@material-ui/core';
 import { Drawer, List } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
-import { Button } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
-import React from 'react';
+import React, { useRef } from 'react';
 import DropZone from '../../common/DropZone/DropZone';
 import ContainerDataPiker from '../../common/SearchBar/ContainerDatePiker/ContainerDatePiker';
+import SelectMultiple from '../../common/SearchBar/SelectMultiple/SelectMultiple';
+import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import "./AdminPanelCard.scss";
 
 const AdminPanelCard = () => {
   const [state, setState] = React.useState(false);
-  const [tagsValue, setTagsValue] = React.useState('');
   const [countryValue, setCountryValue] = React.useState('');
   const [cityValue, setCityValue] = React.useState('');
+  const [disableInput, setDisableInput] = React.useState(false);
+  const [uploadFileName, setUploadFileName] = React.useState('');
+  const parentRef = useRef<any>();
+  const tags = ["sport","food","clothes", "games"];
 
   const toggleDrawer = (open: any) => (event: any) => {
     setState(open);
-  }
-
-  const handleChangeTags = (event: any) => {
-    setTagsValue(event.target.value)
   }
 
   const handleChangeCountry = (event: any) => {
@@ -33,6 +33,10 @@ const AdminPanelCard = () => {
 
   const handleChangeCity = (event: any) => {
     setCityValue(event.target.value)
+  }
+
+  let changeDisable = () => {
+    setDisableInput(!disableInput)
   }
 
   const useStyles = makeStyles({
@@ -53,7 +57,7 @@ const AdminPanelCard = () => {
       textAlign: 'right'
     },
     checkbox__wrapper: {
-      marginBottom: 15,
+      marginBottom: 30,
       position: 'relative',
     },
     checkbox: {
@@ -94,7 +98,55 @@ const AdminPanelCard = () => {
       '&:hover': {
         background: 'linear-gradient(to right, #194ddb, #0d0b69)',
       }
-  }
+    },
+    tags: {
+      marginBottom: 12
+    },
+    uploadPhotoMobile: {
+      display: 'none',
+    },
+    fileName: {
+      width: 135,
+      height: 38,
+      opacity: 0,
+      overflow: 'hidden',
+      position: 'absolute',
+    },
+    uploadFile__btn: {
+      background: 'transparent',
+      color: '#1877F2',
+      padding: '10px 20px',
+      border: '2px solid #1877F2'
+    },
+    uploadedFileName: {
+      fontSize: 14,
+      marginTop: '-14px',
+      marginBottom: 20
+    },
+    '@media(max-width:700px)': {
+      wrapper: {
+        width: '320px'
+      },
+      dropzone: {
+        display: 'none'
+      },
+      uploadPhotoMobile: {
+        display: 'flex',
+        marginBottom: 20,
+        fontSize: 15,
+        'span': {
+        position: 'relative'
+        }
+      }
+    },
+    adminModalButton: {
+      fontSize: 16,
+      color: '#1877F2',
+      background: 'transparent',
+      '&:hover': {
+        background: 'none'
+      }
+    }
   })
 
   const styles = useStyles();
@@ -104,59 +156,59 @@ const AdminPanelCard = () => {
       <ListItem>
         <Grid container direction='column'>
           <span className={styles.wrapper__title} onClick={toggleDrawer(false)}>
-            <img src="/src/images/icons/back-arrow.svg" alt=""/>
+          <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 11 }} />
             Back
           </span>
-          <TextField className={styles.marginBottom} id="outlined-basic" label="title" variant="outlined" />
-          <FormControl variant="outlined">
-            <InputLabel>tags</InputLabel>
-            <Select value={tagsValue}
-                    onChange={handleChangeTags}
-                    className={styles.marginBottom}>
-              <MenuItem value={'sport'}>sport</MenuItem>
-              <MenuItem value={'clothes'}> clothes</MenuItem>
-              <MenuItem value={'food'}>food</MenuItem>
-              <MenuItem value={'activity'}>activity</MenuItem>
-              <MenuItem value={'video games'}>video games</MenuItem>
-            </Select>
-          </FormControl>
-          <TextField className={styles.marginBottom} id="outlined-basic" label="vendor name" variant="outlined" />
-          <FormControl variant="outlined">
-            <InputLabel>country</InputLabel>
-            <Select value={countryValue}
-                    onChange={handleChangeCountry}
-                    className={styles.marginBottom}>
-              <MenuItem value={'Ukraine'}>Ukraine</MenuItem>
-              <MenuItem value={'Belarus'}>Belarus</MenuItem>
-              <MenuItem value={'USA'}>USA</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl variant="outlined">
-            <InputLabel>city</InputLabel>
-            <Select 
-                    value={cityValue}
-                    onChange={handleChangeCity}
-                    className={styles.marginBottom}>
-              <MenuItem value={'Lviv'}>Lviv</MenuItem>
-              <MenuItem value={'Kyiv'}>Kyiv</MenuItem>
-              <MenuItem value={'Kharkiv'}>Kharkiv</MenuItem>
-            </Select>
-          </FormControl>
-          <TextField className={styles.marginBottom} id="outlined-basic" label="address" variant="outlined" />
+          <TextField className={styles.marginBottom} id="outlined-basic" label="Title" />
+          <SelectMultiple data={tags} clName={styles.tags} name={"Tags"} width={500} />
+          <TextField className={styles.marginBottom} id="outlined-basic" label="Vendor Name" />
+          {disableInput ? '' : (
+            <>
+              <FormControl>
+                <InputLabel>Country</InputLabel>
+                <Select value={countryValue}
+                        onChange={handleChangeCountry}
+                        className={styles.marginBottom}>
+                  <MenuItem value={'Ukraine'}>Ukraine</MenuItem>
+                  <MenuItem value={'Belarus'}>Belarus</MenuItem>
+                  <MenuItem value={'USA'}>USA</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl>
+                <InputLabel>City</InputLabel>
+                <Select value={cityValue}
+                        onChange={handleChangeCity}
+                        className={styles.marginBottom}>
+                  <MenuItem value={'Lviv'}>Lviv</MenuItem>
+                  <MenuItem value={'Kyiv'}>Kyiv</MenuItem>
+                  <MenuItem value={'Kharkiv'}>Kharkiv</MenuItem>
+                </Select>
+              </FormControl>
+              <TextField className={styles.marginBottom} id="outlined-basic" label="Address" />
+            </>
+          )}
           <div className={styles.checkbox__wrapper}>
-            <input type="checkbox"  className={styles.checkbox}/>
-            <label className={styles.checkbox__label}>Online</label>
+            <input type="checkbox" className={styles.checkbox} onClick={changeDisable}/>
+            <label className={styles.checkbox__label} >Online</label>
           </div>
           <div className={styles.marginBottom}>
             <ContainerDataPiker/>
           </div>
-          <TextField className={styles.marginBottom} id="outlined-basic" label="price" variant="outlined" />
-          <TextField className={styles.marginBottom} id="outlined-basic" label="discount %" variant="outlined" />
-          <TextField className={styles.marginBottom} id="outlined-basic" type="number" InputProps={{ inputProps: { min: 0 } }} label="number of discounts" variant="outlined" />
-          <TextField className={styles.marginBottom} multiline  rows={5} id="outlined-basic" label="description" variant="outlined" />
+          <TextField className={styles.marginBottom} label="Discount %" />
+          <TextField className={styles.marginBottom} multiline  rows={5} id="outlined-basic" label="Description" variant="outlined"  />
           <div className={styles.dropzone}>
             <DropZone wrapperHeight={100} />
           </div>
+          <div className={styles.uploadPhotoMobile}>
+            <input type="file"
+                  ref={parentRef}
+                  className={styles.fileName}
+                  id='fileName'
+                  accept=".png, .jpg, .jpeg"
+                  onChange={(e)=>{setUploadFileName(parentRef.current.files[0].name)}}/>
+            <button className={styles.uploadFile__btn}>Upload photo</button>
+          </div>
+          <span className={styles.uploadedFileName}>{uploadFileName}</span>
           <button className={styles.submitButton} onClick={toggleDrawer(false)}>Submit</button>
         </Grid>
       </ListItem>
@@ -164,7 +216,7 @@ const AdminPanelCard = () => {
   )
     return (
         <div>
-          <Button onClick={toggleDrawer(true)}>Add a promotion</Button>
+          <button onClick={toggleDrawer(true)} className={styles.adminModalButton}>Add a promotion</button>
           <Drawer anchor={'right'}
                   open={state}
                   onClose={toggleDrawer(false)}>
