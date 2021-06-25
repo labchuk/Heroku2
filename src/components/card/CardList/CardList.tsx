@@ -10,8 +10,6 @@ import Sort from "../../common/Sort/Sort";
 import ChipsArray from "../../common/ChipsArray/ChipsArray";
 import { useAppSelector } from "../../../store/Redux-toolkit-hook";
 
-
-
 const useStyles = makeStyles((theme) =>
     createStyles({
         root: {
@@ -23,9 +21,6 @@ const useStyles = makeStyles((theme) =>
         },
     }),
 );
-
-
-
 
 const CardList: React.FC = (props) => {
 
@@ -66,10 +61,8 @@ const CardList: React.FC = (props) => {
         return data.slice(from, to)
     }
     const handleClick = (e: any, index: number) => {
-
         const cName: any = e.target.className;
         const tName: any = e.target.tagName;
-
 
         if ((cName === '') || (cName === 'card-more') || (cName === 'card-drop') || (tName === 'circle') || (tName === 'path')) {
             return null
@@ -86,16 +79,12 @@ const CardList: React.FC = (props) => {
                 } else {
                     setCard(index + (page - 1) * NUMBER_CARD)
                 }
-
-
             }
         }
-
     };
     const isAdmin = useAppSelector(state => state.user.admine);
 
     return (
-
         <div className="card-list">
             <ExtendedCard discount={data[card]} />
             <div className={"sort-admin"}>
@@ -109,8 +98,8 @@ const CardList: React.FC = (props) => {
             <Grid container spacing={3} justify="center">
                 {
                     paginateCard().map((item, index) => {
-                        return (<Grid key={index} item onClick={(event) => handleClick(event, index)}>
-                            <SaleCard discount={item} cards={data} updateData={(item: any) => setData(item)} />
+                        return (<Grid key={index} item>
+                            <SaleCard discount={item} cards={data} updateData={(item: any) => setData(item)} handleClick={(event: any) => handleClick(event, index)} />
                         </Grid>)
                     })
                 }

@@ -16,15 +16,16 @@ interface SaleCardProps {
         sizeDiscount: string,
         date: string
     }[],
-    updateData: (data: any) => void
+    updateData: (data: any) => void,
+    handleClick: (e: any) => void
 
 }
 
-const SaleCard: React.FC<SaleCardProps> = ({ discount, cards, updateData }) => {
+const SaleCard: React.FC<SaleCardProps> = ({ discount, cards, updateData, handleClick }) => {
     return (
         <div className="sale-card">
-            <VendorLogo />
-            <Discount discount={discount} />
+            <VendorLogo handleClick={handleClick} />
+            <Discount discount={discount} handleClick={handleClick} />
             <Like discount={discount} cards={cards} updateData={updateData} />
         </div>
     );
