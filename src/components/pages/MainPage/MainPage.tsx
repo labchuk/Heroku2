@@ -16,11 +16,13 @@ import { useAppSelector} from "../../../store/Redux-toolkit-hook";
 
 const MainPage = () => {
     const isAdmin = useAppSelector(state => state.user.admine);
+
     const userId = useAppSelector(state => state.user.userId);
     const userDatails = getUserDetails(userId);
     const a = check();
     console.log(a)
     console.log(userDatails)
+
     
     return (
         <div className={"homepage"}>

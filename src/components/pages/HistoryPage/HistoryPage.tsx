@@ -6,7 +6,7 @@ const HistoryPage = () => {
     return (
         <div className="history">
            
-            <SearchBar/>
+            {/*<SearchBar/>*/}
             <CardList/>
            
         </div>

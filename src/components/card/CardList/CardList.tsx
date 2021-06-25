@@ -10,8 +10,6 @@ import Sort from "../../common/Sort/Sort";
 import ChipsArray from "../../common/ChipsArray/ChipsArray";
 import { useAppSelector } from "../../../store/Redux-toolkit-hook";
 
-
-
 const useStyles = makeStyles((theme) =>
     createStyles({
         root: {
@@ -24,34 +22,32 @@ const useStyles = makeStyles((theme) =>
     }),
 );
 
-
-
-
 const CardList: React.FC = (props) => {
 
     const NUMBER_CARD = 8
 
     const [data, setData] = useState([
-        { nameDiscount: 'Macdonald', sizeDiscount: "34%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
-        { nameDiscount: 'Adidas Original', sizeDiscount: "25%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
-        { nameDiscount: 'Nike', sizeDiscount: "50%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
-        { nameDiscount: 'Puma', sizeDiscount: "70%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
-        { nameDiscount: 'Mega Sport', sizeDiscount: "10%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
-        { nameDiscount: 'Sport Master', sizeDiscount: "60%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
-        { nameDiscount: 'StarWood', sizeDiscount: "50%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
-        { nameDiscount: 'Pizza', sizeDiscount: "40%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
-        { nameDiscount: 'Smart', sizeDiscount: "10%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
-        { nameDiscount: 'Eldorado', sizeDiscount: "20%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
-        { nameDiscount: 'Samsung', sizeDiscount: "45%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
-        { nameDiscount: 'Pizza', sizeDiscount: "40%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
-        { nameDiscount: 'Smart', sizeDiscount: "10%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
-        { nameDiscount: 'Eldorado', sizeDiscount: "20%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
-        { nameDiscount: 'Samsung', sizeDiscount: "45%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
-        { nameDiscount: 'Pizza', sizeDiscount: "40%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
-        { nameDiscount: 'Smart', sizeDiscount: "10%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
-        { nameDiscount: 'Eldorado', sizeDiscount: "20%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
-        { nameDiscount: 'Samsung', sizeDiscount: "45%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
-        { nameDiscount: 'Pizza', sizeDiscount: "40%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
+        { id: 1, nameDiscount: 'Macdonald', sizeDiscount: "34%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
+        { id: 2, nameDiscount: 'Adidas Original', sizeDiscount: "25%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
+        { id: 3, nameDiscount: 'Nike', sizeDiscount: "50%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
+        { id: 4, nameDiscount: 'Puma', sizeDiscount: "70%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
+        { id: 5, nameDiscount: 'Mega Sport', sizeDiscount: "10%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
+        { id: 6, nameDiscount: 'Sport Master', sizeDiscount: "60%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
+        { id: 7, nameDiscount: 'StarWood', sizeDiscount: "50%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
+        { id: 8, nameDiscount: 'Pizza', sizeDiscount: "40%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
+        { id: 9, nameDiscount: 'Smart', sizeDiscount: "10%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
+        { id: 10, nameDiscount: 'Eldorado', sizeDiscount: "20%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
+        { id: 11, nameDiscount: 'Samsung', sizeDiscount: "45%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
+        { id: 12, nameDiscount: 'Pizza', sizeDiscount: "40%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
+        { id: 13, nameDiscount: 'Smart', sizeDiscount: "10%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
+        { id: 14, nameDiscount: 'Eldorado', sizeDiscount: "20%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
+        { id: 15, nameDiscount: 'Samsung', sizeDiscount: "45%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
+        { id: 16, nameDiscount: 'Pizza', sizeDiscount: "40%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
+        { id: 17, nameDiscount: 'Smart', sizeDiscount: "10%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
+        { id: 18, nameDiscount: 'Eldorado', sizeDiscount: "20%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
+        { id: 19, nameDiscount: 'Samsung', sizeDiscount: "45%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
+        { id: 20, nameDiscount: 'Pizza', sizeDiscount: "40%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
+
     ])
     const classes = useStyles();
     const [page, setPage] = React.useState(1);
@@ -66,10 +62,8 @@ const CardList: React.FC = (props) => {
         return data.slice(from, to)
     }
     const handleClick = (e: any, index: number) => {
-        console.log(e.target.className);
         const cName: any = e.target.className;
         const tName: any = e.target.tagName;
-        console.log('tName', tName);
 
         if ((cName === '') || (cName === 'card-more') || (cName === 'card-drop') || (tName === 'circle') || (tName === 'path')) {
             return null
@@ -77,7 +71,7 @@ const CardList: React.FC = (props) => {
             const myElement: HTMLElement | null =
                 document.querySelector(".ExtendedCard");
             if (myElement === null) {
-                console.log("no element");
+
             } else {
                 myElement.style.display = "block";
                 document.getElementById("excard")!.scrollIntoView({ behavior: 'smooth' });
@@ -86,32 +80,30 @@ const CardList: React.FC = (props) => {
                 } else {
                     setCard(index + (page - 1) * NUMBER_CARD)
                 }
-
-                console.log('index', index)
-                console.log('page', page);
             }
         }
-
     };
     const isAdmin = useAppSelector(state => state.user.admine);
-    console.log(isAdmin)
+
     return (
         <div className="card-list">
-            {/*<ExtendedCard discount={data[card]}/>*/}
-            <div className={"chips"}>
-                <ChipsArray />
-            </div>
+            <ExtendedCard discount={data[card]} />
             <div className={"sort-admin"}>
                 <Sort />
                 {isAdmin &&
                     <AdminBtn />}
             </div>
-
+            <div className={"chips"}>
+                <ChipsArray />
+            </div>
             <Grid container spacing={3} justify="center">
                 {
                     paginateCard().map((item, index) => {
-                        return (<Grid key={index} item onClick={(event) => handleClick(event, index)}>
-                            <SaleCard discount={item} />
+                        return (<Grid key={index} item>
+                            <SaleCard discount={item} 
+                                      cards={data} 
+                                      updateData={(item: any) => setData(item)} 
+                                      handleClick={(event: any) => handleClick(event, index)} />
                         </Grid>)
                     })
                 }

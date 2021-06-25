@@ -1,22 +1,32 @@
-import React, {useState} from 'react';
-import { DateValid, Discount, Like, VendorLogo } from '../../index';
+import { Discount, Like, VendorLogo } from '../../index';
 import './SaleCard.scss'
 
 interface SaleCardProps {
     discount: {
+        id: number,
         place: string,
         nameDiscount: string,
         sizeDiscount: string,
         date: string
-    }
+    },
+    cards: {
+        id: number,
+        place: string,
+        nameDiscount: string,
+        sizeDiscount: string,
+        date: string
+    }[],
+    updateData: (data: any) => void,
+    handleClick: (e: any) => void
+
 }
 
-const SaleCard: React.FC<SaleCardProps> = ({discount}) => {
+const SaleCard: React.FC<SaleCardProps> = ({ discount, cards, updateData, handleClick }) => {
     return (
         <div className="sale-card">
-           <VendorLogo/>
-           <Discount discount={discount}/>
-           <Like discount={discount}/>
+            <VendorLogo handleClick={handleClick} />
+            <Discount discount={discount} handleClick={handleClick} />
+            <Like discount={discount} cards={cards} updateData={updateData} />
         </div>
     );
 };

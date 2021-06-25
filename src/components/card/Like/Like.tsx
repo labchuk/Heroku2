@@ -2,18 +2,30 @@ import React, { Fragment, useState, FC } from 'react';
 import './Like.scss'
 import { VKShareButton, TelegramShareButton, FacebookShareButton } from 'react-share'
 import { VKIcon, FacebookIcon, TelegramIcon } from "react-share";
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AdminEditCardPanel from '../../admin/AdminEditCardPanel/AdminEditCardPanel';
+
 
 interface LikeProps {
     discount?: {
+        id: number,
         place: string,
         nameDiscount: string,
         sizeDiscount: string,
         date: string
-    }
+    },
+    cards: {
+        id: number,
+        place: string,
+        nameDiscount: string,
+        sizeDiscount: string,
+        date: string
+    }[],
+    updateData: (data: any) => void,
 }
 
-const Like: FC<LikeProps> = ({ discount }) => {
+
+const Like: FC<LikeProps> = (props) => {
     const [state, setState] = useState({
         firstModal: false,
         secondModal: false
@@ -34,6 +46,11 @@ const Like: FC<LikeProps> = ({ discount }) => {
                 secondModal: !state.secondModal
             }
         })
+    };
+
+    const deleteCard = (currentCard: any) => {
+        const filteredArr = props.cards.filter((item: any) => item.id !== currentCard.id);
+        props.updateData(filteredArr)
     }
     return (
         <Fragment>
@@ -44,8 +61,8 @@ const Like: FC<LikeProps> = ({ discount }) => {
                 <button className="card-buttons__item" onClick={cardMoreSocial}>
                     <img src="image/icons/Share.svg" alt="" />
                 </button>
-                <button className="card-buttons__item" >
-                    <AdminEditCardPanel currentCard={discount} />
+                <button className="card-buttons__item" onClick={() => deleteCard(props.discount)}>
+                    <DeleteOutlineIcon style={{ color: '#d32f2f', fontSize: 30 }} />
                 </button>
                 <button className="card-buttons__info" onClick={cardMore}>
                     <img src="image/icons/Info.svg" alt="" />
