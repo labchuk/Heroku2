@@ -3,6 +3,8 @@ import './Like.scss'
 import { VKShareButton, TelegramShareButton, FacebookShareButton } from 'react-share'
 import { VKIcon, FacebookIcon, TelegramIcon } from "react-share";
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import AdminEditCardPanel from '../../admin/AdminEditCardPanel/AdminEditCardPanel';
+
 
 interface LikeProps {
     discount?: {
@@ -21,6 +23,7 @@ interface LikeProps {
     }[],
     updateData: (data: any) => void,
 }
+
 
 const Like: FC<LikeProps> = (props) => {
     const [state, setState] = useState({

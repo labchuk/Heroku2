@@ -47,6 +47,7 @@ const CardList: React.FC = (props) => {
         { id: 18, nameDiscount: 'Eldorado', sizeDiscount: "20%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
         { id: 19, nameDiscount: 'Samsung', sizeDiscount: "45%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
         { id: 20, nameDiscount: 'Pizza', sizeDiscount: "40%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
+
     ])
     const classes = useStyles();
     const [page, setPage] = React.useState(1);
@@ -99,7 +100,10 @@ const CardList: React.FC = (props) => {
                 {
                     paginateCard().map((item, index) => {
                         return (<Grid key={index} item>
-                            <SaleCard discount={item} cards={data} updateData={(item: any) => setData(item)} handleClick={(event: any) => handleClick(event, index)} />
+                            <SaleCard discount={item} 
+                                      cards={data} 
+                                      updateData={(item: any) => setData(item)} 
+                                      handleClick={(event: any) => handleClick(event, index)} />
                         </Grid>)
                     })
                 }
