@@ -6,7 +6,7 @@ import "./ControloLable.scss"
 
 const ControlLabel = ({lable}:{ lable:string }) => {
     const [state, setState] = useState({
-        checked: true,
+        checked: false,
     });
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
