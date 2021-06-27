@@ -80,8 +80,6 @@ const CardList:React.FC = (props) => {
                 document.querySelector(".main-content");
 
 
-
-
             if (myElement === null) {
                 return null;
             } else {
