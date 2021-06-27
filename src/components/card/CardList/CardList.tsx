@@ -70,8 +70,13 @@ const CardList: React.FC = (props) => {
         } else {
             const myElement: HTMLElement | null =
                 document.querySelector(".ExtendedCard");
-            if (myElement === null) {
 
+            const mainContent: HTMLElement | null =
+                document.querySelector(".main-content");
+
+
+            if (myElement === null) {
+                return null;
             } else {
                 myElement.style.display = "block";
                 document.getElementById("excard")!.scrollIntoView({ behavior: 'smooth' });
@@ -121,6 +126,8 @@ const CardList: React.FC = (props) => {
                 </div>
             </Grid>
 
+
+            </div>
             {/*<div className={classes.root}>*/}
             {/*    <Pagination count={Math.ceil(data.length/4)} variant="outlined" color="primary" page={page} onChange={handleChange} />*/}
             {/*</div>*/}

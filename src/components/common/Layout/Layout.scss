@@ -51,6 +51,7 @@
 .container {padding: 5px;}
 
 .open {display: block;
+  transition: display 1s linear;
   @media (max-width: 758px) {
     z-index: 999;
     position: absolute;

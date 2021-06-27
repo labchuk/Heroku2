@@ -15,7 +15,6 @@ const chipReducer = createSlice({
     initialState: initialUserState,
     reducers: {
         addChip(state, actions: PayloadAction<any>) {
-            console.log(actions.payload)
             state.ChipsArray = [...state.ChipsArray, actions.payload];
         },
         removeChip(state, actions: PayloadAction<any>) {
