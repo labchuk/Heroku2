@@ -1,0 +1,48 @@
+.containerDataPiker{
+  display: flex;
+
+  &__picker {
+    margin-right: 20px;
+
+    .MuiFormControl-marginNormal{
+      margin: 0;
+    }
+    .MuiInputLabel-animated{
+      display: flex;
+      align-items: flex-end;
+    }
+    .MuiInput-formControl{
+      margin: 0;
+
+    }
+    .MuiInputLabel-formControl{
+      bottom: 0;
+      left: -45px;
+      font-size: 20px;
+    }
+  }
+  &__span {
+    font-size: 24px;
+    font-weight: 600;
+    margin: auto 70px auto 0;
+  }
+  &__picker {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100px;
+  }
+
+
+}
+
+
+@media(max-width: 700px) {
+  .containerData
+  .containerData__picker {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 0px;
+
+  }
+}

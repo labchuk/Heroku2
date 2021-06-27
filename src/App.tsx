@@ -29,7 +29,7 @@ const  App = () => {
         <div className={"app-wrapper"}>
             <BrowserRouter>
                 {isAuth && <Header/>}
-                <div className={"app-wrapper-container"}>
+                <div className={"app-wrapper-container"} style={{minHeight: 'calc(100vh - 100px)'}}>
                     <AppRouter/>
                 </div>
                 {isAuth && <Footer/>}

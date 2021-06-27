@@ -5,7 +5,6 @@ import {
     MySelect,
     SelectMultiple,
     ControlLabel,
-    Сategory
 } from "../../index";
 import { Clear } from "@material-ui/icons";
 
@@ -32,13 +31,12 @@ const SearchBar =()=>{
                 <ControlLabel lable={"Favorite"} />
             </div>
             <MySelect data={arr0} name={"location"} clName={"location"} />
-            <SelectMultiple data={arr} clName={"location"} name={"brands"} setArrTag={null}/>
-            <Сategory data={arr2} clName={"location"} name={"category"} />
+            <SelectMultiple data={arr} clName={"location"} name={"brands"} />
+            <SelectMultiple data={arr2} clName={"location"} name={"tags"} />
             <SelectMultiple
                 data={arr3}
                 clName={"location"}
                 name={"discount size"}
-                setArrTag={null}
             />
             <button type="submit" className="submit">
                 Apply
