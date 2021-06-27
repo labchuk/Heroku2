@@ -97,6 +97,8 @@ const CardList:React.FC = (props) => {
 
         <div className="card-list">
             <ExtendedCard discount={data[card]}/>
+            <div className="main-content">
+
 
 
             
@@ -132,6 +134,8 @@ const CardList:React.FC = (props) => {
                 </div>
             </Grid>
 
+
+            </div>
             {/*<div className={classes.root}>*/}
             {/*    <Pagination count={Math.ceil(data.length/4)} variant="outlined" color="primary" page={page} onChange={handleChange} />*/}
             {/*</div>*/}

@@ -18,10 +18,14 @@ const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
     const handleClick = () => {
         const myElement: HTMLElement | null =
             document.querySelector(".ExtendedCard");
+
         if (myElement === null) {
             alert("Fuck");
         } else {
+
             myElement.style.display! = "none";
+
+
         }
     };
 
