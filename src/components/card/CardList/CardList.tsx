@@ -75,10 +75,25 @@ const CardList:React.FC = (props) => {
             return null} else {
             const myElement: HTMLElement | null =
                 document.querySelector(".ExtendedCard");
-            if (myElement === null) {
 
+            const mainContent: HTMLElement | null =
+                document.querySelector(".main-content");
+
+
+
+
+            if (myElement === null) {
+                return null;
             } else {
                 myElement.style.display = "block";
+
+                if (mainContent === null) {
+                    return null;
+                }  else {
+                    mainContent.style.display = "none";
+                }
+
+
                 document.getElementById("excard")!.scrollIntoView({behavior: 'smooth'});
                 if (page === 1) {
                     setCard(index)
