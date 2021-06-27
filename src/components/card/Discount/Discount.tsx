@@ -7,16 +7,17 @@ interface DiscountProps {
         nameDiscount: string,
         sizeDiscount: string,
         date: string
-    }
+    },
+    handleClick: (e: any) => void
 }
 
-const Discount:React.FC<DiscountProps> = ({discount}) => {
-    React.useEffect(()=>{
+const Discount: React.FC<DiscountProps> = ({ discount, handleClick }) => {
+    React.useEffect(() => {
         console.log(discount.sizeDiscount)
-    },[])
+    }, [])
     return (
-        <div className="discount">
-           <h1 className="discount__title">{discount.nameDiscount}</h1>
+        <div className="discount" onClick={handleClick}>
+            <h1 className="discount__title">{discount.nameDiscount}</h1>
             <div className="discount__info">
                 <strong className="discount__size">{discount.sizeDiscount}</strong>
                 off
