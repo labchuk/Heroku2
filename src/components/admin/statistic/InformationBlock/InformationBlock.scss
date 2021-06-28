@@ -1,0 +1,11 @@
+.InfoBlock {
+  background-color: white;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  padding: 5px;
+  box-shadow: 1px 1px 2px 2px #c5d0d6;
+  font-size: 0.9rem;
+  & span {
+    font-size: 1rem;
+  }
+}

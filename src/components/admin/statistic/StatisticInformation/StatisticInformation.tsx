@@ -6,8 +6,15 @@ const StatisticInformation = () => {
     return (
         <div>
             <StatisticFilter/>
-            <InformationBlock/>
-            <GraphInfo/>
+            <div className="Statistic__mainContent">
+                <div className="Statistic__Info">
+                    <InformationBlock/>
+                </div>
+                <div className="Statistic__Graph">
+                    <GraphInfo/>
+                </div>
+
+            </div>
             <AdditionalDate/>
         </div>
     );

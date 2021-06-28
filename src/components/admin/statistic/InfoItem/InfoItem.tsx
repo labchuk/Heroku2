@@ -1,10 +1,18 @@
 import React from 'react';
 import "./InfoItem.scss";
 
-const InfoItem = () => {
+interface InfoItemProps {
+    title: string;
+    value: string;
+}
+
+
+
+const InfoItem = ({title, value}: InfoItemProps) => {
+
     return (
-        <div>
-            InfoItem
+        <div className="InfoItem">
+            <h4>{title}</h4><span>{value}</span>
         </div>
     );
 };
