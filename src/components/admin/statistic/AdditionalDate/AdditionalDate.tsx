@@ -13,13 +13,8 @@ const columns: GridColDef[] = [
     { field: 'userName', headerName: 'User Name', width: 130 },
     { field: 'department', headerName: 'Department', width: 130 },
     { field: 'location', headerName: 'Location', width: 130 },
-    { field: 'link', headerName: 'Link', width: 130 },
-    /*{
-        field: 'age',
-        headerName: 'Age',
-        type: 'number',
-        width: 130,
-    },*/
+    { field: 'link', headerName: 'Link', width: 200 },
+
 
 ];
 
