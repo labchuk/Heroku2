@@ -24,15 +24,13 @@ const columns: GridColDef[] = [
 ];
 
 const rows = [
-    { id: 1, location: 'Kyiv', department: 'HR', userName: 'Jon', age: 35 },
-   /* { id: 2, lastName: 'Lannister', userName: 'Cersei', age: 42 },
-    { id: 3, lastName: 'Lannister', userName: 'Jaime', age: 45 },
-    { id: 4, lastName: 'Stark', userName: 'Arya', age: 16 },
-    { id: 5, lastName: 'Targaryen', userName: 'Daenerys', age: null },
-    { id: 6, lastName: 'Melisandre', userName: 'Voland', age: 150 },
-    { id: 7, lastName: 'Clifford', userName: 'Ferrara', age: 44 },
-    { id: 8, lastName: 'Frances', userName: 'Rossini', age: 36 },
-    { id: 9, lastName: 'Roxie', userName: 'Harvey', age: 65 },*/
+    { id: 1, brandName: 'Faberlic', promoName: 'Chanel #5', category: 'Beauty', date: '12.07.2021', location: 'Kyiv', department: 'HR', userName: 'Jon', link: 'www.faberlic.com' },
+    { id: 2, brandName: 'Addidas', promoName: 'Boll of Hell', category: 'Sport', date: '18.06.2021', location: 'Minsk', department: 'FrontEnd', userName: 'Bill', link: 'www.addidas.com' },
+    { id: 3, brandName: 'Roshen', promoName: 'Cockies for 50', category: 'Food', date: '29.07.2021', location: 'Lviv', department: 'BackEnd', userName: 'Smith', link: 'www.roshen.com' },
+    { id: 4, brandName: 'BMW', promoName: 'Pedals', category: 'Cars', date: '11.07.2021', location: 'Rome', department: 'PM', userName: 'Gretta', link: 'www.bmw.com' },
+    { id: 5, brandName: 'Danone', promoName: 'No way eat our yogurts', category: 'Food', date: '02.07.2021', location: 'Konotop', department: 'QI', userName: 'Paul', link: 'www.dannone.com' },
+    { id: 6, brandName: 'Winchester', promoName: 'Fast bullets ', category: 'Guns', date: '01.07.2021', location: 'London', department: 'FrontEnd', userName: 'Petya', link: 'www.guns.com' },
+
 ];
 
 
