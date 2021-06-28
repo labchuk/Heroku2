@@ -79,6 +79,11 @@ const CardList: React.FC = (props) => {
                 return null;
             } else {
                 myElement.style.display = "block";
+                 if (mainContent === null) {
+                    return null;
+                }  else {
+                    mainContent.style.display = "none";
+                }
                 document.getElementById("excard")!.scrollIntoView({ behavior: 'smooth' });
                 if (page === 1) {
                     setCard(index)
@@ -93,6 +98,7 @@ const CardList: React.FC = (props) => {
     return (
         <div className="card-list">
             <ExtendedCard discount={data[card]} />
+            <div className="main-content">
             <div className={"sort-admin"}>
                 <Sort />
                 {isAdmin &&
