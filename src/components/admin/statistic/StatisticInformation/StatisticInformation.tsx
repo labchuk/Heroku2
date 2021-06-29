@@ -6,11 +6,11 @@ const StatisticInformation = () => {
     return (
         <div>
            {/* <StatisticFilter/>*/}
-            <div className="Statistic__mainContent">
-                <div className="Statistic__Info">
+            <div className="Statistic__main">
+                <div className="Statistic__info">
                     <InformationBlock/>
                 </div>
-                <div className="Statistic__Graph">
+                <div className="Statistic__graph">
                     <GraphInfo/>
                 </div>
 

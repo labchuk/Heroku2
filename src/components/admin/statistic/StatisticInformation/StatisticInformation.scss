@@ -1,9 +1,9 @@
-.Statistic__mainContent {
+.Statistic__main {
   display: flex;
   flex-direction: row;
   }
 
-.Statistic__Info {
+.Statistic__info {
   flex: 30%;
   justify-content: space-between;
   padding-right: 20px;
@@ -11,6 +11,6 @@
 
 }
 
-.Statistic__Graph {
+.Statistic__graph {
   flex: 70%;
 }
