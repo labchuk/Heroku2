@@ -4,11 +4,11 @@ import "./InfoItem.scss";
 interface InfoItemProps {
     title: string;
     value: string;
-    children?: React.ReactChild | React.ReactNode;
+
 }
 
 
-const InfoItem = ({title, value}: InfoItemProps) => {
+const InfoItem: React.FC<InfoItemProps> = ({title, value}) => {
 
     return (
         <div className="InfoItem">

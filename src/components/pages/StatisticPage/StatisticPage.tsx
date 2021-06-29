@@ -5,7 +5,7 @@ import "./StatisticPage.scss";
 const StatisticPage = () => {
     return (
         <div className={"statistic"}>
-            <Filter/>
+          {/*  <Filter/>*/}
            <StatisticInformation/>
            
         </div>

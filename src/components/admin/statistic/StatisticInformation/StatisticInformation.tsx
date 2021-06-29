@@ -5,7 +5,7 @@ import "./StatisticInformation.scss";
 const StatisticInformation = () => {
     return (
         <div>
-            <StatisticFilter/>
+           {/* <StatisticFilter/>*/}
             <div className="Statistic__mainContent">
                 <div className="Statistic__Info">
                     <InformationBlock/>
