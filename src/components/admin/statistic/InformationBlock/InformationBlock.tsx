@@ -2,7 +2,7 @@ import React from 'react';
 import { InfoItem } from "../../../index";
 import "./InformationBlock.scss";
 
-const InformationBlock = () => {
+const InformationBlock:React.FunctionComponent = () => {
     return (
         <div>
             <div className="InfoBlock">

@@ -8,7 +8,7 @@ interface InfoItemProps {
 }
 
 
-const InfoItem: React.FC<InfoItemProps> = ({title, value}) => {
+const InfoItem: React.FunctionComponent<InfoItemProps> = ({title, value}) => {
 
     return (
         <div className="InfoItem">
