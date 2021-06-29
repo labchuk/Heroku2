@@ -31,7 +31,6 @@ const AdminPanelVendor = () => {
         setCityValue(event.target.value)
     }
 
-
     const useStyles = makeStyles({
         root: {
             "& .MuiDrawerPaper-root": {
@@ -51,7 +50,6 @@ const AdminPanelVendor = () => {
             marginBottom: 20,
             bottom: 20,
             cursor: 'pointer',
-            textAlign: 'right'
         },
         marginBottom: {
             marginBottom: 15
@@ -110,6 +108,9 @@ const AdminPanelVendor = () => {
             marginTop: '-14px',
             marginBottom: 20
         },
+        modal_label: {
+            textAlign: 'center'
+        },
         '@media(max-width:700px)': {
             wrapper: {
                 width: '320px'
@@ -124,6 +125,12 @@ const AdminPanelVendor = () => {
                 'span': {
                     position: 'relative'
                 }
+            },
+            modal_label: {
+                fontSize: 18,
+            },
+            wrapper__title: {
+                fontSize: 20
             }
         }
     })
@@ -134,44 +141,45 @@ const AdminPanelVendor = () => {
         <List className={styles.wrapper}>
             <ListItem>
                 <Grid container direction='column'>
-                    <span className={styles.wrapper__title} onClick={toggleDrawer(false)}>
-                    <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 11 }} />                        
-                    Back
-                    </span>
+                    <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
+                        <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 13 }} />
+                        Back
+                    </div>
+                    <span className={styles.modal_label}>Add a vendor</span>
                     <TextField className={styles.marginBottom} id="outlined-basic" label="Name" />
                     <FormControl>
                         <InputLabel>Country</InputLabel>
                         <Select value={countryValue}
-                                onChange={handleChangeCountry}
-                                className={styles.marginBottom}>
-                        <MenuItem value={'Ukraine'}>Ukraine</MenuItem>
-                        <MenuItem value={'Belarus'}>Belarus</MenuItem>
-                        <MenuItem value={'USA'}>USA</MenuItem>
+                            onChange={handleChangeCountry}
+                            className={styles.marginBottom}>
+                            <MenuItem value={'Ukraine'}>Ukraine</MenuItem>
+                            <MenuItem value={'Belarus'}>Belarus</MenuItem>
+                            <MenuItem value={'USA'}>USA</MenuItem>
                         </Select>
                     </FormControl>
                     <FormControl>
                         <InputLabel>City</InputLabel>
                         <Select value={cityValue}
-                                onChange={handleChangeCity}
-                                className={styles.marginBottom}>
-                        <MenuItem value={'Lviv'}>Lviv</MenuItem>
-                        <MenuItem value={'Kyiv'}>Kyiv</MenuItem>
-                        <MenuItem value={'Kharkiv'}>Kharkiv</MenuItem>
+                            onChange={handleChangeCity}
+                            className={styles.marginBottom}>
+                            <MenuItem value={'Lviv'}>Lviv</MenuItem>
+                            <MenuItem value={'Kyiv'}>Kyiv</MenuItem>
+                            <MenuItem value={'Kharkiv'}>Kharkiv</MenuItem>
                         </Select>
                     </FormControl>
                     <TextField className={styles.marginBottom} id="outlined-basic" label="Address" />
                     <TextField className={styles.marginBottom} id="outlined-basic" label="E-mail" />
-                    <TextField className={styles.marginBottom} multiline rows={5} id="outlined-basic" label="Description" variant="outlined"/>
+                    <TextField className={styles.marginBottom} multiline rows={5} id="outlined-basic" label="Description" variant="outlined" />
                     <div className={styles.dropzone}>
                         <DropZone wrapperHeight={100} />
                     </div>
                     <div className={styles.uploadPhotoMobile}>
                         <input type="file"
-                                ref={parentRef}
-                                className={styles.fileName}
-                                id='fileName'
-                                accept=".png, .jpg, .jpeg"
-                                onChange={(e)=>{setUploadFileName(parentRef.current.files[0].name)}}/>
+                            ref={parentRef}
+                            className={styles.fileName}
+                            id='fileName'
+                            accept=".png, .jpg, .jpeg"
+                            onChange={(e) => { setUploadFileName(parentRef.current.files[0].name) }} />
                         <button className={styles.uploadFile__btn}>Upload photo</button>
                     </div>
                     <span className={styles.uploadedFileName}>{uploadFileName}</span>
@@ -181,16 +189,16 @@ const AdminPanelVendor = () => {
         </List>
     )
     return (
-    <div>
-        <button onClick={toggleDrawer(true)} className={styles.adminModalButton}>Add a vendor</button>
-        <Drawer anchor={'right'}
+        <div>
+            <button onClick={toggleDrawer(true)} className={styles.adminModalButton}>Add a vendor</button>
+            <Drawer anchor={'right'}
                 open={state}
                 onClose={toggleDrawer(false)}>
-            <div>
-                {list()}
-            </div>
-        </Drawer>
-    </div>
+                <div>
+                    {list()}
+                </div>
+            </Drawer>
+        </div>
     );
 };
 

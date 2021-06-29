@@ -54,7 +54,6 @@ const AdminEditCardPanel = (currentCard: any) => {
       marginBottom: 20,
       bottom: 20,
       cursor: 'pointer',
-      textAlign: 'right'
     },
     checkbox__wrapper: {
       marginBottom: 30,
@@ -123,6 +122,17 @@ const AdminEditCardPanel = (currentCard: any) => {
       marginTop: '-14px',
       marginBottom: 20
     },
+    modal_label: {
+      textAlign: 'center'
+    },
+    adminModalButton: {
+      fontSize: 16,
+      color: '#1877F2',
+      background: 'transparent',
+      '&:hover': {
+        background: 'none'
+      }
+    },
     '@media(max-width:700px)': {
       wrapper: {
         width: '320px'
@@ -137,16 +147,14 @@ const AdminEditCardPanel = (currentCard: any) => {
         'span': {
           position: 'relative'
         }
-      }
+      },
+      modal_label: {
+        fontSize: 18,
+      },
+      wrapper__title: {
+        fontSize: 20
+      },
     },
-    adminModalButton: {
-      fontSize: 16,
-      color: '#1877F2',
-      background: 'transparent',
-      '&:hover': {
-        background: 'none'
-      }
-    }
   })
 
   const styles = useStyles();
@@ -155,10 +163,11 @@ const AdminEditCardPanel = (currentCard: any) => {
     <List className={styles.wrapper}>
       <ListItem>
         <Grid container direction='column'>
-          <span className={styles.wrapper__title} onClick={toggleDrawer(false)}>
-            <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 11 }} />
+          <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
+            <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 13 }} />
             Back
-          </span>
+          </div>
+          <span className={styles.modal_label}>Edit a discount</span>
           <TextField className={styles.marginBottom} id="outlined-basic" label={'Title'} defaultValue={currentCard.currentCard.nameDiscount} />
           <SelectMultiple data={tags} clName={styles.tags} name={"Tags"} />
           <TextField className={styles.marginBottom} id="outlined-basic" label="Vendor Name" />

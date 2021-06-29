@@ -21,7 +21,7 @@ const AdminPanelCard = () => {
   const [disableInput, setDisableInput] = React.useState(false);
   const [uploadFileName, setUploadFileName] = React.useState('');
   const parentRef = useRef<any>();
-  const tags = ["sport","food","clothes", "games"];
+  const tags = ["sport", "food", "clothes", "games"];
 
   const toggleDrawer = (open: any) => (event: any) => {
     setState(open);
@@ -54,7 +54,6 @@ const AdminPanelCard = () => {
       marginBottom: 20,
       bottom: 20,
       cursor: 'pointer',
-      textAlign: 'right'
     },
     checkbox__wrapper: {
       marginBottom: 30,
@@ -123,6 +122,17 @@ const AdminPanelCard = () => {
       marginTop: '-14px',
       marginBottom: 20
     },
+    modal_label: {
+      textAlign: 'center'
+    },
+    adminModalButton: {
+      fontSize: 16,
+      color: '#1877F2',
+      background: 'transparent',
+      '&:hover': {
+        background: 'none'
+      }
+    },
     '@media(max-width:700px)': {
       wrapper: {
         width: '320px'
@@ -135,18 +145,16 @@ const AdminPanelCard = () => {
         marginBottom: 20,
         fontSize: 15,
         'span': {
-        position: 'relative'
+          position: 'relative'
         }
-      }
+      },
+      modal_label: {
+        fontSize: 18,
+      },
+      wrapper__title: {
+        fontSize: 20
+      },
     },
-    adminModalButton: {
-      fontSize: 16,
-      color: '#1877F2',
-      background: 'transparent',
-      '&:hover': {
-        background: 'none'
-      }
-    }
   })
 
   const styles = useStyles();
@@ -155,20 +163,21 @@ const AdminPanelCard = () => {
     <List className={styles.wrapper}>
       <ListItem>
         <Grid container direction='column'>
-          <span className={styles.wrapper__title} onClick={toggleDrawer(false)}>
-          <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 11 }} />
+          <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
+            <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 11 }} />
             Back
-          </span>
+          </div>
+          <span className={styles.modal_label}>Add a promotion</span>
           <TextField className={styles.marginBottom} id="outlined-basic" label="Title" />
-          <SelectMultiple data={tags} clName={styles.tags} name={"Tags"} width={500} />
+          <SelectMultiple data={tags} clName={styles.tags} name={"Tags"} />
           <TextField className={styles.marginBottom} id="outlined-basic" label="Vendor Name" />
           {disableInput ? '' : (
             <>
               <FormControl>
                 <InputLabel>Country</InputLabel>
                 <Select value={countryValue}
-                        onChange={handleChangeCountry}
-                        className={styles.marginBottom}>
+                  onChange={handleChangeCountry}
+                  className={styles.marginBottom}>
                   <MenuItem value={'Ukraine'}>Ukraine</MenuItem>
                   <MenuItem value={'Belarus'}>Belarus</MenuItem>
                   <MenuItem value={'USA'}>USA</MenuItem>
@@ -177,8 +186,8 @@ const AdminPanelCard = () => {
               <FormControl>
                 <InputLabel>City</InputLabel>
                 <Select value={cityValue}
-                        onChange={handleChangeCity}
-                        className={styles.marginBottom}>
+                  onChange={handleChangeCity}
+                  className={styles.marginBottom}>
                   <MenuItem value={'Lviv'}>Lviv</MenuItem>
                   <MenuItem value={'Kyiv'}>Kyiv</MenuItem>
                   <MenuItem value={'Kharkiv'}>Kharkiv</MenuItem>
@@ -188,24 +197,24 @@ const AdminPanelCard = () => {
             </>
           )}
           <div className={styles.checkbox__wrapper}>
-            <input type="checkbox" className={styles.checkbox} onClick={changeDisable}/>
+            <input type="checkbox" className={styles.checkbox} onClick={changeDisable} />
             <label className={styles.checkbox__label} >Online</label>
           </div>
           <div className={styles.marginBottom}>
-            <ContainerDataPiker/>
+            <ContainerDataPiker />
           </div>
           <TextField className={styles.marginBottom} label="Discount %" />
-          <TextField className={styles.marginBottom} multiline  rows={5} id="outlined-basic" label="Description" variant="outlined"  />
+          <TextField className={styles.marginBottom} multiline rows={5} id="outlined-basic" label="Description" variant="outlined" />
           <div className={styles.dropzone}>
             <DropZone wrapperHeight={100} />
           </div>
           <div className={styles.uploadPhotoMobile}>
             <input type="file"
-                  ref={parentRef}
-                  className={styles.fileName}
-                  id='fileName'
-                  accept=".png, .jpg, .jpeg"
-                  onChange={(e)=>{setUploadFileName(parentRef.current.files[0].name)}}/>
+              ref={parentRef}
+              className={styles.fileName}
+              id='fileName'
+              accept=".png, .jpg, .jpeg"
+              onChange={(e) => { setUploadFileName(parentRef.current.files[0].name) }} />
             <button className={styles.uploadFile__btn}>Upload photo</button>
           </div>
           <span className={styles.uploadedFileName}>{uploadFileName}</span>
@@ -214,18 +223,18 @@ const AdminPanelCard = () => {
       </ListItem>
     </List>
   )
-    return (
+  return (
+    <div>
+      <button onClick={toggleDrawer(true)} className={styles.adminModalButton}>Add a promotion</button>
+      <Drawer anchor={'right'}
+        open={state}
+        onClose={toggleDrawer(false)}>
         <div>
-          <button onClick={toggleDrawer(true)} className={styles.adminModalButton}>Add a promotion</button>
-          <Drawer anchor={'right'}
-                  open={state}
-                  onClose={toggleDrawer(false)}>
-            <div>
-              {list()}
-            </div>
-          </Drawer>
+          {list()}
         </div>
-    );
+      </Drawer>
+    </div>
+  );
 };
 
 export default AdminPanelCard;
