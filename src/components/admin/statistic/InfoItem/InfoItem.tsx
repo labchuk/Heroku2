@@ -4,8 +4,8 @@ import "./InfoItem.scss";
 interface InfoItemProps {
     title: string;
     value: string;
+    children?: React.ReactChild | React.ReactNode;
 }
-
 
 
 const InfoItem = ({title, value}: InfoItemProps) => {

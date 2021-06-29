@@ -26,8 +26,6 @@ const InformationBlock = () => {
 
 
 
-
-
         </div>
     );
 };
