@@ -37,11 +37,11 @@ const rows = [
 
 const AdditionalDate = () => {
     return (
-        <div style={{ height: 400, width: '100%', backgroundColor: 'white', boxShadow: '1px 1px 1px 1px #c5d0d6' }}>
+        <div style={{ height: 420, width: '100%', backgroundColor: 'white', boxShadow: '1px 1px 1px 1px #c5d0d6' }}>
             <DataGrid rows={rows} columns={columns} pageSize={10} rowHeight={30} checkboxSelection />
         </div>
     );
-}
+};
 
 
 export default AdditionalDate;
