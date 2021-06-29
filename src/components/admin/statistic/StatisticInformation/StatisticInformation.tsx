@@ -5,9 +5,16 @@ import "./StatisticInformation.scss";
 const StatisticInformation = () => {
     return (
         <div>
-            <StatisticFilter/>
-            <InformationBlock/>
-            <GraphInfo/>
+           {/* <StatisticFilter/>*/}
+            <div className="Statistic__main">
+                <div className="Statistic__info">
+                    <InformationBlock/>
+                </div>
+                <div className="Statistic__graph">
+                    <GraphInfo/>
+                </div>
+
+            </div>
             <AdditionalDate/>
         </div>
     );
