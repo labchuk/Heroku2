@@ -1,16 +1,11 @@
 import { ListItem } from '@material-ui/core';
 import { Drawer, List } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
-import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { useRef } from 'react';
 import DropZone from '../../common/DropZone/DropZone';
 import ContainerDataPiker from '../../common/SearchBar/ContainerDatePiker/ContainerDatePiker';
-import SelectMultiple from '../../common/SearchBar/SelectMultiple/SelectMultiple';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import Button from '@material-ui/core/Button';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -19,14 +14,15 @@ import { AutocompleteRenderOptionState } from '@material-ui/lab';
 
 const AdminPanelCard = () => {
   const [state, setState] = React.useState(false);
-  const [countryValue, setCountryValue] = React.useState('');
-  const [cityValue, setCityValue] = React.useState('');
   const [disableInput, setDisableInput] = React.useState(false);
   const [addressInput, setAddressInput] = React.useState(false);
+  const [categoryInput, setCategoryInput] = React.useState(false);
+  const [tagInput, setTagInput] = React.useState(false);
   const [uploadFileName, setUploadFileName] = React.useState('');
   const [newAddress, setNewAddress] = React.useState('');
+  const [newCategory, setNewCategory] = React.useState('');
+  const [newTag, setNewTag] = React.useState('');
   const parentRef = useRef<any>();
-  const tags = ["sport", "food", "clothes", "games"];
   const [address, setAddress] = React.useState([
     { title: 'Chornovola Str, 27' },
     { title: 'Yakuba Kolasa Str, 37' },
@@ -34,18 +30,47 @@ const AdminPanelCard = () => {
     { title: 'Rynok Sqr, 1' },
     { title: 'Mazepy Str, 1a' },
     { title: 'Warshavska Str, 127' },
-  ])
+  ]);
+
+  const [category, setCategory] = React.useState([
+    { title: 'Category 1' },
+    { title: 'Category 2' },
+    { title: 'Category 3' },
+    { title: 'Category 4' },
+    { title: 'Category 5' },
+  ]);
+
+  const [tags, setTag] = React.useState([
+    { title: 'Tag 1' },
+    { title: 'Tag 2' },
+    { title: 'Tag 3' },
+    { title: 'Tag 4' },
+    { title: 'Tag 5' },
+  ]);
+
+  const vendors = [
+    { title: 'Nike' },
+    { title: 'Puma' },
+    { title: `Domino's` },
+    { title: 'Zara' },
+    { title: 'Steam' },
+  ];
+
+  const country = [
+    { title: 'Ukraine' },
+    { title: 'USA' },
+    { title: 'Belarus' },
+  ];
+
+  const city = [
+    { title: 'Lviv' },
+    { title: 'Minsk' },
+    { title: 'Kyiv' },
+    { title: 'Herson' },
+  ];
 
   const toggleDrawer = (open: any) => (event: any) => {
     setState(open);
-  }
-
-  const handleChangeCountry = (event: any) => {
-    setCountryValue(event.target.value)
-  }
-
-  const handleChangeCity = (event: any) => {
-    setCityValue(event.target.value)
   }
 
   let changeDisable = () => {
@@ -64,6 +89,32 @@ const AdminPanelCard = () => {
 
   const cancelAddress = () => {
     setAddressInput(false);
+  }
+
+  const addCategory = () => {
+    setCategoryInput(true)
+  }
+  const submitCategory = () => {
+    setCategoryInput(false);
+    let addNewCategory = category.concat({ title: newCategory });
+    setCategory(addNewCategory)
+  }
+
+  const cancelCategory = () => {
+    setCategoryInput(false);
+  }
+
+  const addTag = () => {
+    setTagInput(true)
+  }
+  const submitTag = () => {
+    setTagInput(false);
+    let addNewTag = tags.concat({ title: newTag });
+    setTag(addNewTag)
+  }
+
+  const cancelTag = () => {
+    setTagInput(false);
   }
 
   const useStyles = makeStyles({
@@ -98,7 +149,7 @@ const AdminPanelCard = () => {
       fontSize: 16,
     },
     marginBottom: {
-      marginBottom: 15
+      marginBottom: 20
     },
     dropzone: {
       border: '1px solid #ced4da',
@@ -115,18 +166,11 @@ const AdminPanelCard = () => {
       }
     },
     submitButton: {
-      height: 40,
-      width: 200,
-      background: 'linear-gradient(to right, #1877F2, #1815BE)',
-      color: 'white',
-      fontSize: 15,
-      transition: 'background 0.3s linea',
-      '&:hover': {
-        background: 'linear-gradient(to right, #194ddb, #0d0b69)',
-      }
-    },
-    tags: {
-      marginBottom: 12
+      position: 'relative',
+      left: 0,
+      border: '2px solid #1877F2',
+      color: '#1877F2',
+      width: '250px'
     },
     uploadPhotoMobile: {
       display: 'none',
@@ -162,7 +206,7 @@ const AdminPanelCard = () => {
     },
     address__span: {
       fontSize: 15,
-      marginBottom: 25,
+      marginBottom: 20,
       cursor: 'pointer',
     },
     address_submit: {
@@ -229,30 +273,97 @@ const AdminPanelCard = () => {
           </div>
           <span className={styles.modal_label}>Add a promotion</span>
           <TextField className={styles.marginBottom} label="Title" />
-          <SelectMultiple data={tags} clName={styles.tags} name={"Tags"} />
-          <TextField className={styles.marginBottom} label="Vendor Name" />
+          <Autocomplete
+            multiple
+            options={category}
+            disableCloseOnSelect
+            getOptionLabel={(option) => option.title}
+            renderOption={(option: { title: string }, state: AutocompleteRenderOptionState) => (
+              <li {...state}>
+                {option.title}
+              </li>
+            )}
+            style={{ width: '100%', marginBottom: 15 }}
+            renderInput={(params) => (
+              <TextField {...params} label="Category" />
+            )}
+          />
+          {categoryInput ?
+            <>
+              <TextField className={styles.marginBottom} label="Add new category" onChange={(e: any) => setNewCategory(e.target.value)} />
+              <div className={styles.addressButtons}>
+                <Button onClick={submitCategory} className={styles.address_submit}>Submit</Button>
+                <Button onClick={cancelCategory} className={styles.address_cancel}>Cancel</Button>
+              </div>
+            </>
+            : <span className={styles.address__span} onClick={addCategory}>+ Add new category</span>}
+          <Autocomplete
+            multiple
+            options={tags}
+            disableCloseOnSelect
+            getOptionLabel={(option) => option.title}
+            renderOption={(option: { title: string }, state: AutocompleteRenderOptionState) => (
+              <li {...state}>
+                {option.title}
+              </li>
+            )}
+            style={{ width: '100%', marginBottom: 15 }}
+            renderInput={(params) => (
+              <TextField {...params} label="Tags" />
+            )}
+          />
+          {tagInput ?
+            <>
+              <TextField className={styles.marginBottom} label="Add new tag" onChange={(e: any) => setNewTag(e.target.value)} />
+              <div className={styles.addressButtons}>
+                <Button onClick={submitTag} className={styles.address_submit}>Submit</Button>
+                <Button onClick={cancelTag} className={styles.address_cancel}>Cancel</Button>
+              </div>
+            </>
+            : <span className={styles.address__span} onClick={addTag}>+ Add new tag</span>}
+          <Autocomplete
+            multiple
+            options={vendors}
+            disableCloseOnSelect
+            getOptionLabel={(option) => option.title}
+            renderOption={(option: { title: string }, state: AutocompleteRenderOptionState) => (
+              <li {...state}>
+                {option.title}
+              </li>
+            )}
+            style={{ width: '100%', marginBottom: 15 }}
+            renderInput={(params) => (
+              <TextField {...params} label="Vendor name" />
+            )}
+          />
           {disableInput ? '' : (
             <>
-              <FormControl>
-                <InputLabel>Country</InputLabel>
-                <Select value={countryValue}
-                  onChange={handleChangeCountry}
-                  className={styles.marginBottom}>
-                  <MenuItem value={'Ukraine'}>Ukraine</MenuItem>
-                  <MenuItem value={'Belarus'}>Belarus</MenuItem>
-                  <MenuItem value={'USA'}>USA</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl>
-                <InputLabel>City</InputLabel>
-                <Select value={cityValue}
-                  onChange={handleChangeCity}
-                  className={styles.marginBottom}>
-                  <MenuItem value={'Lviv'}>Lviv</MenuItem>
-                  <MenuItem value={'Kyiv'}>Kyiv</MenuItem>
-                  <MenuItem value={'Kharkiv'}>Kharkiv</MenuItem>
-                </Select>
-              </FormControl>
+              <Autocomplete
+                options={country}
+                getOptionLabel={(option) => option.title}
+                renderOption={(option: { title: string }, state: AutocompleteRenderOptionState) => (
+                  <li {...state}>
+                    {option.title}
+                  </li>
+                )}
+                style={{ width: '100%', marginBottom: 15 }}
+                renderInput={(params) => (
+                  <TextField {...params} label="Country" />
+                )}
+              />
+              <Autocomplete
+                options={city}
+                getOptionLabel={(option) => option.title}
+                renderOption={(option: { title: string }, state: AutocompleteRenderOptionState) => (
+                  <li {...state}>
+                    {option.title}
+                  </li>
+                )}
+                style={{ width: '100%', marginBottom: 15 }}
+                renderInput={(params) => (
+                  <TextField {...params} label="City" />
+                )}
+              />
               <Autocomplete
                 multiple
                 options={address}
@@ -276,7 +387,7 @@ const AdminPanelCard = () => {
                     <Button onClick={cancelAddress} className={styles.address_cancel}>Cancel</Button>
                   </div>
                 </>
-                : <span className={styles.address__span} onClick={addAddress}>+ Add an address</span>}
+                : <span className={styles.address__span} onClick={addAddress}>+ Add new address</span>}
             </>
           )}
           <div className={styles.checkbox__wrapper}>
@@ -301,7 +412,7 @@ const AdminPanelCard = () => {
             <button className={styles.uploadFile__btn}>Upload photo</button>
           </div>
           <span className={styles.uploadedFileName}>{uploadFileName}</span>
-          <button className={styles.submitButton} onClick={toggleDrawer(false)}>Submit</button>
+          <Button onClick={toggleDrawer(false)} className={styles.submitButton}>Submit</Button>
         </Grid>
       </ListItem>
     </List>
