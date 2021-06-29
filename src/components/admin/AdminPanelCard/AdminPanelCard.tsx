@@ -12,16 +12,29 @@ import DropZone from '../../common/DropZone/DropZone';
 import ContainerDataPiker from '../../common/SearchBar/ContainerDatePiker/ContainerDatePiker';
 import SelectMultiple from '../../common/SearchBar/SelectMultiple/SelectMultiple';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
+import Button from '@material-ui/core/Button';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import "./AdminPanelCard.scss";
+import { AutocompleteRenderOptionState } from '@material-ui/lab';
 
 const AdminPanelCard = () => {
   const [state, setState] = React.useState(false);
   const [countryValue, setCountryValue] = React.useState('');
   const [cityValue, setCityValue] = React.useState('');
   const [disableInput, setDisableInput] = React.useState(false);
+  const [addressInput, setAddressInput] = React.useState(false);
   const [uploadFileName, setUploadFileName] = React.useState('');
+  const [newAddress, setNewAddress] = React.useState('');
   const parentRef = useRef<any>();
   const tags = ["sport", "food", "clothes", "games"];
+  const [address, setAddress] = React.useState([
+    { title: 'Chornovola Str, 27' },
+    { title: 'Yakuba Kolasa Str, 37' },
+    { title: 'Horodotska Str, 7a' },
+    { title: 'Rynok Sqr, 1' },
+    { title: 'Mazepy Str, 1a' },
+    { title: 'Warshavska Str, 127' },
+  ])
 
   const toggleDrawer = (open: any) => (event: any) => {
     setState(open);
@@ -37,6 +50,20 @@ const AdminPanelCard = () => {
 
   let changeDisable = () => {
     setDisableInput(!disableInput)
+  }
+
+  const addAddress = () => {
+    setAddressInput(true)
+  }
+
+  const submitAddress = () => {
+    setAddressInput(false);
+    let addNewAddress = address.concat({ title: newAddress });
+    setAddress(addNewAddress)
+  }
+
+  const cancelAddress = () => {
+    setAddressInput(false);
   }
 
   const useStyles = makeStyles({
@@ -133,6 +160,29 @@ const AdminPanelCard = () => {
         background: 'none'
       }
     },
+    address__span: {
+      fontSize: 15,
+      marginBottom: 25,
+      cursor: 'pointer',
+    },
+    address_submit: {
+      position: 'relative',
+      left: 0,
+      border: '2px solid #1877F2',
+      color: '#1877F2',
+      width: '130px'
+    },
+    address_cancel: {
+      position: 'relative',
+      left: 0,
+      border: '2px solid #C4C4C4',
+      width: '130px',
+    },
+    addressButtons: {
+      display: "flex",
+      gridGap: 20,
+      marginBottom: 15
+    },
     '@media(max-width:700px)': {
       wrapper: {
         width: '320px'
@@ -154,6 +204,16 @@ const AdminPanelCard = () => {
       wrapper__title: {
         fontSize: 20
       },
+      addressButtons: {
+        gridGap: 10,
+        flexDirection: 'column'
+      },
+      address_submit: {
+        width: '100%'
+      },
+      address_cancel: {
+        width: '100%'
+      }
     },
   })
 
@@ -168,9 +228,9 @@ const AdminPanelCard = () => {
             Back
           </div>
           <span className={styles.modal_label}>Add a promotion</span>
-          <TextField className={styles.marginBottom} id="outlined-basic" label="Title" />
+          <TextField className={styles.marginBottom} label="Title" />
           <SelectMultiple data={tags} clName={styles.tags} name={"Tags"} />
-          <TextField className={styles.marginBottom} id="outlined-basic" label="Vendor Name" />
+          <TextField className={styles.marginBottom} label="Vendor Name" />
           {disableInput ? '' : (
             <>
               <FormControl>
@@ -193,7 +253,30 @@ const AdminPanelCard = () => {
                   <MenuItem value={'Kharkiv'}>Kharkiv</MenuItem>
                 </Select>
               </FormControl>
-              <TextField className={styles.marginBottom} id="outlined-basic" label="Address" />
+              <Autocomplete
+                multiple
+                options={address}
+                disableCloseOnSelect
+                getOptionLabel={(option) => option.title}
+                renderOption={(option: { title: string }, state: AutocompleteRenderOptionState) => (
+                  <li {...state}>
+                    {option.title}
+                  </li>
+                )}
+                style={{ width: '100%', marginBottom: 15 }}
+                renderInput={(params) => (
+                  <TextField {...params} label="Address" />
+                )}
+              />
+              {addressInput ?
+                <>
+                  <TextField className={styles.marginBottom} label="Add an address" onChange={(e: any) => setNewAddress(e.target.value)} />
+                  <div className={styles.addressButtons}>
+                    <Button onClick={submitAddress} className={styles.address_submit}>Submit</Button>
+                    <Button onClick={cancelAddress} className={styles.address_cancel}>Cancel</Button>
+                  </div>
+                </>
+                : <span className={styles.address__span} onClick={addAddress}>+ Add an address</span>}
             </>
           )}
           <div className={styles.checkbox__wrapper}>
@@ -204,7 +287,7 @@ const AdminPanelCard = () => {
             <ContainerDataPiker />
           </div>
           <TextField className={styles.marginBottom} label="Discount %" />
-          <TextField className={styles.marginBottom} multiline rows={5} id="outlined-basic" label="Description" variant="outlined" />
+          <TextField className={styles.marginBottom} multiline rows={5} label="Description" variant="outlined" />
           <div className={styles.dropzone}>
             <DropZone wrapperHeight={100} />
           </div>
