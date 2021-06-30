@@ -73,6 +73,8 @@ const SelectMultiple = ({ clName, data, name, setArrTag }: { clName: string, dat
     setArrTag && setArrTag(event.target.value as string[]);
   }
 
+
+
   return (
     <FormControl className={clName}>
       <InputLabel id="demo-mutiple-checkbox-label">{name}</InputLabel>

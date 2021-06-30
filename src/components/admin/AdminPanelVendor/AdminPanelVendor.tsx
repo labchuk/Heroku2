@@ -1,23 +1,46 @@
-import { ListItem } from '@material-ui/core';
+import { Button, ListItem } from '@material-ui/core';
 import { Drawer, List } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
-import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { useRef } from 'react';
 import DropZone from '../../common/DropZone/DropZone';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import "./AdminPanelVendor.scss";
+import AutocompleteMultipleChoise from '../../common/AutocompleteMultipleChoise/AutocompleteMultipleChoise';
 
 const AdminPanelVendor = () => {
     const [state, setState] = React.useState(false);
     const [countryValue, setCountryValue] = React.useState('');
     const [cityValue, setCityValue] = React.useState('');
     const [uploadFileName, setUploadFileName] = React.useState('');
+    const [disableInput, setDisableInput] = React.useState(false);
+    const [addressInput, setAddressInput] = React.useState(false);
+    const [newAddress, setNewAddress] = React.useState('');
     const parentRef = useRef<any>();
+
+    const country = [
+        { title: 'Ukraine' },
+        { title: 'USA' },
+        { title: 'Belarus' },
+    ];
+
+    const city = [
+        { title: 'Lviv' },
+        { title: 'Minsk' },
+        { title: 'Kyiv' },
+        { title: 'Herson' },
+    ];
+
+    const [address, setAddress] = React.useState([
+        { title: 'Chornovola Str, 27' },
+        { title: 'Yakuba Kolasa Str, 37' },
+        { title: 'Horodotska Str, 7a' },
+        { title: 'Rynok Sqr, 1' },
+        { title: 'Mazepy Str, 1a' },
+        { title: 'Warshavska Str, 127' },
+    ]);
 
     const toggleDrawer = (open: any) => (event: any) => {
         setState(open);
@@ -31,10 +54,27 @@ const AdminPanelVendor = () => {
         setCityValue(event.target.value)
     }
 
+    const addAddress = () => {
+        setAddressInput(true)
+    }
+
+    const submitAddress = () => {
+        setAddressInput(false);
+        let addNewAddress = address.concat({ title: newAddress });
+        setAddress(addNewAddress)
+    }
+
+    const cancelAddress = () => {
+        setAddressInput(false);
+    }
+
     const useStyles = makeStyles({
         root: {
             "& .MuiDrawerPaper-root": {
                 background: '#F7F9FB',
+            },
+            "& .MuiButton-root:hover": {
+                backgroundColor: 'none'
             }
         },
         wrapper: {
@@ -69,15 +109,11 @@ const AdminPanelVendor = () => {
             }
         },
         submitButton: {
-            height: 40,
-            width: 200,
-            background: 'linear-gradient(to right, #1877F2, #1815BE)',
-            color: 'white',
-            fontSize: 15,
-            transition: 'background 0.3s linea',
-            '&:hover': {
-                background: 'linear-gradient(to right, #194ddb, #0d0b69)',
-            }
+            position: 'relative',
+            left: 0,
+            border: '2px solid #1877F2',
+            color: '#1877F2',
+            width: '250px'
         },
         adminModalButton: {
             fontSize: 16,
@@ -111,6 +147,29 @@ const AdminPanelVendor = () => {
         modal_label: {
             textAlign: 'center'
         },
+        address__span: {
+            fontSize: 15,
+            marginBottom: 20,
+            cursor: 'pointer',
+        },
+        address_submit: {
+            position: 'relative',
+            left: 0,
+            border: '2px solid #1877F2',
+            color: '#1877F2',
+            width: '130px'
+        },
+        address_cancel: {
+            position: 'relative',
+            left: 0,
+            border: '2px solid #C4C4C4',
+            width: '130px',
+        },
+        addressButtons: {
+            display: "flex",
+            gridGap: 20,
+            marginBottom: 15
+        },
         '@media(max-width:700px)': {
             wrapper: {
                 width: '320px'
@@ -131,6 +190,16 @@ const AdminPanelVendor = () => {
             },
             wrapper__title: {
                 fontSize: 20
+            },
+            addressButtons: {
+                gridGap: 10,
+                flexDirection: 'column'
+            },
+            address_submit: {
+                width: '100%'
+            },
+            address_cancel: {
+                width: '100%'
             }
         }
     })
@@ -147,27 +216,22 @@ const AdminPanelVendor = () => {
                     </div>
                     <span className={styles.modal_label}>Add a vendor</span>
                     <TextField className={styles.marginBottom} id="outlined-basic" label="Name" />
-                    <FormControl>
-                        <InputLabel>Country</InputLabel>
-                        <Select value={countryValue}
-                            onChange={handleChangeCountry}
-                            className={styles.marginBottom}>
-                            <MenuItem value={'Ukraine'}>Ukraine</MenuItem>
-                            <MenuItem value={'Belarus'}>Belarus</MenuItem>
-                            <MenuItem value={'USA'}>USA</MenuItem>
-                        </Select>
-                    </FormControl>
-                    <FormControl>
-                        <InputLabel>City</InputLabel>
-                        <Select value={cityValue}
-                            onChange={handleChangeCity}
-                            className={styles.marginBottom}>
-                            <MenuItem value={'Lviv'}>Lviv</MenuItem>
-                            <MenuItem value={'Kyiv'}>Kyiv</MenuItem>
-                            <MenuItem value={'Kharkiv'}>Kharkiv</MenuItem>
-                        </Select>
-                    </FormControl>
-                    <TextField className={styles.marginBottom} id="outlined-basic" label="Address" />
+                    {disableInput ? '' : (
+                        <>
+                            <AutocompleteMultipleChoise data={country} lab='Country' />
+                            <AutocompleteMultipleChoise data={city} lab='City' />
+                            <AutocompleteMultipleChoise data={address} lab='Address' />
+                            {addressInput ?
+                                <>
+                                    <TextField className={styles.marginBottom} label="Add an address" onChange={(e: any) => setNewAddress(e.target.value)} />
+                                    <div className={styles.addressButtons}>
+                                        <Button onClick={submitAddress} className={styles.address_submit}>Submit</Button>
+                                        <Button onClick={cancelAddress} className={styles.address_cancel}>Cancel</Button>
+                                    </div>
+                                </>
+                                : <span className={styles.address__span} onClick={addAddress}>+ Add new address</span>}
+                        </>
+                    )}
                     <TextField className={styles.marginBottom} id="outlined-basic" label="E-mail" />
                     <TextField className={styles.marginBottom} multiline rows={5} id="outlined-basic" label="Description" variant="outlined" />
                     <div className={styles.dropzone}>
@@ -183,7 +247,7 @@ const AdminPanelVendor = () => {
                         <button className={styles.uploadFile__btn}>Upload photo</button>
                     </div>
                     <span className={styles.uploadedFileName}>{uploadFileName}</span>
-                    <button className={styles.submitButton} onClick={toggleDrawer(false)}>Submit</button>
+                    <Button onClick={toggleDrawer(false)} className={styles.submitButton}>Submit</Button>
                 </Grid>
             </ListItem>
         </List>

@@ -1,4 +1,4 @@
-import { ListItem } from '@material-ui/core';
+import { Button, ListItem } from '@material-ui/core';
 import { Drawer, List } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
@@ -15,11 +15,15 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import "./DelateVendorMenu.scss";
 import AdminPanelVendor from '../AdminPanelVendor/AdminPanelVendor';
+import { Autocomplete, AutocompleteRenderOptionState } from '@material-ui/lab';
+import { SelectMultiple } from '../..';
+import AutocompleteMultipleChoise from '../../common/AutocompleteMultipleChoise/AutocompleteMultipleChoise';
 
 const DelateVendorMenu = () => {
     const [state, setState] = React.useState(false);
-    const [countryValue, setCountryValue] = React.useState('');
-    const [cityValue, setCityValue] = React.useState('');
+    const [countryValue, setCountryValue] = React.useState(['']);
+    const [cityValue, setCityValue] = React.useState(['']);
+    const [addressValue, setAddressValue] = React.useState(['']);
     const [uploadFileName, setUploadFileName] = React.useState('');
     const parentRef = useRef<any>();
     const [vendors, setVendor] = React.useState([
@@ -68,9 +72,61 @@ const DelateVendorMenu = () => {
             editing: false
         },
     ]);
+    const address = [
+        'Chornovola Str, 27',
+        'Yakuba Kolasa Str, 37',
+        'Horodotska Str, 7a',
+        'Rynok Sqr, 1',
+        'Mazepy Str, 1a',
+        'Warshavska Str, 127',
+    ];
 
     const countries = ['Ukraine', 'Belarus', 'USA'];
     const cities = ['Lviv', 'Minsk', 'Kharkiv'];
+
+    const [category, setCategory] = React.useState([
+        { title: 'Category 1' },
+        { title: 'Category 2' },
+        { title: 'Category 3' },
+        { title: 'Category 4' },
+        { title: 'Category 5' },
+    ]);
+
+    const [tags, setTag] = React.useState([
+        { title: 'Tag 1' },
+        { title: 'Tag 2' },
+        { title: 'Tag 3' },
+        { title: 'Tag 4' },
+        { title: 'Tag 5' },
+    ]);
+
+    //   const vendors = [
+    //     { title: 'Nike' },
+    //     { title: 'Puma' },
+    //     { title: `Domino's` },
+    //     { title: 'Zara' },
+    //     { title: 'Steam' },
+    //   ];
+
+    //   const country = [
+    //     { title: 'Ukraine' },
+    //     { title: 'USA' },
+    //     { title: 'Belarus' },
+    //   ];
+
+    // const city = [
+    //     { title: 'Lviv' },
+    //     { title: 'Minsk' },
+    //     { title: 'Kyiv' },
+    //     { title: 'Herson' },
+    // ];
+
+    const city = [
+        'Lviv',
+        'Minsk',
+        'Kyiv',
+        'Herson',
+    ];
 
     const toggleDrawer = (open: any) => (event: any) => {
         setState(open);
@@ -82,6 +138,10 @@ const DelateVendorMenu = () => {
 
     const handleChangeCity = (event: any) => {
         setCityValue(event.target.value)
+    }
+
+    const handleChangeAddress = (event: any) => {
+        setAddressValue(event.target.value)
     }
 
     const deleteVendor = (id: number) => {
@@ -112,6 +172,9 @@ const DelateVendorMenu = () => {
         root: {
             "& .MuiDrawerPaper-root": {
                 background: '#F7F9FB',
+            },
+            "& .MuiButton-root:hover": {
+                backgroundColor: 'none'
             }
         },
         wrapper: {
@@ -171,15 +234,12 @@ const DelateVendorMenu = () => {
             }
         },
         submitButton: {
-            height: 40,
-            width: 200,
-            background: 'linear-gradient(to right, #1877F2, #1815BE)',
-            color: 'white',
-            fontSize: 15,
-            transition: 'background 0.3s linea',
-            '&:hover': {
-                background: 'linear-gradient(to right, #194ddb, #0d0b69)',
-            }
+            position: 'relative',
+            left: 0,
+            border: '2px solid #1877F2',
+            color: '#1877F2',
+            width: '250px',
+            marginTop: 10
         },
         adminModalButton: {
             fontSize: 16,
@@ -222,6 +282,24 @@ const DelateVendorMenu = () => {
             textAlign: 'center',
             marginBottom: 15,
         },
+        address_submit: {
+            position: 'relative',
+            left: 0,
+            border: '2px solid #1877F2',
+            color: '#1877F2',
+            width: '250px'
+        },
+        address_cancel: {
+            position: 'relative',
+            left: 0,
+            border: '2px solid #C4C4C4',
+            width: '250px',
+        },
+        addressButtons: {
+            display: "flex",
+            gridGap: 20,
+            marginBottom: 15
+        },
         '@media(max-width:700px)': {
             wrapper: {
                 width: '320px'
@@ -243,6 +321,16 @@ const DelateVendorMenu = () => {
             wrapper__title: {
                 fontSize: 20
             },
+            addressButtons: {
+                gridGap: 10,
+                flexDirection: 'column'
+            },
+            address_submit: {
+                width: '100%'
+            },
+            address_cancel: {
+                width: '100%'
+            }
         }
     })
 
@@ -276,6 +364,7 @@ const DelateVendorMenu = () => {
                                     <FormControl>
                                         <InputLabel></InputLabel>
                                         <Select value={countryValue}
+                                            multiple
                                             defaultValue={value.country}
                                             onChange={handleChangeCountry}
                                             className={styles.marginBottom}
@@ -289,6 +378,7 @@ const DelateVendorMenu = () => {
                                     <FormControl>
                                         <InputLabel></InputLabel>
                                         <Select value={cityValue}
+                                            multiple
                                             onChange={handleChangeCity}
                                             className={styles.marginBottom}
                                             displayEmpty>
@@ -298,7 +388,22 @@ const DelateVendorMenu = () => {
                                             <MenuItem value=''>{value.city}</MenuItem>
                                         </Select>
                                     </FormControl>
-                                    <TextField className={styles.marginBottom} defaultValue={value.address} label="Address" />
+                                    {/* <TextField className={styles.marginBottom} defaultValue={value.address} label="Address" /> */}
+                                    {/* <AutocompleteMultipleChoise data={address} lab='Address' /> */}
+                                    <FormControl>
+                                        <InputLabel></InputLabel>
+                                        <Select value={addressValue}
+                                            multiple
+                                            defaultValue={value.address}
+                                            onChange={handleChangeAddress}
+                                            className={styles.marginBottom}
+                                            displayEmpty>
+                                            {address.map((address: string) => {
+                                                return <MenuItem value={address}>{address}</MenuItem>
+                                            })}
+                                            <MenuItem value=''>{value.address}</MenuItem>
+                                        </Select>
+                                    </FormControl>
                                     <TextField className={styles.marginBottom} defaultValue={value.email} label="E-mail" />
                                     <TextField className={styles.marginBottom}
                                         multiline
@@ -320,7 +425,10 @@ const DelateVendorMenu = () => {
                                     </div>
                                     {/* <span className={styles.uploadedFileName}>{uploadFileName}</span> */}
                                     <span className={styles.uploadedFileName}>{value.image}</span>
-                                    <button className={styles.submitButton} onClick={() => { submitEditVendor(value) }}>Submit</button>
+                                    <div className={styles.addressButtons}>
+                                        <Button onClick={() => { submitEditVendor(value) }} className={styles.address_submit}>Submit</Button>
+                                        <Button onClick={() => { submitEditVendor(value) }} className={styles.address_cancel}>Cancel</Button>
+                                    </div>
                                 </div>
                             ) : ''}
                         </div>

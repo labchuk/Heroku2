@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import "./AdminPanelCard.scss";
 import { AutocompleteRenderOptionState } from '@material-ui/lab';
+import AutocompleteMultipleChoise from '../../common/AutocompleteMultipleChoise/AutocompleteMultipleChoise';
 
 const AdminPanelCard = () => {
   const [state, setState] = React.useState(false);
@@ -118,6 +119,11 @@ const AdminPanelCard = () => {
   }
 
   const useStyles = makeStyles({
+    root: {
+      "& .MuiButton:hover": {
+        backgroundColor: 'red'
+      }
+    },
     wrapper: {
       background: '#F7F9FB',
       height: '100%',
@@ -273,21 +279,7 @@ const AdminPanelCard = () => {
           </div>
           <span className={styles.modal_label}>Add a promotion</span>
           <TextField className={styles.marginBottom} label="Title" />
-          <Autocomplete
-            multiple
-            options={category}
-            disableCloseOnSelect
-            getOptionLabel={(option) => option.title}
-            renderOption={(option: { title: string }, state: AutocompleteRenderOptionState) => (
-              <li {...state}>
-                {option.title}
-              </li>
-            )}
-            style={{ width: '100%', marginBottom: 15 }}
-            renderInput={(params) => (
-              <TextField {...params} label="Category" />
-            )}
-          />
+          <AutocompleteMultipleChoise data={category} lab='Category' />
           {categoryInput ?
             <>
               <TextField className={styles.marginBottom} label="Add new category" onChange={(e: any) => setNewCategory(e.target.value)} />
@@ -297,21 +289,7 @@ const AdminPanelCard = () => {
               </div>
             </>
             : <span className={styles.address__span} onClick={addCategory}>+ Add new category</span>}
-          <Autocomplete
-            multiple
-            options={tags}
-            disableCloseOnSelect
-            getOptionLabel={(option) => option.title}
-            renderOption={(option: { title: string }, state: AutocompleteRenderOptionState) => (
-              <li {...state}>
-                {option.title}
-              </li>
-            )}
-            style={{ width: '100%', marginBottom: 15 }}
-            renderInput={(params) => (
-              <TextField {...params} label="Tags" />
-            )}
-          />
+          <AutocompleteMultipleChoise data={tags} lab='Tags' />
           {tagInput ?
             <>
               <TextField className={styles.marginBottom} label="Add new tag" onChange={(e: any) => setNewTag(e.target.value)} />
@@ -322,9 +300,7 @@ const AdminPanelCard = () => {
             </>
             : <span className={styles.address__span} onClick={addTag}>+ Add new tag</span>}
           <Autocomplete
-            multiple
             options={vendors}
-            disableCloseOnSelect
             getOptionLabel={(option) => option.title}
             renderOption={(option: { title: string }, state: AutocompleteRenderOptionState) => (
               <li {...state}>
@@ -338,47 +314,9 @@ const AdminPanelCard = () => {
           />
           {disableInput ? '' : (
             <>
-              <Autocomplete
-                options={country}
-                getOptionLabel={(option) => option.title}
-                renderOption={(option: { title: string }, state: AutocompleteRenderOptionState) => (
-                  <li {...state}>
-                    {option.title}
-                  </li>
-                )}
-                style={{ width: '100%', marginBottom: 15 }}
-                renderInput={(params) => (
-                  <TextField {...params} label="Country" />
-                )}
-              />
-              <Autocomplete
-                options={city}
-                getOptionLabel={(option) => option.title}
-                renderOption={(option: { title: string }, state: AutocompleteRenderOptionState) => (
-                  <li {...state}>
-                    {option.title}
-                  </li>
-                )}
-                style={{ width: '100%', marginBottom: 15 }}
-                renderInput={(params) => (
-                  <TextField {...params} label="City" />
-                )}
-              />
-              <Autocomplete
-                multiple
-                options={address}
-                disableCloseOnSelect
-                getOptionLabel={(option) => option.title}
-                renderOption={(option: { title: string }, state: AutocompleteRenderOptionState) => (
-                  <li {...state}>
-                    {option.title}
-                  </li>
-                )}
-                style={{ width: '100%', marginBottom: 15 }}
-                renderInput={(params) => (
-                  <TextField {...params} label="Address" />
-                )}
-              />
+              <AutocompleteMultipleChoise data={country} lab='Country' />
+              <AutocompleteMultipleChoise data={city} lab='City' />
+              <AutocompleteMultipleChoise data={address} lab='Address' />
               {addressInput ?
                 <>
                   <TextField className={styles.marginBottom} label="Add an address" onChange={(e: any) => setNewAddress(e.target.value)} />
