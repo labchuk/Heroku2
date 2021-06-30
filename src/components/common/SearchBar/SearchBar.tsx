@@ -16,10 +16,8 @@ import {STATISTIC_ROUTE} from "../../../utils/consts"
 const SearchBar =()=>{
     const {pathname} = useLocation();
     const SearchBarRef:any = useRef();
-    const arr0: string[] = ["44444444","5555555","66666666"];
-    const arr: string[] = ["aaaaaaa","dddddddddddd","sssssssssss"];
-    const arr2: string[] = ["1111111","222222222","3333333333"];
-    const arr3: string[] = ["77777777","88888888","9999999999"];
+    const arr: string[] = ["aaaaaaa","dddddddddddd","sssssssssss"].map(item=>firsLetterToUpperCase(item));
+    const arr2: string[] = ["ffffff","gggggggggggg","zzzzzzzzzzz"].map(item=>firsLetterToUpperCase(item));
 
      const className = pathname === STATISTIC_ROUTE? "container-searchbar modal-searchBar": "container-searchbar"
     return (
