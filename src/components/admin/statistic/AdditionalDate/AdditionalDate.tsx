@@ -2,6 +2,7 @@
 import "./AdditionalDate.scss";
 import * as React from 'react';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
+import {ExportInFile} from "../../../common/ExportInFile/ExportInFile";
 
 
 
@@ -37,8 +38,11 @@ const rows = [
 
 const AdditionalDate = () => {
     return (
-        <div style={{ height: 420, width: '100%', backgroundColor: 'white', boxShadow: '1px 1px 1px 1px #c5d0d6' }}>
-            <DataGrid rows={rows} columns={columns} pageSize={10} rowHeight={30} checkboxSelection />
+        <div>
+            <ExportInFile csvData={rows} fileName={'statistic'}/>
+            <div style={{ height: 420, width: '100%', backgroundColor: 'white', boxShadow: '1px 1px 1px 1px #c5d0d6' }}>
+                <DataGrid rows={rows} columns={columns} pageSize={10} rowHeight={30} checkboxSelection />
+            </div>
         </div>
     );
 };
