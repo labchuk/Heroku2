@@ -6,9 +6,8 @@ import { MAIN_ROUTE, LOGIN_ROUTE, FIRST_ROUTE } from "../../../utils/consts";
 import {Visibility , VisibilityOff } from "@material-ui/icons";
 import {TextField, FormControl, IconButton,  OutlinedInput , InputLabel , InputAdornment   } from "@material-ui/core";
 import {useAppDispatch,} from "../../../store/Redux-toolkit-hook"
-import {setEmail, setIsAuth, setUserId, setAdmine, setUserName, setLocation} from "../../../store/userSlise";
+import {setEmail, setIsAuth, setUserId, setAdmine, setUserName, setLocation} from "../../../store/userSlise"
 import {Submitbutton} from "../../index"
-
 
 
 
@@ -86,7 +85,6 @@ const FormLogin: React.FC = () => {
             id="outlined-adornment-password"
             type={visible ? 'text' : 'password'}
             value={data.password}
-            
             onChange={(e:React.ChangeEvent<HTMLInputElement>) => setData({...data, password: e.target.value})}
             endAdornment={
               <InputAdornment position="end">
@@ -103,7 +101,7 @@ const FormLogin: React.FC = () => {
           />
         </FormControl>
         <input type="submit" onClick={(e)=> checkForm(e)}  hidden/> 
-        <Submitbutton classN={"loginButton" } name={"Login"} heandekCklik={(e:any)=> checkForm(e)}/>
+        <Submitbutton classN={"submit"} name={"Log in"} heandekCklik={(e:any)=> checkForm(e)}/>
             
         </form>
     );

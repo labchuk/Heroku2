@@ -7,19 +7,22 @@
     position: relative;
     background: white;
     
-
     p {
         color: #ED1818;
-        font-size: 12px;
-        margin: 10px auto;
+        font-size: 10px;
+        margin: 5px auto;
         visibility: hidden; 
     }
-    .loginButton{
-        margin-top: 30px;
-    }
     
-    .formInputPassword {
-        margin-bottom: 30px;
+    .submit {
+        margin-top: 30px;
+        height: 40px;
+        font-size: 15px;
+        background-color: #0082CA;
+         transition: background 0.3s linea;
+    }
+    .submit:hover{
+        background-color: #015685;
     }
 };
 

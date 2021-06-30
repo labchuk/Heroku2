@@ -10,8 +10,10 @@ import {
 } from "@material-ui/core";
 import {useAppDispatch,useAppSelector} from '../../../../store/Redux-toolkit-hook';
 import {addChip,removeChip} from '../../../../store/chipReducer';
+
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
+
 const MenuProps = {
     PaperProps: {
         style: {
@@ -20,6 +22,7 @@ const MenuProps = {
         },
     },
 };
+
 
 const SelectMultiple = ({clName,data,name,setArrTag}:{clName:string, data:string[],name:string, setArrTag:any} ) => {
   //  const handleChange = (event: React.ChangeEvent<{ value: any }>,index:any) => {
@@ -88,7 +91,7 @@ const SelectMultiple = ({clName,data,name,setArrTag}:{clName:string, data:string
         >
           {data.map((name:string) => (
             <MenuItem key={name} value={name}>
-              <Checkbox checked={personName.indexOf(name) > -1} />
+              <Checkbox checked={personName.indexOf(name) > -1} style={{ color: "#0082CA" }}/>
               <ListItemText primary={name} />
             </MenuItem>
           ))}
