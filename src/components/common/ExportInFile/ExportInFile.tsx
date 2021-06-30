@@ -2,7 +2,6 @@ import React from 'react'
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
 import SaveIcon from '@material-ui/icons/Save';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
@@ -10,6 +9,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         button: {
             margin: theme.spacing(1),
+
         },
     }),
 );
