@@ -7,6 +7,7 @@ import {VisibilityOutlined, VisibilityOffOutlined} from "@material-ui/icons"
 import { makeStyles } from "@material-ui/styles";
 import {useAppDispatch,} from "../../../store/Redux-toolkit-hook"
 import {setEmail, setIsAuth, setUserId, setAdmine, setUserName, setLocation} from "../../../store/userSlise"
+import {Submitbutton} from "../../index"
 
 const useStyles = makeStyles({
     root: {
@@ -103,7 +104,8 @@ const FormLogin: React.FC = () => {
                 < VisibilityOutlined className={classes.root} onClick={()=> visiblePassword(false,"password")}/>}
                 
             <input type="submit" onClick={(e)=> checkForm(e)}  hidden/>  
-            <button type="submit" onClick={(e)=> checkForm(e)}> Log in </button>
+            <Submitbutton heandekCklik={(e:any)=> checkForm(e)} classN={"submit"} name={"Log in"}/>
+
             
         </form>
     );

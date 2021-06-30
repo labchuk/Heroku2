@@ -24,3 +24,22 @@
 
     }
 }
+
+.containerData-searchBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 420px;
+    width: 100%;
+
+    .containerData__span {
+        font-size: 18px;
+        font-weight: 600;
+        margin-right: 30px;
+    }
+
+    .containerData__picker {
+        display: flex;
+        flex-direction: column;
+    }
+}

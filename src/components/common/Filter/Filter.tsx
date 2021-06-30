@@ -2,7 +2,7 @@ import React from 'react';
 import "./Filter.scss";
 import SearchForm from "../SearchBar/SearchForm/SearchForm";
 // import DatePiker from "../SearchBar/ContainerDatePiker/DatePiker/DatePiker";
-import ContainerDataPikerForFilter from "../SearchBar/ContainerDatePiker/ghvjvd/ContainerDatePikerForFilter";
+import ContainerDataPikerForFilter from "../SearchBar/ContainerDatePiker/ContainerDataPikerFromFilter/ContainerDatePikerForFilter";
 import ControlLabel from "../SearchBar/ControlLable/ControlLabel";
 
 const Filter = () => {

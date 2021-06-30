@@ -44,3 +44,4 @@ export { default as Rating } from "./common/SearchBar/Rating/Rating";
 
 export {default as Spinner} from "./common/spinner/Spinner";
 export {default as LogoutButton} from "./common/LogoutButton/LogoutButton";
+export {default as ModalSearchBar} from "./ModalSearchBar/ModalSearchBar"
