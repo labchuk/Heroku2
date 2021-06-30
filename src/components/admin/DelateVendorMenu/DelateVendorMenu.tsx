@@ -15,9 +15,6 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import "./DelateVendorMenu.scss";
 import AdminPanelVendor from '../AdminPanelVendor/AdminPanelVendor';
-import { Autocomplete, AutocompleteRenderOptionState } from '@material-ui/lab';
-import { SelectMultiple } from '../..';
-import AutocompleteMultipleChoise from '../../common/AutocompleteMultipleChoise/AutocompleteMultipleChoise';
 
 const DelateVendorMenu = () => {
     const [state, setState] = React.useState(false);
