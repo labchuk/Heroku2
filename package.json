@@ -26,6 +26,7 @@
     "date-fns": "^2.0.0-beta.5",
     "dotenv": "^10.0.0",
     "env-cmd": "^10.1.0",
+    "file-saver": "^2.0.5",
     "jwt-decode": "^3.1.2",
     "node-sass": "^5.0.0",
     "react": "^17.0.2",
@@ -42,7 +43,8 @@
     "redux-typescript": "^1.2.1",
     "socket.io-client": "^4.0.2",
     "thunk": "0.0.1",
-    "web-vitals": "^1.1.1"
+    "web-vitals": "^1.1.1",
+    "xlsx": "^0.17.0"
   },
   "scripts": {
     "start": "react-scripts start",
