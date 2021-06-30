@@ -1,6 +1,7 @@
 import React from 'react';
 import {AdditionalDate, GraphInfo, InformationBlock, StatisticFilter,} from "../../../index";
 import "./StatisticInformation.scss";
+import {ExportInFile} from "../../../common/ExportInFile/ExportInFile";
 
 const StatisticInformation = () => {
     return (
@@ -15,6 +16,7 @@ const StatisticInformation = () => {
                 </div>
 
             </div>
+
             <AdditionalDate/>
         </div>
     );
