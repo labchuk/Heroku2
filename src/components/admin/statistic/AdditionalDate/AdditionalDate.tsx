@@ -2,18 +2,19 @@
 import "./AdditionalDate.scss";
 import * as React from 'react';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
+import {ExportInFile} from "../../../common/ExportInFile/ExportInFile";
 
 
 
 const columns: GridColDef[] = [
-    { field: 'vendorName', headerName: 'Vendor Name', width: 130 },
-    { field: 'promoName', headerName: 'Promo Name', width: 130 },
-    { field: 'category', headerName: 'Category', width: 130 },
+    { field: 'vendorName', headerName: 'Vendor', width: 150 },
+    { field: 'promoName', headerName: 'Promo', width: 150 },
+    { field: 'category', headerName: 'Category', width: 150 },
     { field: 'date', headerName: 'Date of Use', width: 170 },
-    { field: 'userName', headerName: 'User Name', width: 130 },
-    { field: 'department', headerName: 'Department', width: 130 },
-    { field: 'location', headerName: 'Location', width: 130 },
-    { field: 'link', headerName: 'Link', width: 200 },
+    { field: 'userName', headerName: 'User', width: 130 },
+    { field: 'department', headerName: 'Department', width: 180 },
+    { field: 'location', headerName: 'Location', width: 150 },
+    { field: 'link', headerName: 'Link', width: 130 },
 
 
 ];
@@ -37,8 +38,11 @@ const rows = [
 
 const AdditionalDate = () => {
     return (
-        <div style={{ height: 420, width: '100%', backgroundColor: 'white', boxShadow: '1px 1px 1px 1px #c5d0d6' }}>
-            <DataGrid rows={rows} columns={columns} pageSize={10} rowHeight={30} checkboxSelection />
+        <div>
+            <ExportInFile csvData={rows} fileName={'statistic'}/>
+            <div style={{ height: 420, width: '100%', backgroundColor: 'white', boxShadow: '1px 1px 1px 1px #c5d0d6' }}>
+                <DataGrid rows={rows} columns={columns} pageSize={10} rowHeight={30} />
+            </div>
         </div>
     );
 };
