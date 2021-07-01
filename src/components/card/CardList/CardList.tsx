@@ -79,9 +79,9 @@ const CardList: React.FC = (props) => {
                 return null;
             } else {
                 myElement.style.display = "block";
-                 if (mainContent === null) {
+                if (mainContent === null) {
                     return null;
-                }  else {
+                } else {
                     mainContent.style.display = "none";
                 }
                 document.getElementById("excard")!.scrollIntoView({ behavior: 'smooth' });
@@ -99,38 +99,39 @@ const CardList: React.FC = (props) => {
         <div className="card-list">
             <ExtendedCard discount={data[card]} />
             <div className="main-content">
-            <div className={"sort-admin"}>
-                <Sort />
-                {isAdmin &&
-                    <AdminBtn />}
-            </div>
-            <div className={"chips"}>
-                <ChipsArray />
-            </div>
-            <Grid container spacing={3} justify="center">
-                {
-                    paginateCard().map((item, index) => {
-                        return (<Grid key={index} item>
-                            <SaleCard discount={item}
-                                cards={data}
-                                updateData={(item: any) => setData(item)}
-                                handleClick={(event: any) => handleClick(event, index)} />
-                        </Grid>)
-                    })
-                }
-                {/*<div className='cardd' onClick={(e:MouseEvent)=>setCard(index)}><SaleCard key={index} discount={item}/></div>*/}
-                {/*  {[0, 1, 2, 3, 4, 5].map((value) => (
+                <div className={"sort-admin"}>
+                    <Sort />
+                    {isAdmin &&
+                        <AdminBtn />}
+                </div>
+                <div className={"chips"}>
+                    <ChipsArray />
+                </div>
+                <Grid container spacing={3} justify="center">
+                    {
+                        paginateCard().map((item, index) => {
+                            return (<Grid key={index} item>
+                                <SaleCard discount={item}
+                                    cards={data}
+                                    updateData={(item: any) => setData(item)}
+                                    handleClick={(event: any) => handleClick(event, index)} />
+                            </Grid>)
+                        })
+                    }
+                    {/*<div className='cardd' onClick={(e:MouseEvent)=>setCard(index)}><SaleCard key={index} discount={item}/></div>*/}
+                    {/*  {[0, 1, 2, 3, 4, 5].map((value) => (
                             <Grid key={value} item onClick={handleClick}>
                                 <SaleCard/>
                             </Grid>
                         ))}*/}
-            </Grid>
-            <Grid xs={12} justify="center">
-                <div className={classes.root}>
-                    <Pagination count={Math.ceil(data.length / NUMBER_CARD)} variant="outlined" color="primary"
-                        page={page} onChange={handleChange} />
-                </div>
-            </Grid>
+                </Grid>
+                <Grid xs={12} justify="center">
+                    <div className={classes.root}>
+                        <Pagination count={Math.ceil(data.length / NUMBER_CARD)} variant="outlined" color="primary"
+                            page={page} onChange={handleChange} />
+                    </div>
+                </Grid>
+            </div>
         </div>
         // {/*<div className={classes.root}>*/}
         // {/*    <Pagination count={Math.ceil(data.length/4)} variant="outlined" color="primary" page={page} onChange={handleChange} />*/}
