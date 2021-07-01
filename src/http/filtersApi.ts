@@ -1,8 +1,7 @@
 import {authHost} from "./index";
-import jwt_decode from "jwt-decode";
 
 interface Ivendor{name:string, description:string, email:string, image:string};
-interface IvendorLocation{country:string,city:string,addressLine:string,vendorId:string};
+interface IvendorLocation{country:string, city:string, addressLine:string, vendorId:string};
 interface Iname{name:string}
 
 export const getSubCategoryAll = async ( ) =>{
@@ -15,18 +14,18 @@ export const postSubCategory = async ({name}:Iname) =>{
     return data;
 };
 
-export const restSubCategory = async (id:string, {name}:Iname ) =>{
-    const data = await authHost.put(`/sub_category/${id}`, {name});
+export const restSubCategory = async (SubCategory:string, {name}:Iname ) =>{
+    const data = await authHost.put(`/sub_category/${SubCategory}`, {name});
     return data;
 };
 
-export const getSubCategoryId = async (id:string ) =>{
-    const data = await authHost.get(`/sub_category/${id}`);
+export const getSubCategoryId = async (SubCategory:string ) =>{
+    const data = await authHost.get(`/sub_category/${SubCategory}`);
     return data;
 };
 
-export const deleteSubCategoryId = async (id:string ) =>{
-    const data = await authHost.delete(`/sub_category/${id}`);
+export const deleteSubCategoryId = async (SubCategory:string ) =>{
+    const data = await authHost.delete(`/sub_category/${SubCategory}`);
     return data;
 };
 
@@ -37,8 +36,8 @@ export const getCategoryAll = async ( ) =>{
     return data;
 };
 
-export const restCategory = async (id:string, {name}:Iname) =>{
-    const data = await authHost.put(`/category/${id}`);
+export const restCategory = async (idCategore:string, {name}:Iname) =>{
+    const data = await authHost.put(`/category/${idCategore}`);
     return data;
 };
 
@@ -52,8 +51,8 @@ export const postCategory = async ({name}:Iname) =>{
     return data;
 };
 
-export const deleteCategoryId = async (id:string ) =>{
-    const data = await authHost.delete(`/category/${id}`);
+export const deleteCategoryId = async (idCategore:string ) =>{
+    const data = await authHost.delete(`/category/${idCategore}`);
     return data;
 }
 
@@ -69,18 +68,18 @@ export const postVendor = async ({name, description, email, image}: Ivendor ) =>
     return data;
 }
 
-export const getVendorId = async (id:string ) =>{
-    const data = await authHost.get(`/vendor/${id}`);
+export const getVendorId = async (idVendor:string ) =>{
+    const data = await authHost.get(`/vendor/${idVendor}`);
     return data;
 };
 
-export const restVendorId = async (id:string ,{name, description, email, image}: Ivendor) =>{
-    const data = await authHost.put(`/vendor/${id}`,{name, description, email, image});
+export const restVendorId = async (idVendor:string ,{name, description, email, image}: Ivendor) =>{
+    const data = await authHost.put(`/vendor/${idVendor}`,{name, description, email, image});
     return data;
 };
 
-export const deleteVendorId = async (id:string ) =>{
-    const data = await authHost.delete(`/vendor/${id}`);
+export const deleteVendorId = async (idVendor:string ) =>{
+    const data = await authHost.delete(`/vendor/${idVendor}`);
     return data;
 }
 
@@ -91,22 +90,22 @@ export const getVendorLocationAll = async ( ) =>{
     return data;
 }
 
-export const postVendorLocation = async ({country, city, addressLine, vendorId}: IvendorLocation) =>{
-    const data = await authHost.post("/vendor/location",{country, city, addressLine, vendorId});
+export const postVendorLocation = async ( {country, city, addressLine, vendorId}: IvendorLocation) =>{
+    const data = await authHost.post(`/vendor/location/`,{country, city, addressLine, vendorId});
     return data;
 }
 
-export const getVendorLocationId = async (id:string, ) =>{
-    const data = await authHost.get(`/vendor/location/${id}`);
+export const getVendorLocationId = async (idLocation:string, ) =>{
+    const data = await authHost.get(`/vendor/location/${idLocation}`);
     return data;
 };
 
-export const restVendorLocationId = async (id:string, {country, city, addressLine, vendorId}: IvendorLocation ) =>{
-    const data = await authHost.put(`/vendor/location/${id}`, {country, city, addressLine, vendorId});
+export const restVendorLocationId = async (idLocation:string, {country, city, addressLine, vendorId}: IvendorLocation ) =>{
+    const data = await authHost.put(`/vendor/location/${idLocation}`, {country, city, addressLine, vendorId});
     return data;
 };
 
-export const deleteVendorLocationId = async (id:string ) =>{
-    const data = await authHost.delete(`/vendor/location/${id}`);
+export const deleteVendorLocationId = async (idLocation:string ) =>{
+    const data = await authHost.delete(`/vendor/location/${idLocation}`);
     return data;
 }
