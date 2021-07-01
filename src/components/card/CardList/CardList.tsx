@@ -111,10 +111,10 @@ const CardList: React.FC = (props) => {
                 {
                     paginateCard().map((item, index) => {
                         return (<Grid key={index} item>
-                            <SaleCard discount={item} 
-                                      cards={data} 
-                                      updateData={(item: any) => setData(item)} 
-                                      handleClick={(event: any) => handleClick(event, index)} />
+                            <SaleCard discount={item}
+                                cards={data}
+                                updateData={(item: any) => setData(item)}
+                                handleClick={(event: any) => handleClick(event, index)} />
                         </Grid>)
                     })
                 }
@@ -131,13 +131,10 @@ const CardList: React.FC = (props) => {
                         page={page} onChange={handleChange} />
                 </div>
             </Grid>
-
-
-            </div>
-            {/*<div className={classes.root}>*/}
-            {/*    <Pagination count={Math.ceil(data.length/4)} variant="outlined" color="primary" page={page} onChange={handleChange} />*/}
-            {/*</div>*/}
         </div>
+        // {/*<div className={classes.root}>*/}
+        // {/*    <Pagination count={Math.ceil(data.length/4)} variant="outlined" color="primary" page={page} onChange={handleChange} />*/}
+        // {/*</div>*/}
     );
 };
 

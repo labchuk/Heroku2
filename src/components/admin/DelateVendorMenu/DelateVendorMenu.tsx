@@ -1,6 +1,6 @@
-import { ListItem } from '@material-ui/core';
+import { Button, ListItem } from '@material-ui/core';
 import { Drawer, List } from '@material-ui/core';
-import { TextField } from '@material-ui/core'; 
+import { TextField } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -18,55 +18,112 @@ import AdminPanelVendor from '../AdminPanelVendor/AdminPanelVendor';
 
 const DelateVendorMenu = () => {
     const [state, setState] = React.useState(false);
-    const [countryValue, setCountryValue] = React.useState('');
-    const [cityValue, setCityValue] = React.useState('');
+    const [countryValue, setCountryValue] = React.useState(['']);
+    const [cityValue, setCityValue] = React.useState(['']);
+    const [addressValue, setAddressValue] = React.useState(['']);
     const [uploadFileName, setUploadFileName] = React.useState('');
     const parentRef = useRef<any>();
     const [vendors, setVendor] = React.useState([
-        { id: 1, 
-            name: "Nike", 
-            country: "Ukraine", 
-            city: "Lviv", 
-            address: "Horodotska Str, 16", 
+        {
+            id: 1,
+            name: "Nike",
+            country: "Ukraine",
+            city: "Lviv",
+            address: "Horodotska Str, 16",
             email: "company.nike@gmail.com",
             description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid fuga, ab odit delectus suscipit dignissimos nemo accusamus repellat eius ipsum excepturi optio quis eligendi in ullam nobis sapiente officia vero!",
             image: 'logo1.jpg',
             editing: false
         },
-        { id: 2, 
-            name: "Puma", 
-            country: "Belarus", 
-            city: "Minsk", 
-            address: "Horodotska Str, 16", 
+        {
+            id: 2,
+            name: "Puma",
+            country: "Belarus",
+            city: "Minsk",
+            address: "Horodotska Str, 16",
             email: "company.puma@gmail.com",
             description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid fuga, ab odit delectus suscipit dignissimos nemo accusamus repellat eius ipsum excepturi optio quis eligendi in ullam nobis sapiente officia vero!",
             image: 'logo1.jpg',
             editing: false
         },
-        { id: 3, 
-            name: "Zara", 
-            country: "Ukraine", 
-            city: "Lviv", 
-            address: "Horodotska Str, 16", 
+        {
+            id: 3,
+            name: "Zara",
+            country: "Ukraine",
+            city: "Lviv",
+            address: "Horodotska Str, 16",
             email: "company.zara@gmail.com",
             description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid fuga, ab odit delectus suscipit dignissimos nemo accusamus repellat eius ipsum excepturi optio quis eligendi in ullam nobis sapiente officia vero!",
             image: 'logo1.jpg',
             editing: false
         },
-        { id: 4, 
-            name: "Domino's", 
-            country: "Ukraine", 
-            city: "Lviv", 
-            address: "Horodotska Str, 16", 
+        {
+            id: 4,
+            name: "Domino's",
+            country: "Ukraine",
+            city: "Lviv",
+            address: "Horodotska Str, 16",
             email: "company.dominos@gmail.com",
             description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid fuga, ab odit delectus suscipit dignissimos nemo accusamus repellat eius ipsum excepturi optio quis eligendi in ullam nobis sapiente officia vero!",
             image: 'logo1.jpg',
             editing: false
         },
     ]);
-    
-    const countries = ['Ukraine', 'Belarus', 'USA'];
-    const cities = ['Lviv', 'Minsk', 'Kharkiv'];
+    const address = [
+        'Chornovola Str, 27',
+        'Yakuba Kolasa Str, 37',
+        'Horodotska Str, 7a',
+        'Rynok Sqr, 1',
+        'Mazepy Str, 1a',
+        'Warshavska Str, 127',
+    ];
+
+    const countries = ['Ukraine', 'Belarus', 'USA'];
+    const cities = ['Lviv', 'Minsk', 'Kharkiv'];
+
+    const [category, setCategory] = React.useState([
+        { title: 'Category 1' },
+        { title: 'Category 2' },
+        { title: 'Category 3' },
+        { title: 'Category 4' },
+        { title: 'Category 5' },
+    ]);
+
+    const [tags, setTag] = React.useState([
+        { title: 'Tag 1' },
+        { title: 'Tag 2' },
+        { title: 'Tag 3' },
+        { title: 'Tag 4' },
+        { title: 'Tag 5' },
+    ]);
+
+    //   const vendors = [
+    //     { title: 'Nike' },
+    //     { title: 'Puma' },
+    //     { title: `Domino's` },
+    //     { title: 'Zara' },
+    //     { title: 'Steam' },
+    //   ];
+
+    //   const country = [
+    //     { title: 'Ukraine' },
+    //     { title: 'USA' },
+    //     { title: 'Belarus' },
+    //   ];
+
+    // const city = [
+    //     { title: 'Lviv' },
+    //     { title: 'Minsk' },
+    //     { title: 'Kyiv' },
+    //     { title: 'Herson' },
+    // ];
+
+    const city = [
+        'Lviv',
+        'Minsk',
+        'Kyiv',
+        'Herson',
+    ];
 
     const toggleDrawer = (open: any) => (event: any) => {
         setState(open);
@@ -80,14 +137,18 @@ const DelateVendorMenu = () => {
         setCityValue(event.target.value)
     }
 
+    const handleChangeAddress = (event: any) => {
+        setAddressValue(event.target.value)
+    }
+
     const deleteVendor = (id: number) => {
         let removedArr = vendors.filter((item) => item.id !== id);
         setVendor(removedArr);
     }
-    
+
     const editVendor = (id: number) => {
-        let edits:any = vendors.map( (item: any) => {
-            if (item.id === id){
+        let edits: any = vendors.map((item: any) => {
+            if (item.id === id) {
                 item.editing = !item.editing
             }
             return item;
@@ -96,11 +157,11 @@ const DelateVendorMenu = () => {
     }
 
     const submitEditVendor = (v: any) => {
-        let edits:any = vendors.map( (item: any) => {
-            if (item.id === v.id){
-                item.editing = false
+        let edits: any = vendors.map((item: any) => {
+            if (item.id === v.id) {
+                item.editing = false
             }
-            return item;
+            return item;
         })
         setVendor(edits)
     }
@@ -108,6 +169,9 @@ const DelateVendorMenu = () => {
         root: {
             "& .MuiDrawerPaper-root": {
                 background: '#F7F9FB',
+            },
+            "& .MuiButton-root:hover": {
+                backgroundColor: 'none'
             }
         },
         wrapper: {
@@ -123,7 +187,6 @@ const DelateVendorMenu = () => {
             marginBottom: 20,
             bottom: 20,
             cursor: 'pointer',
-            textAlign: 'right'
         },
         attention: {
             fontSize: 16,
@@ -168,15 +231,12 @@ const DelateVendorMenu = () => {
             }
         },
         submitButton: {
-            height: 40,
-            width: 200,
-            background: 'linear-gradient(to right, #1877F2, #1815BE)',
-            color: 'white',
-            fontSize: 15,
-            transition: 'background 0.3s linea',
-            '&:hover': {
-                background: 'linear-gradient(to right, #194ddb, #0d0b69)',
-            }
+            position: 'relative',
+            left: 0,
+            border: '2px solid #1877F2',
+            color: '#1877F2',
+            width: '250px',
+            marginTop: 10
         },
         adminModalButton: {
             fontSize: 16,
@@ -215,6 +275,28 @@ const DelateVendorMenu = () => {
             background: 'transparent',
             border: '2px solid #1877F2'
         },
+        modal_label: {
+            textAlign: 'center',
+            marginBottom: 15,
+        },
+        address_submit: {
+            position: 'relative',
+            left: 0,
+            border: '2px solid #1877F2',
+            color: '#1877F2',
+            width: '250px'
+        },
+        address_cancel: {
+            position: 'relative',
+            left: 0,
+            border: '2px solid #C4C4C4',
+            width: '250px',
+        },
+        addressButtons: {
+            display: "flex",
+            gridGap: 20,
+            marginBottom: 15
+        },
         '@media(max-width:700px)': {
             wrapper: {
                 width: '320px'
@@ -229,6 +311,22 @@ const DelateVendorMenu = () => {
                 'span': {
                     position: 'relative'
                 }
+            },
+            modal_label: {
+                fontSize: 18,
+            },
+            wrapper__title: {
+                fontSize: 20
+            },
+            addressButtons: {
+                gridGap: 10,
+                flexDirection: 'column'
+            },
+            address_submit: {
+                width: '100%'
+            },
+            address_cancel: {
+                width: '100%'
             }
         }
     })
@@ -239,77 +337,98 @@ const DelateVendorMenu = () => {
         <List className={styles.wrapper}>
             <ListItem>
                 <Grid container direction='column'>
-                    <span className={styles.wrapper__title} onClick={toggleDrawer(false)}>
-                    <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 11 }} />                        
-                    Back
-                    </span>
+                    <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
+                        <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 11 }} />
+                        Back
+                    </div>
+                    <span className={styles.modal_label}>Vendors</span>
                     <div className={styles.attention}>
-                        <ErrorOutlineIcon style={{ color: '#d32f2f', fontSize: 30 }}/>
+                        <ErrorOutlineIcon style={{ color: '#d32f2f', fontSize: 30 }} />
                         <span className={styles.attention__span}>Removing a vendor will delete all its discounts</span>
                     </div>
                     {vendors.map((value: any) => {
                         return <div className={styles.vendorName}>
-                                    {value.name}
-                                    <section className={styles.vendor__icons}>
-                                        <EditIcon onClick={() => {editVendor(value.id)}}
-                                                style={{ fontSize: 22, marginRight: 5, position: 'relative', bottom: 4 }}/>
-                                        <DeleteOutlineIcon onClick={() => {deleteVendor(value.id)}}
-                                                            style={{ color: '#d32f2f', fontSize: 22, position: 'relative', bottom: 4 }}/>
-                                    </section>
-                                    {value.editing ? (
-                                        <div className={styles.editingForm}>
-                                            <TextField className={styles.marginBottom} defaultValue={value.name} label="Name" />
-                                            <FormControl>
-                                                <InputLabel></InputLabel>
-                                                <Select value={countryValue}
-                                                        defaultValue={value.country}
-                                                        onChange={handleChangeCountry}
-                                                        className={styles.marginBottom}
-                                                        displayEmpty>
-                                                {countries.map((country: string) => {
-                                                    return <MenuItem value={country}>{country}</MenuItem>
-                                                })}
-                                                <MenuItem value=''>{value.country}</MenuItem>
-                                                </Select>
-                                            </FormControl>
-                                            <FormControl>
-                                                <InputLabel></InputLabel>
-                                                <Select value={cityValue}
-                                                        onChange={handleChangeCity}
-                                                        className={styles.marginBottom}
-                                                        displayEmpty>
-                                                {cities.map((city: string) => {
-                                                    return <MenuItem value={city}>{city}</MenuItem>
-                                                })}
-                                                <MenuItem value=''>{value.city}</MenuItem>
-                                                </Select>
-                                            </FormControl>
-                                            <TextField className={styles.marginBottom} defaultValue={value.address} label="Address" />
-                                            <TextField className={styles.marginBottom} defaultValue={value.email} label="E-mail" />
-                                            <TextField className={styles.marginBottom} 
-                                                        multiline 
-                                                        rows={5}  
-                                                        label="Description" 
-                                                        variant="outlined"
-                                                        defaultValue={value.description}/>
-                                            <div className={styles.dropzone}>
-                                                <DropZone />
-                                            </div>
-                                            <div className={styles.uploadPhotoMobile}>
-                                                <input type="file"
-                                                        ref={parentRef}
-                                                        className={styles.fileName}
-                                                        id='fileName'
-                                                        accept=".png, .jpg, .jpeg"
-                                                        onChange={(e)=>{setUploadFileName(parentRef.current.files[0].name)}}/>
-                                                <button className={styles.uploadFile__btn}>Change photo</button>
-                                            </div>
-                                            {/* <span className={styles.uploadedFileName}>{uploadFileName}</span> */}
-                                            <span className={styles.uploadedFileName}>{value.image}</span>
-                                            <button className={styles.submitButton} onClick={()=>{submitEditVendor(value)}}>Submit</button>
-                                        </div>
-                                    ) : ''}
+                            {value.name}
+                            <section className={styles.vendor__icons}>
+                                <EditIcon onClick={() => { editVendor(value.id) }}
+                                    style={{ fontSize: 22, marginRight: 5, position: 'relative', bottom: 4 }} />
+                                <DeleteOutlineIcon onClick={() => { deleteVendor(value.id) }}
+                                    style={{ color: '#d32f2f', fontSize: 22, position: 'relative', bottom: 4 }} />
+                            </section>
+                            {value.editing ? (
+                                <div className={styles.editingForm}>
+                                    <TextField className={styles.marginBottom} defaultValue={value.name} label="Name" />
+                                    <FormControl>
+                                        <InputLabel></InputLabel>
+                                        <Select value={countryValue}
+                                            multiple
+                                            defaultValue={value.country}
+                                            onChange={handleChangeCountry}
+                                            className={styles.marginBottom}
+                                            displayEmpty>
+                                            {countries.map((country: string) => {
+                                                return <MenuItem value={country}>{country}</MenuItem>
+                                            })}
+                                            <MenuItem value=''>{value.country}</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                    <FormControl>
+                                        <InputLabel></InputLabel>
+                                        <Select value={cityValue}
+                                            multiple
+                                            onChange={handleChangeCity}
+                                            className={styles.marginBottom}
+                                            displayEmpty>
+                                            {cities.map((city: string) => {
+                                                return <MenuItem value={city}>{city}</MenuItem>
+                                            })}
+                                            <MenuItem value=''>{value.city}</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                    {/* <TextField className={styles.marginBottom} defaultValue={value.address} label="Address" /> */}
+                                    {/* <AutocompleteMultipleChoise data={address} lab='Address' /> */}
+                                    <FormControl>
+                                        <InputLabel></InputLabel>
+                                        <Select value={addressValue}
+                                            multiple
+                                            defaultValue={value.address}
+                                            onChange={handleChangeAddress}
+                                            className={styles.marginBottom}
+                                            displayEmpty>
+                                            {address.map((address: string) => {
+                                                return <MenuItem value={address}>{address}</MenuItem>
+                                            })}
+                                            <MenuItem value=''>{value.address}</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                    <TextField className={styles.marginBottom} defaultValue={value.email} label="E-mail" />
+                                    <TextField className={styles.marginBottom}
+                                        multiline
+                                        rows={5}
+                                        label="Description"
+                                        variant="outlined"
+                                        defaultValue={value.description} />
+                                    <div className={styles.dropzone}>
+                                        <DropZone />
+                                    </div>
+                                    <div className={styles.uploadPhotoMobile}>
+                                        <input type="file"
+                                            ref={parentRef}
+                                            className={styles.fileName}
+                                            id='fileName'
+                                            accept=".png, .jpg, .jpeg"
+                                            onChange={(e) => { setUploadFileName(parentRef.current.files[0].name) }} />
+                                        <button className={styles.uploadFile__btn}>Change photo</button>
+                                    </div>
+                                    {/* <span className={styles.uploadedFileName}>{uploadFileName}</span> */}
+                                    <span className={styles.uploadedFileName}>{value.image}</span>
+                                    <div className={styles.addressButtons}>
+                                        <Button onClick={() => { submitEditVendor(value) }} className={styles.address_submit}>Submit</Button>
+                                        <Button onClick={() => { submitEditVendor(value) }} className={styles.address_cancel}>Cancel</Button>
+                                    </div>
                                 </div>
+                            ) : ''}
+                        </div>
                     })}
                     <button className={styles.adminPanel}>
                         <AdminPanelVendor />
@@ -319,16 +438,16 @@ const DelateVendorMenu = () => {
         </List>
     )
     return (
-    <div>
-        <button onClick={toggleDrawer(true)} className={styles.adminModalButton}>Vendors</button>
-        <Drawer anchor={'right'}
+        <div>
+            <button onClick={toggleDrawer(true)} className={styles.adminModalButton}>Vendors</button>
+            <Drawer anchor={'right'}
                 open={state}
                 onClose={toggleDrawer(false)}>
-            <div>
-                {list()}
-            </div>
-        </Drawer>
-    </div>
+                <div>
+                    {list()}
+                </div>
+            </Drawer>
+        </div>
     );
 };
 
