@@ -1,11 +1,16 @@
 import React from 'react';
-import {  StatisticInformation } from "../../index";
+
+import {Filter, } from "../../index";
+
+import {  StatisticInformation,  ModalSearchBar,Charts} from "../../index";
+
 import "./StatisticPage.scss";
 
 const StatisticPage = () => {
     return (
+        
         <div className={"statistic"}>
-           
+            <ModalSearchBar/>
            <StatisticInformation/>
            
         </div>

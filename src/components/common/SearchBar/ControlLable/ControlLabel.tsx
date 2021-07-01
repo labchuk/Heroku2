@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { FormControlLabel, Checkbox } from "@material-ui/core";
-import "./ControloLable.scss"
+
 
 
 
 const ControlLabel = ({lable}:{ lable:string }) => {
     const [state, setState] = useState({
-        checked: true,
+        checked: false,
     });
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setState({ checked: event.target.checked });
     };
     return (
-        <FormControlLabel
+        <FormControlLabel 
             control={
                 <Checkbox
                     style={{ color: "#0082CA" }}

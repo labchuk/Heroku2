@@ -33,7 +33,7 @@ const MySelect = ({clName,data,name}:{clName:string, data:string[], name:string}
     return (
         <FormControl className={clName}>
             <InputLabel id="select">
-                {name} {data.length}
+                {name}
             </InputLabel>
             <Select labelId="select" value={filterChips()} onChange={handleChange}>
                 {data.map((item,index) => (

@@ -3,24 +3,17 @@ import "./FormLogin.scss";
 import { login, getUserDetails,} from "../../../http/userApi";
 import { useHistory } from "react-router-dom";
 import { MAIN_ROUTE, LOGIN_ROUTE, FIRST_ROUTE } from "../../../utils/consts";
-import {VisibilityOutlined, VisibilityOffOutlined} from "@material-ui/icons"
-import { makeStyles } from "@material-ui/styles";
+import {Visibility , VisibilityOff } from "@material-ui/icons";
+import {TextField, FormControl, IconButton,  OutlinedInput , InputLabel , InputAdornment   } from "@material-ui/core";
 import {useAppDispatch,} from "../../../store/Redux-toolkit-hook"
 import {setEmail, setIsAuth, setUserId, setAdmine, setUserName, setLocation} from "../../../store/userSlise"
+import {Submitbutton} from "../../index"
 
-const useStyles = makeStyles({
-    root: {
-        color: "rgb(112, 107, 107)",
-        cursor: "pointer"
-    },
-});
 
 
 const FormLogin: React.FC = () => {
-    const classes = useStyles();
     const history: any = useHistory();
     const emailErrorTextRef: any = useRef();
-    const inputPasswordRef: any = useRef();
     const dispatch = useAppDispatch();
    
 
@@ -70,40 +63,45 @@ const FormLogin: React.FC = () => {
         emailErrorTextRef.current.style.visibility="hidden"
     }
 
-    const visiblePassword = (bool: boolean,type: string) => {
-        setVisible(bool);
-        inputPasswordRef.current.type = type;
-    } 
-    
-    
-    
     return (
         <form className="FormLogin">
-            <input 
+             <TextField
+                label="Email"
                 type="email"
-                placeholder="email"
+                autoComplete="current-password"
+                variant="outlined"
+                size="small"
                 onChange = {(e:React.ChangeEvent<HTMLInputElement>) => setData({...data, email: e.target.value})}
                 onFocus = {hideError}
             />
-            
             <p ref = {emailErrorTextRef} >
                 The email or password you entered isn’t connected to any
                 account. Find your account and log in.
             </p>
             
-            <input ref={inputPasswordRef}
-                onFocus = {hideError}
-                type="password"
-                placeholder="password"
-                className="formInputPassword"
-                onChange = {(e:React.ChangeEvent<HTMLInputElement>) => setData({...data, password: e.target.value})}
-            />
-            
-                {!visible?<VisibilityOffOutlined  className={classes.root} onClick={()=> visiblePassword(true,"text")}/>:
-                < VisibilityOutlined className={classes.root} onClick={()=> visiblePassword(false,"password")}/>}
-                
-            <input type="submit" onClick={(e)=> checkForm(e)}  hidden/>  
-            <button type="submit" onClick={(e)=> checkForm(e)}> Log in </button>
+        <FormControl  variant="outlined" size="small">
+          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-password"
+            type={visible ? 'text' : 'password'}
+            value={data.password}
+            onChange={(e:React.ChangeEvent<HTMLInputElement>) => setData({...data, password: e.target.value})}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={()=>setVisible(!visible)}
+                  edge="end"
+                >
+                  {visible ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            }
+            labelWidth={70}
+          />
+        </FormControl>
+        <input type="submit" onClick={(e)=> checkForm(e)}  hidden/> 
+        <Submitbutton classN={"submit"} name={"Log in"} heandekCklik={(e:any)=> checkForm(e)}/>
             
         </form>
     );
