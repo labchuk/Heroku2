@@ -8,7 +8,7 @@ import {TextField, FormControl, IconButton,  OutlinedInput , InputLabel , InputA
 import {useAppDispatch,} from "../../../store/Redux-toolkit-hook"
 import {setEmail, setIsAuth, setUserId, setAdmine, setUserName, setLocation} from "../../../store/userSlise"
 import {Submitbutton} from "../../index"
-
+import ReCAPTCHA from "react-google-recaptcha";
 
 
 const FormLogin: React.FC = () => {
@@ -65,6 +65,7 @@ const FormLogin: React.FC = () => {
 
     return (
         <form className="FormLogin">
+
              <TextField
                 label="Email"
                 type="email"
@@ -100,7 +101,13 @@ const FormLogin: React.FC = () => {
             labelWidth={70}
           />
         </FormControl>
-        <input type="submit" onClick={(e)=> checkForm(e)}  hidden/> 
+        <input type="submit" onClick={(e)=> checkForm(e)}  hidden/>
+        <div className={"captcha"}>
+            <ReCAPTCHA
+                sitekey="6Lebr2sbAAAAAOiofIDWTPS3rYuYLHfGkEhcrwC2"
+
+            />
+        </div>
         <Submitbutton classN={"submit"} name={"Log in"} heandekCklik={(e:any)=> checkForm(e)}/>
             
         </form>
