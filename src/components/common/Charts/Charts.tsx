@@ -59,15 +59,15 @@ const Charts = () => {
                 }
             }
     const Arr = [<Bar type="bar" data={data} options={options}/>,
-                <Line type="line" data={data} options={options}/>,
-                <Doughnut type="doughnut" data={data} options={options}/>,
+                <Line type="line" data={data} options={options} />,
+                <Doughnut type="doughnut" data={data} options={options} />,
                 <Pie type="pie" data={data} options={options}/>,
-                <PolarArea type="polarArea" data={data} options={options}/>,];
+                <PolarArea type="polarArea" data={data} options={options} />,];
     const [diagram, setDiagram] = useState(Arr[0]);
 
     return (
-        <div>
-        <div className="BarCarts">
+        <div className="BarCharts">
+        <div className="Charts">
             {diagram}  
         </div>
         <div className="container-btn">

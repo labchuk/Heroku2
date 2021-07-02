@@ -101,7 +101,7 @@ const FormLogin: React.FC = () => {
           />
         </FormControl>
         <input type="submit" onClick={(e)=> checkForm(e)}  hidden/> 
-        <Submitbutton classN={"submit"} name={"Log in"} heandekCklik={(e:any)=> checkForm(e)}/>
+        <Submitbutton classN={"submit"} name={"Log in"} heandekClick={checkForm}/>
             
         </form>
     );
