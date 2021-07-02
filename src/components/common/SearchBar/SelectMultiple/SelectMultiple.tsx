@@ -7,7 +7,8 @@ import {
   MenuItem,
   Checkbox,
   ListItemText,
-  ListSubheader
+  ListSubheader,
+  FormHelperText
 } from "@material-ui/core"
 
 import { useAppDispatch, useAppSelector } from '../../../../store/Redux-toolkit-hook';
@@ -26,7 +27,7 @@ const MenuProps = {
 };
 
 
-const SelectMultiple = ({ clName, data, name, setArrTag }: { clName: string, data: string[], name: string, setArrTag?: any }) => {
+const SelectMultiple = ({ clName, data, name, disabled, helperText}: { clName: string, data: string[], name: string, disabled:boolean, helperText:string}) => {
 
   //  const handleChange = (event: React.ChangeEvent<{ value: any }>,index:any) => {
   //       const numberChip = event.target.value
@@ -76,11 +77,10 @@ const SelectMultiple = ({ clName, data, name, setArrTag }: { clName: string, dat
   const [personName, setPersonName] = useState<string[]>([]);
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setPersonName(event.target.value as string[]);
-    setArrTag && setArrTag(event.target.value as string[]);
   }
 
     return (
-        <FormControl className={clName}>
+        <FormControl className={clName} disabled={disabled}>
         <InputLabel id="demo-mutiple-checkbox-label">{name}</InputLabel>
         <Select
           labelId="demo-mutiple-checkbox-label"
@@ -99,6 +99,7 @@ const SelectMultiple = ({ clName, data, name, setArrTag }: { clName: string, dat
             </MenuItem>
           ))}
         </Select>
+        <FormHelperText>{helperText}</FormHelperText>
       </FormControl>
     );
     }

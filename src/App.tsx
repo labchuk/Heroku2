@@ -22,7 +22,7 @@ const  App = () => {
   
 
   if(loading){
-    return <Spinner/>
+    return <Spinner open={true} handleClose={null}/>
   }
 
     return (

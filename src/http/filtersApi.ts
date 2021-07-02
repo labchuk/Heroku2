@@ -48,6 +48,7 @@ export const getCategoryId = async (id:string ) =>{
 
 export const postCategory = async ({name}:Iname) =>{
     const data = await authHost.post("/category", {name});
+    console.log("a")
     return data;
 };
 
