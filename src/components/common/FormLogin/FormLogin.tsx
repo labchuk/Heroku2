@@ -15,7 +15,8 @@ const FormLogin: React.FC = () => {
     const history: any = useHistory();
     const emailErrorTextRef: any = useRef();
     const dispatch = useAppDispatch();
-   
+    const recaptchaRef = React.createRef();
+
 
     const  regularEmail: any = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i; 
     const regularPassword: any = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/i;
@@ -25,12 +26,24 @@ const FormLogin: React.FC = () => {
     }
     const [data, setData] = useState<IData>({email:"", password: ""})
     const [visible,setVisible] = useState<boolean>(false)
+    const [captcha, setCaptcha] = useState<boolean>(false)
+    const [isVerified, setVerified] = useState<boolean>(false)
  
     const checkForm = (e:any) => {
         e.preventDefault()
-        if(regularEmail.test(data.email) && regularPassword.test(data.password)){
+        if(regularEmail.test(data.email) && regularPassword.test(data.password)) {
             signIn() 
-        } else showError()
+        } else {
+            showError()
+            setCaptcha(true)
+        }
+
+    }
+    const onChange = () => {
+        setVerified(true);
+    }
+    const onError = () => {
+        setVerified(false);
     }
 
     const signIn = async () =>{
@@ -48,6 +61,7 @@ const FormLogin: React.FC = () => {
             redirect();
         }catch(e){
             showError()
+
         }
     }
 
@@ -64,7 +78,8 @@ const FormLogin: React.FC = () => {
     }
 
     return (
-        <form className="FormLogin">
+        <form className="FormLogin"
+        >
 
              <TextField
                 label="Email"
@@ -102,13 +117,19 @@ const FormLogin: React.FC = () => {
           />
         </FormControl>
         <input type="submit" onClick={(e)=> checkForm(e)}  hidden/>
-        <div className={"captcha"}>
-            <ReCAPTCHA
-                sitekey="6Lebr2sbAAAAAOiofIDWTPS3rYuYLHfGkEhcrwC2"
 
-            />
-        </div>
-        <Submitbutton classN={"submit"} name={"Log in"} heandekCklik={(e:any)=> checkForm(e)}/>
+            <div className={"captcha"}>
+                <ReCAPTCHA
+                    sitekey="6Lebr2sbAAAAAOiofIDWTPS3rYuYLHfGkEhcrwC2"
+                    ref={recaptchaRef}
+                    onChange={onChange}
+                    onExpired={onError}
+                    hl={"en"}
+                />
+            </div>
+
+
+        <Submitbutton isVerified = {!isVerified} classN={"submit"} name={"Log in"} heandekCklik={(e:any)=> checkForm(e)}/>
             
         </form>
     );
