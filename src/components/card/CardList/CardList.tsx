@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState } from 'react';
+import React, { MouseEvent, useState, useEffect } from 'react';
 import { SaleCard } from '../../index';
 import "./CardList.scss";
 import Pagination from "@material-ui/lab/Pagination";
@@ -9,6 +9,8 @@ import AdminBtn from '../../admin/AdminBtn/AdminBtn';
 import Sort from "../../common/Sort/Sort";
 import ChipsArray from "../../common/ChipsArray/ChipsArray";
 import { useAppSelector } from "../../../store/Redux-toolkit-hook";
+
+import Skeleton from '@material-ui/lab/Skeleton'
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -46,9 +48,20 @@ const CardList: React.FC = (props) => {
         { id: 17, nameDiscount: 'Smart', sizeDiscount: "10%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
         { id: 18, nameDiscount: 'Eldorado', sizeDiscount: "20%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
         { id: 19, nameDiscount: 'Samsung', sizeDiscount: "45%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
-        { id: 20, nameDiscount: 'Pizza', sizeDiscount: "40%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
+        { id: 20, nameDiscount: 'Pizza', sizeDiscount: "40%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },])
 
-    ])
+
+    // logic for emulate skeleton
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 5000)
+    }, []);
+
+    // logic for emulate skeleton
+
     const classes = useStyles();
     const [page, setPage] = React.useState(1);
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -109,13 +122,20 @@ const CardList: React.FC = (props) => {
                 </div>
                 <Grid container spacing={3} justify="center">
                     {
-                        paginateCard().map((item, index) => {
-                            return (<Grid key={index} item>
-                                <SaleCard discount={item}
-                                    cards={data}
-                                    updateData={(item: any) => setData(item)}
-                                    handleClick={(event: any) => handleClick(event, index)} />
-                            </Grid>)
+                       paginateCard().map((item, index) => {
+                           return (<Grid key={index} item>
+
+                               {loading ? (
+                                   <React.Fragment>
+                                       <Skeleton variant="rect" width={390} height={170} />
+                                   </React.Fragment>
+                               ) : (<SaleCard discount={item}
+                                              cards={data}
+                                              updateData={(item: any) => setData(item)}
+                                              handleClick={(event: any) => handleClick(event, index)} />)
+                               }
+
+                           </Grid>)
                         })
                     }
                     {/*<div className='cardd' onClick={(e:MouseEvent)=>setCard(index)}><SaleCard key={index} discount={item}/></div>*/}
