@@ -51,16 +51,7 @@ const CardList: React.FC = (props) => {
         { id: 20, nameDiscount: 'Pizza', sizeDiscount: "40%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },])
 
 
-    // logic for emulate skeleton
-    const [loading, setLoading] = useState(true)
 
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 5000)
-    }, []);
-
-    // logic for emulate skeleton
 
     const classes = useStyles();
     const [page, setPage] = React.useState(1);
@@ -125,15 +116,11 @@ const CardList: React.FC = (props) => {
                        paginateCard().map((item, index) => {
                            return (<Grid key={index} item>
 
-                               {loading ? (
-                                   <React.Fragment>
-                                       <Skeleton variant="rect" width={390} height={170} />
-                                   </React.Fragment>
-                               ) : (<SaleCard discount={item}
+                              <SaleCard discount={item}
                                               cards={data}
                                               updateData={(item: any) => setData(item)}
-                                              handleClick={(event: any) => handleClick(event, index)} />)
-                               }
+                                              handleClick={(event: any) => handleClick(event, index)} />
+
 
                            </Grid>)
                         })
