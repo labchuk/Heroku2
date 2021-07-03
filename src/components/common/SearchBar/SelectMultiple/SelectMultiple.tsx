@@ -8,8 +8,8 @@ import {
   Checkbox,
   ListItemText,
 } from "@material-ui/core"
-import {useLocation} from "react-router-dom";
-import {MAIN_ROUTE} from "../../../../utils/consts"
+import { useLocation } from "react-router-dom";
+import { MAIN_ROUTE } from "../../../../utils/consts"
 
 import { useAppDispatch, useAppSelector } from '../../../../store/Redux-toolkit-hook';
 import { addChip, removeChip } from '../../../../store/chipReducer';
@@ -27,93 +27,113 @@ const MenuProps = {
 };
 
 
-const SelectMultiple = ({ clName, data, name, setArrTag }: { clName: string, data: string[], name: string, setArrTag?: any }) => {
-   const {pathname} = useLocation();
+const SelectMultiple = ({ clName, data, name, setArrTag, changeData }: { clName: string, data: string[], name: string, setArrTag?: any, changeData?: any }) => {
+  const { pathname } = useLocation();
   const [personName, setPersonName] = useState<string[]>([]);
-   const handleChange = (event: React.ChangeEvent<{ value: any }>,index:any) => {
-        if (pathname === MAIN_ROUTE) {
-          const numberChip = event.target.value
-          const indexChip = index.key.slice(2)
-          if (index.props.children[0].props.checked === false){
-            const newChip = {id: name+indexChip,label: numberChip[numberChip.length - 1]}
-            dispatch(addChip(newChip))
-          } else {
-            dispatch(removeChip(name+indexChip))
-          }
-        }else {
-          setPersonName(event.target.value)
-        }
 
-    };
-    const filterChips = ():any => {
-      if (pathname === MAIN_ROUTE) {
-        const list = []
-        for (const i in chipData) {
-          if (chipData[i].id.slice(0,4) === name.slice(0,4)){
-            list.push(chipData[i].label)
-          }
-        }
-        return list
-      }
-      else {
-        return personName
-      }
+  // const [llist, setList] = React.useState([]);
 
+  const handleChange = (event: React.ChangeEvent<{ value: any }>, index: any) => {
+    if (pathname === MAIN_ROUTE) {
+      const numberChip = event.target.value
+      const indexChip = index.key.slice(2)
+      if (index.props.children[0].props.checked === false) {
+        const newChip = { id: name + indexChip, label: numberChip[numberChip.length - 1] }
+        dispatch(addChip(newChip))
+      } else {
+        dispatch(removeChip(name + indexChip))
+      }
+    } else {
+      setPersonName(event.target.value)
     }
-    const chipData = useAppSelector(state => state.chips.ChipsArray)
-    const dispatch = useAppDispatch();
-    return (
-        <>
-        <FormControl className={clName}>
-            <InputLabel id="demo-mutiple-checkbox-label">{name}</InputLabel>
-            <Select
-                labelId="demo-mutiple-checkbox-label"
-                id="demo-mutiple-checkbox"
-                multiple
-                value={filterChips()}
-                onChange={handleChange}
-                input={<Input />}
-                renderValue={(selected) => (selected as string[]).join(', ')}
-                MenuProps={MenuProps}
-            >
-                {data.map((name:string,index) => (
-                    <MenuItem key={index} value={name} >
-                        <Checkbox checked={filterChips().indexOf(name) > -1} />
-                        <ListItemText primary={name} />
-                    </MenuItem>
-                ))}
-            </Select>
-        </FormControl>
-        </>
-    );
+
+    const { target: { value } } = event;
+    setErrors({ validation: '' })
+    setVal(value);
+    if (filterChips().length === 0) {
+      setErrors({ validation: 'Error' })
+    }
+
+
+  };
+  const filterChips = (): any => {
+    if (pathname === MAIN_ROUTE) {
+      const list = []
+      for (const i in chipData) {
+        // let joi = llist.concat(chipData[i].label)
+        if (chipData[i].id.slice(0, 4) === name.slice(0, 4)) {
+          list.push(chipData[i].label)
+          // setList(joi)
+        }
+      }
+      return list
+    }
+    else {
+      return personName
+    }
+
+  }
+  const chipData = useAppSelector(state => state.chips.ChipsArray)
+  const dispatch = useAppDispatch();
+
+  const [validation, setVal] = React.useState<string>();
+  const [errors, setErrors] = React.useState<{ validation: string }>();
+
+  return (
+    <>
+      <FormControl className={clName}
+        error={Boolean(errors?.validation)}
+        onClick={() => { changeData(validation?.length); console.log(validation?.length) }}
+      >
+        <InputLabel id="demo-mutiple-checkbox-label">{name}</InputLabel>
+        <Select
+          labelId="demo-mutiple-checkbox-label"
+          id="demo-mutiple-checkbox"
+          multiple
+          value={filterChips()}
+          onChange={handleChange}
+          input={<Input />}
+          renderValue={(selected) => (selected as string[]).join(', ')}
+          MenuProps={MenuProps}
+        >
+          {data.map((name: string, index) => (
+            <MenuItem key={index} value={name} >
+              <Checkbox checked={filterChips().indexOf(name) > -1} />
+              <ListItemText primary={name} />
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </>
+  );
   // const [personName, setPersonName] = useState<string[]>([]);
   // const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
   //   setPersonName(event.target.value as string[]);
   //   setArrTag && setArrTag(event.target.value as string[]);
-  }
+}
 
-    // return (
-    //     <FormControl className={clName}>
-    //     <InputLabel id="demo-mutiple-checkbox-label">{name}</InputLabel>
-    //     <Select
-    //       labelId="demo-mutiple-checkbox-label"
-    //       id="demo-mutiple-checkbox"
-    //       multiple
-    //       value={personName}
-    //       onChange={handleChange}
-    //       input={<Input />}
-    //       renderValue={(selected) => (selected as string[]).join(', ')}
-    //       MenuProps={MenuProps}
-    //     >
-    //       {data.map((name:string) => (
-    //         <MenuItem key={name} value={name}>
-    //           <Checkbox checked={personName.indexOf(name) > -1} style={{ color: "#0082CA" }}/>
-    //           <ListItemText primary={name} />
-    //         </MenuItem>
-    //       ))}
-    //     </Select>
-    //   </FormControl>
-    // );
-    // }
+// return (
+//     <FormControl className={clName}>
+//     <InputLabel id="demo-mutiple-checkbox-label">{name}</InputLabel>
+//     <Select
+//       labelId="demo-mutiple-checkbox-label"
+//       id="demo-mutiple-checkbox"
+//       multiple
+//       value={personName}
+//       onChange={handleChange}
+//       input={<Input />}
+//       renderValue={(selected) => (selected as string[]).join(', ')}
+//       MenuProps={MenuProps}
+//     >
+//       {data.map((name:string) => (
+//         <MenuItem key={name} value={name}>
+//           <Checkbox checked={personName.indexOf(name) > -1} style={{ color: "#0082CA" }}/>
+//           <ListItemText primary={name} />
+//         </MenuItem>
+//       ))}
+//     </Select>
+//   </FormControl>
+// );
+// }
 
 export default SelectMultiple;

@@ -12,6 +12,9 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import "./AdminPanelCard.scss";
 import { AutocompleteRenderOptionState } from '@material-ui/lab';
 import AutocompleteMultipleChoise from '../../common/AutocompleteMultipleChoise/AutocompleteMultipleChoise';
+import { useForm } from 'react-hook-form';
+import { SelectMultiple } from '../..';
+import MySelect from '../../common/SearchBar/Select/MySelect';
 
 const AdminPanelCard = () => {
   const [state, setState] = React.useState(false);
@@ -25,49 +28,58 @@ const AdminPanelCard = () => {
   const [newTag, setNewTag] = React.useState('');
   const parentRef = useRef<any>();
   const [address, setAddress] = React.useState([
-    { title: 'Chornovola Str, 27' },
-    { title: 'Yakuba Kolasa Str, 37' },
-    { title: 'Horodotska Str, 7a' },
-    { title: 'Rynok Sqr, 1' },
-    { title: 'Mazepy Str, 1a' },
-    { title: 'Warshavska Str, 127' },
+    'Chornovola Str, 27',
+    'Yakuba Kolasa Str, 37',
+    'Horodotska Str, 7a',
+    'Rynok Sqr, 1',
+    'Mazepy Str, 1a',
+    'Warshavska Str, 127',
   ]);
 
+  // const [category, setCategory] = React.useState([
+  //   {'Category 1': ['Tag 1.1', 'Tag 1.2', 'Tag 1.3', 'Tag 1.4']},
+  //   {'Category 2': ['Tag 2.1', 'Tag 2.2', 'Tag 2.3', 'Tag 2.4']},
+  //   {'Category 3': ['Tag 3.1', 'Tag 3.2', 'Tag 3.3', 'Tag 3.4']},
+  //   {'Category 4': ['Tag 4.1', 'Tag 4.2', 'Tag 4.3', 'Tag 4.4']},
+  //   {'Category 5': ['Tag 5.1', 'Tag 5.2', 'Tag 5.3', 'Tag 5.4']},
+
+  // ]);
+
   const [category, setCategory] = React.useState([
-    { title: 'Category 1' },
-    { title: 'Category 2' },
-    { title: 'Category 3' },
-    { title: 'Category 4' },
-    { title: 'Category 5' },
+    'Category 1',
+    'Category 2',
+    'Category 3',
+    'Category 4',
+    'Category 5',
   ]);
 
   const [tags, setTag] = React.useState([
-    { title: 'Tag 1' },
-    { title: 'Tag 2' },
-    { title: 'Tag 3' },
-    { title: 'Tag 4' },
-    { title: 'Tag 5' },
+    'Tag 1',
+    'Tag 2',
+    'Tag 3',
+    'Tag 4',
+    'Tag 5',
   ]);
 
   const vendors = [
-    { title: 'Nike' },
-    { title: 'Puma' },
-    { title: `Domino's` },
-    { title: 'Zara' },
-    { title: 'Steam' },
+    'Nike',
+    'Puma',
+    `Domino's`,
+    'Zara',
+    'Steam',
   ];
 
   const country = [
-    { title: 'Ukraine' },
-    { title: 'USA' },
-    { title: 'Belarus' },
+    'Ukraine',
+    'USA',
+    'Belarus',
   ];
 
   const city = [
-    { title: 'Lviv' },
-    { title: 'Minsk' },
-    { title: 'Kyiv' },
-    { title: 'Herson' },
+    'Lviv',
+    'Minsk',
+    'Kyiv',
+    'Herson',
   ];
 
   const toggleDrawer = (open: any) => (event: any) => {
@@ -84,7 +96,7 @@ const AdminPanelCard = () => {
 
   const submitAddress = () => {
     setAddressInput(false);
-    let addNewAddress = address.concat({ title: newAddress });
+    let addNewAddress = address.concat(newAddress);
     setAddress(addNewAddress)
   }
 
@@ -97,7 +109,7 @@ const AdminPanelCard = () => {
   }
   const submitCategory = () => {
     setCategoryInput(false);
-    let addNewCategory = category.concat({ title: newCategory });
+    let addNewCategory = category.concat(newCategory);
     setCategory(addNewCategory)
   }
 
@@ -110,7 +122,7 @@ const AdminPanelCard = () => {
   }
   const submitTag = () => {
     setTagInput(false);
-    let addNewTag = tags.concat({ title: newTag });
+    let addNewTag = tags.concat(newTag);
     setTag(addNewTag)
   }
 
@@ -155,7 +167,12 @@ const AdminPanelCard = () => {
       fontSize: 16,
     },
     marginBottom: {
-      marginBottom: 20
+      marginBottom: 15,
+      width: '100%'
+    },
+    marginBottom10: {
+      marginBottom: 10,
+      width: '100%'
     },
     dropzone: {
       border: '1px solid #ced4da',
@@ -176,6 +193,10 @@ const AdminPanelCard = () => {
       left: 0,
       border: '2px solid #1877F2',
       color: '#1877F2',
+      width: '250px'
+    },
+    submitButton__disabled: {
+      border: '2px solid rgba(0, 0, 0, 0.26)',
       width: '250px'
     },
     uploadPhotoMobile: {
@@ -269,6 +290,48 @@ const AdminPanelCard = () => {
 
   const styles = useStyles();
 
+
+  const [validation, setVal] = React.useState<string>();
+  const [errors, setErrors] = React.useState<{ validation: string }>();
+
+  const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { target: { value } } = e;
+    setErrors({ validation: '' })
+    setVal(value);
+    let reg = /^[a-zA-Z]+$/.test(value);
+    if (!reg) {
+      setErrors({ validation: 'Error' })
+    }
+  }
+
+  const [validationDiscount, setValDiscount] = React.useState<string>();
+  const [errorsDiscount, setErrorsDiscount] = React.useState<{ discount: string }>();
+
+  const handleChangeDiscount = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { target: { value } } = e;
+    setErrorsDiscount({ discount: '' })
+    setValDiscount(value);
+    let reg = /^[a-zA-Z]+$/.test(value);
+    if (!reg) {
+      setErrorsDiscount({ discount: 'Error' })
+    }
+  }
+
+  const [validationDescription, setValDescription] = React.useState<string>();
+  const [errorsDescription, setErrorsDescription] = React.useState<{ description: string }>();
+
+  const handleChangeDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { target: { value } } = e;
+    setErrorsDescription({ description: '' })
+    setValDescription(value);
+    let reg = /^[a-zA-Z]+$/.test(value);
+    if (!reg) {
+      setErrorsDescription({ description: 'Error' })
+    }
+  }
+
+  const [valiData, setValiData] = React.useState<any>();
+  const [valiDataVendor, setValiDataVendor] = React.useState<any>();
   const list = () => (
     <List className={styles.wrapper}>
       <ListItem>
@@ -278,8 +341,17 @@ const AdminPanelCard = () => {
             Back
           </div>
           <span className={styles.modal_label}>Add a promotion</span>
-          <TextField className={styles.marginBottom} label="Title" />
-          <AutocompleteMultipleChoise data={category} lab='Category' />
+
+          {/* ===Title======================================================== */}
+          <TextField className={styles.marginBottom} label="Title"
+            value={validation}
+            onChange={handleChangeTitle}
+            error={Boolean(errors?.validation)}
+            required
+          />
+
+          {/* ===Category======================================================== */}
+          <SelectMultiple clName={styles.marginBottom10} data={category} name='Category' changeData={(valiData: any) => setValiData(valiData)} />
           {categoryInput ?
             <>
               <TextField className={styles.marginBottom} label="Add new category" onChange={(e: any) => setNewCategory(e.target.value)} />
@@ -289,7 +361,9 @@ const AdminPanelCard = () => {
               </div>
             </>
             : <span className={styles.address__span} onClick={addCategory}>+ Add new category</span>}
-          <AutocompleteMultipleChoise data={tags} lab='Tags' />
+
+          {/* ===Tags======================================================== */}
+          <SelectMultiple clName={styles.marginBottom10} data={tags} name='Tags *' changeData={(valiData: any) => setValiData(valiData)} />
           {tagInput ?
             <>
               <TextField className={styles.marginBottom} label="Add new tag" onChange={(e: any) => setNewTag(e.target.value)} />
@@ -299,24 +373,15 @@ const AdminPanelCard = () => {
               </div>
             </>
             : <span className={styles.address__span} onClick={addTag}>+ Add new tag</span>}
-          <Autocomplete
-            options={vendors}
-            getOptionLabel={(option) => option.title}
-            renderOption={(option: { title: string }, state: AutocompleteRenderOptionState) => (
-              <li {...state}>
-                {option.title}
-              </li>
-            )}
-            style={{ width: '100%', marginBottom: 15 }}
-            renderInput={(params) => (
-              <TextField {...params} label="Vendor name" />
-            )}
-          />
+
+          {/* ===Vendor======================================================== */}
+          <MySelect clName={styles.marginBottom10} data={vendors} name='Vendor Name' changeDataV={(valiDataVendor: any) => { setValiDataVendor(valiDataVendor); console.log(valiDataVendor) }} />
           {disableInput ? '' : (
             <>
-              <AutocompleteMultipleChoise data={country} lab='Country' />
-              <AutocompleteMultipleChoise data={city} lab='City' />
-              <AutocompleteMultipleChoise data={address} lab='Address' />
+              {/* ===Address======================================================== */}
+              <SelectMultiple clName={styles.marginBottom10} data={country} name='Country *' changeData={(valiData: any) => setValiData(valiData)} />
+              <SelectMultiple clName={styles.marginBottom10} data={city} name='City *' changeData={(valiData: any) => setValiData(valiData)} />
+              <SelectMultiple clName={styles.marginBottom10} data={address} name='Address *' changeData={(valiData: any) => setValiData(valiData)} />
               {addressInput ?
                 <>
                   <TextField className={styles.marginBottom} label="Add an address" onChange={(e: any) => setNewAddress(e.target.value)} />
@@ -335,8 +400,25 @@ const AdminPanelCard = () => {
           <div className={styles.marginBottom}>
             <ContainerDataPiker />
           </div>
-          <TextField className={styles.marginBottom} label="Discount %" />
-          <TextField className={styles.marginBottom} multiline rows={5} label="Description" variant="outlined" />
+
+          {/* ===Discount======================================================== */}
+          <TextField className={styles.marginBottom} label="Discount %"
+            value={validationDiscount}
+            onChange={handleChangeDiscount}
+            error={Boolean(errorsDiscount?.discount)}
+            required />
+
+          {/* ===Description======================================================== */}
+          <TextField className={styles.marginBottom}
+            multiline rows={5}
+            label="Description"
+            variant="outlined"
+            value={validationDescription}
+            onChange={handleChangeDescription}
+            error={Boolean(errorsDescription?.description)}
+            required />
+
+          {/* ===Drop Zone======================================================== */}
           <div className={styles.dropzone}>
             <DropZone wrapperHeight={100} />
           </div>
@@ -350,7 +432,20 @@ const AdminPanelCard = () => {
             <button className={styles.uploadFile__btn}>Upload photo</button>
           </div>
           <span className={styles.uploadedFileName}>{uploadFileName}</span>
-          <Button onClick={toggleDrawer(false)} className={styles.submitButton}>Submit</Button>
+
+          {/* ===Buttons======================================================== */}
+          {validation?.length! > 0 &&
+            validationDiscount?.length! > 0 &&
+            validationDescription?.length! > 0 &&
+            valiData > 0 &&
+            valiDataVendor > 0 ?
+            <Button onClick={toggleDrawer(false)}
+              className={styles.submitButton}>Submit</Button> :
+            <Button onClick={toggleDrawer(false)}
+              disabled
+              className={styles.submitButton__disabled}>Submit</Button>
+          }
+
         </Grid>
       </ListItem>
     </List>
