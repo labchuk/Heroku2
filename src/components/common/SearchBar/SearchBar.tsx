@@ -35,7 +35,7 @@ const SearchBar =()=>{
             <SelectMultiple data={arr} clName={"location"} name={t`Vendor`} disabled={false} helperText={""}/>
             <MySelect data={categoryArr} clName={"location"} name={t`Category`} setAble={setAbleSubCategory}/>
             <SelectMultiple data={arr} clName={"location"} name={t`Sub Category`} disabled={ableSubCategory} helperText={ableSubCategory? t`Please choose category`: ""}/>
-            {pathname === STATISTIC_ROUTE &&  <SelectMultiple data={arr} clName={"location"} name={"User"} disabled={false} helperText={""}/>}
+            {pathname === STATISTIC_ROUTE &&  <SelectMultiple data={arr} clName={"location"} name={t`User`} disabled={false} helperText={""}/>}
             {pathname === STATISTIC_ROUTE &&  <ContainerDataPiker/>}
             <Submitbutton name={t`Apply`} heandekClick={(e:any)=>{}} classN={"submit"}/>
         </div>
