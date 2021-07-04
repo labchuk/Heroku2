@@ -3,6 +3,7 @@ import {Logo} from '../index';
 import "./Header.scss";
 import NavBar from "./NavBar/NavBar";
 import AdminBtn from "../admin/AdminBtn/AdminBtn";
+import LangSwitcher from "../common/LangSwitcher/LangSwitcher";
 
 
 export default function Header() {
@@ -10,6 +11,7 @@ export default function Header() {
         <div className={"header"}>
             <div className={"header__container"}>
                 <Logo/>
+                <LangSwitcher/>
                 <NavBar />
             </div>
         </div>

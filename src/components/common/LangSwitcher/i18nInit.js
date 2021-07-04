@@ -1,4 +1,4 @@
-import { addLocale, useLocale } from 'ttag';
+import { addLocale, useLocale as localize } from 'ttag';
 import * as cookie from './cookie';
 
 const LOCALE_COOKIE = '__locale';
@@ -14,9 +14,9 @@ export function saveLocale(locale) {
 // setup
 const locale = getLocale();
 
-if (locale !== 'en') {
-    const translationsObj = require(`../i18n/${locale}.po.json`);
-    addLocale(locale, translationsObj);
-    useLocale(locale);
 
+if (locale !== 'en') {
+    const translationsObj = require(`./${locale}.po.json`);
+    addLocale(locale, translationsObj);
+    localize(locale);
 }
