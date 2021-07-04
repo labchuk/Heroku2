@@ -25,19 +25,16 @@ const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
         if (myElement === null) {
             alert("Fuck");
         } else {
-
-            myElement.style.display! = "none";
-
-
-
-
+            myElement.style.zIndex = "-1";
+            myElement.style.opacity = "0";
+            myElement.style.position = "absolute";
             if (mainContent === null) {
                 return null;
             }  else {
-                mainContent.style.display = "block";
+                mainContent.style.opacity = "1";
+                mainContent.style.zIndex = "0";
+                mainContent.style.position = "relative";
             }
-
-
         }
     };
 
