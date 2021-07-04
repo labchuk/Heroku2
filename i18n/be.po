@@ -7,6 +7,14 @@ msgstr ""
 "mime-version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src\components\common\LangSwitcher\LangSwitcher.tsx:14
-msgid "Switch lang"
-msgstr "Зменіце мову"
+#: src\components\header\NavBar\NavBar.tsx:64
+msgid "Home"
+msgstr "Галоўная"
+
+#: src\components\header\NavBar\NavBar.tsx:65
+msgid "History"
+msgstr "Гісторыя"
+
+#: src\components\header\NavBar\NavBar.tsx:67
+msgid "Statistics"
+msgstr "Статыстыка"
