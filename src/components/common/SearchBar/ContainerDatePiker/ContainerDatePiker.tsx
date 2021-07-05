@@ -1,23 +1,47 @@
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import {Button, createMuiTheme} from "@material-ui/core"
 import DateFnsUtils from "@date-io/date-fns";
 import "./ContainerDatePiker.scss"
 import DatePiker from './DatePiker/DatePiker';
 import {useLocation} from "react-router-dom";
-import {STATISTIC_ROUTE} from "../../../../utils/consts"
+import {MAIN_ROUTE} from "../../../../utils/consts";
+import React, {useState} from "react";
+import { ThemeProvider } from "@material-ui/styles";
+
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#014f79",
+    }
+  },
+});
 
 
 const ContainerDataPiker = () => {
     const {pathname} = useLocation();
+    const [selectedDate, setSelectedDate] = useState({
+        From: new Date(),
+        To : new Date(),
+        });
+    const handleClick = () =>{
+        setSelectedDate({From: new Date(),To : new Date(),})
+    }
+    const setDate = (name:string, date:any) => {
+        setSelectedDate({...selectedDate, [name]: date });
+    }
     return (
-        <div className={pathname === STATISTIC_ROUTE? "containerData-searchBar":"containerData"}>
+        <div className={pathname !== MAIN_ROUTE? "containerData-searchBar":"containerData"}>
             <span className="containerData__span">Date</span>
                 <div className="containerData__picker">
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <DatePiker label="From" />
-                        <DatePiker label="To" />
+                        <DatePiker label="From" setDate={setDate} selectedDate={selectedDate.From}/>
+                        <DatePiker label="To" setDate={setDate} selectedDate={selectedDate.To}/>
                     </MuiPickersUtilsProvider>
+                    <ThemeProvider theme={theme}>
+                    <Button  color="primary" onClick={handleClick} >Clean date</Button>
+                    </ThemeProvider>
                 </div>
-
         </div>
     );
 };

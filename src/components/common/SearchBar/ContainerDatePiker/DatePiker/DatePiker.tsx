@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
@@ -29,13 +29,10 @@ const materialTheme = (createMuiTheme as any)({
     },
 });
 
-const DatePiker = (props: {label: string}) => {
-     const [selectedDate, setSelectedDate] = useState(
-         new Date()
-     );
+const DatePiker = ({label,setDate,selectedDate }: {label: string, setDate: any, selectedDate:any,}) => {
 
      const handleDateChange = (date: any) => {
-         setSelectedDate(date);
+         setDate(label, date);
      };
     return (
         <ThemeProvider theme={materialTheme}>
@@ -45,7 +42,7 @@ const DatePiker = (props: {label: string}) => {
                 format="MM/dd/yyyy"
                 margin="normal"
                 id="date-picker-inline"
-                label={props.label}
+                label={label}
                 value={selectedDate}
                 onChange={handleDateChange}
                 KeyboardButtonProps={{
