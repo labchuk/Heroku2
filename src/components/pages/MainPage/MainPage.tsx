@@ -9,7 +9,6 @@ const MainPage = () => {
     const dispatch = useAppDispatch();
     const category = useAppSelector(state=>state.filters)
     useEffect(()=>{
-        
         getCategoryAll().then(resolve=> dispatch(addCategory(resolve.data))).catch(f=> console.log(f))
     },[]);
  return (

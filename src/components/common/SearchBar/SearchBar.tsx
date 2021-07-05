@@ -19,7 +19,7 @@ const SearchBar =()=>{
     const [ableSubCategory, setAbleSubCategory] = useState(true)
     const [ableCity, setAbleCyti] = useState(true)
     const {category} = useAppSelector(state=>state.filters);
-    const categoryArr = category.map((item: any)=> item.name)
+    const categoryArr = category?.map((item: any)=> item.name)
     
     const className = pathname === STATISTIC_ROUTE? "container-searchbar modal-searchBar": "container-searchbar"
     return (
@@ -31,7 +31,7 @@ const SearchBar =()=>{
             <MySelect data={arr} clName={"location"} name="Country" setAble={setAbleCyti}/>
             <SelectMultiple data={arr} clName={"location"} name={"City"} disabled={ableCity} helperText={ableCity? "Please choose country": ""}/>
             <SelectMultiple data={arr} clName={"location"} name={"Vendor"} disabled={false} helperText={""}/>
-            <MySelect data={categoryArr} clName={"location"} name="Category" setAble={setAbleSubCategory}/>
+            <MySelect data={categoryArr?categoryArr:[]} clName={"location"} name="Category" setAble={setAbleSubCategory}/>
             <SelectMultiple data={arr} clName={"location"} name={"Sub Category"} disabled={ableSubCategory} helperText={ableSubCategory? "Please choose category": ""}/>
             {pathname === STATISTIC_ROUTE &&  <SelectMultiple data={arr} clName={"location"} name={"User"} disabled={false} helperText={""}/>}
             {pathname === STATISTIC_ROUTE &&  <ContainerDataPiker/>}
