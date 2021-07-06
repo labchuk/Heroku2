@@ -27,10 +27,14 @@ msgstr "Історія"
 msgid "Statistics"
 msgstr "Статистика"
 
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:318
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:222
 #: src\components\common\SearchBar\SearchBar.tsx:33
 msgid "Country"
 msgstr "Країна"
 
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:319
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:223
 #: src\components\common\SearchBar\SearchBar.tsx:34
 msgid "City"
 msgstr "Місто"
@@ -43,6 +47,7 @@ msgstr "Спершу оберіть країну"
 msgid "Vendor"
 msgstr "Постачальник"
 
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:283
 #: src\components\common\SearchBar\SearchBar.tsx:36
 msgid "Category"
 msgstr "Категорія"
@@ -58,3 +63,169 @@ msgstr "Спершу оберіть категорію"
 #: src\components\common\SearchBar\SearchBar.tsx:40
 msgid "Apply"
 msgstr "Застосувати"
+
+#: src\components\common\Sort\Sort.tsx:37
+msgid "Sort by"
+msgstr "Сортувати"
+
+#: src\components\common\Sort\Sort.tsx:44
+msgid "Ending soon"
+msgstr "Скоро закінчуються"
+
+#: src\components\common\Sort\Sort.tsx:45
+msgid "Popular"
+msgstr "Популярні"
+
+#: src\components\common\Sort\Sort.tsx:46
+msgid "New"
+msgstr "Нові"
+
+#: src\components\common\Sort\Sort.tsx:47
+msgid "Hot Sales"
+msgstr "Гарячі пропозиції"
+
+#: src\components\common\Sort\Sort.tsx:48
+msgid "Coming soon"
+msgstr "Найближчим часом"
+
+#: src\components\common\SearchBar\SearchBar.tsx:38
+msgid "User"
+msgstr "Користувач"
+
+#: src\components\common\SearchBar\ContainerDatePiker\ContainerDatePiker.tsx:13
+msgid "Date"
+msgstr "Дата"
+
+#: src\components\common\SearchBar\ContainerDatePiker\ContainerDatePiker.tsx:16
+msgid "From"
+msgstr "Від"
+
+#: src\components\common\SearchBar\ContainerDatePiker\ContainerDatePiker.tsx:17
+msgid "To"
+msgstr "До"
+
+#: src\components\common\LogoutButton\LogoutButton.tsx:14
+msgid "Logout"
+msgstr "Вихід"
+
+#: src\components\common\DropZone\DropZone.tsx:23
+msgid "Drop the photo here..."
+msgstr "Перетягніть фото сюди..."
+
+#: src\components\common\DropZone\DropZone.tsx:24
+msgid "Drag and drop file here, or click to select the file"
+msgstr "Перетягніть та відпустіть файл сюди, або клікніть для вибору"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:279
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:216
+#: src\components\admin\DelateVendorMenu\DelateVendorMenu.tsx:343
+msgid "Back"
+msgstr "Повернутися"
+
+#: src\components\admin\DelateVendorMenu\DelateVendorMenu.tsx:348
+msgid "Removing a vendor will delete all its discounts"
+msgstr "Видалення постачальника видалить усі його промо пропозиції"
+
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:219
+#: src\components\admin\DelateVendorMenu\DelateVendorMenu.tsx:361
+msgid "Name"
+msgstr "Назва"
+
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:236
+#: src\components\admin\DelateVendorMenu\DelateVendorMenu.tsx:405
+msgid "E-mail"
+msgstr "Електронна пошта"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:340
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:237
+#: src\components\admin\DelateVendorMenu\DelateVendorMenu.tsx:409
+msgid "Description"
+msgstr "Опис"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:288
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:298
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:325
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:354
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:229
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:251
+#: src\components\admin\DelateVendorMenu\DelateVendorMenu.tsx:427
+msgid "Submit"
+msgstr "Застосувати"
+
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:218
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:258
+msgid "Add a vendor"
+msgstr "Додати постачальника"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:320
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:224
+msgid "Address"
+msgstr "Адреса"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:323
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:227
+msgid "Add an address"
+msgstr "Додати адресу"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:289
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:299
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:326
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:230
+#: src\components\admin\DelateVendorMenu\DelateVendorMenu.tsx:428
+msgid "Cancel"
+msgstr "Скасувати"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:329
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:233
+msgid "+ Add new address"
+msgstr "+ Додати нову адресу"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:351
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:248
+msgid "Upload photo"
+msgstr "Завантажити фото"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:281
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:361
+msgid "Add a promotion"
+msgstr "Додати промо"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:282
+msgid "Title"
+msgstr "Назва промо"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:286
+msgid "Add new category"
+msgstr "Додати нову категорію"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:292
+msgid "+ Add new category"
+msgstr "+ Додати нову категорію"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:293
+msgid "Tags"
+msgstr "Підкатегорія"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:296
+msgid "Add new tag"
+msgstr "Додати нову підкатегорію"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:302
+msgid "+ Add new tag"
+msgstr "+ Додати нову підкатегорію"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:313
+msgid "Vendor name"
+msgstr "Назва постачальника"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:334
+msgid "Online"
+msgstr "В мережі"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:339
+msgid "Discount %"
+msgstr "Знижка %"
+
+#: src\components\admin\DelateVendorMenu\DelateVendorMenu.tsx:345
+msgid "Vendors"
+msgstr "Постачальники"
