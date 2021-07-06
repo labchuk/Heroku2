@@ -45,7 +45,7 @@ const classes = useStyles();
                         <MenuItem value={"Popular"}>{t`Popular`}</MenuItem>
                         <MenuItem value={"New"}>{t`New`}</MenuItem>
                         <MenuItem value={"Hot Sales"}>{t`Hot Sales`}</MenuItem>
-                        <MenuItem value={"Hot Sales"}>{t`Coming soon`}</MenuItem>
+                        <MenuItem value={"Coming soon"}>{t`Coming soon`}</MenuItem>
                     </Select>
                 </FormControl>
 

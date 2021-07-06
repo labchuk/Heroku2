@@ -12,7 +12,8 @@ export function saveLocale(locale) {
 }
 
 // setup
-const locale = getLocale();
+export const locale = getLocale();
+
 
 
 if (locale !== 'en') {
@@ -20,3 +21,6 @@ if (locale !== 'en') {
     addLocale(locale, translationsObj);
     localize(locale);
 }
+
+
+
