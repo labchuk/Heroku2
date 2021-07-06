@@ -5,13 +5,13 @@ import Spinner from '../spinner/Spinner';
 
 
 
-const Submitbutton = ({name,  heandekClick, classN}:{name:string, heandekClick:any, classN:string}) => {
+const Submitbutton = ({name,  handleClick, classN}:{name:string, handleClick:any, classN:string}) => {
     
     const [open, setOpen] = useState(false);
      
     const handleToggle = (e:any) => {
         setOpen(!open);
-        heandekClick(e);
+        handleClick(e);
     };
     return (
         <>
