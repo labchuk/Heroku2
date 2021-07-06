@@ -8,14 +8,14 @@ import {TextField, FormControl, IconButton,  OutlinedInput , InputLabel , InputA
 import {useAppDispatch,} from "../../../store/Redux-toolkit-hook"
 import {setEmail, setIsAuth, setUserId, setAdmine, setUserName, setLocation} from "../../../store/userSlise"
 import {Submitbutton} from "../../index"
-
+import ReCAPTCHA from "react-google-recaptcha";
 
 
 const FormLogin: React.FC = () => {
     const history: any = useHistory();
     const emailErrorTextRef: any = useRef();
     const dispatch = useAppDispatch();
-   
+    const recaptchaRef: any = useRef();
 
     const  regularEmail: any = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i; 
     const regularPassword: any = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/i;
@@ -25,12 +25,32 @@ const FormLogin: React.FC = () => {
     }
     const [data, setData] = useState<IData>({email:"", password: ""})
     const [visible,setVisible] = useState<boolean>(false)
- 
+    const [captcha, setCaptcha] = useState<boolean>(false)
+    const [isVerified, setVerified] = useState<boolean>(false)
+
     const checkForm = (e:any) => {
         e.preventDefault()
-        if(regularEmail.test(data.email) && regularPassword.test(data.password)){
-            signIn() 
-        } else showError()
+        if(regularEmail.test(data.email) && regularPassword.test(data.password)) {
+            checkCaptcha()
+        } else {
+            showError()
+            setCaptcha(true)
+        }
+    }
+    const checkCaptcha = () => {
+        if(isVerified) {
+            signIn()
+            console.log("captcha true")
+        } else {
+            console.log("captcha false")
+        }
+    }
+    const onChange = () => {
+        setVerified(true);
+
+    }
+    const onError = () => {
+        setVerified(false);
     }
 
     const signIn = async () =>{
@@ -100,7 +120,19 @@ const FormLogin: React.FC = () => {
             labelWidth={70}
           />
         </FormControl>
-        <input type="submit" onClick={(e)=> checkForm(e)}  hidden/> 
+        <input type="submit" onClick={(e)=> checkForm(e)}  hidden/>
+
+            <div id={"captcha"}>
+                <ReCAPTCHA
+                    sitekey="6Lebr2sbAAAAAOiofIDWTPS3rYuYLHfGkEhcrwC2"
+                    ref={recaptchaRef}
+                    onChange={onChange}
+                    onExpired={onError}
+                    hl={"en"}
+                />
+            </div>
+
+
         <Submitbutton classN={"submit"} name={"Log in"} heandekCklik={(e:any)=> checkForm(e)}/>
             
         </form>
