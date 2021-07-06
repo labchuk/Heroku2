@@ -8,7 +8,6 @@ import {MAIN_ROUTE} from "../../../../utils/consts";
 import React, {useState} from "react";
 import { ThemeProvider } from "@material-ui/styles";
 
-
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -38,9 +37,9 @@ const ContainerDataPiker = () => {
                         <DatePiker label="From" setDate={setDate} selectedDate={selectedDate.From}/>
                         <DatePiker label="To" setDate={setDate} selectedDate={selectedDate.To}/>
                     </MuiPickersUtilsProvider>
-                    <ThemeProvider theme={theme}>
+                    {!(pathname === MAIN_ROUTE) && <ThemeProvider theme={theme}>
                     <Button  color="primary" onClick={handleClick} >Clean date</Button>
-                    </ThemeProvider>
+                    </ThemeProvider>}
                 </div>
         </div>
     );

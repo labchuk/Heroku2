@@ -9,8 +9,8 @@ export const getSubCategoryAll = async ( ) =>{
     return data;
 };
 
-export const postSubCategory = async ({name}:Iname) =>{
-    const data = await authHost.post("/sub_category", {name});
+export const postSubCategory = async ({name}:Iname, idCategore: string) =>{
+    const data = await authHost.post(`/sub_category${idCategore}`, {name});
     return data;
 };
 
@@ -47,12 +47,12 @@ export const getDeletedCategory = async () =>{
 };
 
 export const restCategory = async (idCategore:string, {name}:Iname) =>{
-    const data = await authHost.put(`/category/${idCategore}`);
+    const data = await authHost.put(`/category/${idCategore}`,{name});
     return data;
 };
 
-export const getCategoryId = async (id:string ) =>{
-    const data = await authHost.get(`/category/${id}`);
+export const getCategoryId = async (idCategore:string ) =>{
+    const data = await authHost.get(`/category/${idCategore}`);
     return data;
 };
 
@@ -111,7 +111,7 @@ export const getDeletedVendorLocation = async ( ) =>{
 };
 
 export const postVendorLocation = async ( {country, city, addressLine, vendorId}: IvendorLocation) =>{
-    const data = await authHost.post(`/vendor/location/`,{country, city, addressLine, vendorId});
+    const data = await authHost.post(`/vendor/location`,{country, city, addressLine, vendorId});
     return data;
 }
 
@@ -120,8 +120,8 @@ export const getVendorLocationId = async (idLocation:string, ) =>{
     return data;
 };
 
-export const restVendorLocationId = async (idLocation:string, {country, city, addressLine, vendorId}: IvendorLocation ) =>{
-    const data = await authHost.put(`/vendor/location/${idLocation}`, {country, city, addressLine, vendorId});
+export const restVendorLocationId = async (idLocation:string, {country, city, addressLine}: IvendorLocation ) =>{
+    const data = await authHost.put(`/vendor/location/${idLocation}`, {country, city, addressLine});
     return data;
 };
 
