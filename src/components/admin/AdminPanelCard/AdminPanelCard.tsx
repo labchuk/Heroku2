@@ -125,14 +125,14 @@ const AdminPanelCard = () => {
 
   const useStyles = makeStyles({
     root: {
-      "& .MuiButton:hover": {
-        backgroundColor: 'red'
-      },
-      "& .MuiListItem-root": {
-        flexDirection: 'column',
-        alignItems: 'normal',
-        justifyContent: 'normal'
-      },
+      // "& .MuiButton:hover": {
+      //   backgroundColor: 'red'
+      // },
+      // '.MuiListItem-root': {
+      //   flexDirection: 'column',
+      //   alignItems: 'normal',
+      //   justifyContent: 'normal'
+      // },
     },
     wrapper: {
       background: '#F7F9FB',
@@ -255,6 +255,9 @@ const AdminPanelCard = () => {
       fontSize: '15px',
       marginBottom: '20px'
     },
+    form: {
+      width: '700px'
+    },
     '@media(max-width:700px)': {
       wrapper: {
         width: '320px'
@@ -332,7 +335,7 @@ const AdminPanelCard = () => {
   const list = () => (
     <List className={styles.wrapper}>
       <ListItem>
-        <form onSubmit={toggleDrawer(false)}>
+        <form onSubmit={toggleDrawer(false)} className={styles.form}>
           <Grid container direction='column'>
             <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
               <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 11 }} />
