@@ -1,15 +1,15 @@
 import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import "./DropZone.scss";
-function DropZone(updateData: any) {
+function DropZone(props: { updateImage: any }) {
     const style = {
-        height: 100,
-        padding: 20
+        width: '134px',
+        height: '40px',
     }
     const [fileName, setFileName] = React.useState('')
     const onDrop = useCallback(acceptedFiles => {
-        updateData(setFileName(acceptedFiles[0].name))
-    }, [updateData])
+        props.updateImage(setFileName(acceptedFiles[0].name))
+    }, [props.updateImage])
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
     return (
         <div style={style} {...getRootProps()}>
