@@ -170,6 +170,17 @@ const AdminPanelVendor = () => {
             gridGap: 20,
             marginBottom: 15
         },
+        marginBottom10: {
+            marginBottom: 10,
+            width: '100%'
+        },
+        form: {
+            width: '700px'
+        },
+        uploadFile__span: {
+            fontSize: '15px',
+            marginBottom: '20px'
+        },
         '@media(max-width:700px)': {
             wrapper: {
                 width: '320px'
@@ -209,46 +220,42 @@ const AdminPanelVendor = () => {
     const list = () => (
         <List className={styles.wrapper}>
             <ListItem>
-                <Grid container direction='column'>
-                    <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
-                        <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 13 }} />
-                        Back
-                    </div>
-                    <span className={styles.modal_label}>Add a vendor</span>
-                    <TextField className={styles.marginBottom} id="outlined-basic" label="Name" />
-                    {disableInput ? '' : (
-                        <>
-                            <AutocompleteMultipleChoise data={country} lab='Country' />
-                            <AutocompleteMultipleChoise data={city} lab='City' />
-                            <AutocompleteMultipleChoise data={address} lab='Address' />
-                            {addressInput ?
-                                <>
-                                    <TextField className={styles.marginBottom} label="Add an address" onChange={(e: any) => setNewAddress(e.target.value)} />
-                                    <div className={styles.addressButtons}>
-                                        <Button onClick={submitAddress} className={styles.address_submit}>Submit</Button>
-                                        <Button onClick={cancelAddress} className={styles.address_cancel}>Cancel</Button>
-                                    </div>
-                                </>
-                                : <span className={styles.address__span} onClick={addAddress}>+ Add new address</span>}
-                        </>
-                    )}
-                    <TextField className={styles.marginBottom} id="outlined-basic" label="E-mail" />
-                    <TextField className={styles.marginBottom} multiline rows={5} id="outlined-basic" label="Description" variant="outlined" />
-                    <div className={styles.dropzone}>
-                        <DropZone wrapperHeight={100} />
-                    </div>
-                    <div className={styles.uploadPhotoMobile}>
-                        <input type="file"
-                            ref={parentRef}
-                            className={styles.fileName}
-                            id='fileName'
-                            accept=".png, .jpg, .jpeg"
-                            onChange={(e) => { setUploadFileName(parentRef.current.files[0].name) }} />
-                        <button className={styles.uploadFile__btn}>Upload photo</button>
-                    </div>
-                    <span className={styles.uploadedFileName}>{uploadFileName}</span>
-                    <Button onClick={toggleDrawer(false)} className={styles.submitButton}>Submit</Button>
-                </Grid>
+                <form onSubmit={toggleDrawer(false)} className={styles.form}>
+                    <Grid container direction='column'>
+                        <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
+                            <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 13 }} />
+                            Back
+                        </div>
+                        <span className={styles.modal_label}>Add a vendor</span>
+                        <TextField className={styles.marginBottom} label="Name" required />
+                        {disableInput ? '' : (
+                            <>
+                                <AutocompleteMultipleChoise data={country} lab='Country' clName={styles.marginBottom10} />
+                                <AutocompleteMultipleChoise data={city} lab='City' clName={styles.marginBottom10} />
+                                <AutocompleteMultipleChoise data={address} lab='Address' clName={styles.marginBottom10} />
+                                {addressInput ?
+                                    <>
+                                        <TextField className={styles.marginBottom} label="Add an address" onChange={(e: any) => setNewAddress(e.target.value)} />
+                                        <div className={styles.addressButtons}>
+                                            <Button onClick={submitAddress} className={styles.address_submit}>Submit</Button>
+                                            <Button onClick={cancelAddress} className={styles.address_cancel}>Cancel</Button>
+                                        </div>
+                                    </>
+                                    : <span className={styles.address__span} onClick={addAddress}>+ Add new address</span>}
+                            </>
+                        )}
+                        <TextField className={styles.marginBottom} label="E-mail" required />
+                        <TextField className={styles.marginBottom} required multiline rows={5} id="outlined-basic" label="Description" variant="outlined" />
+                        <div className={styles.dropzone}>
+                            <DropZone uploadPhoto={(image: any) => setUploadFileName(image)} />
+                        </div>
+                        <div className={styles.uploadPhotoMobile}>
+                            <button type='button' className={styles.uploadFile__btn}>Upload photo</button>
+                        </div>
+                        <span className={styles.uploadFile__span}>{uploadFileName}</span>
+                        <Button type='submit' className={styles.submitButton}>Submit</Button>
+                    </Grid>
+                </form>
             </ListItem>
         </List>
     )
