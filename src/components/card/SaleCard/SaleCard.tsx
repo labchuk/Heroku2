@@ -31,7 +31,7 @@ const SaleCard: React.FC<SaleCardProps> = ({ discount, cards, updateData, handle
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
-        }, 5000)
+        }, 2000)
     }, []);
 
     // logic for emulate skeleton
