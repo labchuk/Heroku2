@@ -14,7 +14,7 @@ export const initialUserState: IinitialUserState={
 }
 
 const chipReducer = createSlice({
-    name: "userSlise",
+    name: "chipsSlise",
     initialState: initialUserState,
     reducers: {
         addChip(state, actions: PayloadAction<any>) {

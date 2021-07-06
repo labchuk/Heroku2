@@ -9,7 +9,7 @@ const StatisticInformation = () => {
             <div className="Statistic__main">
                 <div className="Statistic__info">
                     <InformationBlock/>
-                </div>
+                </div> 
                 <Charts/>
             </div>
 

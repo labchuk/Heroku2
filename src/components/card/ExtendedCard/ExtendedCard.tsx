@@ -19,7 +19,7 @@ const ExtendedCard:React.FC<ExtendedCardProps> = ({discount}) => {
             <DateValid />
             <Like discount={discount}/>
             <Map/>
-            <Submitbutton/>
+            <Submitbutton heandekClick={()=>{}}/>
         </div>
     );
 };

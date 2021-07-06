@@ -27,7 +27,7 @@ const FormLogin: React.FC = () => {
     const [visible,setVisible] = useState<boolean>(false)
     const [captcha, setCaptcha] = useState<boolean>(false)
     const [isVerified, setVerified] = useState<boolean>(false)
- 
+
     const checkForm = (e:any) => {
         e.preventDefault()
         if(regularEmail.test(data.email) && regularPassword.test(data.password)) {
@@ -68,7 +68,6 @@ const FormLogin: React.FC = () => {
             redirect();
         }catch(e){
             showError()
-
         }
     }
 
@@ -84,11 +83,8 @@ const FormLogin: React.FC = () => {
         emailErrorTextRef.current.style.visibility="hidden"
     }
 
-
     return (
-        <form className="FormLogin"
-        >
-
+        <form className="FormLogin">
              <TextField
                 label="Email"
                 type="email"
