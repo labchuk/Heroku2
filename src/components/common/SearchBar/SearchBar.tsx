@@ -53,7 +53,7 @@ const SearchBar =()=>{
             {pathname === STATISTIC_ROUTE &&  <SelectMultiple data={arr} clName={"location"} name={"User"} disabled={false} helperText={""}/>}
             </>}
             {pathname !== MAIN_ROUTE  &&  <ContainerDataPiker />}
-            <Submitbutton name={"Apply"} heandekClick={(e:any)=>{}} classN={"submit"}/>
+            <Submitbutton name={"Apply"} handleClick={(e:any)=>{}} classN={"submit"}/>
         </div>
     );
 };
