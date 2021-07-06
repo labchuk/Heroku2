@@ -133,7 +133,7 @@ const FormLogin: React.FC = () => {
             </div>
 
 
-        <Submitbutton classN={"submit"} name={"Log in"} heandekCklik={(e:any)=> checkForm(e)}/>
+        <Submitbutton classN={"submit"} name={"Log in"} handleClick={(e:any)=> checkForm(e)}/>
             
         </form>
     );
