@@ -118,12 +118,6 @@ const CardList: React.FC = (props) => {
                             </Grid>)
                         })
                     }
-                    {/*<div className='cardd' onClick={(e:MouseEvent)=>setCard(index)}><SaleCard key={index} discount={item}/></div>*/}
-                    {/*  {[0, 1, 2, 3, 4, 5].map((value) => (
-                            <Grid key={value} item onClick={handleClick}>
-                                <SaleCard/>
-                            </Grid>
-                        ))}*/}
                 </Grid>
                 <Grid xs={12} justify="center">
                     <div className={classes.root}>
@@ -133,9 +127,6 @@ const CardList: React.FC = (props) => {
                 </Grid>
             </div>
         </div>
-        // {/*<div className={classes.root}>*/}
-        // {/*    <Pagination count={Math.ceil(data.length/4)} variant="outlined" color="primary" page={page} onChange={handleChange} />*/}
-        // {/*</div>*/}
     );
 };
 

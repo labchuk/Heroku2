@@ -13,9 +13,6 @@ import "./AdminPanelCard.scss";
 import { AutocompleteRenderOptionState } from '@material-ui/lab';
 import AutocompleteMultipleChoise from '../../common/AutocompleteMultipleChoise/AutocompleteMultipleChoise';
 import { useForm } from 'react-hook-form';
-import MySelect from '../../common/SearchBar/Select/MySelect';
-import AdminSelectMultiple from '../AdminSelectMultiple/AdminSelectMultiple';
-import AdminSelect from '../AdminSelect/AdminSelect';
 
 const AdminPanelCard = () => {
   const [state, setState] = React.useState(false);
@@ -23,7 +20,7 @@ const AdminPanelCard = () => {
   const [addressInput, setAddressInput] = React.useState(false);
   const [categoryInput, setCategoryInput] = React.useState(false);
   const [tagInput, setTagInput] = React.useState(false);
-  const [uploadFileName, setUploadFileName] = React.useState('');
+  const [uploadFileName, setUploadFileName] = React.useState();
   const [newAddress, setNewAddress] = React.useState('');
   const [newCategory, setNewCategory] = React.useState('');
   const [newTag, setNewTag] = React.useState('');
@@ -130,7 +127,12 @@ const AdminPanelCard = () => {
     root: {
       "& .MuiButton:hover": {
         backgroundColor: 'red'
-      }
+      },
+      "& .MuiListItem-root": {
+        flexDirection: 'column',
+        alignItems: 'normal',
+        justifyContent: 'normal'
+      },
     },
     wrapper: {
       background: '#F7F9FB',
@@ -173,7 +175,6 @@ const AdminPanelCard = () => {
     dropzone: {
       border: '1px solid #ced4da',
       fontSize: 14,
-      paddingTop: 30,
       cursor: 'pointer',
       color: '#ced4da',
       borderRadius: 4,
@@ -250,17 +251,30 @@ const AdminPanelCard = () => {
       gridGap: 20,
       marginBottom: 15
     },
+    uploadFile__span: {
+      fontSize: '15px',
+      marginBottom: '20px'
+    },
     '@media(max-width:700px)': {
       wrapper: {
         width: '320px'
       },
       dropzone: {
-        display: 'none'
+        zIndex: 25,
+        opacity: 0,
+        height: 40,
+        width: 131,
+        borderRadius: '0px',
+        position: 'relative',
+        border: 'none',
+        outline: 'none',
+        marginBottom: '-18px'
       },
       uploadPhotoMobile: {
         display: 'flex',
-        marginBottom: 20,
         fontSize: 15,
+        position: 'relative',
+        bottom: '20px',
         'span': {
           position: 'relative'
         }
@@ -400,19 +414,12 @@ const AdminPanelCard = () => {
               label="Description"
               variant="outlined" />
             <div className={styles.dropzone}>
-              <DropZone updateImage={(image: any) => { setImage(image) }} />
+              <DropZone uploadPhoto={(image: any) => setUploadFileName(image)} />
             </div>
-            <span>{image}</span>
             <div className={styles.uploadPhotoMobile}>
-              <input type="file"
-                ref={parentRef}
-                className={styles.fileName}
-                id='fileName'
-                accept=".png, .jpg, .jpeg"
-                onChange={(e) => { setUploadFileName(parentRef.current.files[0].name) }} />
-              <button className={styles.uploadFile__btn}>Upload photo</button>
+              <button type='button' className={styles.uploadFile__btn}>Upload photo</button>
             </div>
-            <span className={styles.uploadedFileName}>{uploadFileName}</span>
+            <span className={styles.uploadFile__span}>{uploadFileName}</span>
             <Button type='submit' className={styles.submitButton}>Submit</Button>
           </Grid>
         </form>
