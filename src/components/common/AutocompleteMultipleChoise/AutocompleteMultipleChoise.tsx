@@ -9,22 +9,36 @@ const AutocompleteMultipleChoise = (props: { data: any, lab: string, clName: str
         <Autocomplete
             multiple
             options={props.data}
+            className={props.clName}
             disableCloseOnSelect
-            value={value}
-            getOptionLabel={(option) => option.title}
+
+            getOptionLabel={(option: any) => option.title}
             onChange={(event, newValue) => {
                 setValue(newValue);
+            }}
+            value={value}
+            renderInput={(params) => (
+                <TextField
+                    {...params}
+                    label={props.lab}
+                    inputProps={{
+                        ...params.inputProps,
+                        autoComplete: "new-password",
+                        required: value.length === 0
+                    }}
+                    required
+                />
+            )}
+            getOptionSelected={(option: any, value: any) => {
+                return option.title === value.title;
             }}
             renderOption={(option: { title: string }, state: AutocompleteRenderOptionState) => (
                 <li {...state}>
                     {option.title}
                 </li>
             )}
-            style={{ width: '100%', marginBottom: 15 }}
-            renderInput={(params) => (
-                <TextField {...params} label={props.lab} required={true} />
-            )}
-        />)
+        />
+    )
 }
 
 export default AutocompleteMultipleChoise;

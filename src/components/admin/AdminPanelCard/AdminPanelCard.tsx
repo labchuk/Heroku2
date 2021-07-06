@@ -1,4 +1,4 @@
-import { ListItem } from '@material-ui/core';
+import { Checkbox, ListItem } from '@material-ui/core';
 import { Drawer, List } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
@@ -158,11 +158,12 @@ const AdminPanelCard = () => {
       height: 20,
       marginRight: 5,
       top: 4,
+      color: "#0082CA"
     },
     checkbox__label: {
-      marginTop: 2,
-      position: 'absolute',
+      position: 'relative',
       fontSize: 16,
+      top: '3px'
     },
     marginBottom: {
       marginBottom: 15,
@@ -211,11 +212,6 @@ const AdminPanelCard = () => {
       color: '#1877F2',
       padding: '10px 20px',
       border: '2px solid #1877F2'
-    },
-    uploadedFileName: {
-      fontSize: 14,
-      marginTop: '-14px',
-      marginBottom: 20
     },
     modal_label: {
       textAlign: 'center'
@@ -303,35 +299,6 @@ const AdminPanelCard = () => {
 
   const styles = useStyles();
 
-
-  const [validation, setVal] = React.useState<string>();
-  const [errors, setErrors] = React.useState<{ validation: string }>();
-
-  const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { target: { value } } = e;
-    setErrors({ validation: '' })
-    setVal(value);
-    let reg = /^[a-zA-Z]+$/.test(value);
-    if (!reg) {
-      setErrors({ validation: 'Error' })
-    }
-  }
-
-  const [validationDiscount, setValDiscount] = React.useState<string>();
-  const [errorsDiscount, setErrorsDiscount] = React.useState<{ discount: string }>();
-
-  const handleChangeDiscount = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { target: { value } } = e;
-    setErrorsDiscount({ discount: '' })
-    setValDiscount(value);
-    let reg = /[0-9]/.test(value);
-    if (!reg) {
-      setErrorsDiscount({ discount: 'Error' })
-    }
-  }
-
-  const [valiData, setValiData] = React.useState<string[]>([]);
-  const [valiDataVendor, setValiDataVendor] = React.useState<string[]>([]);
   const list = () => (
     <List className={styles.wrapper}>
       <ListItem>
@@ -344,7 +311,6 @@ const AdminPanelCard = () => {
             <span className={styles.modal_label}>Add a promotion</span>
             <TextField className={styles.marginBottom}
               label="Title"
-              value={validation}
               required
             />
             <Autocomplete
@@ -400,16 +366,20 @@ const AdminPanelCard = () => {
               </>
             )}
             <div className={styles.checkbox__wrapper}>
-              <input type="checkbox" className={styles.checkbox} onClick={changeDisable} />
+              <Checkbox
+                className={styles.checkbox}
+                onClick={changeDisable}
+                color="primary"
+              />
               <label className={styles.checkbox__label} >Online</label>
             </div>
             <div className={styles.marginBottom}>
               <ContainerDataPiker />
             </div>
-            <TextField className={styles.marginBottom} label="Discount %"
-              value={validationDiscount}
-              onChange={handleChangeDiscount}
-              error={Boolean(errorsDiscount?.discount)}
+            <TextField className={styles.marginBottom}
+              type='number'
+              label="Discount %"
+              InputProps={{ inputProps: { min: 0 } }}
               required />
             <TextField className={styles.marginBottom}
               required
