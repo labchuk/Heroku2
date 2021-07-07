@@ -65,7 +65,7 @@ msgstr "Да"
 
 #: src\components\common\SearchBar\SearchBar.tsx:43
 msgid "Used"
-msgstr "Скарысталася"
+msgstr "Выкарыстаныя"
 
 #: src\components\common\SearchBar\SearchBar.tsx:44
 msgid "Active"
@@ -185,15 +185,15 @@ msgstr "Самы папулярны пастаўшчык"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:23
 msgid "The most popular Promo:"
-msgstr "Самы папулярны прома"
+msgstr "Самы папулярны Акцыя:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:24
 msgid "The most popular category:"
-msgstr "Самы папулярны катэгорыя"
+msgstr "Самы папулярны катэгорыя:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:25
 msgid "The most popular subcategory:"
-msgstr "Самы папулярны падкатэгорыя"
+msgstr "Самая папулярны падкатэгорыя:"
 
 #: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:297
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:279
