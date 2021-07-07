@@ -38,6 +38,7 @@ const SearchBar =()=>{
     
     const arrVendorName =vendor.map(item=>firsLetterToUpperCase(item.name));
     const arrCountry = vendorLocation.map(item=>firsLetterToUpperCase(item.country))
+    const uniqueArr = (arr:string[]) => Array.from(new Set(arr));
     const categoryArr = category?.filter((item: any)=> item.deleted === false).map(item=> firsLetterToUpperCase(item.name));
     const className = pathname === STATISTIC_ROUTE || pathname === HISTORY_ROUTE ? "container-searchbar modal-searchBar": "container-searchbar"
     return (
@@ -53,8 +54,8 @@ const SearchBar =()=>{
                 </>}
             </div>}
             {pathname !== HISTORY_ROUTE && <>
-                <MySelect data={arrCountry? arrCountry: []} clName={"location"} name="Country" setAble={setAbleCyti}/>
-                <SelectMultiple data={choiceCity} clName={"location"} name={"City"} disabled={!ableCity} helperText={!ableCity? "Please choose country": ""}/>
+                <MySelect data={arrCountry? uniqueArr(arrCountry): []} clName={"location"} name="Country" setAble={setAbleCyti}/>
+                <SelectMultiple data={uniqueArr(choiceCity)} clName={"location"} name={"City"} disabled={!ableCity} helperText={!ableCity? "Please choose country": ""}/>
                 <SelectMultiple data={arrVendorName? arrVendorName: []} clName={"location"} name={"Vendor"} disabled={false} helperText={""}/>
                 <MySelect data={categoryArr? categoryArr : []} clName={"location"} name="Category" setAble={setAbleSubCategory}/>
                 <SelectMultiple data={arr} clName={"location"} name={"Sub Category"} disabled={!ableSubCategory} helperText={!ableSubCategory? "Please choose category": ""}/>
