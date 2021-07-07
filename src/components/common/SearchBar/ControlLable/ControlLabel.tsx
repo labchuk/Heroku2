@@ -4,13 +4,14 @@ import { FormControlLabel, Checkbox } from "@material-ui/core";
 
 
 
-const ControlLabel = ({lable}:{ lable:string }) => {
+const ControlLabel = ({lable, setStateControlLableMy,  }:{ lable:string, setStateControlLableMy:any }) => {
     const [state, setState] = useState({
         checked: false,
     });
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setState({ checked: event.target.checked });
+        setStateControlLableMy(lable, event.target.checked)
     };
     return (
         <FormControlLabel 

@@ -15,7 +15,7 @@
     }
     
     .submit {
-        margin-top: 30px;
+
         height: 40px;
         font-size: 15px;
         background-color: #0082CA;
@@ -25,7 +25,12 @@
         background-color: #015685;
     }
 };
-
+#captcha{
+    margin: 10px auto;
+    /*border: #ED1818 1px solid;
+    border-radius: 3px;
+    padding-right: -4px;*/
+}
 
 
 @media screen and (min-width:480px){

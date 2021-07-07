@@ -1,11 +1,18 @@
 .card-list{
   padding-bottom: 60px;
+  display: flex;
+  justify-content: center;
+  transition: all 0.7s;
+  overflow: hidden;
+  position: relative;
 }
 .sort-admin{
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
-
+}
+.main-content{
+  transition: all 0.7s;
 }
 .chips{
  margin-left: 10px;

@@ -9,8 +9,8 @@ export const getSubCategoryAll = async ( ) =>{
     return data;
 };
 
-export const postSubCategory = async ({name}:Iname) =>{
-    const data = await authHost.post("/sub_category", {name});
+export const postSubCategory = async ({name}:Iname, idCategore: string) =>{
+    const data = await authHost.post(`/sub_category${idCategore}`, {name});
     return data;
 };
 
@@ -21,6 +21,11 @@ export const restSubCategory = async (SubCategory:string, {name}:Iname ) =>{
 
 export const getSubCategoryId = async (SubCategory:string ) =>{
     const data = await authHost.get(`/sub_category/${SubCategory}`);
+    return data;
+};
+
+export const getDeletedSubCategory = async () =>{
+    const data = await authHost.get(`/sub_category/?isDeleted=true`);
     return data;
 };
 
@@ -36,19 +41,23 @@ export const getCategoryAll = async ( ) =>{
     return data;
 };
 
-export const restCategory = async (idCategore:string, {name}:Iname) =>{
-    const data = await authHost.put(`/category/${idCategore}`);
+export const getDeletedCategory = async () =>{
+    const data = await authHost.get(`/category/?isDeleted=true`);
     return data;
 };
 
-export const getCategoryId = async (id:string ) =>{
-    const data = await authHost.get(`/category/${id}`);
+export const restCategory = async (idCategore:string, {name}:Iname) =>{
+    const data = await authHost.put(`/category/${idCategore}`,{name});
+    return data;
+};
+
+export const getCategoryId = async (idCategore:string ) =>{
+    const data = await authHost.get(`/category/${idCategore}`);
     return data;
 };
 
 export const postCategory = async ({name}:Iname) =>{
     const data = await authHost.post("/category", {name});
-    console.log("a")
     return data;
 };
 
@@ -63,6 +72,11 @@ export const getVendorAll = async ( ) =>{
     const {data} = await authHost.get("/vendor");
     return data;
 }
+
+export const getDeletedVendor = async ( ) =>{
+    const data = await authHost.get(`/vendor/?isDeleted=true`);
+    return data;
+};
 
 export const postVendor = async ({name, description, email, image}: Ivendor ) =>{
     const data = await authHost.post("/vendor",{name, description, email, image});
@@ -91,8 +105,13 @@ export const getVendorLocationAll = async ( ) =>{
     return data;
 }
 
+export const getDeletedVendorLocation = async ( ) =>{
+    const data = await authHost.get(`/vendor/location/?isDeleted=true`);
+    return data;
+};
+
 export const postVendorLocation = async ( {country, city, addressLine, vendorId}: IvendorLocation) =>{
-    const data = await authHost.post(`/vendor/location/`,{country, city, addressLine, vendorId});
+    const data = await authHost.post(`/vendor/location`,{country, city, addressLine, vendorId});
     return data;
 }
 
@@ -101,8 +120,8 @@ export const getVendorLocationId = async (idLocation:string, ) =>{
     return data;
 };
 
-export const restVendorLocationId = async (idLocation:string, {country, city, addressLine, vendorId}: IvendorLocation ) =>{
-    const data = await authHost.put(`/vendor/location/${idLocation}`, {country, city, addressLine, vendorId});
+export const restVendorLocationId = async (idLocation:string, {country, city, addressLine}: IvendorLocation ) =>{
+    const data = await authHost.put(`/vendor/location/${idLocation}`, {country, city, addressLine});
     return data;
 };
 
