@@ -10,9 +10,7 @@ import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceO
 import Button from '@material-ui/core/Button';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import "./AdminPanelCard.scss";
-import { AutocompleteRenderOptionState } from '@material-ui/lab';
 import AutocompleteMultipleChoise from '../../common/AutocompleteMultipleChoise/AutocompleteMultipleChoise';
-import { useForm } from 'react-hook-form';
 
 const AdminPanelCard = () => {
   const [state, setState] = React.useState(false);
@@ -385,7 +383,11 @@ const AdminPanelCard = () => {
               required
               multiline rows={5}
               label="Description"
-              variant="outlined" />
+              variant="outlined"
+              inputProps={{
+                maxLength: 2000,
+                minLength: 50
+              }} />
             <div className={styles.dropzone}>
               <DropZone uploadPhoto={(image: any) => setUploadFileName(image)} />
             </div>

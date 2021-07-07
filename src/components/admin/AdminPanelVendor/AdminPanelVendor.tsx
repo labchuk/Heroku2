@@ -1,20 +1,23 @@
-import { Button, ListItem } from '@material-ui/core';
+import { Button, ListItem, Snackbar } from '@material-ui/core';
 import { Drawer, List } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import { makeStyles } from '@material-ui/core/styles';
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import DropZone from '../../common/DropZone/DropZone';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import "./AdminPanelVendor.scss";
 import AutocompleteMultipleChoise from '../../common/AutocompleteMultipleChoise/AutocompleteMultipleChoise';
+import { useForm } from 'react-hook-form';
+import { useDropzone } from 'react-dropzone';
+import { Alert } from '@material-ui/lab';
 
 const AdminPanelVendor = () => {
     const [state, setState] = React.useState(false);
     const [countryValue, setCountryValue] = React.useState('');
     const [cityValue, setCityValue] = React.useState('');
-    const [uploadFileName, setUploadFileName] = React.useState('');
+    const [uploadFileName, setUploadFileName] = React.useState<any[]>([]);
     const [disableInput, setDisableInput] = React.useState(false);
     const [addressInput, setAddressInput] = React.useState(false);
     const [newAddress, setNewAddress] = React.useState('');
@@ -97,7 +100,6 @@ const AdminPanelVendor = () => {
         dropzone: {
             border: '1px solid #ced4da',
             fontSize: 14,
-            paddingTop: 30,
             cursor: 'pointer',
             color: '#ced4da',
             borderRadius: 4,
@@ -220,7 +222,8 @@ const AdminPanelVendor = () => {
     const list = () => (
         <List className={styles.wrapper}>
             <ListItem>
-                <form onSubmit={toggleDrawer(false)} className={styles.form}>
+                <form onSubmit={toggleDrawer(false)}
+                    className={styles.form}>
                     <Grid container direction='column'>
                         <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
                             <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 13 }} />
@@ -245,9 +248,18 @@ const AdminPanelVendor = () => {
                             </>
                         )}
                         <TextField className={styles.marginBottom} label="E-mail" required />
-                        <TextField className={styles.marginBottom} required multiline rows={5} id="outlined-basic" label="Description" variant="outlined" />
+                        <TextField className={styles.marginBottom}
+                            required
+                            multiline
+                            rows={5}
+                            label="Description"
+                            variant="outlined"
+                            inputProps={{
+                                maxLength: 200,
+                                minLength: 50
+                            }} />
                         <div className={styles.dropzone}>
-                            <DropZone uploadPhoto={(image: any) => setUploadFileName(image)} />
+                            <DropZone uploadPhoto={(image: any) => { setUploadFileName(image) }} />
                         </div>
                         <div className={styles.uploadPhotoMobile}>
                             <button type='button' className={styles.uploadFile__btn}>Upload photo</button>

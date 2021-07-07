@@ -2,7 +2,7 @@ import { Checkbox, TextField } from "@material-ui/core";
 import { Autocomplete, AutocompleteRenderOptionState } from "@material-ui/lab";
 import React from "react";
 
-const AutocompleteMultipleChoise = (props: { data: any, lab: string, clName: string }) => {
+const AutocompleteMultipleChoise = (props: { data: any, lab: string, clName?: string }) => {
     const [value, setValue] = React.useState<any[]>([]);
 
     return (
@@ -11,7 +11,6 @@ const AutocompleteMultipleChoise = (props: { data: any, lab: string, clName: str
             options={props.data}
             className={props.clName}
             disableCloseOnSelect
-
             getOptionLabel={(option: any) => option.title}
             onChange={(event, newValue) => {
                 setValue(newValue);

@@ -4,7 +4,7 @@ import "./DropZone.scss";
 
 function DropZone(props: { uploadPhoto: any }) {
     const onDrop = useCallback(acceptedFiles => {
-        props.uploadPhoto(acceptedFiles[0].name)
+        props.uploadPhoto(acceptedFiles)
     }, [])
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
     return (
