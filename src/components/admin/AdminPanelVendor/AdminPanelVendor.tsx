@@ -2,23 +2,61 @@ import { Button, ListItem } from '@material-ui/core';
 import { Drawer, List } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import InputLabel from '@material-ui/core/InputLabel';
 import { makeStyles } from '@material-ui/core/styles';
-import React, { useRef } from 'react';
+import React, {useEffect, useRef} from 'react';
 import DropZone from '../../common/DropZone/DropZone';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import "./AdminPanelVendor.scss";
-import AutocompleteMultipleChoise from '../../common/AutocompleteMultipleChoise/AutocompleteMultipleChoise';
+import {getVendorAll, postVendor, postVendorLocation, uploadImage} from "../../../http/filtersApi";
 
 const AdminPanelVendor = () => {
     const [state, setState] = React.useState(false);
     const [countryValue, setCountryValue] = React.useState('');
     const [cityValue, setCityValue] = React.useState('');
-    const [uploadFileName, setUploadFileName] = React.useState('');
+    const [uploadFileName, setUploadFileName] = React.useState<string | Blob>('');
+    const [fileName, setFileName] = React.useState<string | Blob>('');
     const [disableInput, setDisableInput] = React.useState(false);
     const [addressInput, setAddressInput] = React.useState(false);
     const [newAddress, setNewAddress] = React.useState('');
+    const [data, setData] = React.useState({
+        email: "",
+        description: "",
+        name: "",
+
+    });
     const parentRef = useRef<any>();
+    console.log(fileName)
+    console.log(countryValue)
+
+    const setImage = (event: any) => {
+        setFileName(event.target.files[0])
+    }
+    const addLogoVendor = () => {
+        const formData = new FormData();
+        formData.append(
+            "file",
+            fileName,
+            fileName.name
+        );
+        console.log(fileName);
+       return uploadImage(formData)
+    }
+
+    const addVendor = async () => {
+        const logo = await addLogoVendor()
+        const logoURL = logo?.data.message
+        const vendor = await postVendor({name: data.name, description: data.description, email: data.email, image: logoURL})
+        const vendorId = vendor.data.id
+        const vendorLocation = await postVendorLocation({
+            country: countryValue,
+            city: cityValue,
+            addressLine: newAddress,
+            vendorId: vendorId
+        })
+        toggleDrawer(false)
+        console.log(logo)
+    }
+
 
     const country = [
         { title: 'Ukraine' },
@@ -52,6 +90,9 @@ const AdminPanelVendor = () => {
 
     const handleChangeCity = (event: any) => {
         setCityValue(event.target.value)
+    }
+    const handleChangeAddress = (event: any) => {
+        setNewAddress(event.target.value)
     }
 
     const addAddress = () => {
@@ -215,12 +256,12 @@ const AdminPanelVendor = () => {
                         Back
                     </div>
                     <span className={styles.modal_label}>Add a vendor</span>
-                    <TextField className={styles.marginBottom} id="outlined-basic" label="Name" />
-                    {disableInput ? '' : (
+                    <TextField className={styles.marginBottom} id="outlined-basic" label="Name" onChange={(e:React.ChangeEvent<HTMLInputElement>) => setData({...data, name: e.target.value})} />
                         <>
-                            <AutocompleteMultipleChoise data={country} lab='Country' />
-                            <AutocompleteMultipleChoise data={city} lab='City' />
-                            <AutocompleteMultipleChoise data={address} lab='Address' />
+                            <TextField className={styles.marginBottom} id="outlined-basic" label="Country" onChange={handleChangeCountry} />
+                            <TextField className={styles.marginBottom} id="outlined-basic" label="City" onChange={handleChangeCity} />
+                            <TextField className={styles.marginBottom} id="outlined-basic" label="Address" onChange={handleChangeAddress} />
+
                             {addressInput ?
                                 <>
                                     <TextField className={styles.marginBottom} label="Add an address" onChange={(e: any) => setNewAddress(e.target.value)} />
@@ -231,11 +272,14 @@ const AdminPanelVendor = () => {
                                 </>
                                 : <span className={styles.address__span} onClick={addAddress}>+ Add new address</span>}
                         </>
-                    )}
-                    <TextField className={styles.marginBottom} id="outlined-basic" label="E-mail" />
-                    <TextField className={styles.marginBottom} multiline rows={5} id="outlined-basic" label="Description" variant="outlined" />
+                    <TextField className={styles.marginBottom} id="outlined-basic" label="E-mail"
+                               onChange={(e:React.ChangeEvent<HTMLInputElement>) => setData({...data, email: e.target.value})} />
+                    <TextField className={styles.marginBottom} multiline rows={5} id="outlined-basic" label="Description" variant="outlined"
+                               onChange={(e:React.ChangeEvent<HTMLInputElement>) => setData({...data, description: e.target.value})} />
                     <div className={styles.dropzone}>
-                        <DropZone wrapperHeight={100} />
+                        <DropZone wrapperHeight={100}
+                                  uploadPhoto={(image: any) => setUploadFileName(image)}
+                        />
                     </div>
                     <div className={styles.uploadPhotoMobile}>
                         <input type="file"
@@ -243,11 +287,12 @@ const AdminPanelVendor = () => {
                             className={styles.fileName}
                             id='fileName'
                             accept=".png, .jpg, .jpeg"
-                            onChange={(e) => { setUploadFileName(parentRef.current.files[0].name) }} />
+                            /*onChange={(event: any) => setImage(event)  }*/ />
                         <button className={styles.uploadFile__btn}>Upload photo</button>
                     </div>
+                    <input type="file" onChange={setImage}/>
                     <span className={styles.uploadedFileName}>{uploadFileName}</span>
-                    <Button onClick={toggleDrawer(false)} className={styles.submitButton}>Submit</Button>
+                    <Button onClick={addVendor} className={styles.submitButton}>Submit</Button>
                 </Grid>
             </ListItem>
         </List>

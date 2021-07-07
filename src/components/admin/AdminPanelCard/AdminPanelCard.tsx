@@ -24,6 +24,8 @@ const AdminPanelCard = () => {
   const [newCategory, setNewCategory] = React.useState('');
   const [newTag, setNewTag] = React.useState('');
   const parentRef = useRef<any>();
+
+
   const [address, setAddress] = React.useState([
     { title: 'Chornovola Str, 27' },
     { title: 'Yakuba Kolasa Str, 37' },
@@ -338,7 +340,9 @@ const AdminPanelCard = () => {
           <TextField className={styles.marginBottom} label="Discount %" />
           <TextField className={styles.marginBottom} multiline rows={5} label="Description" variant="outlined" />
           <div className={styles.dropzone}>
-            <DropZone wrapperHeight={100} />
+            <DropZone wrapperHeight={100}
+                      uploadPhoto={(image: any) => setUploadFileName(image)}
+            />
           </div>
           <div className={styles.uploadPhotoMobile}>
             <input type="file"

@@ -1,9 +1,17 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Layout from "../../common/Layout/Layout";
 import "./MainPage.scss";
 import {useAppDispatch} from "../../../store/Redux-toolkit-hook";
 import {addCategory} from "../../../store/filtersStore";
-import {getCategoryAll, } from "../../../http/filtersApi"
+import {
+    deleteVendorId,
+    getCategoryAll,
+    getDeletedVendor,
+    getVendorAll, getVendorLocationAll,
+    postVendor,
+    postVendorLocation,
+    uploadImage,
+} from "../../../http/filtersApi"
 
 const MainPage = () => {
     const dispatch = useAppDispatch();
