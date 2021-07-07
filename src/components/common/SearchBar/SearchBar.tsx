@@ -26,7 +26,6 @@ const SearchBar =()=>{
        setChoiceCity(vendorLocation?.filter(item=>item.country === ableCity).map(item=>firsLetterToUpperCase(item.city)));
     },[ableCity])
     const {pathname} = useLocation();
-
     const [stateControlLabel, setStateControlLabel] = useState({
         "Favorite": false,
         "Used": false,
