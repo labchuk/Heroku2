@@ -40,7 +40,7 @@ const ContainerDataPiker = () => {
                                 <DatePiker label={t`To`} setDate={setDate} selectedDate={selectedDate.To}/>
                 </MuiPickersUtilsProvider>
                 {!(pathname === MAIN_ROUTE) && <ThemeProvider theme={theme}>
-                    <Button  color="primary" onClick={handleClick} >Clean date</Button>
+                    <Button  color="primary" onClick={handleClick} >{t`Clean date`}</Button>
                 </ThemeProvider>}
             </div>
         </div>

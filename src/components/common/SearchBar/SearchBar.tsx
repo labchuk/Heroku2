@@ -48,10 +48,10 @@ const SearchBar =()=>{
             </div>}
             {pathname !== HISTORY_ROUTE && <>
                 <MySelect data={arr} clName={"location"} name={t`Country`} setAble={setAbleCyti}/>
-                <SelectMultiple data={arr} clName={"location"} name={t`City`} disabled={ableCity} helperText={ableCity? "Please choose country": ""}/>
+                <SelectMultiple data={arr} clName={"location"} name={t`City`} disabled={ableCity} helperText={ableCity? t`Please choose country`: ""}/>
                 <SelectMultiple data={arr} clName={"location"} name={t`Vendor`} disabled={false} helperText={""}/>
                 <MySelect data={categoryArr?categoryArr:[]} clName={"location"} name={t`Category`} setAble={setAbleSubCategory}/>
-                <SelectMultiple data={arr} clName={"location"} name={t`Sub Category`} disabled={ableSubCategory} helperText={ableSubCategory? "Please choose category": ""}/>
+                <SelectMultiple data={arr} clName={"location"} name={t`Sub Category`} disabled={ableSubCategory} helperText={ableSubCategory? t`Please choose category`: ""}/>
             {pathname === STATISTIC_ROUTE &&  <SelectMultiple data={arr} clName={"location"} name={t`User`} disabled={false} helperText={""}/>}
             </>}
             {pathname !== MAIN_ROUTE  &&  <ContainerDataPiker />}

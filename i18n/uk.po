@@ -15,18 +15,6 @@ msgstr "Улюблені"
 msgid "Search"
 msgstr "Пошук"
 
-#: src\components\Header\NavBar\NavBar.tsx:64
-msgid "Home"
-msgstr "Головна"
-
-#: src\components\Header\NavBar\NavBar.tsx:65
-msgid "History"
-msgstr "Історія"
-
-#: src\components\Header\NavBar\NavBar.tsx:67
-msgid "Statistics"
-msgstr "Статистика"
-
 #: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:337
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:318
 #: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:222
@@ -59,9 +47,65 @@ msgstr "Підкатегорія"
 msgid "Apply"
 msgstr "Застосувати"
 
+#: src\components\common\SearchBar\SearchBar.tsx:55
+msgid "User"
+msgstr "Користувач"
+
+#: src\components\common\SearchBar\ContainerDatePiker\ContainerDatePiker.tsx:36
+msgid "Date"
+msgstr "Дата"
+
+#: src\components\common\SearchBar\ContainerDatePiker\ContainerDatePiker.tsx:39
+msgid "From"
+msgstr "Від"
+
+#: src\components\common\SearchBar\ContainerDatePiker\ContainerDatePiker.tsx:40
+msgid "To"
+msgstr "До"
+
+#: src\components\common\SearchBar\SearchBar.tsx:43
+msgid "Used"
+msgstr "Використані"
+
+#: src\components\common\SearchBar\SearchBar.tsx:44
+msgid "Active"
+msgstr "Активні"
+
+#: src\components\common\SearchBar\SearchBar.tsx:45
+msgid "Not Active"
+msgstr "Не активні"
+
+#: src\components\common\SearchBar\SearchBar.tsx:46
+msgid "For all period"
+msgstr "За весь період"
+
+#: src\components\common\SearchBar\SearchBar.tsx:51
+msgid "Please choose country"
+msgstr "Спершу оберіть країну"
+
+#: src\components\common\SearchBar\SearchBar.tsx:54
+msgid "Please choose category"
+msgstr "Спершу оберіть категорію"
+
+#: src\components\ModalSearchBar\ModalSearchBar.tsx:16
+msgid "Open filter"
+msgstr "Фільтрувати"
+
+#: src\components\Header\NavBar\NavBar.tsx:64
+msgid "Home"
+msgstr "Головна"
+
+#: src\components\Header\NavBar\NavBar.tsx:65
+msgid "History"
+msgstr "Історія"
+
+#: src\components\Header\NavBar\NavBar.tsx:67
+msgid "Statistics"
+msgstr "Статистика"
+
 #: src\components\common\Sort\Sort.tsx:37
 msgid "Sort by"
-msgstr "Сортувати"
+msgstr "Сортування"
 
 #: src\components\common\Sort\Sort.tsx:44
 msgid "Ending soon"
@@ -83,25 +127,17 @@ msgstr "Гарячі пропозиції"
 msgid "Coming soon"
 msgstr "Найближчим часом"
 
-#: src\components\common\SearchBar\SearchBar.tsx:55
-msgid "User"
-msgstr "Користувач"
-
-#: src\components\common\SearchBar\ContainerDatePiker\ContainerDatePiker.tsx:36
-msgid "Date"
-msgstr "Дата"
-
-#: src\components\common\SearchBar\ContainerDatePiker\ContainerDatePiker.tsx:39
-msgid "From"
-msgstr "Від"
-
-#: src\components\common\SearchBar\ContainerDatePiker\ContainerDatePiker.tsx:40
-msgid "To"
-msgstr "До"
+#: src\components\common\SearchBar\ContainerDatePiker\ContainerDatePiker.tsx:43
+msgid "Clean date"
+msgstr "Скинути період"
 
 #: src\components\common\LogoutButton\LogoutButton.tsx:14
 msgid "Logout"
-msgstr "Вихід"
+msgstr "Вийти"
+
+#: src\components\common\ExportInFile\ExportInFile.tsx:44
+msgid "Export In File"
+msgstr "Експорт у файл"
 
 #: src\components\common\DropZone\DropZone.tsx:23
 msgid "Drop the photo here..."
@@ -111,12 +147,65 @@ msgstr "Перетягніть фото сюди..."
 msgid "Drag and drop file here, or click to select the file"
 msgstr "Перетягніть та відпустіть файл сюди, або клікніть для вибору"
 
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:10
+msgid "Users actives:"
+msgstr "Унікальних користувачів"
+
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:11
+msgid "Users CR actives:"
+msgstr "Цільових дій"
+
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:12
+msgid "Last activity:"
+msgstr "Остання активність"
+
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:13
+msgid "Most active location:"
+msgstr "Найактивніша локація"
+
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:16
+msgid "Number of Vendors:"
+msgstr "Всього постачальників"
+
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:17
+msgid "Number of promos:"
+msgstr "Всього промо"
+
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:18
+msgid "Number of active promos:"
+msgstr "Активних промо"
+
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:19
+msgid "Promotions durations:"
+msgstr "Тривалість промо"
+
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:22
+msgid "The most popular Vendor:"
+msgstr "Найпопулярніший постачальник"
+
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:23
+msgid "The most popular Promo:"
+msgstr "Найпопулярніше промо"
+
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:24
+msgid "The most popular category:"
+msgstr "Найпопулярніша категорія"
+
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:25
+msgid "The most popular subcategory:"
+msgstr "Найпопулярніша підкатегорія"
+
 #: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:297
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:279
 #: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:216
 #: src\components\admin\DelateVendorMenu\DelateVendorMenu.tsx:343
 msgid "Back"
 msgstr "Повернутися"
+
+#: src\components\admin\DelateVendorMenu\DelateVendorMenu.tsx:345
+#: src\components\admin\DelateVendorMenu\DelateVendorMenu.tsx:443
+msgid "Vendors"
+msgstr "Постачальники"
 
 #: src\components\admin\DelateVendorMenu\DelateVendorMenu.tsx:348
 msgid "Removing a vendor will delete all its discounts"
@@ -153,6 +242,17 @@ msgstr "Опис"
 msgid "Submit"
 msgstr "Застосувати"
 
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:307
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:317
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:361
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:289
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:299
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:326
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:230
+#: src\components\admin\DelateVendorMenu\DelateVendorMenu.tsx:428
+msgid "Cancel"
+msgstr "Скасувати"
+
 #: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:218
 #: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:258
 msgid "Add a vendor"
@@ -169,17 +269,6 @@ msgstr "Адреса"
 #: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:227
 msgid "Add an address"
 msgstr "Додати адресу"
-
-#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:307
-#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:317
-#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:361
-#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:289
-#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:299
-#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:326
-#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:230
-#: src\components\admin\DelateVendorMenu\DelateVendorMenu.tsx:428
-msgid "Cancel"
-msgstr "Скасувати"
 
 #: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:364
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:329
@@ -236,85 +325,12 @@ msgstr "Назва постачальника"
 #: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:369
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:334
 msgid "Online"
-msgstr "В мережі"
+msgstr "У мережі"
 
 #: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:374
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:339
 msgid "Discount %"
 msgstr "Знижка %"
-
-#: src\components\admin\DelateVendorMenu\DelateVendorMenu.tsx:345
-#: src\components\admin\DelateVendorMenu\DelateVendorMenu.tsx:443
-msgid "Vendors"
-msgstr "Постачальники"
-
-#: src\components\common\ExportInFile\ExportInFile.tsx:44
-msgid "Export In File"
-msgstr "Експортувати у файл"
-
-#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:10
-msgid "Users actives:"
-msgstr "Унікальних користувачів"
-
-#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:11
-msgid "Users CR actives:"
-msgstr "Цільових дій"
-
-#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:12
-msgid "Last activity:"
-msgstr "Остання активність"
-
-#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:13
-msgid "Most active location:"
-msgstr "Найактивніша локація"
-
-#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:16
-msgid "Number of Vendors:"
-msgstr "Кількість постачальників"
-
-#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:17
-msgid "Number of promos:"
-msgstr "Всього промо"
-
-#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:18
-msgid "Number of active promos:"
-msgstr "Активні промо"
-
-#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:19
-msgid "Promotions durations:"
-msgstr "Тривалість промо"
-
-#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:22
-msgid "The most popular Vendor:"
-msgstr "Найпопулярніший постачальник"
-
-#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:23
-msgid "The most popular Promo:"
-msgstr "Найпопулярніше промо"
-
-#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:24
-msgid "The most popular category:"
-msgstr "Найпопулярніша категорія"
-
-#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:25
-msgid "The most popular subcategory:"
-msgstr "Найпопулярніша підкатегорія"
-
-#: src\components\common\SearchBar\SearchBar.tsx:43
-msgid "Used"
-msgstr "Використані"
-
-#: src\components\common\SearchBar\SearchBar.tsx:44
-msgid "Active"
-msgstr "Активні"
-
-#: src\components\common\SearchBar\SearchBar.tsx:45
-msgid "Not Active"
-msgstr "Не активні"
-
-#: src\components\common\SearchBar\SearchBar.tsx:46
-msgid "For all period"
-msgstr "За весь період"
 
 #: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:299
 msgid "Edit a discount"
