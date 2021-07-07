@@ -3,24 +3,25 @@ import {authHost} from "./index";
 interface Ivendor{name:string, description:string, email:string, image:string};
 interface IvendorLocation{country:string, city:string, addressLine:string, vendorId:string};
 interface Iname{name:string}
+interface InameAndId {name:string, id: string}
 
 export const getSubCategoryAll = async ( ) =>{
     const data = await authHost.get("/sub_category");
     return data;
 };
 
-export const postSubCategory = async ({name}:Iname, idCategore: string) =>{
-    const data = await authHost.post(`/sub_category${idCategore}`, {name});
+export const postSubCategory = async ({name, categoryId}:{name: string, categoryId: string}) =>{
+    const data = await authHost.post(`/sub_category`, {name, categoryId});
     return data;
 };
 
-export const restSubCategory = async (SubCategory:string, {name}:Iname ) =>{
-    const data = await authHost.put(`/sub_category/${SubCategory}`, {name});
+export const restSubCategory = async (subCategoryId:string, {name}:Iname) =>{
+    const data = await authHost.put(`/sub_category/${subCategoryId}`, {name});
     return data;
 };
 
-export const getSubCategoryId = async (SubCategory:string ) =>{
-    const data = await authHost.get(`/sub_category/${SubCategory}`);
+export const getSubCategoryId = async (subCategoryId:string ) =>{
+    const data = await authHost.get(`/sub_category/${subCategoryId}`);
     return data;
 };
 
@@ -29,8 +30,8 @@ export const getDeletedSubCategory = async () =>{
     return data;
 };
 
-export const deleteSubCategoryId = async (SubCategory:string ) =>{
-    const data = await authHost.delete(`/sub_category/${SubCategory}`);
+export const deleteSubCategoryId = async (subCategoryId:string ) =>{
+    const data = await authHost.delete(`/sub_category/${subCategoryId}`);
     return data;
 };
 
@@ -46,13 +47,13 @@ export const getDeletedCategory = async () =>{
     return data;
 };
 
-export const restCategory = async (idCategore:string, {name}:Iname) =>{
-    const data = await authHost.put(`/category/${idCategore}`,{name});
+export const restCategory = async (categoryId:string, {name}:Iname) =>{
+    const data = await authHost.put(`/category/${categoryId}`,{name});
     return data;
 };
 
-export const getCategoryId = async (idCategore:string ) =>{
-    const data = await authHost.get(`/category/${idCategore}`);
+export const getCategoryId = async (categoryId:string ) =>{
+    const data = await authHost.get(`/category/${categoryId}`);
     return data;
 };
 
@@ -61,8 +62,8 @@ export const postCategory = async ({name}:Iname) =>{
     return data;
 };
 
-export const deleteCategoryId = async (idCategore:string ) =>{
-    const data = await authHost.delete(`/category/${idCategore}`);
+export const deleteCategoryId = async (categoryId:string ) =>{
+    const data = await authHost.delete(`/category/${categoryId}`);
     return data;
 }
 
