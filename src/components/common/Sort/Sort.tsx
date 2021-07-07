@@ -5,7 +5,7 @@ import { InputLabel } from "@material-ui/core";
 import { Select } from "@material-ui/core";
 import MenuItem from '@material-ui/core/MenuItem';
 import { useEffect } from "react";
-
+import { t } from 'ttag';
 
 const useStyles = makeStyles((theme) => ({
     sort: {
@@ -34,18 +34,18 @@ const classes = useStyles();
         <div className={"sort-bar"}>
             <div>
                 <FormControl  >
-                    <InputLabel>Sort by</InputLabel>
+                    <InputLabel>{t`Sort by`}</InputLabel>
                     <Select
                             id="grouped-native-select"
                             value={currentSort}
                             className={classes.sort}
                             onChange={handleChangeSort}
                     >
-                        <MenuItem value={"Ending soon"}>Ending soon</MenuItem>
-                        <MenuItem value={"Popular"}>Popular</MenuItem>
-                        <MenuItem value={"New"}>New</MenuItem>
-                        <MenuItem value={"Hot Sales"}>Hot Sales</MenuItem>
-                        <MenuItem value={"Hot Sales"}>Coming soon</MenuItem>
+                        <MenuItem value={"Ending soon"}>{t`Ending soon`}</MenuItem>
+                        <MenuItem value={"Popular"}>{t`Popular`}</MenuItem>
+                        <MenuItem value={"New"}>{t`New`}</MenuItem>
+                        <MenuItem value={"Hot Sales"}>{t`Hot Sales`}</MenuItem>
+                        <MenuItem value={"Coming soon"}>{t`Coming soon`}</MenuItem>
                     </Select>
                 </FormControl>
 

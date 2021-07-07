@@ -1,7 +1,9 @@
 import React,{useState} from 'react';
 import { Drawer, } from '@material-ui/core';
 import { SearchBar } from '..';
+import { t } from 'ttag';
 import "./ModalSearchBar.scss"
+
 
 const ModalSearchBar = () => {
     const [state, setState] = useState(false);
@@ -11,7 +13,7 @@ const ModalSearchBar = () => {
 
     return (
         <div>
-          <button className="btn_open" onClick={toggleDrawer(true)}>  Open filter </button>
+          <button className="btn_open" onClick={toggleDrawer(true)}>  {t`Open filter`} </button>
           <Drawer anchor={'left'}
                   open={state}
                   onClose={toggleDrawer(false)}>

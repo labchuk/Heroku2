@@ -9,6 +9,7 @@ import DropZone from '../../common/DropZone/DropZone';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import "./AdminPanelVendor.scss";
 import AutocompleteMultipleChoise from '../../common/AutocompleteMultipleChoise/AutocompleteMultipleChoise';
+import { t } from 'ttag';
 
 const AdminPanelVendor = () => {
     const [state, setState] = React.useState(false);
@@ -212,28 +213,28 @@ const AdminPanelVendor = () => {
                 <Grid container direction='column'>
                     <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
                         <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 13 }} />
-                        Back
+                        {t`Back`}
                     </div>
-                    <span className={styles.modal_label}>Add a vendor</span>
-                    <TextField className={styles.marginBottom} id="outlined-basic" label="Name" />
+                    <span className={styles.modal_label}>{t`Add a vendor`}</span>
+                    <TextField className={styles.marginBottom} id="outlined-basic" label={t`Name`} />
                     {disableInput ? '' : (
                         <>
-                            <AutocompleteMultipleChoise data={country} lab='Country' />
-                            <AutocompleteMultipleChoise data={city} lab='City' />
-                            <AutocompleteMultipleChoise data={address} lab='Address' />
+                            <AutocompleteMultipleChoise data={country} lab={t`Country`} />
+                            <AutocompleteMultipleChoise data={city} lab={t`City`} />
+                            <AutocompleteMultipleChoise data={address} lab={t`Address`} />
                             {addressInput ?
                                 <>
-                                    <TextField className={styles.marginBottom} label="Add an address" onChange={(e: any) => setNewAddress(e.target.value)} />
+                                    <TextField className={styles.marginBottom} label={t`Add an address`} onChange={(e: any) => setNewAddress(e.target.value)} />
                                     <div className={styles.addressButtons}>
-                                        <Button onClick={submitAddress} className={styles.address_submit}>Submit</Button>
-                                        <Button onClick={cancelAddress} className={styles.address_cancel}>Cancel</Button>
+                                        <Button onClick={submitAddress} className={styles.address_submit}>{t`Submit`}</Button>
+                                        <Button onClick={cancelAddress} className={styles.address_cancel}>{t`Cancel`}</Button>
                                     </div>
                                 </>
-                                : <span className={styles.address__span} onClick={addAddress}>+ Add new address</span>}
+                                : <span className={styles.address__span} onClick={addAddress}>{t`+ Add new address`}</span>}
                         </>
                     )}
-                    <TextField className={styles.marginBottom} id="outlined-basic" label="E-mail" />
-                    <TextField className={styles.marginBottom} multiline rows={5} id="outlined-basic" label="Description" variant="outlined" />
+                    <TextField className={styles.marginBottom} id="outlined-basic" label={t`E-mail`} />
+                    <TextField className={styles.marginBottom} multiline rows={5} id="outlined-basic" label={t`Description`} variant="outlined" />
                     <div className={styles.dropzone}>
                         <DropZone wrapperHeight={100} />
                     </div>
@@ -244,17 +245,17 @@ const AdminPanelVendor = () => {
                             id='fileName'
                             accept=".png, .jpg, .jpeg"
                             onChange={(e) => { setUploadFileName(parentRef.current.files[0].name) }} />
-                        <button className={styles.uploadFile__btn}>Upload photo</button>
+                        <button className={styles.uploadFile__btn}>{t`Upload photo`}</button>
                     </div>
                     <span className={styles.uploadedFileName}>{uploadFileName}</span>
-                    <Button onClick={toggleDrawer(false)} className={styles.submitButton}>Submit</Button>
+                    <Button onClick={toggleDrawer(false)} className={styles.submitButton}>{t`Submit`}</Button>
                 </Grid>
             </ListItem>
         </List>
     )
     return (
         <div>
-            <button onClick={toggleDrawer(true)} className={styles.adminModalButton}>Add a vendor</button>
+            <button onClick={toggleDrawer(true)} className={styles.adminModalButton}>{t`Add a vendor`}</button>
             <Drawer anchor={'right'}
                 open={state}
                 onClose={toggleDrawer(false)}>

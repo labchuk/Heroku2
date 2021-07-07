@@ -15,6 +15,7 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import "./DelateVendorMenu.scss";
 import AdminPanelVendor from '../AdminPanelVendor/AdminPanelVendor';
+import { t } from 'ttag';
 
 const DelateVendorMenu = () => {
     const [state, setState] = React.useState(false);
@@ -339,12 +340,12 @@ const DelateVendorMenu = () => {
                 <Grid container direction='column'>
                     <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
                         <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 11 }} />
-                        Back
+                        {t`Back`}
                     </div>
-                    <span className={styles.modal_label}>Vendors</span>
+                    <span className={styles.modal_label}>{t`Vendors`}</span>
                     <div className={styles.attention}>
                         <ErrorOutlineIcon style={{ color: '#d32f2f', fontSize: 30 }} />
-                        <span className={styles.attention__span}>Removing a vendor will delete all its discounts</span>
+                        <span className={styles.attention__span}>{t`Removing a vendor will delete all its discounts`}</span>
                     </div>
                     {vendors.map((value: any) => {
                         return <div className={styles.vendorName}>
@@ -357,7 +358,7 @@ const DelateVendorMenu = () => {
                             </section>
                             {value.editing ? (
                                 <div className={styles.editingForm}>
-                                    <TextField className={styles.marginBottom} defaultValue={value.name} label="Name" />
+                                    <TextField className={styles.marginBottom} defaultValue={value.name} label={t`Name`} />
                                     <FormControl>
                                         <InputLabel></InputLabel>
                                         <Select value={countryValue}
@@ -401,11 +402,11 @@ const DelateVendorMenu = () => {
                                             <MenuItem value=''>{value.address}</MenuItem>
                                         </Select>
                                     </FormControl>
-                                    <TextField className={styles.marginBottom} defaultValue={value.email} label="E-mail" />
+                                    <TextField className={styles.marginBottom} defaultValue={value.email} label={t`E-mail`} />
                                     <TextField className={styles.marginBottom}
                                         multiline
                                         rows={5}
-                                        label="Description"
+                                        label={t`Description`}
                                         variant="outlined"
                                         defaultValue={value.description} />
                                     <div className={styles.dropzone}>
@@ -418,13 +419,13 @@ const DelateVendorMenu = () => {
                                             id='fileName'
                                             accept=".png, .jpg, .jpeg"
                                             onChange={(e) => { setUploadFileName(parentRef.current.files[0].name) }} />
-                                        <button className={styles.uploadFile__btn}>Change photo</button>
+                                        <button className={styles.uploadFile__btn}>{`Change photo`}</button>
                                     </div>
                                     {/* <span className={styles.uploadedFileName}>{uploadFileName}</span> */}
                                     <span className={styles.uploadedFileName}>{value.image}</span>
                                     <div className={styles.addressButtons}>
-                                        <Button onClick={() => { submitEditVendor(value) }} className={styles.address_submit}>Submit</Button>
-                                        <Button onClick={() => { submitEditVendor(value) }} className={styles.address_cancel}>Cancel</Button>
+                                        <Button onClick={() => { submitEditVendor(value) }} className={styles.address_submit}>{t`Submit`}</Button>
+                                        <Button onClick={() => { submitEditVendor(value) }} className={styles.address_cancel}>{t`Cancel`}</Button>
                                     </div>
                                 </div>
                             ) : ''}
@@ -439,7 +440,7 @@ const DelateVendorMenu = () => {
     )
     return (
         <div>
-            <button onClick={toggleDrawer(true)} className={styles.adminModalButton}>Vendors</button>
+            <button onClick={toggleDrawer(true)} className={styles.adminModalButton}>{t`Vendors`}</button>
             <Drawer anchor={'right'}
                 open={state}
                 onClose={toggleDrawer(false)}>

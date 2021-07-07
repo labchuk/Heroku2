@@ -11,6 +11,7 @@ import AdminPanelCard from '../../admin/AdminPanelCard/AdminPanelCard';
 import AdminPanelVendor from '../../admin/AdminPanelVendor/AdminPanelVendor';
 import {useAppSelector} from "../../../store/Redux-toolkit-hook";
 import {LogoutButton} from "../../index";
+import {t} from "ttag";
 
 const useStyles = makeStyles((theme) => ({
     link: {
@@ -60,10 +61,10 @@ const NavBar = () => {
 
     return <>
         <div className={"desktop-nav"}>
-            <NavLink to={"/main-page"} activeClassName={"activelink"}>Home</NavLink>
-            <NavLink to={"/history"} activeClassName={"activelink"}>History</NavLink>
+            <NavLink to={"/main-page"} activeClassName={"activelink"}>{t`Home`}</NavLink>
+            <NavLink to={"/history"} activeClassName={"activelink"}>{t`History`}</NavLink>
             {admin &&
-            <NavLink to={"/statistic"} activeClassName={"activelink"}>Statistics</NavLink>
+            <NavLink to={"/statistic"} activeClassName={"activelink"}>{t`Statistics`}</NavLink>
             }
 
         </div>
