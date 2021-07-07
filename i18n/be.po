@@ -230,3 +230,55 @@ msgstr "Зніжка %"
 #: src\components\admin\DelateVendorMenu\DelateVendorMenu.tsx:443
 msgid "Vendors"
 msgstr "Пастаўшчыкі"
+
+#: src\components\common\ExportInFile\ExportInFile.tsx:44
+msgid "Export In File"
+msgstr "Экспарт у файл"
+
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:10
+msgid "Users actives:"
+msgstr "Унікальных карыстальнікаў "
+
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:11
+msgid "Users CR actives:"
+msgstr "Мэтавых дзеянняў "
+
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:12
+msgid "Last activity:"
+msgstr "Апошняя актыўнасць"
+
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:13
+msgid "Most active location:"
+msgstr "Самае актыўнае месца "
+
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:16
+msgid "Number of Vendors:"
+msgstr "Колькасць пастаўшчыкоў"
+
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:17
+msgid "Number of promos:"
+msgstr "Колькасць прома"
+
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:18
+msgid "Number of active promos:"
+msgstr "Колькасць актыўных прома"
+
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:19
+msgid "Promotions durations:"
+msgstr "Працягласць прома"
+
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:22
+msgid "The most popular Vendor:"
+msgstr "Самы папулярны пастаўшчык"
+
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:23
+msgid "The most popular Promo:"
+msgstr "Самы папулярны прома"
+
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:24
+msgid "The most popular category:"
+msgstr "Самы папулярны катэгорыя"
+
+#: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:25
+msgid "The most popular subcategory:"
+msgstr "Самы папулярны падкатэгорыя"
