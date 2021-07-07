@@ -7,7 +7,7 @@ msgstr ""
 "mime-version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src\components\common\SearchBar\SearchBar.tsx:31
+#: src\components\common\SearchBar\SearchBar.tsx:41
 msgid "Favorite"
 msgstr "Улюблені"
 
@@ -27,40 +27,35 @@ msgstr "Історія"
 msgid "Statistics"
 msgstr "Статистика"
 
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:337
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:318
 #: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:222
-#: src\components\common\SearchBar\SearchBar.tsx:33
+#: src\components\common\SearchBar\SearchBar.tsx:50
 msgid "Country"
 msgstr "Країна"
 
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:338
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:319
 #: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:223
-#: src\components\common\SearchBar\SearchBar.tsx:34
+#: src\components\common\SearchBar\SearchBar.tsx:51
 msgid "City"
 msgstr "Місто"
 
-#: src\components\common\SearchBar\SearchBar.tsx:34
-msgid "Please choose country"
-msgstr "Спершу оберіть країну"
-
-#: src\components\common\SearchBar\SearchBar.tsx:35
+#: src\components\common\SearchBar\SearchBar.tsx:52
 msgid "Vendor"
 msgstr "Постачальник"
 
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:301
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:283
-#: src\components\common\SearchBar\SearchBar.tsx:36
+#: src\components\common\SearchBar\SearchBar.tsx:53
 msgid "Category"
 msgstr "Категорія"
 
-#: src\components\common\SearchBar\SearchBar.tsx:37
+#: src\components\common\SearchBar\SearchBar.tsx:54
 msgid "Sub Category"
 msgstr "Підкатегорія"
 
-#: src\components\common\SearchBar\SearchBar.tsx:37
-msgid "Please choose category"
-msgstr "Спершу оберіть категорію"
-
-#: src\components\common\SearchBar\SearchBar.tsx:40
+#: src\components\common\SearchBar\SearchBar.tsx:58
 msgid "Apply"
 msgstr "Застосувати"
 
@@ -88,19 +83,19 @@ msgstr "Гарячі пропозиції"
 msgid "Coming soon"
 msgstr "Найближчим часом"
 
-#: src\components\common\SearchBar\SearchBar.tsx:38
+#: src\components\common\SearchBar\SearchBar.tsx:55
 msgid "User"
 msgstr "Користувач"
 
-#: src\components\common\SearchBar\ContainerDatePiker\ContainerDatePiker.tsx:13
+#: src\components\common\SearchBar\ContainerDatePiker\ContainerDatePiker.tsx:36
 msgid "Date"
 msgstr "Дата"
 
-#: src\components\common\SearchBar\ContainerDatePiker\ContainerDatePiker.tsx:16
+#: src\components\common\SearchBar\ContainerDatePiker\ContainerDatePiker.tsx:39
 msgid "From"
 msgstr "Від"
 
-#: src\components\common\SearchBar\ContainerDatePiker\ContainerDatePiker.tsx:17
+#: src\components\common\SearchBar\ContainerDatePiker\ContainerDatePiker.tsx:40
 msgid "To"
 msgstr "До"
 
@@ -116,6 +111,7 @@ msgstr "Перетягніть фото сюди..."
 msgid "Drag and drop file here, or click to select the file"
 msgstr "Перетягніть та відпустіть файл сюди, або клікніть для вибору"
 
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:297
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:279
 #: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:216
 #: src\components\admin\DelateVendorMenu\DelateVendorMenu.tsx:343
@@ -136,12 +132,17 @@ msgstr "Назва"
 msgid "E-mail"
 msgstr "Електронна пошта"
 
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:375
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:340
 #: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:237
 #: src\components\admin\DelateVendorMenu\DelateVendorMenu.tsx:409
 msgid "Description"
 msgstr "Опис"
 
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:306
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:316
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:360
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:389
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:288
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:298
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:325
@@ -157,16 +158,21 @@ msgstr "Застосувати"
 msgid "Add a vendor"
 msgstr "Додати постачальника"
 
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:355
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:320
 #: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:224
 msgid "Address"
 msgstr "Адреса"
 
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:358
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:323
 #: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:227
 msgid "Add an address"
 msgstr "Додати адресу"
 
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:307
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:317
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:361
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:289
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:299
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:326
@@ -175,11 +181,13 @@ msgstr "Додати адресу"
 msgid "Cancel"
 msgstr "Скасувати"
 
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:364
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:329
 #: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:233
 msgid "+ Add new address"
 msgstr "+ Додати нову адресу"
 
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:386
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:351
 #: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:248
 msgid "Upload photo"
@@ -190,38 +198,47 @@ msgstr "Завантажити фото"
 msgid "Add a promotion"
 msgstr "Додати промо"
 
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:300
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:282
 msgid "Title"
 msgstr "Назва промо"
 
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:304
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:286
 msgid "Add new category"
 msgstr "Додати нову категорію"
 
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:310
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:292
 msgid "+ Add new category"
 msgstr "+ Додати нову категорію"
 
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:311
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:293
 msgid "Tags"
 msgstr "Підкатегорія"
 
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:314
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:296
 msgid "Add new tag"
 msgstr "Додати нову підкатегорію"
 
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:320
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:302
 msgid "+ Add new tag"
 msgstr "+ Додати нову підкатегорію"
 
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:332
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:313
 msgid "Vendor name"
 msgstr "Назва постачальника"
 
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:369
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:334
 msgid "Online"
 msgstr "В мережі"
 
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:374
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:339
 msgid "Discount %"
 msgstr "Знижка %"
@@ -282,3 +299,23 @@ msgstr "Найпопулярніша категорія"
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:25
 msgid "The most popular subcategory:"
 msgstr "Найпопулярніша підкатегорія"
+
+#: src\components\common\SearchBar\SearchBar.tsx:43
+msgid "Used"
+msgstr "Використані"
+
+#: src\components\common\SearchBar\SearchBar.tsx:44
+msgid "Active"
+msgstr "Активні"
+
+#: src\components\common\SearchBar\SearchBar.tsx:45
+msgid "Not Active"
+msgstr "Не активні"
+
+#: src\components\common\SearchBar\SearchBar.tsx:46
+msgid "For all period"
+msgstr "За весь період"
+
+#: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:299
+msgid "Edit a discount"
+msgstr "Редагувати промо"

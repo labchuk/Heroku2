@@ -38,11 +38,11 @@ const SearchBar =()=>{
         <div className={className} >
             <SearchForm />
             {pathname !== STATISTIC_ROUTE && <div className="containerFavorite">
-                <ControlLabel lable={t'Favorite'} setStateControlLableMy={setStateControlLableMy}/>
+                <ControlLabel lable={t`Favorite`} setStateControlLableMy={setStateControlLableMy}/>
                 {pathname===HISTORY_ROUTE &&  <>
                 <ControlLabel lable={t`Used`} setStateControlLableMy={setStateControlLableMy}/>
-                <ControlLabel lable={t'Active'} setStateControlLableMy={setStateControlLableMy}/>
-                <ControlLabel lable={t`Not Activ`} setStateControlLableMy={setStateControlLableMy} />
+                <ControlLabel lable={t`Active`} setStateControlLableMy={setStateControlLableMy}/>
+                <ControlLabel lable={t`Not Active`} setStateControlLableMy={setStateControlLableMy} />
                 <ControlLabel lable={t`For all period`} setStateControlLableMy={setStateControlLableMy}/>
                 </>}
             </div>}
