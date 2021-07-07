@@ -9,6 +9,7 @@ import AdminBtn from '../../admin/AdminBtn/AdminBtn';
 import Sort from "../../common/Sort/Sort";
 import ChipsArray from "../../common/ChipsArray/ChipsArray";
 import { useAppSelector } from "../../../store/Redux-toolkit-hook";
+import purple from '@material-ui/core/colors/purple';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -110,10 +111,10 @@ const CardList: React.FC = (props) => {
                     <div className={"chips"}>
                         <ChipsArray />
                     </div>
-                    <Grid container spacing={3} justify="center">
+                    <Grid container spacing={3} justify="center" >
                         {
                             paginateCard().map((item, index) => {
-                                return (<Grid key={index} item>
+                                return (<Grid key={index} item >
                                     <SaleCard discount={item}
                                               cards={data}
                                               updateData={(item: any) => setData(item)}
@@ -124,7 +125,7 @@ const CardList: React.FC = (props) => {
                     </Grid>
                     <Grid xs={12} justify="center">
                         <div className={classes.root}>
-                            <Pagination count={Math.ceil(data.length / NUMBER_CARD)} variant="outlined" color="primary"
+                            <Pagination count={Math.ceil(data.length / NUMBER_CARD)} variant="outlined"
                                         page={page} onChange={handleChange} />
                         </div>
                     </Grid>

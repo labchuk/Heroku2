@@ -6,17 +6,22 @@ import email from '../../images/icons/email.svg';
 import {Button, Tooltip, withStyles} from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
 import { Theme } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 
 const HtmlTooltip = withStyles((theme: Theme) => ({
     tooltip: {
         fontSize: theme.typography.pxToRem(16),
 
     },
+    root: {
+        color: theme.palette.secondary.main
+    }
 }))(Tooltip);
 
-const Footer = () => {
-    /*const classes = useStyles();*/
 
+
+const Footer = () => {
+    const theme = useTheme();
     const [state, setState] = useState(false)
     const copyLink = () => {
         navigator.clipboard.writeText('info@exadel.com');
@@ -35,7 +40,7 @@ const Footer = () => {
                 <Logo/>
 
                 <div className="footerContact">
-                    <a className="footerWeb" href="www.exadel.com">www.exadel.com</a>
+                    <a className={`footerWeb`} style={{color: theme.palette.secondary.light}} href="www.exadel.com">www.exadel.com</a>
                     <div className="footerLink">
 
                         <HtmlTooltip   title={"+380 2222 222"}   interactive>

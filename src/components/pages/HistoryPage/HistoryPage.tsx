@@ -5,7 +5,7 @@ import "./HistoryPage.scss"
 const HistoryPage = () => {
     return (
         <div className="history">
-           <Filter/>
+           {/*<Filter/>*/}
            <ModalSearchBar/>
            <CardList/>
         </div>

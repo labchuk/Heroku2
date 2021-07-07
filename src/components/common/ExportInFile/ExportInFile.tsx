@@ -34,7 +34,7 @@ export const ExportInFile: React.FunctionComponent<IExportCSV> = ({csvData, file
 
         <Button
             variant="contained"
-            color="primary"
+            color="secondary"
             size="small"
             className={classes.button}
             startIcon={<SaveIcon />}

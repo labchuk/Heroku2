@@ -11,6 +11,7 @@ import AdminPanelCard from '../../admin/AdminPanelCard/AdminPanelCard';
 import AdminPanelVendor from '../../admin/AdminPanelVendor/AdminPanelVendor';
 import {useAppSelector} from "../../../store/Redux-toolkit-hook";
 import {LogoutButton} from "../../index";
+import App from "../../../App";
 
 const useStyles = makeStyles((theme) => ({
     link: {
@@ -21,6 +22,14 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "center",
         borderBottom: "1px solid #9e9e9e",
 
+    },
+    linkdesk: {
+        color: theme.palette.primary.contrastText,
+    },
+    activeLink:{
+        '&::after':{
+            backgroundColor: theme.palette.primary.contrastText,
+        }
     },
     logout: {
         color: "#E44949",
@@ -60,10 +69,10 @@ const NavBar = () => {
 
     return <>
         <div className={"desktop-nav"}>
-            <NavLink to={"/main-page"} activeClassName={"activelink"}>Home</NavLink>
-            <NavLink to={"/history"} activeClassName={"activelink"}>History</NavLink>
+            <NavLink to={"/main-page"} className={classes.linkdesk} activeClassName={`activelink ${classes.activeLink}`}>Home</NavLink>
+            <NavLink to={"/history"} className={classes.linkdesk} activeClassName={`activelink ${classes.activeLink}`}>History</NavLink>
             {admin &&
-            <NavLink to={"/statistic"} activeClassName={"activelink"}>Statistics</NavLink>
+            <NavLink to={"/statistic"} className={classes.linkdesk} activeClassName={`activelink ${classes.activeLink}`}>Statistics</NavLink>
             }
 
         </div>
