@@ -368,81 +368,82 @@ const DelateVendorMenu = () => {
                                     style={{ color: '#d32f2f', fontSize: 22, position: 'relative', bottom: 4 }} />
                             </section>
                             {value.editing ? (
-                            <form onSubmit={toggleDrawer(false)}>
-                                <div className={styles.editingForm}>
-                                    <TextField className={styles.marginBottom} required defaultValue={value.name} label={t`Name`} />
-                                    <FormControl>
-                                        <InputLabel></InputLabel>
-                                        <Select value={countryValue}
+                                <form onSubmit={toggleDrawer(false)}>
+                                    <div className={styles.editingForm}>
+                                        <TextField className={styles.marginBottom} required defaultValue={value.name} label={t`Name`} />
+                                        <FormControl>
+                                            <InputLabel></InputLabel>
+                                            <Select value={countryValue}
+                                                required
+                                                multiple
+                                                defaultValue={value.country}
+                                                onChange={handleChangeCountry}
+                                                className={styles.marginBottom}
+                                                displayEmpty>
+                                                {countries.map((country: string) => {
+                                                    return <MenuItem value={country}>{country}</MenuItem>
+                                                })}
+                                                <MenuItem value=''>{value.country}</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                        <FormControl>
+                                            <InputLabel></InputLabel>
+                                            <Select value={cityValue}
+                                                required
+                                                multiple
+                                                onChange={handleChangeCity}
+                                                className={styles.marginBottom}
+                                                displayEmpty>
+                                                {cities.map((city: string) => {
+                                                    return <MenuItem value={city}>{city}</MenuItem>
+                                                })}
+                                                <MenuItem value=''>{value.city}</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                        {/* <TextField className={styles.marginBottom} defaultValue={value.address} label="Address" /> */}
+                                        {/* <AutocompleteMultipleChoise data={address} lab='Address' /> */}
+                                        <FormControl>
+                                            <InputLabel></InputLabel>
+                                            <Select value={addressValue}
+                                                required
+                                                multiple
+                                                defaultValue={value.address}
+                                                onChange={handleChangeAddress}
+                                                className={styles.marginBottom}
+                                                displayEmpty>
+                                                {address.map((address: string) => {
+                                                    return <MenuItem value={address}>{address}</MenuItem>
+                                                })}
+                                                <MenuItem value=''>{value.address}</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                        <TextField className={styles.marginBottom} required defaultValue={value.email} label={t`E-mail`} />
+                                        <TextField className={styles.marginBottom}
                                             required
-                                            multiple
-                                            defaultValue={value.country}
-                                            onChange={handleChangeCountry}
-                                            className={styles.marginBottom}
-                                            displayEmpty>
-                                            {countries.map((country: string) => {
-                                                return <MenuItem value={country}>{country}</MenuItem>
-                                            })}
-                                            <MenuItem value=''>{value.country}</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                    <FormControl>
-                                        <InputLabel></InputLabel>
-                                        <Select value={cityValue}
-                                            required
-                                            multiple
-                                            onChange={handleChangeCity}
-                                            className={styles.marginBottom}
-                                            displayEmpty>
-                                            {cities.map((city: string) => {
-                                                return <MenuItem value={city}>{city}</MenuItem>
-                                            })}
-                                            <MenuItem value=''>{value.city}</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                    {/* <TextField className={styles.marginBottom} defaultValue={value.address} label="Address" /> */}
-                                    {/* <AutocompleteMultipleChoise data={address} lab='Address' /> */}
-                                    <FormControl>
-                                        <InputLabel></InputLabel>
-                                        <Select value={addressValue}
-                                            required
-                                            multiple
-                                            defaultValue={value.address}
-                                            onChange={handleChangeAddress}
-                                            className={styles.marginBottom}
-                                            displayEmpty>
-                                            {address.map((address: string) => {
-                                                return <MenuItem value={address}>{address}</MenuItem>
-                                            })}
-                                            <MenuItem value=''>{value.address}</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                    <TextField className={styles.marginBottom} required defaultValue={value.email} label={t`E-mail`} />
-                                    <TextField className={styles.marginBottom}
-                                        required
-                                        multiline
-                                        rows={5}
-                                        label={t`Description`}
-                                        variant="outlined"
-                                        defaultValue={value.description} />
-                                  <div className={styles.dropzone}>
+                                            multiline
+                                            rows={5}
+                                            label={t`Description`}
+                                            variant="outlined"
+                                            defaultValue={value.description} />
+                                        <div className={styles.dropzone}>
                                             <DropZone uploadPhoto={(image: any) => { setUploadFileName(image) }} />
                                         </div>
                                         <div className={styles.uploadPhotoMobile}>
                                             <button type='button' className={styles.uploadFile__btn}>Upload photo</button>
                                         </div>
                                         <span className={styles.uploadFile__span}>{uploadFileName}</span>
-                                    <div className={styles.addressButtons}>
-                                        <Button type='submit onClick={() => { submitEditVendor(value) }} className={styles.address_submit}>{t`Submit`}</Button>
-                                        <Button onClick={() => { submitEditVendor(value) }} className={styles.address_cancel}>{t`Cancel`}</Button>
+                                        <div className={styles.addressButtons}>
+                                            <Button type='submit' onClick={() => { submitEditVendor(value) }} className={styles.address_submit}>{t`Submit`}</Button>
+                                            <Button onClick={() => { submitEditVendor(value) }} className={styles.address_cancel}>{t`Cancel`}</Button>
+                                        </div>
                                     </div>
                                 </form>
                             ) : ''}
+                            <button className={styles.adminPanel}>
+                                <AdminPanelVendor />
+                            </button>
                         </div>
                     })}
-                    <button className={styles.adminPanel}>
-                        <AdminPanelVendor />
-                    </button>
                 </Grid>
             </ListItem>
         </List>
