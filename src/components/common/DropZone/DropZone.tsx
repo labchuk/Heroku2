@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import "./DropZone.scss";
+import { t } from 'ttag';
+
 function DropZone(updateData: any) {
     const style = {
         height: 100,
@@ -18,8 +20,8 @@ function DropZone(updateData: any) {
             <div className="dropzone__label">
                 {
                     isDragActive ?
-                        <p>Drop the photo here...</p> :
-                        <p>Drag and drop file here, or click to select the file</p>
+                        <p>{t`Drop the photo here...`}</p> :
+                        <p>{t`Drag and drop file here, or click to select the file`}</p>
                 }
             </div>
             <span className='filename'>{fileName}</span>

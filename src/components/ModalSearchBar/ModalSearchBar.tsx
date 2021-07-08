@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import { Drawer, } from '@material-ui/core';
 import { SearchBar } from '..';
+import { t } from 'ttag';
 import "./ModalSearchBar.scss"
 import {createStyles, makeStyles} from "@material-ui/core/styles";
 
@@ -17,6 +18,7 @@ const useStyles = makeStyles((theme) =>
     }),
 );
 
+
 const ModalSearchBar = () => {
     const classes = useStyles()
     const [state, setState] = useState(false);
@@ -26,7 +28,7 @@ const ModalSearchBar = () => {
 
     return (
         <div>
-          <button className={`btn_open ${classes.root}`} onClick={toggleDrawer(true)}>  Open filter </button>
+          <button className={`btn_open ${classes.root}`} onClick={toggleDrawer(true)}> {t`Open filter`}</button>
           <Drawer anchor={'left'}
                   open={state}
                   onClose={toggleDrawer(false)}>

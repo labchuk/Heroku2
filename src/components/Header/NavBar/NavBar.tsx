@@ -12,6 +12,7 @@ import AdminPanelVendor from '../../admin/AdminPanelVendor/AdminPanelVendor';
 import {useAppSelector} from "../../../store/Redux-toolkit-hook";
 import {LogoutButton} from "../../index";
 import App from "../../../App";
+import {t} from "ttag";
 
 const useStyles = makeStyles((theme) => ({
     link: {

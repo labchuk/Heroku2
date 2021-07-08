@@ -1,6 +1,7 @@
 import React from 'react';
 import { InfoItem } from "../../../index";
 import "./InformationBlock.scss";
+
 import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
