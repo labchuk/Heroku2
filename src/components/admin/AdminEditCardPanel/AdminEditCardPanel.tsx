@@ -3,7 +3,7 @@ import { Drawer, List } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import DropZone from '../../common/DropZone/DropZone';
 import ContainerDataPiker from '../../common/SearchBar/ContainerDatePiker/ContainerDatePiker';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
@@ -13,6 +13,7 @@ import { Autocomplete, AutocompleteRenderOptionState } from '@material-ui/lab';
 import { useForm, Controller } from "react-hook-form";
 import SelectMultiple from '../../common/SearchBar/SelectMultiple/SelectMultiple';
 import { t } from 'ttag';
+
 
 const AdminEditCardPanel = (currentCard: any) => {
   const [state, setState] = React.useState(false);
@@ -34,8 +35,6 @@ const AdminEditCardPanel = (currentCard: any) => {
     'Mazepy Str, 1a',
     'Warshavska Str, 127',
   ];
-
-
 
   const [address, setAddress] = React.useState([
     { title: 'Chornovola Str, 27' },
@@ -252,6 +251,17 @@ const AdminEditCardPanel = (currentCard: any) => {
       gridGap: 20,
       marginBottom: 15
     },
+    uploadFile__span: {
+      fontSize: '15px',
+      marginBottom: '20px'
+    },
+    form: {
+      width: '700px'
+    },
+    marginBottom10: {
+      marginBottom: 10,
+      width: '100%'
+    },
     '@media(max-width:700px)': {
       wrapper: {
         width: '320px'
@@ -291,13 +301,14 @@ const AdminEditCardPanel = (currentCard: any) => {
   const list = () => (
     <List className={styles.wrapper}>
       <ListItem>
+         <form onSubmit={toggleDrawer(false)} className={styles.form}>
         <Grid container direction='column'>
           <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
             <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 13 }} />
             {t`Back`}
           </div>
           <span className={styles.modal_label}>{t`Edit a discount`}</span>
-          <TextField className={styles.marginBottom} id="outlined-basic" label={t`Title`} defaultValue={currentCard.currentCard.nameDiscount} />
+          <TextField className={styles.marginBottom} required id="outlined-basic" label={t`Title`} defaultValue={currentCard.currentCard.nameDiscount} />
           <AutocompleteMultipleChoise data={category} lab={t`Category`} />
           {categoryInput ?
             <>
@@ -336,22 +347,6 @@ const AdminEditCardPanel = (currentCard: any) => {
             <>
               <AutocompleteMultipleChoise data={country} lab={t`Country`} />
               <AutocompleteMultipleChoise data={city} lab={t`City`} />
-              {/* <AutocompleteMultipleChoise data={address} lab='Address' /> */}
-              {/* <Autocomplete
-                options={address}
-                disableCloseOnSelect
-                defaultValue={{ title: currentCard.currentCard.place }}
-                getOptionLabel={(option) => option.title}
-                renderOption={(option: { title: string }, state: AutocompleteRenderOptionState) => (
-                  <li {...state}>
-                    {option.title}
-                  </li>
-                )}
-                style={{ width: '100%', marginBottom: 15 }}
-                renderInput={(params) => (
-                  <TextField {...params} label='Address' />
-                )}
-              /> */}
               <SelectMultiple clName={styles.address} data={addres} name={t`Address`} />
               {addressInput ?
                 <>
@@ -371,10 +366,21 @@ const AdminEditCardPanel = (currentCard: any) => {
           <div className={styles.marginBottom}>
             <ContainerDataPiker />
           </div>
-          <TextField className={styles.marginBottom} label={t`Discount %`} defaultValue={currentCard.currentCard.sizeDiscount} />
-          <TextField className={styles.marginBottom} multiline rows={5} label={t`Description`} variant="outlined" />
+          <TextField className={styles.marginBottom} 
+              label={t`Discount %`}               
+              required
+              type='number'
+              InputProps={{ inputProps: { min: 0 } }} defaultValue={currentCard.currentCard.sizeDiscount} />
+          <TextField className={styles.marginBottom} 
+              required
+              multiline rows={5} 
+              label={t`Description`} 
+              variant="outlined"
+                          inputProps={{
+                maxLength: 200,
+                minLength: 50
+              }}/>
           <div className={styles.dropzone}>
-            <DropZone wrapperHeight={100} />
           </div>
           <div className={styles.uploadPhotoMobile}>
             <input type="file"
@@ -386,8 +392,9 @@ const AdminEditCardPanel = (currentCard: any) => {
             <button className={styles.uploadFile__btn}>{t`Upload photo`}</button>
           </div>
           <span className={styles.uploadedFileName}>{uploadFileName}</span>
-          <Button onClick={toggleDrawer(false)} className={styles.submitButton}>{t`Submit`}</Button>
-        </Grid>
+                    <Button type='submit' className={styles.submitButton}>Submit</Button>
+          </Grid>
+        </form>
       </ListItem>
     </List>
   )

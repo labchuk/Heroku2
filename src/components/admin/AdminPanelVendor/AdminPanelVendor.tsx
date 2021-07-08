@@ -1,4 +1,4 @@
-import { Button, ListItem } from '@material-ui/core';
+import { Button, ListItem, Snackbar } from '@material-ui/core';
 import { Drawer, List } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
@@ -10,7 +10,6 @@ import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceO
 import "./AdminPanelVendor.scss";
 import {getVendorAll, postVendor, postVendorLocation, uploadImage} from "../../../http/filtersApi";
 import { t } from 'ttag';
-
 
 const AdminPanelVendor = () => {
     const [state, setState] = React.useState(false);
@@ -143,7 +142,6 @@ const AdminPanelVendor = () => {
         dropzone: {
             border: '1px solid #ced4da',
             fontSize: 14,
-            paddingTop: 30,
             cursor: 'pointer',
             color: '#ced4da',
             borderRadius: 4,
@@ -216,6 +214,17 @@ const AdminPanelVendor = () => {
             gridGap: 20,
             marginBottom: 15
         },
+        marginBottom10: {
+            marginBottom: 10,
+            width: '100%'
+        },
+        form: {
+            width: '700px'
+        },
+        uploadFile__span: {
+            fontSize: '15px',
+            marginBottom: '20px'
+        },
         '@media(max-width:700px)': {
             wrapper: {
                 width: '320px'
@@ -255,17 +264,22 @@ const AdminPanelVendor = () => {
     const list = () => (
         <List className={styles.wrapper}>
             <ListItem>
+              <form onSubmit={toggleDrawer(false)}
+                    className={styles.form}>
                 <Grid container direction='column'>
                     <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
                         <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 13 }} />
                         {t`Back`}
                     </div>
                     <span className={styles.modal_label}>Add a vendor</span>
-                    <TextField className={styles.marginBottom} id="outlined-basic" label="Name" onChange={(e:React.ChangeEvent<HTMLInputElement>) => setData({...data, name: e.target.value})} />
+                    <TextField className={styles.marginBottom} 
+                        required
+                        label="Name" 
+                        onChange={(e:React.ChangeEvent<HTMLInputElement>) => setData({...data, name: e.target.value})} />
                         <>
-                            <TextField className={styles.marginBottom} id="outlined-basic" label="Country" onChange={handleChangeCountry} />
-                            <TextField className={styles.marginBottom} id="outlined-basic" label="City" onChange={handleChangeCity} />
-                            <TextField className={styles.marginBottom} id="outlined-basic" label="Address" onChange={handleChangeAddress} />
+                            <TextField className={styles.marginBottom} required label="Country" onChange={handleChangeCountry} />
+                            <TextField className={styles.marginBottom} required label="City" onChange={handleChangeCity} />
+                            <TextField className={styles.marginBottom} required label="Address" onChange={handleChangeAddress} />
 
                             {addressInput ?
                                 <>
@@ -277,14 +291,23 @@ const AdminPanelVendor = () => {
                                 </>
                                 : <span className={styles.address__span} onClick={addAddress}>+ Add new address</span>}
                         </>
-                    <TextField className={styles.marginBottom} id="outlined-basic" label="E-mail"
-                               onChange={(e:React.ChangeEvent<HTMLInputElement>) => setData({...data, email: e.target.value})} />
-                    <TextField className={styles.marginBottom} multiline rows={5} id="outlined-basic" label="Description" variant="outlined"
-                               onChange={(e:React.ChangeEvent<HTMLInputElement>) => setData({...data, description: e.target.value})} />
+                    <TextField className={styles.marginBottom} 
+                        label="E-mail"
+                        onChange={(e:React.ChangeEvent<HTMLInputElement>) => setData({...data, email: e.target.value})}
+                      required
+                      />
+                    <TextField className={styles.marginBottom} 
+                        required
+                        multiline 
+                        rows={5}
+                        label="Description" 
+                        variant="outlined"
+                        inputProps={{
+                                maxLength: 200,
+                                minLength: 50
+                        }}
+                        onChange={(e:React.ChangeEvent<HTMLInputElement>) => setData({...data, description: e.target.value})} />
                     <div className={styles.dropzone}>
-                        <DropZone wrapperHeight={100}
-                                  uploadPhoto={(image: any) => setUploadFileName(image)}
-                        />
                     </div>
                     <div className={styles.uploadPhotoMobile}>
                         <input type="file"
@@ -299,6 +322,7 @@ const AdminPanelVendor = () => {
                     <span className={styles.uploadedFileName}>{uploadFileName}</span>
                     <Button onClick={addVendor} className={styles.submitButton}>Submit</Button>
                 </Grid>
+              </form>
             </ListItem>
         </List>
     )

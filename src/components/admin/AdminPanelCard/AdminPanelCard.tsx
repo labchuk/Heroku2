@@ -1,4 +1,4 @@
-import { ListItem } from '@material-ui/core';
+import { Checkbox, ListItem } from '@material-ui/core';
 import { Drawer, List } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
@@ -10,7 +10,6 @@ import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceO
 import Button from '@material-ui/core/Button';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import "./AdminPanelCard.scss";
-import { AutocompleteRenderOptionState } from '@material-ui/lab';
 import AutocompleteMultipleChoise from '../../common/AutocompleteMultipleChoise/AutocompleteMultipleChoise';
 import { t } from 'ttag';
 
@@ -20,12 +19,12 @@ const AdminPanelCard = () => {
   const [addressInput, setAddressInput] = React.useState(false);
   const [categoryInput, setCategoryInput] = React.useState(false);
   const [tagInput, setTagInput] = React.useState(false);
-  const [uploadFileName, setUploadFileName] = React.useState('');
+  const [uploadFileName, setUploadFileName] = React.useState();
   const [newAddress, setNewAddress] = React.useState('');
   const [newCategory, setNewCategory] = React.useState('');
   const [newTag, setNewTag] = React.useState('');
+  const [image, setImage] = React.useState();
   const parentRef = useRef<any>();
-
 
   const [address, setAddress] = React.useState([
     { title: 'Chornovola Str, 27' },
@@ -36,41 +35,43 @@ const AdminPanelCard = () => {
     { title: 'Warshavska Str, 127' },
   ]);
 
-  const [category, setCategory] = React.useState([
+  const [categories, setCategory] = React.useState([
     { title: 'Category 1' },
     { title: 'Category 2' },
     { title: 'Category 3' },
     { title: 'Category 4' },
-    { title: 'Category 5' },
   ]);
+
 
   const [tags, setTag] = React.useState([
     { title: 'Tag 1' },
     { title: 'Tag 2' },
     { title: 'Tag 3' },
     { title: 'Tag 4' },
-    { title: 'Tag 5' },
   ]);
 
   const vendors = [
     { title: 'Nike' },
     { title: 'Puma' },
-    { title: `Domino's` },
+    { title: 'Dominos' },
     { title: 'Zara' },
-    { title: 'Steam' },
   ];
 
   const country = [
-    { title: 'Ukraine' },
-    { title: 'USA' },
-    { title: 'Belarus' },
+    { title: 'Country 1' },
+    { title: 'Country 2' },
+    { title: 'Country 3' },
+    { title: 'Country 4' },
+
   ];
 
   const city = [
-    { title: 'Lviv' },
-    { title: 'Minsk' },
-    { title: 'Kyiv' },
-    { title: 'Herson' },
+    { title: 'City 1' },
+    { title: 'City 2' },
+    { title: 'City 3' },
+    { title: 'City 4' },
+    { title: 'City 5' },
+
   ];
 
   const toggleDrawer = (open: any) => (event: any) => {
@@ -100,7 +101,7 @@ const AdminPanelCard = () => {
   }
   const submitCategory = () => {
     setCategoryInput(false);
-    let addNewCategory = category.concat({ title: newCategory });
+    let addNewCategory = categories.concat({ title: newCategory });
     setCategory(addNewCategory)
   }
 
@@ -123,9 +124,14 @@ const AdminPanelCard = () => {
 
   const useStyles = makeStyles({
     root: {
-      "& .MuiButton:hover": {
-        backgroundColor: 'red'
-      }
+      // "& .MuiButton:hover": {
+      //   backgroundColor: 'red'
+      // },
+      // '.MuiListItem-root': {
+      //   flexDirection: 'column',
+      //   alignItems: 'normal',
+      //   justifyContent: 'normal'
+      // },
     },
     wrapper: {
       background: '#F7F9FB',
@@ -151,19 +157,24 @@ const AdminPanelCard = () => {
       height: 20,
       marginRight: 5,
       top: 4,
+      color: "#0082CA"
     },
     checkbox__label: {
-      marginTop: 2,
-      position: 'absolute',
+      position: 'relative',
       fontSize: 16,
+      top: '3px'
     },
     marginBottom: {
-      marginBottom: 20
+      marginBottom: 15,
+      width: '100%'
+    },
+    marginBottom10: {
+      marginBottom: 10,
+      width: '100%'
     },
     dropzone: {
       border: '1px solid #ced4da',
       fontSize: 14,
-      paddingTop: 30,
       cursor: 'pointer',
       color: '#ced4da',
       borderRadius: 4,
@@ -181,6 +192,10 @@ const AdminPanelCard = () => {
       color: '#1877F2',
       width: '250px'
     },
+    submitButton__disabled: {
+      border: '2px solid rgba(0, 0, 0, 0.26)',
+      width: '250px'
+    },
     uploadPhotoMobile: {
       display: 'none',
     },
@@ -196,11 +211,6 @@ const AdminPanelCard = () => {
       color: '#1877F2',
       padding: '10px 20px',
       border: '2px solid #1877F2'
-    },
-    uploadedFileName: {
-      fontSize: 14,
-      marginTop: '-14px',
-      marginBottom: 20
     },
     modal_label: {
       textAlign: 'center'
@@ -236,17 +246,33 @@ const AdminPanelCard = () => {
       gridGap: 20,
       marginBottom: 15
     },
+    uploadFile__span: {
+      fontSize: '15px',
+      marginBottom: '20px'
+    },
+    form: {
+      width: '700px'
+    },
     '@media(max-width:700px)': {
       wrapper: {
         width: '320px'
       },
       dropzone: {
-        display: 'none'
+        zIndex: 25,
+        opacity: 0,
+        height: 40,
+        width: 131,
+        borderRadius: '0px',
+        position: 'relative',
+        border: 'none',
+        outline: 'none',
+        marginBottom: '-18px'
       },
       uploadPhotoMobile: {
         display: 'flex',
-        marginBottom: 20,
         fontSize: 15,
+        position: 'relative',
+        bottom: '20px',
         'span': {
           position: 'relative'
         }
@@ -275,13 +301,14 @@ const AdminPanelCard = () => {
   const list = () => (
     <List className={styles.wrapper}>
       <ListItem>
+        <form onSubmit={toggleDrawer(false)} className={styles.form}>
         <Grid container direction='column'>
           <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
             <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 11 }} />
             {t`Back`}
           </div>
           <span className={styles.modal_label}>{t`Add a promotion`}</span>
-          <TextField className={styles.marginBottom} label={t`Title`} />
+          <TextField required className={styles.marginBottom} label={t`Title`} />
           <AutocompleteMultipleChoise data={category} lab={t`Category`} />
           {categoryInput ?
             <>
@@ -312,7 +339,7 @@ const AdminPanelCard = () => {
             )}
             style={{ width: '100%', marginBottom: 15 }}
             renderInput={(params) => (
-              <TextField {...params} label={t`Vendor name`} />
+              <TextField {...params} label={t`Vendor name`} required />
             )}
           />
           {disableInput ? '' : (
@@ -338,12 +365,20 @@ const AdminPanelCard = () => {
           <div className={styles.marginBottom}>
             <ContainerDataPiker />
           </div>
-          <TextField className={styles.marginBottom} label={t`Discount %`} />
-          <TextField className={styles.marginBottom} multiline rows={5} label={t`Description`} variant="outlined" />
+          <TextField className={styles.marginBottom} 
+              required  
+              label={t`Discount %`}
+              InputProps={{ inputProps: { min: 0 } }}/>
+          <TextField className={styles.marginBottom} 
+              required
+              multiline rows={5} 
+              label={t`Description`}
+              variant="outlined"
+              inputProps={{
+                maxLength: 2000,
+                minLength: 50
+              }}/>
           <div className={styles.dropzone}>
-            <DropZone wrapperHeight={100}
-                      uploadPhoto={(image: any) => setUploadFileName(image)}
-            />
           </div>
           <div className={styles.uploadPhotoMobile}>
             <input type="file"
@@ -355,8 +390,9 @@ const AdminPanelCard = () => {
             <button className={styles.uploadFile__btn}>{t`Upload photo`}</button>
           </div>
           <span className={styles.uploadedFileName}>{uploadFileName}</span>
-          <Button onClick={toggleDrawer(false)} className={styles.submitButton}>{t`Submit`}</Button>
-        </Grid>
+            <Button type='submit' className={styles.submitButton}>Submit</Button>
+          </Grid>
+        </form>
       </ListItem>
     </List>
   )
