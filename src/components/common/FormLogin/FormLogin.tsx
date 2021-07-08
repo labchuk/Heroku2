@@ -16,7 +16,7 @@ const FormLogin: React.FC = () => {
     const emailErrorTextRef: any = useRef();
     const dispatch = useAppDispatch();
     const recaptchaRef: any = useRef<ReCAPTCHA>(null);
-
+    
     const  regularEmail: any = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i; 
     const regularPassword: any = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/i;
     interface IData {
@@ -27,22 +27,22 @@ const FormLogin: React.FC = () => {
     const [visible,setVisible] = useState<boolean>(false)
     const [captcha, setCaptcha] = useState<boolean>(false)
     const [isVerified, setVerified] = useState<boolean>(false)
+    const [open, setOpen] = useState<boolean>(false)
 
     const checkForm = (e:any) => {
         e.preventDefault()
         if(regularEmail.test(data.email) && regularPassword.test(data.password)) {
-            checkCaptcha()
+            checkCaptcha();
         } else {
-            showError()
-            setCaptcha(true)
+            showError();
+            setCaptcha(true);
         }
     }
     const checkCaptcha = () => {
         if(isVerified) {
+            setOpen(true)
             signIn()
-            console.log("captcha true")
         } else {
-            console.log("captcha false")
         }
     }
     const onChange = () => {
@@ -133,7 +133,7 @@ const FormLogin: React.FC = () => {
             </div>
 
 
-        <Submitbutton classN={"submit"} name={"Log in"} handleClick={(e:any)=> checkForm(e)}/>
+        <Submitbutton classN={"submit"} name={"Log in"} handleClick={(e:any)=> checkForm(e)} open={open} setOpen={setOpen}/>
             
         </form>
     );

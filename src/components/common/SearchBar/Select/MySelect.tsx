@@ -5,7 +5,7 @@ import {addChip, removeChip} from "../../../../store/chipReducer";
 import {useAppDispatch,useAppSelector} from '../../../../store/Redux-toolkit-hook';
 
 
-const MySelect = ({clName,data,name, setAble}:{clName:string, data:string[], name:string, setAble:any}) => {
+const MySelect = ({clName,data,name, setAble, disabled, helperText}:{helperText:string, disabled: boolean ,clName:string, data:string[], name:string, setAble:any}) => {
     
     const [age, setAge] = useState("");
     const dispatch = useAppDispatch()
@@ -36,14 +36,14 @@ const MySelect = ({clName,data,name, setAble}:{clName:string, data:string[], nam
             <InputLabel id="select">
                 {name}
             </InputLabel>
-            <Select labelId="select" value={filterChips()} onChange={handleChange}>
+            <Select labelId="select" value={filterChips()} onChange={handleChange} disabled={disabled}>
                 {data.map((item,index) => (
                     <MenuItem value={item} key={index}>
                         {item}
                     </MenuItem>
                 ))}
             </Select>
-            <FormHelperText></FormHelperText>
+            <FormHelperText>{helperText}</FormHelperText>
         </FormControl>
     );
 };
