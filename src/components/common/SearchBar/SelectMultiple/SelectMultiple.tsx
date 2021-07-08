@@ -8,11 +8,12 @@ import {
   Checkbox,
   ListItemText,
   ListSubheader,
-  FormHelperText
+  FormHelperText,
+  createMuiTheme
 } from "@material-ui/core"
 import {useLocation} from "react-router-dom";
 import {MAIN_ROUTE} from "../../../../utils/consts"
-
+import { ThemeProvider } from "@material-ui/styles";
 import { useAppDispatch, useAppSelector } from '../../../../store/Redux-toolkit-hook';
 import { addChip, removeChip } from '../../../../store/chipReducer';
 
@@ -28,6 +29,13 @@ const MenuProps = {
   },
 };
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#0082CA",
+    }
+  },
+});
 
 const SelectMultiple = ({ clName, data, name, setArrTag, disabled, helperText }: { clName: string, data: string[], name: string, setArrTag?: any, disabled:boolean, helperText:string }) => {
   const {pathname} = useLocation();
@@ -64,7 +72,7 @@ const SelectMultiple = ({ clName, data, name, setArrTag, disabled, helperText }:
 
   }
     return (
-        <>
+        <ThemeProvider theme={theme}>
           <FormControl disabled={disabled} className={clName}>
             <InputLabel id="demo-mutiple-checkbox-label">{name}</InputLabel>
             <Select
@@ -79,14 +87,15 @@ const SelectMultiple = ({ clName, data, name, setArrTag, disabled, helperText }:
             >
               {data.map((name: string, index) => (
                   <MenuItem key={index} value={name}>
-                    <Checkbox checked={filterChips().indexOf(name) > -1}/>
+                    <Checkbox color="primary" checked={filterChips().indexOf(name) > -1}/>
                     <ListItemText primary={name}/>
                   </MenuItem>
               ))}
             </Select>
             <FormHelperText>{helperText}</FormHelperText>
           </FormControl>
-        </>
+        </ThemeProvider>
+        
     );
   }
 

@@ -2,11 +2,11 @@ import React,{useState} from 'react';
 import {FormControl, Select, InputLabel, MenuItem, FormHelperText } from "@material-ui/core";
 import "./Select.scss"
 import {addChip, removeChip} from "../../../../store/chipReducer";
-import {useAppDispatch,useAppSelector} from '../../../../store/Redux-toolkit-hook'
-
+import {useAppDispatch,useAppSelector} from '../../../../store/Redux-toolkit-hook';
 
 
 const MySelect = ({clName,data,name, setAble}:{clName:string, data:string[], name:string, setAble:any}) => {
+    
     const [age, setAge] = useState("");
     const dispatch = useAppDispatch()
     const chipData = useAppSelector(state => state.chips.ChipsArray)
@@ -21,7 +21,7 @@ const MySelect = ({clName,data,name, setAble}:{clName:string, data:string[], nam
             dispatch(removeChip(name+indexRemove))
         }
         setAge(event.target.value);
-        setAble(false)
+        setAble(event.target.value)
     };
     const filterChips = () => {
         for (const i in chipData) {

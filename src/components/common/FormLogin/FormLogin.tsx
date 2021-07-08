@@ -15,7 +15,7 @@ const FormLogin: React.FC = () => {
     const history: any = useHistory();
     const emailErrorTextRef: any = useRef();
     const dispatch = useAppDispatch();
-    const recaptchaRef: any = useRef();
+    const recaptchaRef: any = useRef<ReCAPTCHA>(null);
 
     const  regularEmail: any = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i; 
     const regularPassword: any = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/i;

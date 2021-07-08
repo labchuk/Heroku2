@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) =>
     }),
 );
 
+
 const CardList: React.FC = (props) => {
 
     const NUMBER_CARD = 15
