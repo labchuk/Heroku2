@@ -10,9 +10,10 @@ import { t } from 'ttag';
 const useStyles = makeStyles((theme) => ({
     sort: {
         width: "150px",
-        background: "#fff",
-
     },
+    root: {
+        // backgroundColor: theme.palette.secondary.main
+    }
 }))
 
 const Sort = () => {
@@ -31,7 +32,7 @@ const Sort = () => {
 const classes = useStyles();
 
     return(
-        <div className={"sort-bar"}>
+        <div className={`sort-bar ${classes.root}`}>
             <div>
                 <FormControl  >
                     <InputLabel>{t`Sort by`}</InputLabel>

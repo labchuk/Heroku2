@@ -11,7 +11,8 @@ import DelateVendorMenu from "../DelateVendorMenu/DelateVendorMenu";
 
 const useStyles = makeStyles((theme) => ({
     btn: {
-        color: "#1877F2",
+        color: theme.palette.primary.contrastText,
+
     },
     item: {
         border: "#1877F2 solid 1px",
