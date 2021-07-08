@@ -54,7 +54,6 @@ const AdminPanelVendor = () => {
             addressLine: newAddress,
             vendorId: vendorId
         })
-        toggleDrawer(false)
         console.log(getVendorAll())
     }
 
@@ -264,7 +263,7 @@ const AdminPanelVendor = () => {
     const list = () => (
         <List className={styles.wrapper}>
             <ListItem>
-                <form onSubmit={toggleDrawer(false)}
+                <form onSubmit={addVendor}
                     className={styles.form}>
                     <Grid container direction='column'>
                         <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
@@ -320,7 +319,7 @@ const AdminPanelVendor = () => {
                         </div>
                         <input type="file" onChange={setImage} />
                         <span className={styles.uploadedFileName}>{uploadFileName}</span>
-                        <Button onClick={addVendor} type='submit' className={styles.submitButton}>Submit</Button>
+                        <Button type='submit' onClick={toggleDrawer(false)} className={styles.submitButton}>Submit</Button>
                     </Grid>
                 </form>
             </ListItem>

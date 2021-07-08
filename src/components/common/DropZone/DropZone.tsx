@@ -4,7 +4,7 @@ import "./DropZone.scss";
 import { t } from 'ttag';
 
 
-function DropZone(props: {uploadPhoto: any}) {
+function DropZone(props: { uploadPhoto: any }) {
     const onDrop = useCallback(acceptedFiles => {
         props.uploadPhoto(acceptedFiles[0])
     }, [])
@@ -24,3 +24,42 @@ function DropZone(props: {uploadPhoto: any}) {
 }
 export default DropZone;
 
+// import React, { Component } from 'react'
+// import { DropzoneArea } from 'material-ui-dropzone'
+
+// class DropZone extends Component {
+//     constructor(props: any) {
+//         super(props);
+//         this.state = {
+//             files: []
+//         };
+//     }
+//     handleChange(files: any) {
+//         this.setState({
+//             files: files
+//         });
+//     }
+//     render() {
+//         return (
+//             <DropzoneArea
+//                 onChange={() => {
+//                     this.handleChange.bind(this);
+
+//                 }}
+//             />
+//         )
+//     }
+// }
+
+// function DropZone(props: any) {
+//     const [files, setFiles] = React.useState([])
+
+//     return (
+//         <DropzoneArea
+//             onChange={() => console.log(DropZone}
+//         />
+//     )
+
+// }
+
+// export default DropZone
