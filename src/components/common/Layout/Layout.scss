@@ -4,7 +4,9 @@
 
 .mainContent {
   display: flex;
-  padding-top: 40px;
+  margin-top: 30px;
+  padding: 10px;
+  overflow: hidden;
 }
 
 .filterBar {
@@ -36,7 +38,8 @@
   @media (max-width: 762px) {
     display: block;
     position: absolute;
-    top: 5px;
+    top: 15px;
+    z-index: 1;
 
   }
 }

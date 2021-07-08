@@ -15,6 +15,7 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import "./DelateVendorMenu.scss";
 import AdminPanelVendor from '../AdminPanelVendor/AdminPanelVendor';
+import { t } from 'ttag';
 
 const DelateVendorMenu = () => {
     const [state, setState] = React.useState(false);
@@ -350,12 +351,12 @@ const DelateVendorMenu = () => {
                 <Grid container direction='column'>
                     <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
                         <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 11 }} />
-                        Back
+                        {t`Back`}
                     </div>
-                    <span className={styles.modal_label}>Vendors</span>
+                    <span className={styles.modal_label}>{t`Vendors`}</span>
                     <div className={styles.attention}>
                         <ErrorOutlineIcon style={{ color: '#d32f2f', fontSize: 30 }} />
-                        <span className={styles.attention__span}>Removing a vendor will delete all its discounts</span>
+                        <span className={styles.attention__span}>{t`Removing a vendor will delete all its discounts`}</span>
                     </div>
                     {vendors.map((value: any) => {
                         return <div className={styles.vendorName}>
@@ -367,73 +368,73 @@ const DelateVendorMenu = () => {
                                     style={{ color: '#d32f2f', fontSize: 22, position: 'relative', bottom: 4 }} />
                             </section>
                             {value.editing ? (
-                                <form onSubmit={toggleDrawer(false)}>
-                                    <div className={styles.editingForm}>
-                                        <TextField className={styles.marginBottom} required defaultValue={value.name} label="Name" />
-                                        <FormControl>
-                                            <InputLabel></InputLabel>
-                                            <Select value={countryValue}
-                                                required
-                                                multiple
-                                                defaultValue={value.country}
-                                                onChange={handleChangeCountry}
-                                                className={styles.marginBottom}
-                                                displayEmpty>
-                                                {countries.map((country: string) => {
-                                                    return <MenuItem value={country}>{country}</MenuItem>
-                                                })}
-                                                <MenuItem value=''>{value.country}</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                        <FormControl>
-                                            <InputLabel></InputLabel>
-                                            <Select value={cityValue}
-                                                required
-                                                multiple
-                                                onChange={handleChangeCity}
-                                                className={styles.marginBottom}
-                                                displayEmpty>
-                                                {cities.map((city: string) => {
-                                                    return <MenuItem value={city}>{city}</MenuItem>
-                                                })}
-                                                <MenuItem value=''>{value.city}</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                        <FormControl>
-                                            <InputLabel></InputLabel>
-                                            <Select value={addressValue}
-                                                required
-                                                multiple
-                                                defaultValue={value.address}
-                                                onChange={handleChangeAddress}
-                                                className={styles.marginBottom}
-                                                displayEmpty>
-                                                {address.map((address: string) => {
-                                                    return <MenuItem value={address}>{address}</MenuItem>
-                                                })}
-                                                <MenuItem value=''>{value.address}</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                        <TextField className={styles.marginBottom} required defaultValue={value.email} label="E-mail" />
-                                        <TextField className={styles.marginBottom}
+                            <form onSubmit={toggleDrawer(false)}>
+                                <div className={styles.editingForm}>
+                                    <TextField className={styles.marginBottom} required defaultValue={value.name} label={t`Name`} />
+                                    <FormControl>
+                                        <InputLabel></InputLabel>
+                                        <Select value={countryValue}
                                             required
-                                            multiline
-                                            rows={5}
-                                            inputProps={{
-                                                maxLength: 200,
-                                                minLength: 50
-                                            }}
-                                            label="Description"
-                                            variant="outlined"
-                                            defaultValue={value.description} />
-                                        <div className={styles.dropzone}>
+                                            multiple
+                                            defaultValue={value.country}
+                                            onChange={handleChangeCountry}
+                                            className={styles.marginBottom}
+                                            displayEmpty>
+                                            {countries.map((country: string) => {
+                                                return <MenuItem value={country}>{country}</MenuItem>
+                                            })}
+                                            <MenuItem value=''>{value.country}</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                    <FormControl>
+                                        <InputLabel></InputLabel>
+                                        <Select value={cityValue}
+                                            required
+                                            multiple
+                                            onChange={handleChangeCity}
+                                            className={styles.marginBottom}
+                                            displayEmpty>
+                                            {cities.map((city: string) => {
+                                                return <MenuItem value={city}>{city}</MenuItem>
+                                            })}
+                                            <MenuItem value=''>{value.city}</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                    {/* <TextField className={styles.marginBottom} defaultValue={value.address} label="Address" /> */}
+                                    {/* <AutocompleteMultipleChoise data={address} lab='Address' /> */}
+                                    <FormControl>
+                                        <InputLabel></InputLabel>
+                                        <Select value={addressValue}
+                                            required
+                                            multiple
+                                            defaultValue={value.address}
+                                            onChange={handleChangeAddress}
+                                            className={styles.marginBottom}
+                                            displayEmpty>
+                                            {address.map((address: string) => {
+                                                return <MenuItem value={address}>{address}</MenuItem>
+                                            })}
+                                            <MenuItem value=''>{value.address}</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                    <TextField className={styles.marginBottom} required defaultValue={value.email} label={t`E-mail`} />
+                                    <TextField className={styles.marginBottom}
+                                        required
+                                        multiline
+                                        rows={5}
+                                        label={t`Description`}
+                                        variant="outlined"
+                                        defaultValue={value.description} />
+                                  <div className={styles.dropzone}>
                                             <DropZone uploadPhoto={(image: any) => { setUploadFileName(image) }} />
                                         </div>
                                         <div className={styles.uploadPhotoMobile}>
                                             <button type='button' className={styles.uploadFile__btn}>Upload photo</button>
                                         </div>
                                         <span className={styles.uploadFile__span}>{uploadFileName}</span>
-                                        <Button type='submit' className={styles.submitButton}>Submit</Button>
+                                    <div className={styles.addressButtons}>
+                                        <Button type='submit onClick={() => { submitEditVendor(value) }} className={styles.address_submit}>{t`Submit`}</Button>
+                                        <Button onClick={() => { submitEditVendor(value) }} className={styles.address_cancel}>{t`Cancel`}</Button>
                                     </div>
                                 </form>
                             ) : ''}
@@ -448,7 +449,7 @@ const DelateVendorMenu = () => {
     )
     return (
         <div>
-            <button onClick={toggleDrawer(true)} className={styles.adminModalButton}>Vendors</button>
+            <button onClick={toggleDrawer(true)} className={styles.adminModalButton}>{t`Vendors`}</button>
             <Drawer anchor={'right'}
                 open={state}
                 onClose={toggleDrawer(false)}>

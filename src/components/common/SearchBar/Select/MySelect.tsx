@@ -1,13 +1,14 @@
-import React from 'react';
-import { FormControl, Select, InputLabel, MenuItem } from "@material-ui/core";
+
+import React,{useState} from 'react';
+import {FormControl, Select, InputLabel, MenuItem, FormHelperText } from "@material-ui/core";
 import "./Select.scss"
-import { addChip, removeChip } from "../../../../store/chipReducer";
-import { useAppDispatch, useAppSelector } from '../../../../store/Redux-toolkit-hook'
+import {addChip, removeChip} from "../../../../store/chipReducer";
+import {useAppDispatch,useAppSelector} from '../../../../store/Redux-toolkit-hook';
 
 
-
-const MySelect = ({ clName, data, name, changeDataV }: { clName: string, data: string[], name: string, changeDataV: any }) => {
-    const [age, setAge] = React.useState("");
+const MySelect = ({clName,data,name, setAble}:{clName:string, data:string[], name:string, setAble:any}) => {
+    
+    const [age, setAge] = useState("");
     const dispatch = useAppDispatch()
     const chipData = useAppSelector(state => state.chips.ChipsArray)
 
@@ -21,13 +22,7 @@ const MySelect = ({ clName, data, name, changeDataV }: { clName: string, data: s
             dispatch(removeChip(name + indexRemove))
         }
         setAge(event.target.value);
-
-        const { target: { value } } = event;
-        setErrors({ validation: '' })
-        setVal(value);
-        if (filterChips().length === 0) {
-            setErrors({ validation: 'Error' })
-        }
+        setAble(event.target.value)
     };
 
 
@@ -45,9 +40,7 @@ const MySelect = ({ clName, data, name, changeDataV }: { clName: string, data: s
     const [errors, setErrors] = React.useState<{ validation: string }>();
 
     return (
-        <FormControl className={clName}
-            error={Boolean(errors?.validation)}
-            onClick={() => { changeDataV(validation?.length); console.log(validation?.length) }}>
+        <FormControl className={clName} >
             <InputLabel id="select">
                 {name}
             </InputLabel>
@@ -58,6 +51,7 @@ const MySelect = ({ clName, data, name, changeDataV }: { clName: string, data: s
                     </MenuItem>
                 ))}
             </Select>
+            <FormHelperText></FormHelperText>
         </FormControl>
     );
 };

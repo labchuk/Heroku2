@@ -10,6 +10,9 @@ import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceO
 import EditIcon from '@material-ui/icons/Edit';
 import AutocompleteMultipleChoise from '../../common/AutocompleteMultipleChoise/AutocompleteMultipleChoise';
 import { Autocomplete, AutocompleteRenderOptionState } from '@material-ui/lab';
+import { useForm, Controller } from "react-hook-form";
+import SelectMultiple from '../../common/SearchBar/SelectMultiple/SelectMultiple';
+import { t } from 'ttag';
 
 
 const AdminEditCardPanel = (currentCard: any) => {
@@ -298,94 +301,98 @@ const AdminEditCardPanel = (currentCard: any) => {
   const list = () => (
     <List className={styles.wrapper}>
       <ListItem>
-        <form onSubmit={toggleDrawer(false)} className={styles.form}>
-          <Grid container direction='column'>
-            <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
-              <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 13 }} />
-              Back
-            </div>
-            <span className={styles.modal_label}>Edit a discount</span>
-            <TextField className={styles.marginBottom} required label={'Title'} defaultValue={currentCard.currentCard.nameDiscount} />
-            <AutocompleteMultipleChoise data={category} lab='Category' clName={styles.marginBottom10} />
-            {categoryInput ?
-              <>
-                <TextField className={styles.marginBottom} label="Add new category" onChange={(e: any) => setNewCategory(e.target.value)} />
-                <div className={styles.addressButtons}>
-                  <Button onClick={submitCategory} className={styles.address_submit}>Submit</Button>
-                  <Button onClick={cancelCategory} className={styles.address_cancel}>Cancel</Button>
-                </div>
-              </>
-              : <span className={styles.address__span} onClick={addCategory}>+ Add new category</span>}
-            <AutocompleteMultipleChoise data={tags} lab='Tags' clName={styles.marginBottom10} />
-            {tagInput ?
-              <>
-                <TextField className={styles.marginBottom} label="Add new tag" onChange={(e: any) => setNewTag(e.target.value)} />
-                <div className={styles.addressButtons}>
-                  <Button onClick={submitTag} className={styles.address_submit}>Submit</Button>
-                  <Button onClick={cancelTag} className={styles.address_cancel}>Cancel</Button>
-                </div>
-              </>
-              : <span className={styles.address__span} onClick={addTag}>+ Add new tag</span>}
-            <Autocomplete
-              options={vendors}
-              getOptionLabel={(option) => option.title}
-              defaultValue={{ title: currentCard.currentCard.nameDiscount }}
-              renderOption={(option: { title: string }, state: AutocompleteRenderOptionState) => (
-                <li {...state}>
-                  {option.title}
-                </li>
-              )}
-              style={{ width: '100%', marginBottom: 15 }}
-              renderInput={(params) => (
-                <TextField {...params} label="Vendor name" />
-              )}
-            />
-            {disableInput ? '' : (
-              <>
-                <AutocompleteMultipleChoise data={country} lab='Country' />
-                <AutocompleteMultipleChoise data={city} lab='City' />
-                <AutocompleteMultipleChoise data={address} lab='Address' clName={styles.marginBottom10} />
-                {addressInput ?
-                  <>
-                    <TextField className={styles.marginBottom} label="Add an address" onChange={(e: any) => setNewAddress(e.target.value)} />
-                    <div className={styles.addressButtons}>
-                      <Button onClick={submitAddress} className={styles.address_submit}>Submit</Button>
-                      <Button onClick={cancelAddress} className={styles.address_cancel}>Cancel</Button>
-                    </div>
-                  </>
-                  : <span className={styles.address__span} onClick={addAddress}>+ Add new address</span>}
-              </>
+         <form onSubmit={toggleDrawer(false)} className={styles.form}>
+        <Grid container direction='column'>
+          <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
+            <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 13 }} />
+            {t`Back`}
+          </div>
+          <span className={styles.modal_label}>{t`Edit a discount`}</span>
+          <TextField className={styles.marginBottom} required id="outlined-basic" label={t`Title`} defaultValue={currentCard.currentCard.nameDiscount} />
+          <AutocompleteMultipleChoise data={category} lab={t`Category`} />
+          {categoryInput ?
+            <>
+              <TextField className={styles.marginBottom} label={t`Add new category`} onChange={(e: any) => setNewCategory(e.target.value)} />
+              <div className={styles.addressButtons}>
+                <Button onClick={submitCategory} className={styles.address_submit}>{t`Submit`}</Button>
+                <Button onClick={cancelCategory} className={styles.address_cancel}>{t`Cancel`}</Button>
+              </div>
+            </>
+            : <span className={styles.address__span} onClick={addCategory}>{t`+ Add new category`}</span>}
+          <AutocompleteMultipleChoise data={tags} lab={t`Tags`} />
+          {tagInput ?
+            <>
+              <TextField className={styles.marginBottom} label={t`Add new tag`} onChange={(e: any) => setNewTag(e.target.value)} />
+              <div className={styles.addressButtons}>
+                <Button onClick={submitTag} className={styles.address_submit}>{t`Submit`}</Button>
+                <Button onClick={cancelTag} className={styles.address_cancel}>{t`Cancel`}</Button>
+              </div>
+            </>
+            : <span className={styles.address__span} onClick={addTag}>{t`+ Add new tag`}</span>}
+          <Autocomplete
+            options={vendors}
+            getOptionLabel={(option) => option.title}
+            defaultValue={{ title: currentCard.currentCard.nameDiscount }}
+            renderOption={(option: { title: string }, state: AutocompleteRenderOptionState) => (
+              <li {...state}>
+                {option.title}
+              </li>
             )}
-            <div className={styles.checkbox__wrapper}>
-              <input type="checkbox" className={styles.checkbox} onClick={changeDisable} />
-              <label className={styles.checkbox__label} >Online</label>
-            </div>
-            <div className={styles.marginBottom}>
-              <ContainerDataPiker />
-            </div>
-            <TextField className={styles.marginBottom}
+            style={{ width: '100%', marginBottom: 15 }}
+            renderInput={(params) => (
+              <TextField {...params} label={t`Vendor name`} />
+            )}
+          />
+          {disableInput ? '' : (
+            <>
+              <AutocompleteMultipleChoise data={country} lab={t`Country`} />
+              <AutocompleteMultipleChoise data={city} lab={t`City`} />
+              <SelectMultiple clName={styles.address} data={addres} name={t`Address`} />
+              {addressInput ?
+                <>
+                  <TextField className={styles.marginBottom} label={t`Add an address`} onChange={(e: any) => setNewAddress(e.target.value)} />
+                  <div className={styles.addressButtons}>
+                    <Button onClick={submitAddress} className={styles.address_submit}>{t`Submit`}</Button>
+                    <Button onClick={cancelAddress} className={styles.address_cancel}>{t`Cancel`}</Button>
+                  </div>
+                </>
+                : <span className={styles.address__span} onClick={addAddress}>{t`+ Add new address`}</span>}
+            </>
+          )}
+          <div className={styles.checkbox__wrapper}>
+            <input type="checkbox" className={styles.checkbox} onClick={changeDisable} />
+            <label className={styles.checkbox__label} >{t`Online`}</label>
+          </div>
+          <div className={styles.marginBottom}>
+            <ContainerDataPiker />
+          </div>
+          <TextField className={styles.marginBottom} 
+              label={t`Discount %`}               
               required
               type='number'
-              InputProps={{ inputProps: { min: 0 } }}
-              label="Discount %"
-              defaultValue={currentCard.currentCard.sizeDiscount} />
-            <TextField className={styles.marginBottom}
+              InputProps={{ inputProps: { min: 0 } }} defaultValue={currentCard.currentCard.sizeDiscount} />
+          <TextField className={styles.marginBottom} 
               required
-              multiline rows={5}
-              label="Description"
+              multiline rows={5} 
+              label={t`Description`} 
               variant="outlined"
-              inputProps={{
+                          inputProps={{
                 maxLength: 200,
                 minLength: 50
-              }} />
-            <div className={styles.dropzone}>
-              <DropZone uploadPhoto={(image: any) => setUploadFileName(image)} />
-            </div>
-            <div className={styles.uploadPhotoMobile}>
-              <button type='button' className={styles.uploadFile__btn}>Upload photo</button>
-            </div>
-            <span className={styles.uploadFile__span}>{uploadFileName}</span>
-            <Button type='submit' className={styles.submitButton}>Submit</Button>
+              }}/>
+          <div className={styles.dropzone}>
+          </div>
+          <div className={styles.uploadPhotoMobile}>
+            <input type="file"
+              ref={parentRef}
+              className={styles.fileName}
+              id='fileName'
+              accept=".png, .jpg, .jpeg"
+              onChange={(e) => { setUploadFileName(parentRef.current.files[0].name) }} />
+            <button className={styles.uploadFile__btn}>{t`Upload photo`}</button>
+          </div>
+          <span className={styles.uploadedFileName}>{uploadFileName}</span>
+                    <Button type='submit' className={styles.submitButton}>Submit</Button>
           </Grid>
         </form>
       </ListItem>

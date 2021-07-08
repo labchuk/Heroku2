@@ -4,12 +4,14 @@ import "./Layout.scss";
 import SearchBar from "../SearchBar/SearchBar";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { CardList } from "../../index";
+import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 1200,
         margin: "0 auto",
         flexGrow: 1,
+        backgroundColor: theme.palette.primary.main
     },
 
     paper: {
@@ -44,7 +46,7 @@ const FullWidthGrid = (props: any) => {
                 </div>
 
                 <div className="filterBar">
-                    <SearchBar />
+                        <SearchBar />
                 </div>
 
                 <CardList />

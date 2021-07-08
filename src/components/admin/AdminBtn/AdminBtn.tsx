@@ -11,7 +11,8 @@ import DelateVendorMenu from "../DelateVendorMenu/DelateVendorMenu";
 
 const useStyles = makeStyles((theme) => ({
     btn: {
-        color: "#1877F2",
+        color: theme.palette.primary.contrastText,
+
     },
     item: {
         border: "#1877F2 solid 1px",
@@ -72,10 +73,6 @@ export default function AdminBtn(){
                 transformOrigin={{
                     vertical: 'top',
                     horizontal: 'right',
-                }}
-                anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: 'left',
                 }}
                 elevation={0}
             className={classes.menu}

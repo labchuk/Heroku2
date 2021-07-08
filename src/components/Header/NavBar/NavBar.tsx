@@ -11,6 +11,8 @@ import AdminPanelCard from '../../admin/AdminPanelCard/AdminPanelCard';
 import AdminPanelVendor from '../../admin/AdminPanelVendor/AdminPanelVendor';
 import {useAppSelector} from "../../../store/Redux-toolkit-hook";
 import {LogoutButton} from "../../index";
+import App from "../../../App";
+import {t} from "ttag";
 
 const useStyles = makeStyles((theme) => ({
     link: {
@@ -22,6 +24,14 @@ const useStyles = makeStyles((theme) => ({
         borderBottom: "1px solid #9e9e9e",
 
     },
+    linkdesk: {
+        color: theme.palette.primary.contrastText,
+    },
+    activeLink:{
+        '&::after':{
+            backgroundColor: theme.palette.primary.contrastText,
+        }
+    },
     logout: {
         color: "#E44949",
         justifyContent: "flex-end",
@@ -32,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "70px",
         display: "flex",
         width: "calc(100% + 30px)",
-        marginLeft: "10px",
+        marginLeft: "75px",
         [theme.breakpoints.down('xs')]: {
             marginTop: "55px",
             marginLeft: "-15px",
@@ -54,17 +64,16 @@ const NavBar = () => {
     };
 
 
-    let admin = true;
     const userName = useAppSelector(state => state.user.userName);
-    console.log(userName)
     const userEmail = useAppSelector(state => state.user.email);
+    const admin: boolean = useAppSelector(state => state.user.admine)
 
     return <>
         <div className={"desktop-nav"}>
-            <NavLink to={"/main-page"} activeClassName={"activelink"}>Home</NavLink>
-            <NavLink to={"/history"} activeClassName={"activelink"}>History</NavLink>
+            <NavLink to={"/main-page"} className={classes.linkdesk} activeClassName={`activelink ${classes.activeLink}`}>Home</NavLink>
+            <NavLink to={"/history"} className={classes.linkdesk} activeClassName={`activelink ${classes.activeLink}`}>History</NavLink>
             {admin &&
-            <NavLink to={"/statistic"} activeClassName={"activelink"}>Statistics</NavLink>
+            <NavLink to={"/statistic"} className={classes.linkdesk} activeClassName={`activelink ${classes.activeLink}`}>Statistics</NavLink>
             }
 
         </div>
@@ -77,10 +86,6 @@ const NavBar = () => {
             <Menu
                 transformOrigin={{
                     vertical: 'top',
-                    horizontal: 'right',
-                }}
-                anchorOrigin={{
-                    vertical: "bottom",
                     horizontal: 'right',
                 }}
                 className={classes.menu}

@@ -4,24 +4,63 @@ import { TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import { makeStyles } from '@material-ui/core/styles';
-import React, { useCallback, useRef } from 'react';
+import React, {useEffect, useRef} from 'react';
 import DropZone from '../../common/DropZone/DropZone';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import "./AdminPanelVendor.scss";
-import AutocompleteMultipleChoise from '../../common/AutocompleteMultipleChoise/AutocompleteMultipleChoise';
-import { useForm } from 'react-hook-form';
-import { useDropzone } from 'react-dropzone';
-import { Alert } from '@material-ui/lab';
+import {getVendorAll, postVendor, postVendorLocation, uploadImage} from "../../../http/filtersApi";
+import { t } from 'ttag';
 
 const AdminPanelVendor = () => {
     const [state, setState] = React.useState(false);
     const [countryValue, setCountryValue] = React.useState('');
     const [cityValue, setCityValue] = React.useState('');
-    const [uploadFileName, setUploadFileName] = React.useState<any[]>([]);
+    const [uploadFileName, setUploadFileName] = React.useState<string | Blob>('');
+    const [fileName, setFileName] = React.useState<string | Blob>('');
     const [disableInput, setDisableInput] = React.useState(false);
     const [addressInput, setAddressInput] = React.useState(false);
     const [newAddress, setNewAddress] = React.useState('');
+    const [data, setData] = React.useState({
+        email: "",
+        description: "",
+        name: "",
+
+    });
     const parentRef = useRef<any>();
+    console.log(fileName)
+    console.log(countryValue)
+
+    const setImage = (event: any) => {
+        setFileName(event.target.files[0])
+    }
+    const addLogoVendor = () => {
+        const formData = new FormData();
+        formData.append(
+            "file",
+            fileName,
+        );
+        console.log(fileName);
+       return uploadImage(formData)
+    }
+
+    const addVendor = async () => {
+        const logo = await addLogoVendor()
+        const logoURL = logo?.data.message
+        const vendor = await postVendor({name: data.name, description: data.description, email: data.email, image: logoURL})
+        const vendorId = vendor.data.id
+        const vendorLocation = await postVendorLocation({
+            country: countryValue,
+            city: cityValue,
+            addressLine: newAddress,
+            vendorId: vendorId
+        })
+        toggleDrawer(false)
+        console.log(getVendorAll())
+    }
+
+    console.log(fileName)
+    console.log(countryValue)
+
 
     const country = [
         { title: 'Ukraine' },
@@ -55,6 +94,9 @@ const AdminPanelVendor = () => {
 
     const handleChangeCity = (event: any) => {
         setCityValue(event.target.value)
+    }
+    const handleChangeAddress = (event: any) => {
+        setNewAddress(event.target.value)
     }
 
     const addAddress = () => {
@@ -222,52 +264,65 @@ const AdminPanelVendor = () => {
     const list = () => (
         <List className={styles.wrapper}>
             <ListItem>
-                <form onSubmit={toggleDrawer(false)}
+              <form onSubmit={toggleDrawer(false)}
                     className={styles.form}>
-                    <Grid container direction='column'>
-                        <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
-                            <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 13 }} />
-                            Back
-                        </div>
-                        <span className={styles.modal_label}>Add a vendor</span>
-                        <TextField className={styles.marginBottom} label="Name" required />
-                        {disableInput ? '' : (
-                            <>
-                                <AutocompleteMultipleChoise data={country} lab='Country' clName={styles.marginBottom10} />
-                                <AutocompleteMultipleChoise data={city} lab='City' clName={styles.marginBottom10} />
-                                <AutocompleteMultipleChoise data={address} lab='Address' clName={styles.marginBottom10} />
-                                {addressInput ?
-                                    <>
-                                        <TextField className={styles.marginBottom} label="Add an address" onChange={(e: any) => setNewAddress(e.target.value)} />
-                                        <div className={styles.addressButtons}>
-                                            <Button onClick={submitAddress} className={styles.address_submit}>Submit</Button>
-                                            <Button onClick={cancelAddress} className={styles.address_cancel}>Cancel</Button>
-                                        </div>
-                                    </>
-                                    : <span className={styles.address__span} onClick={addAddress}>+ Add new address</span>}
-                            </>
-                        )}
-                        <TextField className={styles.marginBottom} label="E-mail" required />
-                        <TextField className={styles.marginBottom}
-                            required
-                            multiline
-                            rows={5}
-                            label="Description"
-                            variant="outlined"
-                            inputProps={{
+                <Grid container direction='column'>
+                    <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
+                        <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 13 }} />
+                        {t`Back`}
+                    </div>
+                    <span className={styles.modal_label}>Add a vendor</span>
+                    <TextField className={styles.marginBottom} 
+                        required
+                        label="Name" 
+                        onChange={(e:React.ChangeEvent<HTMLInputElement>) => setData({...data, name: e.target.value})} />
+                        <>
+                            <TextField className={styles.marginBottom} required label="Country" onChange={handleChangeCountry} />
+                            <TextField className={styles.marginBottom} required label="City" onChange={handleChangeCity} />
+                            <TextField className={styles.marginBottom} required label="Address" onChange={handleChangeAddress} />
+
+                            {addressInput ?
+                                <>
+                                    <TextField className={styles.marginBottom} label="Add an address" onChange={(e: any) => setNewAddress(e.target.value)} />
+                                    <div className={styles.addressButtons}>
+                                        <Button onClick={submitAddress} className={styles.address_submit}>Submit</Button>
+                                        <Button onClick={cancelAddress} className={styles.address_cancel}>Cancel</Button>
+                                    </div>
+                                </>
+                                : <span className={styles.address__span} onClick={addAddress}>+ Add new address</span>}
+                        </>
+                    <TextField className={styles.marginBottom} 
+                        label="E-mail"
+                        onChange={(e:React.ChangeEvent<HTMLInputElement>) => setData({...data, email: e.target.value})}
+                      required
+                      />
+                    <TextField className={styles.marginBottom} 
+                        required
+                        multiline 
+                        rows={5}
+                        label="Description" 
+                        variant="outlined"
+                        inputProps={{
                                 maxLength: 200,
                                 minLength: 50
-                            }} />
-                        <div className={styles.dropzone}>
-                            <DropZone uploadPhoto={(image: any) => { setUploadFileName(image) }} />
-                        </div>
-                        <div className={styles.uploadPhotoMobile}>
-                            <button type='button' className={styles.uploadFile__btn}>Upload photo</button>
-                        </div>
-                        <span className={styles.uploadFile__span}>{uploadFileName}</span>
-                        <Button type='submit' className={styles.submitButton}>Submit</Button>
-                    </Grid>
-                </form>
+                        }}
+                        onChange={(e:React.ChangeEvent<HTMLInputElement>) => setData({...data, description: e.target.value})} />
+                    <div className={styles.dropzone}>
+                    </div>
+                    <div className={styles.uploadPhotoMobile}>
+                        <input type="file"
+                            ref={parentRef}
+                            className={styles.fileName}
+                            id='fileName'
+                            accept=".png, .jpg, .jpeg"
+                            /*onChange={(event: any) => setImage(event)  }*/ />
+                        <button className={styles.uploadFile__btn}>Upload photo</button>
+                    </div>
+                    <input type="file" onChange={setImage}/>
+                    <span className={styles.uploadedFileName}>{uploadFileName}</span>
+                    <Button onClick={addVendor} className={styles.submitButton}>Submit</Button>
+                </Grid>
+              </form>
             </ListItem>
         </List>
     )

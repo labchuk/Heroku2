@@ -4,11 +4,11 @@ import Chip from '@material-ui/core/Chip';
 import Paper from '@material-ui/core/Paper';
 import TagFacesIcon from '@material-ui/icons/TagFaces';
 import {useAppDispatch,useAppSelector} from '../../../store/Redux-toolkit-hook'
-import {addChip,removeChip,removeCategory} from '../../../store/chipReducer'
+import {addChip,removeChip} from '../../../store/chipReducer'
 
 interface ChipData {
-    all: any[],
-    category: any[]
+    key: number;
+    label: string;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -31,19 +31,16 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function ChipsArray() {
     const classes = useStyles();
-    // const chipData = useAppSelector(state => state.chips.ChipsArray)
     const chipData = useAppSelector(state => state.chips.ChipsArray)
-    const categoryData = useAppSelector(state => state.chips.category)
     const dispatch = useAppDispatch()
 
     const handleDelete = (id: string) =>{
         dispatch(removeChip(id))
-        dispatch(removeCategory(id))
     };
 
     return (
         <Paper component="ul" className={classes.root}>
-            {chipData ? chipData.map((item,index) => {
+            {chipData.map((item,index) => {
                 return (
                     <li key={index}>
                         <Chip
@@ -53,18 +50,7 @@ export default function ChipsArray() {
                         />
                     </li>
                 );
-            }): null}
-            {categoryData ? categoryData.map((item,index) => {
-                return (
-                    <li key={index}>
-                        <Chip
-                            label={item.label}
-                            onDelete={()=>handleDelete(item.id)}
-                            className={classes.chip}
-                        />
-                    </li>
-                );
-            }): null}
+            })}
         </Paper>
     );
 }

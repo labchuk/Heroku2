@@ -1,10 +1,8 @@
 import { Checkbox, TextField } from "@material-ui/core";
 import { Autocomplete, AutocompleteRenderOptionState } from "@material-ui/lab";
-import React from "react";
+import React, {useCallback} from "react";
 
-const AutocompleteMultipleChoise = (props: { data: any, lab: string, clName?: string }) => {
-    const [value, setValue] = React.useState<any[]>([]);
-
+const AutocompleteMultipleChoise = (props: { data: any, lab: string, setValue: any, clName?: string }) => {
     return (
         <Autocomplete
             multiple
@@ -26,11 +24,15 @@ const AutocompleteMultipleChoise = (props: { data: any, lab: string, clName?: st
                         required: value.length === 0
                     }}
                     required
+                  onChange={(e:React.ChangeEvent<HTMLInputElement>) => props.setValue(e.target.value)}
                 />
             )}
             getOptionSelected={(option: any, value: any) => {
                 return option.title === value.title;
-            }}
+            }
+                    onSelect={(e:React.ChangeEvent<HTMLInputElement>) => props.setValue(e.target.value)}
+                              }
+
             renderOption={(option: { title: string }, state: AutocompleteRenderOptionState) => (
                 <li {...state}>
                     {option.title}
@@ -38,6 +40,7 @@ const AutocompleteMultipleChoise = (props: { data: any, lab: string, clName?: st
             )}
         />
     )
+
 }
 
 export default AutocompleteMultipleChoise;

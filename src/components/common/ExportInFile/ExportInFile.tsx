@@ -4,7 +4,8 @@ import * as XLSX from 'xlsx';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-
+import './ExportInFile.scss'
+import { t } from 'ttag';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         button: {
@@ -34,13 +35,13 @@ export const ExportInFile: React.FunctionComponent<IExportCSV> = ({csvData, file
 
         <Button
             variant="contained"
-            color="primary"
+            color="secondary"
             size="small"
             className={classes.button}
             startIcon={<SaveIcon />}
             onClick={(e) => exportToCSV(csvData,fileName)}
         >
-            Export In File
+            {t`Export In File`}
         </Button>
 
 
