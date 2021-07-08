@@ -52,6 +52,7 @@ const Like: FC<LikeProps> = (props) => {
     const deleteCard = (currentCard: any) => {
         const filteredArr = props.cards.filter((item: any) => item.id !== currentCard.id);
         props.updateData(filteredArr)
+        handleClose()
     }
 
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
@@ -107,7 +108,7 @@ const Like: FC<LikeProps> = (props) => {
                         className={style.root}>
                         <AdminEditCardPanel currentCard={props.discount}
                             style={{ fontSize: 30, position: 'relative', bottom: '5px' }} />
-                        <DeleteOutlineIcon style={{ color: '#d32f2f', fontSize: 30 }}
+                        <DeleteOutlineIcon style={{ color: '#d32f2f', fontSize: 30, cursor: 'pointer' }}
                             onClick={() => deleteCard(props.discount)} />
                     </Popover>
                 </div>
