@@ -4,22 +4,62 @@ import { TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import { makeStyles } from '@material-ui/core/styles';
-import React, { useRef } from 'react';
+import React, {useEffect, useRef} from 'react';
 import DropZone from '../../common/DropZone/DropZone';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import "./AdminPanelVendor.scss";
 import AutocompleteMultipleChoise from '../../common/AutocompleteMultipleChoise/AutocompleteMultipleChoise';
 import { t } from 'ttag';
+import {getVendorAll, postVendor, postVendorLocation, uploadImage} from "../../../http/filtersApi";
 
 const AdminPanelVendor = () => {
     const [state, setState] = React.useState(false);
     const [countryValue, setCountryValue] = React.useState('');
     const [cityValue, setCityValue] = React.useState('');
-    const [uploadFileName, setUploadFileName] = React.useState('');
+    const [uploadFileName, setUploadFileName] = React.useState<string | Blob>('');
+    const [fileName, setFileName] = React.useState<string | Blob>('');
     const [disableInput, setDisableInput] = React.useState(false);
     const [addressInput, setAddressInput] = React.useState(false);
     const [newAddress, setNewAddress] = React.useState('');
+    const [data, setData] = React.useState({
+        email: "",
+        description: "",
+        name: "",
+
+    });
     const parentRef = useRef<any>();
+    console.log(fileName)
+    console.log(countryValue)
+
+    const setImage = (event: any) => {
+        setFileName(event.target.files[0])
+    }
+    const addLogoVendor = () => {
+        const formData = new FormData();
+        formData.append(
+            "file",
+            fileName,
+            fileName.name
+        );
+        console.log(fileName);
+       return uploadImage(formData)
+    }
+
+    const addVendor = async () => {
+        const logo = await addLogoVendor()
+        const logoURL = logo?.data.message
+        const vendor = await postVendor({name: data.name, description: data.description, email: data.email, image: logoURL})
+        const vendorId = vendor.data.id
+        const vendorLocation = await postVendorLocation({
+            country: countryValue,
+            city: cityValue,
+            addressLine: newAddress,
+            vendorId: vendorId
+        })
+        toggleDrawer(false)
+        console.log(logo)
+    }
+
 
     const country = [
         { title: 'Ukraine' },
@@ -53,6 +93,9 @@ const AdminPanelVendor = () => {
 
     const handleChangeCity = (event: any) => {
         setCityValue(event.target.value)
+    }
+    const handleChangeAddress = (event: any) => {
+        setNewAddress(event.target.value)
     }
 
     const addAddress = () => {
@@ -215,28 +258,31 @@ const AdminPanelVendor = () => {
                         <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 13 }} />
                         {t`Back`}
                     </div>
-                    <span className={styles.modal_label}>{t`Add a vendor`}</span>
-                    <TextField className={styles.marginBottom} id="outlined-basic" label={t`Name`} />
-                    {disableInput ? '' : (
+                    <span className={styles.modal_label}>Add a vendor</span>
+                    <TextField className={styles.marginBottom} id="outlined-basic" label="Name" onChange={(e:React.ChangeEvent<HTMLInputElement>) => setData({...data, name: e.target.value})} />
                         <>
-                            <AutocompleteMultipleChoise data={country} lab={t`Country`} />
-                            <AutocompleteMultipleChoise data={city} lab={t`City`} />
-                            <AutocompleteMultipleChoise data={address} lab={t`Address`} />
+                            <TextField className={styles.marginBottom} id="outlined-basic" label="Country" onChange={handleChangeCountry} />
+                            <TextField className={styles.marginBottom} id="outlined-basic" label="City" onChange={handleChangeCity} />
+                            <TextField className={styles.marginBottom} id="outlined-basic" label="Address" onChange={handleChangeAddress} />
+
                             {addressInput ?
                                 <>
-                                    <TextField className={styles.marginBottom} label={t`Add an address`} onChange={(e: any) => setNewAddress(e.target.value)} />
+                                    <TextField className={styles.marginBottom} label="Add an address" onChange={(e: any) => setNewAddress(e.target.value)} />
                                     <div className={styles.addressButtons}>
-                                        <Button onClick={submitAddress} className={styles.address_submit}>{t`Submit`}</Button>
-                                        <Button onClick={cancelAddress} className={styles.address_cancel}>{t`Cancel`}</Button>
+                                        <Button onClick={submitAddress} className={styles.address_submit}>Submit</Button>
+                                        <Button onClick={cancelAddress} className={styles.address_cancel}>Cancel</Button>
                                     </div>
                                 </>
-                                : <span className={styles.address__span} onClick={addAddress}>{t`+ Add new address`}</span>}
+                                : <span className={styles.address__span} onClick={addAddress}>+ Add new address</span>}
                         </>
-                    )}
-                    <TextField className={styles.marginBottom} id="outlined-basic" label={t`E-mail`} />
-                    <TextField className={styles.marginBottom} multiline rows={5} id="outlined-basic" label={t`Description`} variant="outlined" />
+                    <TextField className={styles.marginBottom} id="outlined-basic" label="E-mail"
+                               onChange={(e:React.ChangeEvent<HTMLInputElement>) => setData({...data, email: e.target.value})} />
+                    <TextField className={styles.marginBottom} multiline rows={5} id="outlined-basic" label="Description" variant="outlined"
+                               onChange={(e:React.ChangeEvent<HTMLInputElement>) => setData({...data, description: e.target.value})} />
                     <div className={styles.dropzone}>
-                        <DropZone wrapperHeight={100} />
+                        <DropZone wrapperHeight={100}
+                                  uploadPhoto={(image: any) => setUploadFileName(image)}
+                        />
                     </div>
                     <div className={styles.uploadPhotoMobile}>
                         <input type="file"
@@ -244,18 +290,19 @@ const AdminPanelVendor = () => {
                             className={styles.fileName}
                             id='fileName'
                             accept=".png, .jpg, .jpeg"
-                            onChange={(e) => { setUploadFileName(parentRef.current.files[0].name) }} />
-                        <button className={styles.uploadFile__btn}>{t`Upload photo`}</button>
+                            /*onChange={(event: any) => setImage(event)  }*/ />
+                        <button className={styles.uploadFile__btn}>Upload photo</button>
                     </div>
+                    <input type="file" onChange={setImage}/>
                     <span className={styles.uploadedFileName}>{uploadFileName}</span>
-                    <Button onClick={toggleDrawer(false)} className={styles.submitButton}>{t`Submit`}</Button>
+                    <Button onClick={addVendor} className={styles.submitButton}>Submit</Button>
                 </Grid>
             </ListItem>
         </List>
     )
     return (
         <div>
-            <button onClick={toggleDrawer(true)} className={styles.adminModalButton}>{t`Add a vendor`}</button>
+            <button onClick={toggleDrawer(true)} className={styles.adminModalButton}>Add a vendor</button>
             <Drawer anchor={'right'}
                 open={state}
                 onClose={toggleDrawer(false)}>

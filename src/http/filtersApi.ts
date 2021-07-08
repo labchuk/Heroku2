@@ -98,7 +98,10 @@ export const deleteVendorId = async (idVendor:string ) =>{
     const data = await authHost.delete(`/vendor/${idVendor}`);
     return data;
 }
-
+export const uploadImage = async (fd: any) => {
+    const data = await authHost.post(`/upload_image`, fd)
+    return data;
+}
 
 
 export const getVendorLocationAll = async ( ) =>{

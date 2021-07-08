@@ -4,14 +4,14 @@ import "./DropZone.scss";
 import { t } from 'ttag';
 
 function DropZone(updateData: any) {
+function DropZone(props: {uploadPhoto: any}) {
     const style = {
         height: 100,
         padding: 20
     }
-    const [fileName, setFileName] = React.useState('')
     const onDrop = useCallback(acceptedFiles => {
-        updateData(setFileName(acceptedFiles[0].name))
-    }, [updateData])
+        props.uploadPhoto(acceptedFiles[0])
+    }, [])
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
     return (
         <div style={style} {...getRootProps()}>
@@ -24,7 +24,6 @@ function DropZone(updateData: any) {
                         <p>{t`Drag and drop file here, or click to select the file`}</p>
                 }
             </div>
-            <span className='filename'>{fileName}</span>
         </div>
     )
 }
