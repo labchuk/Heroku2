@@ -57,7 +57,7 @@ const AdminPanelVendor = () => {
             vendorId: vendorId
         })
         toggleDrawer(false)
-        console.log(logo)
+        console.log(getVendorAll())
     }
 
 

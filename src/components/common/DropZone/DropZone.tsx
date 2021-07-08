@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import "./DropZone.scss";
 import { t } from 'ttag';
 
-function DropZone(updateData: any) {
+
 function DropZone(props: {uploadPhoto: any}) {
     const style = {
         height: 100,

@@ -23,7 +23,7 @@ const SearchBar =()=>{
     const [ableCity, setAbleCyti] = useState();
     const [choiceCity, setChoiceCity] = useState<string[]>([])
     useEffect(()=>{
-       setChoiceCity(vendorLocation.filter(item=>item.country === ableCity).map(item=>firsLetterToUpperCase(item.city)));
+       setChoiceCity(vendorLocation?.filter(item=>item.country === ableCity).map(item=>firsLetterToUpperCase(item.city)));
     },[ableCity])
     const {pathname} = useLocation();
 
@@ -39,8 +39,8 @@ const SearchBar =()=>{
     }
     const arr: string[] = ["aaaaaaa","dddddddddddd","sssssssssss"].map(item=>firsLetterToUpperCase(item));
 
-    const arrVendorName =vendor.map(item=>firsLetterToUpperCase(item.name));
-    const arrCountry = vendorLocation.map(item=>firsLetterToUpperCase(item.country))
+    const arrVendorName =vendor?.map(item=>firsLetterToUpperCase(item.name));
+    const arrCountry = vendorLocation?.map(item=>firsLetterToUpperCase(item.country))
     const uniqueArr = (arr:string[]) => Array.from(new Set(arr));
     const categoryArr = category?.filter((item: any)=> item.deleted === false).map(item=> firsLetterToUpperCase(item.name));
     const className = pathname === STATISTIC_ROUTE || pathname === HISTORY_ROUTE ? "container-searchbar modal-searchBar": "container-searchbar"
