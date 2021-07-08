@@ -17,6 +17,7 @@ export default function Header() {
             <div className={`header ${classes.root}`}>
                 <div className={"header__container"}>
                     <Logo/>
+                    <LangSwitcher />
                     <NavBar />
                 </div>
             </div>

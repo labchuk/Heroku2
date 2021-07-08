@@ -9,7 +9,6 @@ import DropZone from '../../common/DropZone/DropZone';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import "./AdminPanelVendor.scss";
 import {getVendorAll, postVendor, postVendorLocation, uploadImage} from "../../../http/filtersApi";
-import AutocompleteMultipleChoise from '../../common/AutocompleteMultipleChoise/AutocompleteMultipleChoise';
 import { t } from 'ttag';
 
 
@@ -40,7 +39,6 @@ const AdminPanelVendor = () => {
         formData.append(
             "file",
             fileName,
-            fileName.name
         );
         console.log(fileName);
        return uploadImage(formData)
@@ -63,35 +61,6 @@ const AdminPanelVendor = () => {
 
     console.log(fileName)
     console.log(countryValue)
-
-    const setImage = (event: any) => {
-        setFileName(event.target.files[0])
-    }
-    const addLogoVendor = () => {
-        const formData = new FormData();
-        formData.append(
-            "file",
-            fileName,
-            fileName.name
-        );
-        console.log(fileName);
-       return uploadImage(formData)
-    }
-
-    const addVendor = async () => {
-        const logo = await addLogoVendor()
-        const logoURL = logo?.data.message
-        const vendor = await postVendor({name: data.name, description: data.description, email: data.email, image: logoURL})
-        const vendorId = vendor.data.id
-        const vendorLocation = await postVendorLocation({
-            country: countryValue,
-            city: cityValue,
-            addressLine: newAddress,
-            vendorId: vendorId
-        })
-        toggleDrawer(false)
-        console.log(getVendorAll())
-    }
 
 
     const country = [
