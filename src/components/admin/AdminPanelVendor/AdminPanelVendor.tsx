@@ -320,7 +320,7 @@ const AdminPanelVendor = () => {
                         </div>
                         <input type="file" onChange={setImage} />
                         <span className={styles.uploadedFileName}>{uploadFileName}</span>
-                        <Button onClick={addVendor} className={styles.submitButton}>Submit</Button>
+                        <Button onClick={addVendor} type='submit' className={styles.submitButton}>Submit</Button>
                     </Grid>
                 </form>
             </ListItem>

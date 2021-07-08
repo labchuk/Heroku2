@@ -439,11 +439,11 @@ const DelateVendorMenu = () => {
                                     </div>
                                 </form>
                             ) : ''}
-                            <button className={styles.adminPanel}>
-                                <AdminPanelVendor />
-                            </button>
                         </div>
                     })}
+                    <button className={styles.adminPanel}>
+                        <AdminPanelVendor />
+                    </button>
                 </Grid>
             </ListItem>
         </List>
