@@ -12,7 +12,16 @@ import {firsLetterToUpperCase} from "../../../helpers/functionHelpers";
 import {useLocation} from "react-router-dom";
 import {STATISTIC_ROUTE, HISTORY_ROUTE, MAIN_ROUTE} from "../../../utils/consts";
 import {useAppSelector} from "../../../store/Redux-toolkit-hook";
+import { makeStyles } from "@material-ui/core/styles";
 import { t } from 'ttag';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        backgroundColor: theme.palette.secondary.main,
+        borderRadius: 8
+    },
+
+}));
 
 
 const SearchBar =()=>{
@@ -26,6 +35,8 @@ const SearchBar =()=>{
        setChoiceCity(vendorLocation?.filter(item=>item.country === ableCity).map(item=>firsLetterToUpperCase(item.city)));
     },[ableCity])
     const {pathname} = useLocation();
+    const classes = useStyles()
+
     const [stateControlLabel, setStateControlLabel] = useState({
         "Favorite": false,
         "Used": false,
@@ -44,6 +55,7 @@ const SearchBar =()=>{
     const categoryArr = category?.filter((item: any)=> item.deleted === false).map(item=> firsLetterToUpperCase(item.name));
     const className = pathname === STATISTIC_ROUTE || pathname === HISTORY_ROUTE ? "container-searchbar modal-searchBar": "container-searchbar"
     return (
+        <div className={classes.root}>
         <div className={className} >
             <SearchForm />
             {pathname !== STATISTIC_ROUTE && <div className="containerFavorite">
@@ -66,6 +78,8 @@ const SearchBar =()=>{
             {pathname !== MAIN_ROUTE  &&  <ContainerDataPiker />}
             <Submitbutton name={"Apply"} handleClick={(e:any)=>{}} classN={"submit"}/>
         </div>
+        </div>
+
     );
 };
 

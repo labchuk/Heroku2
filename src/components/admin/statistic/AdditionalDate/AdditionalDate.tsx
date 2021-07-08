@@ -3,8 +3,15 @@ import "./AdditionalDate.scss";
 import * as React from 'react';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import {ExportInFile} from "../../../common/ExportInFile/ExportInFile";
+import {makeStyles} from "@material-ui/core/styles";
 
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+        backgroundColor: theme.palette.secondary.main
+    },
+
+}));
 
 const columns: GridColDef[] = [
     { field: 'vendorName', headerName: 'Vendor', width: 150 },
@@ -37,10 +44,11 @@ const rows = [
 
 
 const AdditionalDate = () => {
+    const classes = useStyles()
     return (
         <div>
             <ExportInFile csvData={rows} fileName={'statistic'}/>
-            <div style={{ height: 420, width: '100%', backgroundColor: 'white', boxShadow: '1px 1px 1px 1px #c5d0d6' }}>
+            <div className={classes.root} style={{ height: 420, width: '100%', boxShadow: '1px 1px 1px 1px #c5d0d6' }}>
                 <DataGrid rows={rows} columns={columns} pageSize={10} rowHeight={30} />
             </div>
         </div>
