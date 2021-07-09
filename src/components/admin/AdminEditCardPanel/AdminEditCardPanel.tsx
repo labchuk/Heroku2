@@ -392,7 +392,7 @@ const AdminEditCardPanel = (currentCard: any) => {
             <button className={styles.uploadFile__btn}>{t`Upload photo`}</button>
           </div>
           <span className={styles.uploadedFileName}>{uploadFileName}</span>
-                    <Button type='submit' className={styles.submitButton}>Submit</Button>
+                    <Button type='submit' className={styles.submitButton}>{t`Submit`}</Button>
           </Grid>
         </form>
       </ListItem>
