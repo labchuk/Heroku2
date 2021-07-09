@@ -10,6 +10,7 @@ import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceO
 import "./AdminPanelVendor.scss";
 import { getVendorAll, postVendor, postVendorLocation, uploadImage } from "../../../http/filtersApi";
 import { t } from 'ttag';
+import PositionedSnackbar from '../../common/Snackbar/Snackbar';
 
 const AdminPanelVendor = () => {
     const [state, setState] = React.useState(false);
@@ -30,9 +31,17 @@ const AdminPanelVendor = () => {
     console.log(fileName)
     console.log(countryValue)
 
-    const setImage = (event: any) => {
-        setFileName(event.target.files[0])
+    // const setImage = (event: any) => {
+    //     setFileName(event.target.files[0])
+    //     setUploadFileName(event.target.files[0].name)
+    // }
+
+    const setImage = (image: any) => {
+        setFileName(image)
+        setUploadFileName(image.name)
     }
+
+
     const addLogoVendor = () => {
         const formData = new FormData();
         formData.append(
@@ -228,17 +237,6 @@ const AdminPanelVendor = () => {
             wrapper: {
                 width: '320px'
             },
-            dropzone: {
-                display: 'none'
-            },
-            uploadPhotoMobile: {
-                display: 'flex',
-                marginBottom: 20,
-                fontSize: 15,
-                'span': {
-                    position: 'relative'
-                }
-            },
             modal_label: {
                 fontSize: 18,
             },
@@ -254,17 +252,39 @@ const AdminPanelVendor = () => {
             },
             address_cancel: {
                 width: '100%'
+            },
+            uploadPhotoMobile: {
+                display: 'flex',
+                marginBottom: 20,
+                fontSize: 15,
+                'span': {
+                    position: 'relative'
+                }
+            },
+            uploadedFileName: {
+                marginTop: '-74px',
+            },
+            dropzone: {
+                width: 134,
+                height: 40,
+                border: 'none',
+                outline: 'none',
+                position: 'relative',
+                top: '-61px',
+                '&:hover': {
+                    border: 'none'
+                }
             }
         }
     })
 
     const styles = useStyles();
 
+
     const list = () => (
         <List className={styles.wrapper}>
             <ListItem>
-                <form onSubmit={addVendor}
-                    className={styles.form}>
+                <form className={styles.form}>
                     <Grid container direction='column'>
                         <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
                             <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 13 }} />
@@ -306,20 +326,19 @@ const AdminPanelVendor = () => {
                                 minLength: 50
                             }}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, description: e.target.value })} />
-                        <div className={styles.dropzone}>
-                        </div>
                         <div className={styles.uploadPhotoMobile}>
-                            <input type="file"
-                                ref={parentRef}
-                                className={styles.fileName}
-                                id='fileName'
-                                accept=".png, .jpg, .jpeg"
-                            /*onChange={(event: any) => setImage(event)  }*/ />
                             <button className={styles.uploadFile__btn}>Upload photo</button>
                         </div>
-                        <input type="file" onChange={setImage} />
+                        <div className={styles.dropzone}>
+                            <DropZone uploadPhoto={(image: any) => setImage(image)} />
+                        </div>
                         <span className={styles.uploadedFileName}>{uploadFileName}</span>
-                        <Button type='submit' onClick={toggleDrawer(false)} className={styles.submitButton}>Submit</Button>
+                        <Button onClick={() => {
+                            addVendor();
+                            toggleDrawer(false)
+                        }}
+                            className={styles.submitButton}>Submit</Button>
+                        <PositionedSnackbar label='The vendor was successfully created!' type='success' />
                     </Grid>
                 </form>
             </ListItem>
