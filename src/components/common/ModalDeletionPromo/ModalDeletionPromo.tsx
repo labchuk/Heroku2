@@ -4,6 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
+import './ModalDeletionPromo.scss'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -12,19 +13,34 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            textAlign: 'center',
         },
         paper: {
             backgroundColor: theme.palette.background.paper,
-            border: '2px solid #000',
+            border: '2px solid #1877F2',
             boxShadow: theme.shadows[5],
             padding: theme.spacing(2, 4, 3),
+        },
+        title: {
+            fontFamily: 'Poppins, sans-serif',
+            fontSize: '2rem',
+        },
+        description: {
+            color: 'red',
+            fontFamily: 'Poppins, sans-serif',
+            paddingBottom: '30px',
+        },
+        button: {
+
+            marginRight: '20px',
         },
     }),
 );
 
 
 
-export default function ModalDeletionPromo(props: any) {
+
+export default function ModalDeletionPromo(props: any){
 
     const classes = useStyles();
 
@@ -54,11 +70,12 @@ export default function ModalDeletionPromo(props: any) {
             >
                 <Fade in={props.modalState}>
                     <div className={classes.paper}>
-                        <h2 id="transition-modal-title">Are you sure?</h2>
-                        <p id="transition-modal-description">Deleted promo will not be recoverable!</p>
+                        <h1 className={classes.title}>Are you sure?</h1>
+                        <p className={classes.description}>Deleted promo will not be recoverable!</p>
                         <Button variant="contained"
                                 color="primary"
                                 onClick={handleAction}
+                                className={classes.button}
                         >
                             Confirm
                         </Button>
