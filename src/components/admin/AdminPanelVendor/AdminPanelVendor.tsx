@@ -1,4 +1,4 @@
-import { Button, ListItem, Snackbar } from '@material-ui/core';
+import { Button, ListItem, Snackbar, SnackbarOrigin } from '@material-ui/core';
 import { Drawer, List } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
@@ -11,25 +11,39 @@ import "./AdminPanelVendor.scss";
 import { getVendorAll, postVendor, postVendorLocation, uploadImage } from "../../../http/filtersApi";
 import { t } from 'ttag';
 import PositionedSnackbar from '../../common/Snackbar/Snackbar';
+import { Alert } from '@material-ui/lab';
+
+interface State extends SnackbarOrigin {
+    open: boolean;
+}
 
 const AdminPanelVendor = () => {
     const [state, setState] = React.useState(false);
-    const [countryValue, setCountryValue] = React.useState('');
-    const [cityValue, setCityValue] = React.useState('');
     const [uploadFileName, setUploadFileName] = React.useState<string | Blob>('');
     const [fileName, setFileName] = React.useState<string | Blob>('');
-    const [disableInput, setDisableInput] = React.useState(false);
+    // const [disableInput, setDisableInput] = React.useState(false);
     const [addressInput, setAddressInput] = React.useState(false);
-    const [newAddress, setNewAddress] = React.useState('');
+    const [location, setLocation] = React.useState({
+        country: "",
+        city: "",
+        address: "",
+    });
+
     const [data, setData] = React.useState({
         email: "",
         description: "",
         name: "",
 
     });
+    const [newLocation, setNewLocation] = React.useState({
+        newCountry: '',
+        newCity: '',
+        newAddress: '',
+    });
+
     const parentRef = useRef<any>();
-    console.log(fileName)
-    console.log(countryValue)
+    console.log('fileName ====== ', fileName)
+    console.log('location.country ======== ', location.country)
 
 
     const setImage = (image: any) => {
@@ -37,10 +51,18 @@ const AdminPanelVendor = () => {
         setUploadFileName(image.name)
     }
     const clearForm = () => {
-        setCountryValue('')
-        setNewAddress('')
+        setLocation({
+            country: '',
+            city: '',
+            address: '',
+        })
+        setNewLocation({
+            newCountry: '',
+            newCity: '',
+            newAddress: '',
+        })
         setFileName('')
-        setCityValue('')
+        setUploadFileName('')
         setData({
             email: "",
             description: "",
@@ -54,7 +76,7 @@ const AdminPanelVendor = () => {
             "file",
             fileName,
         );
-        console.log(fileName);
+        console.log('fileName ============ ', fileName);
         return uploadImage(formData)
     }
 
@@ -64,56 +86,22 @@ const AdminPanelVendor = () => {
         const vendor = await postVendor({ name: data.name, description: data.description, email: data.email, image: logoURL })
         const vendorId = vendor.data.id
         const vendorLocation = await postVendorLocation({
-            country: countryValue,
-            city: cityValue,
-            addressLine: newAddress,
+            country: location.country,
+            city: location.city,
+            addressLine: location.address,
             vendorId: vendorId
         })
         console.log(getVendorAll())
         clearForm()
+        handleClickAlert()
     }
 
-
-    console.log(fileName)
-    console.log(state)
-    console.log(countryValue)
-
-
-    const country = [
-        { title: 'Ukraine' },
-        { title: 'USA' },
-        { title: 'Belarus' },
-    ];
-
-    const city = [
-        { title: 'Lviv' },
-        { title: 'Minsk' },
-        { title: 'Kyiv' },
-        { title: 'Herson' },
-    ];
-
-    const [address, setAddress] = React.useState([
-        { title: 'Chornovola Str, 27' },
-        { title: 'Yakuba Kolasa Str, 37' },
-        { title: 'Horodotska Str, 7a' },
-        { title: 'Rynok Sqr, 1' },
-        { title: 'Mazepy Str, 1a' },
-        { title: 'Warshavska Str, 127' },
-    ]);
+    console.log('fileName =========== ', fileName)
+    console.log('state ============= ', state)
+    console.log('location.country =========== ', location.country)
 
     const toggleDrawer = (open: any) => (event: any) => {
         setState(open);
-    }
-
-    const handleChangeCountry = (event: any) => {
-        setCountryValue(event.target.value)
-    }
-
-    const handleChangeCity = (event: any) => {
-        setCityValue(event.target.value)
-    }
-    const handleChangeAddress = (event: any) => {
-        setNewAddress(event.target.value)
     }
 
     const addAddress = () => {
@@ -122,13 +110,30 @@ const AdminPanelVendor = () => {
 
     const submitAddress = () => {
         setAddressInput(false);
-        let addNewAddress = address.concat({ title: newAddress });
-        setAddress(addNewAddress)
+        console.log('newLocation ================== ', newLocation)
+        console.log('location ============== ', location)
+
     }
 
     const cancelAddress = () => {
         setAddressInput(false);
     }
+
+    const [alertState, setAlertState] = React.useState<State>({
+        open: false,
+        vertical: 'top',
+        horizontal: 'right',
+    });
+    const { vertical, horizontal, open } = alertState;
+
+    const handleClickAlert = () => {
+        setAlertState({ ...alertState, open: true });
+    };
+
+    const handleCloseAlert = () => {
+        setAlertState({ ...alertState, open: false });
+    };
+
 
     const useStyles = makeStyles({
         root: {
@@ -301,27 +306,26 @@ const AdminPanelVendor = () => {
                         </div>
                         <span className={styles.modal_label}>Add a vendor</span>
                         <TextField className={styles.marginBottom}
-                                   value={data.name}
+                            value={data.name}
                             required
                             label="Name"
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, name: e.target.value })} />
-                        <>
-                            <TextField className={styles.marginBottom} value={countryValue} required label="Country" onChange={handleChangeCountry} />
-                            <TextField className={styles.marginBottom} value={cityValue} required label="City" onChange={handleChangeCity} />
-                            <TextField className={styles.marginBottom} value={newAddress} required label="Address" onChange={handleChangeAddress} />
-
-                            {addressInput ?
-                                <>
-                                    <TextField className={styles.marginBottom} label="Add an address" onChange={(e: any) => setNewAddress(e.target.value)} />
-                                    <div className={styles.addressButtons}>
-                                        <Button onClick={submitAddress} className={styles.address_submit}>Submit</Button>
-                                        <Button onClick={cancelAddress} className={styles.address_cancel}>Cancel</Button>
-                                    </div>
-                                </>
-                                : <span className={styles.address__span} onClick={addAddress}>+ Add new address</span>}
-                        </>
+                        <TextField className={styles.marginBottom} required label="Country" onChange={(e: any) => setLocation({ ...location, country: e.target.value })} />
+                        <TextField className={styles.marginBottom} required label="City" onChange={(e: any) => setLocation({ ...location, city: e.target.value })} />
+                        <TextField className={styles.marginBottom} required label="Address" onChange={(e: any) => setLocation({ ...location, address: e.target.value })} />
+                        {addressInput ?
+                            <>
+                                <TextField className={styles.marginBottom} label="Country" onChange={(e: any) => setNewLocation({ ...newLocation, newCountry: e.target.value })} />
+                                <TextField className={styles.marginBottom} label="City" onChange={(e: any) => setNewLocation({ ...newLocation, newCity: e.target.value })} />
+                                <TextField className={styles.marginBottom} label="Address" onChange={(e: any) => setNewLocation({ ...newLocation, newAddress: e.target.value })} />
+                                <div className={styles.addressButtons}>
+                                    <Button onClick={submitAddress} className={styles.address_submit}>Submit</Button>
+                                    <Button onClick={cancelAddress} className={styles.address_cancel}>Cancel</Button>
+                                </div>
+                            </>
+                            : <span className={styles.address__span} onClick={addAddress}>+ Add new location</span>}
                         <TextField className={styles.marginBottom}
-                                   value={data.email}
+                            value={data.email}
                             label="E-mail"
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, email: e.target.value })}
                             required
@@ -345,12 +349,19 @@ const AdminPanelVendor = () => {
                             <DropZone uploadPhoto={(image: any) => setImage(image)} />
                         </div>
                         <span className={styles.uploadedFileName}>{uploadFileName}</span>
-                        <Button onClick={() => {
-                            addVendor();
-                            toggleDrawer(false)
-                        }}
+                        <Button onClick={addVendor}
                             className={styles.submitButton}>Submit</Button>
-                        <PositionedSnackbar label='The vendor was successfully created!' type='success' />
+                        <Snackbar
+                            anchorOrigin={{ vertical, horizontal }}
+                            open={open}
+                            onClose={handleCloseAlert}
+                            key={vertical + horizontal}
+                            autoHideDuration={3000}
+                        >
+                            <Alert onClose={handleCloseAlert} severity='success'>
+                                Vendor was successfully created!
+                            </Alert>
+                        </Snackbar>
                     </Grid>
                 </form>
             </ListItem>
