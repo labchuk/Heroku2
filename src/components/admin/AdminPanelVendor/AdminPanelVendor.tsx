@@ -31,16 +31,22 @@ const AdminPanelVendor = () => {
     console.log(fileName)
     console.log(countryValue)
 
-    // const setImage = (event: any) => {
-    //     setFileName(event.target.files[0])
-    //     setUploadFileName(event.target.files[0].name)
-    // }
 
     const setImage = (image: any) => {
         setFileName(image)
         setUploadFileName(image.name)
     }
-
+    const clearForm = () => {
+        setCountryValue('')
+        setNewAddress('')
+        setFileName('')
+        setCityValue('')
+        setData({
+            email: "",
+            description: "",
+            name: "",
+        })
+    }
 
     const addLogoVendor = () => {
         const formData = new FormData();
@@ -64,9 +70,12 @@ const AdminPanelVendor = () => {
             vendorId: vendorId
         })
         console.log(getVendorAll())
+        clearForm()
     }
 
+
     console.log(fileName)
+    console.log(state)
     console.log(countryValue)
 
 
@@ -292,13 +301,14 @@ const AdminPanelVendor = () => {
                         </div>
                         <span className={styles.modal_label}>Add a vendor</span>
                         <TextField className={styles.marginBottom}
+                                   value={data.name}
                             required
                             label="Name"
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, name: e.target.value })} />
                         <>
-                            <TextField className={styles.marginBottom} required label="Country" onChange={handleChangeCountry} />
-                            <TextField className={styles.marginBottom} required label="City" onChange={handleChangeCity} />
-                            <TextField className={styles.marginBottom} required label="Address" onChange={handleChangeAddress} />
+                            <TextField className={styles.marginBottom} value={countryValue} required label="Country" onChange={handleChangeCountry} />
+                            <TextField className={styles.marginBottom} value={cityValue} required label="City" onChange={handleChangeCity} />
+                            <TextField className={styles.marginBottom} value={newAddress} required label="Address" onChange={handleChangeAddress} />
 
                             {addressInput ?
                                 <>
@@ -311,11 +321,13 @@ const AdminPanelVendor = () => {
                                 : <span className={styles.address__span} onClick={addAddress}>+ Add new address</span>}
                         </>
                         <TextField className={styles.marginBottom}
+                                   value={data.email}
                             label="E-mail"
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, email: e.target.value })}
                             required
                         />
                         <TextField className={styles.marginBottom}
+                            value={data.description}
                             required
                             multiline
                             rows={5}
