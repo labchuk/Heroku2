@@ -5,18 +5,13 @@ import { t } from 'ttag';
 
 
 function DropZone(props: {uploadPhoto: any}) {
-    const style = {
-        height: 100,
-        padding: 20
-    }
     const onDrop = useCallback(acceptedFiles => {
         props.uploadPhoto(acceptedFiles[0])
     }, [])
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
     return (
-        <div style={style} {...getRootProps()}>
-            <input {...getInputProps()}
-            />
+        <div className='wrapper' {...getRootProps()}>
+            <input {...getInputProps()} />
             <div className="dropzone__label">
                 {
                     isDragActive ?

@@ -1,5 +1,5 @@
 .card-buttons {
-  path{
+  path {
     transition: all 0.3s linear;
   }
   &__item {
@@ -37,7 +37,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  path{
+  path {
     transition: all 0.3s linear;
   }
   &__item {
@@ -46,9 +46,7 @@
     cursor: pointer;
   }
 }
-svg:hover{
-  fill: red;
-}
+
 @media (max-width: 400px) {
   .card-drop {
     width: 170px;

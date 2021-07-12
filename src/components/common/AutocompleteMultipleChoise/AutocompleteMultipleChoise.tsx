@@ -1,25 +1,48 @@
-import { TextField } from "@material-ui/core";
+import { Checkbox, TextField } from "@material-ui/core";
 import { Autocomplete, AutocompleteRenderOptionState } from "@material-ui/lab";
-import React, {useCallback} from "react";
+import React, { useCallback } from "react";
 
-const AutocompleteMultipleChoise = (props: { data: any, lab: string, setValue: any }) => {
+const AutocompleteMultipleChoise = (props: { data: any, lab: string, setValue?: any, clName?: string }) => {
     return (
         <Autocomplete
             multiple
             options={props.data}
+            className={props.clName}
             disableCloseOnSelect
-            getOptionLabel={(option) => option.title}
-            onSelect={(e:React.ChangeEvent<HTMLInputElement>) => props.setValue(e.target.value)}
+            getOptionLabel={(option: any) => option.title}
+            // onSelect={(e: React.ChangeEvent<HTMLInputElement>) => props.setValue(e.target.value)}
             renderOption={(option: { title: string }, state: AutocompleteRenderOptionState) => (
                 <li {...state}>
                     {option.title}
                 </li>
             )}
-            style={{ width: '100%', marginBottom: 15 }}
+            onChange={(event, newValue) => {
+                props.setValue(newValue);
+            }}
+            // value={value}
             renderInput={(params) => (
-                <TextField {...params} label={props.lab} onChange={(e:React.ChangeEvent<HTMLInputElement>) => props.setValue(e.target.value)}  />
+                <TextField
+                    {...params}
+                    label={props.lab}
+                    inputProps={{
+                        ...params.inputProps,
+                        autoComplete: "new-password",
+                        // required: value.length === 0
+                    }}
+                    required
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => props.setValue(e.target.value)}
+                />
             )}
-        />)
+            getOptionSelected={(option: any, value: any) => {
+                return option.title === value.title;
+            }
+
+
+
+            }
+        />
+    )
+
 
 }
 
