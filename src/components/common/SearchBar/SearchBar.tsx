@@ -61,22 +61,23 @@ const SearchBar =()=>{
             {pathname !== STATISTIC_ROUTE && <div className="containerFavorite">
                 <ControlLabel lable={"Favorite"} setStateControlLableMy={setStateControlLableMy}/>
                 {pathname===HISTORY_ROUTE &&  <>
-                <ControlLabel lable={"Used"} setStateControlLableMy={setStateControlLableMy}/>
-                <ControlLabel lable={"Active"} setStateControlLableMy={setStateControlLableMy}/>
-                <ControlLabel lable={"Not Activ"} setStateControlLableMy={setStateControlLableMy} />
-                <ControlLabel lable={"For all period"} setStateControlLableMy={setStateControlLableMy}/>
+                <ControlLabel lable={t`Used`} setStateControlLableMy={setStateControlLableMy}/>
+                <ControlLabel lable={t`Active`} setStateControlLableMy={setStateControlLableMy}/>
+                <ControlLabel lable={t`Not Active`} setStateControlLableMy={setStateControlLableMy} />
+                <ControlLabel lable={t`For all period`} setStateControlLableMy={setStateControlLableMy}/>
                 </>}
             </div>}
             {pathname !== HISTORY_ROUTE && <>
-                <MySelect data={arrCountry? uniqueArr(arrCountry): []} clName={"location"} id={'1'} name="Country" setAble={setAbleCyti}/>
-                <SelectMultiple data={uniqueArr(choiceCity)} clName={"location"} id={'1'} isCategory={true} name={"City"} disabled={!ableCity} helperText={!ableCity? "Please choose country": ""}/>
-                <SelectMultiple data={arrVendorName? arrVendorName: []} isCategory={false} clName={"location"} name={"Vendor"} disabled={false} helperText={""}/>
-                <MySelect data={categoryArr? categoryArr : []} id={'2'} clName={"location"} name="Category" setAble={setAbleSubCategory}/>
-                <SelectMultiple data={arr} clName={"location"} id={'2'} isCategory={true} name={"Sub Category"} disabled={!ableSubCategory} helperText={!ableSubCategory? "Please choose category": ""}/>
-            {pathname === STATISTIC_ROUTE &&  <SelectMultiple data={arr} clName={"location"} name={"User"} isCategory={false} disabled={false} helperText={""}/>}
+                <MySelect data={arrCountry? uniqueArr(arrCountry): []} clName={"location"} id={'1'} name={t`Country`} setAble={setAbleCyti} disabled={false} helperText=''/>
+                <MySelect data={uniqueArr(choiceCity)} clName={"location"} name={t`City`} id={'1'}  setAble={()=>{}} disabled={!ableCity} helperText={!ableCity? "Please choose country": ""}/>
+                <SelectMultiple data={arrVendorName? arrVendorName: []} isCategory={false} clName={"location"}  name={t`Vendor`} disabled={false} helperText={""}/>
+                <MySelect data={categoryArr? categoryArr : []} id={'2'} clName={"location"} name={t`Category`} setAble={setAbleSubCategory} disabled={false} helperText=''/>
+                <SelectMultiple data={arr} clName={"location"} id={'2'} name={t`Sub Category`} disabled={!ableSubCategory} helperText={!ableSubCategory? "Please choose category": ""}/>
+            {pathname === STATISTIC_ROUTE &&  <SelectMultiple data={arr} clName={"location"} name={t`User`} isCategory={true} disabled={false} helperText={""}/>}
+
             </>}
             {pathname !== MAIN_ROUTE  &&  <ContainerDataPiker />}
-            <Submitbutton name={"Apply"} handleClick={(e:any)=>{}} classN={"submit"}/>
+            <Submitbutton name={t`Apply`} handleClick={(e:any)=>{}} classN={"submit"}/>
         </div>
         </div>
 

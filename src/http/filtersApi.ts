@@ -71,7 +71,6 @@ export const deleteCategoryId = async (categoryId:string ) =>{
 
 export const getVendorAll = async ( ) =>{
     const {data} = await authHost.get("/vendor");
-    console.log(data);
     return data;
 
 }

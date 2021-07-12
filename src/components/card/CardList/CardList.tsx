@@ -1,5 +1,5 @@
 import React, {Fragment, MouseEvent, useState} from 'react';
-import { SaleCard } from '../../index';
+import { SaleCard, ModalSearchBar } from '../../index';
 import "./CardList.scss";
 import Pagination from "@material-ui/lab/Pagination";
 import { makeStyles, createStyles } from '@material-ui/core/styles';
@@ -10,9 +10,8 @@ import Sort from "../../common/Sort/Sort";
 import ChipsArray from "../../common/ChipsArray/ChipsArray";
 import { useAppSelector } from "../../../store/Redux-toolkit-hook";
 import purple from '@material-ui/core/colors/purple';
-import { useLocation } from "react-router-dom";
-import { HISTORY_ROUTE } from "../../../utils/consts"
-
+import {MAIN_ROUTE, HISTORY_ROUTE} from "../../../utils/consts"
+import {useLocation} from "react-router-dom";
 import Skeleton from '@material-ui/lab/Skeleton'
 
 const useStyles = makeStyles((theme) =>
@@ -109,12 +108,12 @@ const CardList: React.FC = (props) => {
                 <ExtendedCard discount={data[card]} />
                 <div className="main-content">
                     <div className={"sort-admin"}>
-                        <Sort />
+                        {pathname===MAIN_ROUTE?<Sort /> : <ModalSearchBar/>}
                         {isAdmin &&
                         <AdminBtn />}
                     </div>
                     <div className={"chips"}>
-                        {pathname !== HISTORY_ROUTE ? <ChipsArray /> : null }
+                        {!(pathname === HISTORY_ROUTE)&& <ChipsArray />}
                     </div>
                     <Grid container spacing={3} justify="center" >
                         {

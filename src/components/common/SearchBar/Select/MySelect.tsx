@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 import { MAIN_ROUTE } from "../../../../utils/consts"
 
 
-const MySelect = ({clName,data, id, name, setAble}:{clName:string, data:string[], id: string, name:string, setAble:any}) => {
+const MySelect = ({clName,data, id, name, setAble, disabled, helperText}:{ helperText:string, disabled: boolean ,clName:string, data:string[], id: string, name:string, setAble:any}) => {
     const { pathname } = useLocation();
     const [age, setAge] = useState("");
     const [age2, setAge2] = useState("");
@@ -65,7 +65,7 @@ const MySelect = ({clName,data, id, name, setAble}:{clName:string, data:string[]
                     </MenuItem>
                 ))}
             </Select>
-            <FormHelperText></FormHelperText>
+            <FormHelperText>{helperText}</FormHelperText>
         </FormControl>
     );
 };

@@ -271,28 +271,28 @@ const AdminPanelVendor = () => {
                             <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 13 }} />
                             {t`Back`}
                         </div>
-                        <span className={styles.modal_label}>Add a vendor</span>
+                        <span className={styles.modal_label}>{t`Add a vendor`}</span>
                         <TextField className={styles.marginBottom}
                             required
-                            label="Name"
+                            label={t`Name`}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, name: e.target.value })} />
                         <>
-                            <TextField className={styles.marginBottom} required label="Country" onChange={handleChangeCountry} />
-                            <TextField className={styles.marginBottom} required label="City" onChange={handleChangeCity} />
-                            <TextField className={styles.marginBottom} required label="Address" onChange={handleChangeAddress} />
+                            <TextField className={styles.marginBottom} required label={t`Country`} onChange={handleChangeCountry} />
+                            <TextField className={styles.marginBottom} required label={t`City`} onChange={handleChangeCity} />
+                            <TextField className={styles.marginBottom} required label={t`Address`} onChange={handleChangeAddress} />
 
                             {addressInput ?
                                 <>
-                                    <TextField className={styles.marginBottom} label="Add an address" onChange={(e: any) => setNewAddress(e.target.value)} />
+                                    <TextField className={styles.marginBottom} label={t`Add an address`} onChange={(e: any) => setNewAddress(e.target.value)} />
                                     <div className={styles.addressButtons}>
-                                        <Button onClick={submitAddress} className={styles.address_submit}>Submit</Button>
-                                        <Button onClick={cancelAddress} className={styles.address_cancel}>Cancel</Button>
+                                        <Button onClick={submitAddress} className={styles.address_submit}>{t`Submit`}</Button>
+                                        <Button onClick={cancelAddress} className={styles.address_cancel}>{t`Cancel`}</Button>
                                     </div>
                                 </>
-                                : <span className={styles.address__span} onClick={addAddress}>+ Add new address</span>}
+                                : <span className={styles.address__span} onClick={addAddress}>{t`+ Add new address`}</span>}
                         </>
                         <TextField className={styles.marginBottom}
-                            label="E-mail"
+                            label={t`E-mail`}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, email: e.target.value })}
                             required
                         />
@@ -300,7 +300,7 @@ const AdminPanelVendor = () => {
                             required
                             multiline
                             rows={5}
-                            label="Description"
+                            label={t`Description`}
                             variant="outlined"
                             inputProps={{
                                 maxLength: 200,
@@ -316,11 +316,11 @@ const AdminPanelVendor = () => {
                                 id='fileName'
                                 accept=".png, .jpg, .jpeg"
                             /*onChange={(event: any) => setImage(event)  }*/ />
-                            <button className={styles.uploadFile__btn}>Upload photo</button>
+                            <button className={styles.uploadFile__btn}>{t`Upload photo`}</button>
                         </div>
                         <input type="file" onChange={setImage} />
                         <span className={styles.uploadedFileName}>{uploadFileName}</span>
-                        <Button onClick={addVendor} type='submit' className={styles.submitButton}>Submit</Button>
+                        <Button onClick={addVendor} type='submit' className={styles.submitButton}>{t`Submit`}</Button>
                     </Grid>
                 </form>
             </ListItem>
@@ -328,7 +328,7 @@ const AdminPanelVendor = () => {
     )
     return (
         <div>
-            <button onClick={toggleDrawer(true)} className={styles.adminModalButton}>Add a vendor</button>
+            <button onClick={toggleDrawer(true)} className={styles.adminModalButton}>{t`Add a vendor`}</button>
             <Drawer anchor={'right'}
                 open={state}
                 onClose={toggleDrawer(false)}>

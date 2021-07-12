@@ -70,10 +70,10 @@ const NavBar = () => {
 
     return <>
         <div className={"desktop-nav"}>
-            <NavLink to={"/main-page"} className={classes.linkdesk} activeClassName={`activelink ${classes.activeLink}`}>Home</NavLink>
-            <NavLink to={"/history"} className={classes.linkdesk} activeClassName={`activelink ${classes.activeLink}`}>History</NavLink>
+            <NavLink to={"/main-page"} className={classes.linkdesk} activeClassName={`activelink ${classes.activeLink}`}>{t`Home`}</NavLink>
+            <NavLink to={"/history"} className={classes.linkdesk} activeClassName={`activelink ${classes.activeLink}`}>{t`History`}</NavLink>
             {admin &&
-            <NavLink to={"/statistic"} className={classes.linkdesk} activeClassName={`activelink ${classes.activeLink}`}>Statistics</NavLink>
+            <NavLink to={"/statistic"} className={classes.linkdesk} activeClassName={`activelink ${classes.activeLink}`}>{t`Statistics`}</NavLink>
             }
 
         </div>
