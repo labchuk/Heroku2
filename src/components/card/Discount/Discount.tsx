@@ -20,9 +20,9 @@ const useStyles = makeStyles((theme) =>
 );
 
 const Discount: React.FC<DiscountProps> = ({ discount, handleClick }) => {
-    React.useEffect(() => {
-        console.log(discount.sizeDiscount)
-    }, [])
+    // React.useEffect(() => {
+    //     console.log(discount.sizeDiscount)
+    // }, [])
     const classes = useStyles()
     return (
         <div className={classes.root}>
