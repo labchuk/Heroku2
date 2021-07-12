@@ -52,7 +52,7 @@ const  App = () => {
         <div className={"app-wrapper"} style={{backgroundColor: theme.palette.primary.main }}>
             <BrowserRouter>
                 {isAuth && <ThemeProvider theme={theme}><Header/></ThemeProvider>}
-                <div className={"app-wrapper-container"} style={{minHeight: 'calc(100vh - 100px)'}}>
+                <div className={"app-wrapper-container"} style={{minHeight: '100vh'}}>
                     <ThemeProvider theme={theme}>
                             <Switch checked={darkMode} onChange={()=>setDarkMode(!darkMode)} color={"secondary"}/>
                             <AppRouter/>

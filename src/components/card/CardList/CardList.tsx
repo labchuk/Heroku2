@@ -10,6 +10,8 @@ import Sort from "../../common/Sort/Sort";
 import ChipsArray from "../../common/ChipsArray/ChipsArray";
 import { useAppSelector } from "../../../store/Redux-toolkit-hook";
 import purple from '@material-ui/core/colors/purple';
+import { useLocation } from "react-router-dom";
+import { HISTORY_ROUTE } from "../../../utils/consts"
 
 import Skeleton from '@material-ui/lab/Skeleton'
 
@@ -27,8 +29,8 @@ const useStyles = makeStyles((theme) =>
 
 
 const CardList: React.FC = (props) => {
-
-    const NUMBER_CARD = 15
+    const { pathname } = useLocation();
+    const NUMBER_CARD = 14
 
     const [data, setData] = useState([
         { id: 1, nameDiscount: 'Macdonald', sizeDiscount: "34%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
@@ -112,7 +114,7 @@ const CardList: React.FC = (props) => {
                         <AdminBtn />}
                     </div>
                     <div className={"chips"}>
-                        <ChipsArray />
+                        {pathname !== HISTORY_ROUTE ? <ChipsArray /> : null }
                     </div>
                     <Grid container spacing={3} justify="center" >
                         {

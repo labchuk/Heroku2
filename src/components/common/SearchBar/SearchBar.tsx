@@ -68,12 +68,12 @@ const SearchBar =()=>{
                 </>}
             </div>}
             {pathname !== HISTORY_ROUTE && <>
-                <MySelect data={arrCountry? uniqueArr(arrCountry): []} clName={"location"} name="Country" setAble={setAbleCyti}/>
-                <SelectMultiple data={uniqueArr(choiceCity)} clName={"location"} name={"City"} disabled={!ableCity} helperText={!ableCity? "Please choose country": ""}/>
-                <SelectMultiple data={arrVendorName? arrVendorName: []} clName={"location"} name={"Vendor"} disabled={false} helperText={""}/>
-                <MySelect data={categoryArr? categoryArr : []} clName={"location"} name="Category" setAble={setAbleSubCategory}/>
-                <SelectMultiple data={arr} clName={"location"} name={"Sub Category"} disabled={!ableSubCategory} helperText={!ableSubCategory? "Please choose category": ""}/>
-            {pathname === STATISTIC_ROUTE &&  <SelectMultiple data={arr} clName={"location"} name={"User"} disabled={false} helperText={""}/>}
+                <MySelect data={arrCountry? uniqueArr(arrCountry): []} clName={"location"} id={'1'} name="Country" setAble={setAbleCyti}/>
+                <SelectMultiple data={uniqueArr(choiceCity)} clName={"location"} id={'1'} isCategory={true} name={"City"} disabled={!ableCity} helperText={!ableCity? "Please choose country": ""}/>
+                <SelectMultiple data={arrVendorName? arrVendorName: []} isCategory={false} clName={"location"} name={"Vendor"} disabled={false} helperText={""}/>
+                <MySelect data={categoryArr? categoryArr : []} id={'2'} clName={"location"} name="Category" setAble={setAbleSubCategory}/>
+                <SelectMultiple data={arr} clName={"location"} id={'2'} isCategory={true} name={"Sub Category"} disabled={!ableSubCategory} helperText={!ableSubCategory? "Please choose category": ""}/>
+            {pathname === STATISTIC_ROUTE &&  <SelectMultiple data={arr} clName={"location"} name={"User"} isCategory={false} disabled={false} helperText={""}/>}
             </>}
             {pathname !== MAIN_ROUTE  &&  <ContainerDataPiker />}
             <Submitbutton name={"Apply"} handleClick={(e:any)=>{}} classN={"submit"}/>

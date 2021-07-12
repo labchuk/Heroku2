@@ -2,37 +2,51 @@
 import React,{useState} from 'react';
 import {FormControl, Select, InputLabel, MenuItem, FormHelperText } from "@material-ui/core";
 import "./Select.scss"
-import {addChip, removeChip} from "../../../../store/chipReducer";
+import {addChipMain, updateChipMain,updateChipStatistic, addChipStatistic,removeChipStatistic} from "../../../../store/chipReducer";
 import {useAppDispatch,useAppSelector} from '../../../../store/Redux-toolkit-hook';
+import { useLocation } from "react-router-dom";
+import { MAIN_ROUTE } from "../../../../utils/consts"
 
 
-const MySelect = ({clName,data,name, setAble}:{clName:string, data:string[], name:string, setAble:any}) => {
-    
+const MySelect = ({clName,data, id, name, setAble}:{clName:string, data:string[], id: string, name:string, setAble:any}) => {
+    const { pathname } = useLocation();
     const [age, setAge] = useState("");
+    const [age2, setAge2] = useState("");
     const dispatch = useAppDispatch()
-    const chipData = useAppSelector(state => state.chips.ChipsArray)
+    const chipDataMain = useAppSelector(state => state.chips.ChipsArray)
+    const chipDataStatistic = useAppSelector(state => state.chips.ChipsArrayStatistic)
 
     const handleChange = (event: React.ChangeEvent<{ value: any }>, index: any) => {
         const numberChip = event.target.value
-        const indexChip = index.key.slice(2)
-        const newChip = { id: name + indexChip, label: numberChip }
-        dispatch(addChip(newChip))
-        if (numberChip) {
-            const indexRemove = data.indexOf(age)
-            dispatch(removeChip(name + indexRemove))
+        const newChip = {[numberChip]: [], name: name, id: id}
+        if (pathname === MAIN_ROUTE){
+            dispatch(updateChipMain(numberChip))
+            dispatch(addChipMain(newChip))
+            setAge(event.target.value);
+            setAble(event.target.value)
         }
-        setAge(event.target.value);
-        setAble(event.target.value)
+        else {
+            dispatch(updateChipStatistic(numberChip))
+            dispatch(addChipStatistic(newChip))
+            setAge2(event.target.value);
+            setAble(event.target.value)
+
+        }
+
     };
 
 
     const filterChips = () => {
-        for (const i in chipData) {
-            if (chipData[i].id.slice(0, 4) === name.slice(0, 4)) {
-                return chipData[i].label
+        let list = ''
+        let data = []
+        if (pathname===MAIN_ROUTE) data = chipDataMain
+        else data = chipDataStatistic
+        for (const i in data) {
+            if (data[i].name === name) {
+                list = Object.keys(data[i])[0]
             }
         }
-        return ''
+        return list
     }
 
 
