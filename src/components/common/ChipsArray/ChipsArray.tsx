@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function ChipsArray() {
+
     const classes = useStyles();
     const { pathname } = useLocation();
     const chipDataMain = useAppSelector(state => state.chips.ChipsArray)
@@ -40,7 +41,7 @@ export default function ChipsArray() {
 
 
     const handleDelete = (name: string) =>{
-        if (pathname === MAIN_ROUTE) dispatch(removeChipMain(name))
+        if (pathname === MAIN_ROUTE) dispatch(removeChipMain({name}))
         else dispatch(removeChipStatistic(name))
 
     };

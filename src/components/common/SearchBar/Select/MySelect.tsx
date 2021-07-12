@@ -2,13 +2,13 @@
 import React,{useState} from 'react';
 import {FormControl, Select, InputLabel, MenuItem, FormHelperText } from "@material-ui/core";
 import "./Select.scss"
-import {addChipMain, updateChipMain,updateChipStatistic, addChipStatistic,removeChipStatistic} from "../../../../store/chipReducer";
+import {addChipMain, updateChipMain,updateChipStatistic, removeCategoryMain,removeChipMain, addChipStatistic,removeChipStatistic} from "../../../../store/chipReducer";
 import {useAppDispatch,useAppSelector} from '../../../../store/Redux-toolkit-hook';
 import { useLocation } from "react-router-dom";
 import { MAIN_ROUTE } from "../../../../utils/consts"
 
 
-const MySelect = ({clName,data, id, name, setAble, disabled, helperText}:{ helperText:string, disabled: boolean ,clName:string, data:string[], id: string, name:string, setAble:any}) => {
+const MySelect = ({clName,data, id, name, localName, setAble, isCategory, disabled, helperText}:{ helperText:string, isCategory: boolean, disabled: boolean ,clName:string, data:string[], id: string, name:string,localName:string, setAble:any}) => {
     const { pathname } = useLocation();
     const [age, setAge] = useState("");
     const [age2, setAge2] = useState("");
@@ -20,13 +20,20 @@ const MySelect = ({clName,data, id, name, setAble, disabled, helperText}:{ helpe
         const numberChip = event.target.value
         const newChip = {[numberChip]: [], name: name, id: id}
         if (pathname === MAIN_ROUTE){
-            dispatch(updateChipMain(numberChip))
-            dispatch(addChipMain(newChip))
+            if (isCategory){
+                dispatch(removeCategoryMain({name: numberChip, id: id, isCategory}))
+                dispatch(addChipMain([numberChip, id]))
+            }
+            else {
+                dispatch(removeChipMain({id}))
+                dispatch(addChipMain(newChip))
+            }
             setAge(event.target.value);
             setAble(event.target.value)
         }
         else {
-            dispatch(updateChipStatistic(numberChip))
+
+            dispatch(removeChipStatistic(numberChip))
             dispatch(addChipStatistic(newChip))
             setAge2(event.target.value);
             setAble(event.target.value)
@@ -37,16 +44,28 @@ const MySelect = ({clName,data, id, name, setAble, disabled, helperText}:{ helpe
 
 
     const filterChips = () => {
-        let list = ''
         let data = []
         if (pathname===MAIN_ROUTE) data = chipDataMain
         else data = chipDataStatistic
-        for (const i in data) {
-            if (data[i].name === name) {
-                list = Object.keys(data[i])[0]
+        if (!isCategory) {
+            let list = ''
+            for (const i in data) {
+                if (data[i].name === name) {
+                    list = Object.keys(data[i])[0]
+                }
             }
+            return list
         }
-        return list
+        else if (isCategory) {
+            let list = ''
+            for (const i in data) {
+                if (data[i].id === id) {
+                    list = data[i][Object.keys(data[i])[0]].toString()
+                }
+            }
+            return list
+        }
+
     }
 
 
@@ -56,7 +75,7 @@ const MySelect = ({clName,data, id, name, setAble, disabled, helperText}:{ helpe
     return (
         <FormControl className={clName} >
             <InputLabel id="select">
-                {name}
+                {localName}
             </InputLabel>
             <Select labelId="select" value={filterChips()} onChange={handleChange}>
                 {data.map((item, index) => (

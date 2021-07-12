@@ -16,6 +16,7 @@ import { useLocation } from "react-router-dom";
 import { MAIN_ROUTE } from "../../../../utils/consts"
 import { STATISTIC_ROUTE } from "../../../../utils/consts"
 import { ThemeProvider } from "@material-ui/styles";
+import { t } from 'ttag';
 
 import { useAppDispatch, useAppSelector } from '../../../../store/Redux-toolkit-hook';
 import { addChipMain, removeChipMain, removeCategoryMain,addChipStatistic,removeCategoryStatistic,removeChipStatistic } from '../../../../store/chipReducer';
@@ -33,7 +34,7 @@ const MenuProps = {
 };
 
 
-const SelectMultiple = ({ clName, data, name, isCategory, id, setArrTag, disabled, helperText }: { clName: string, data: string[], name: string, isCategory: boolean, id: string, setArrTag?: any, disabled?: boolean, helperText?: string }) => {
+const SelectMultiple = ({ clName, data, name, isCategory, id, localName, setArrTag, disabled, helperText }: { clName: string, data: string[], name: string, localName: string, isCategory: boolean, id: string, setArrTag?: any, disabled?: boolean, helperText?: string }) => {
   const { pathname } = useLocation();
   const chipDataMain = useAppSelector(state => state.chips.ChipsArray)
   const chipDataStatistic = useAppSelector(state => state.chips.ChipsArrayStatistic)
@@ -88,7 +89,7 @@ const SelectMultiple = ({ clName, data, name, isCategory, id, setArrTag, disable
   return (
     // <ThemeProvider theme={theme}>
       <FormControl disabled={disabled} className={clName}>
-        <InputLabel id="demo-mutiple-checkbox-label">{name}</InputLabel>
+        <InputLabel id="demo-mutiple-checkbox-label">{localName}</InputLabel>
         <Select
           labelId="demo-mutiple-checkbox-label"
           id="demo-mutiple-checkbox"
