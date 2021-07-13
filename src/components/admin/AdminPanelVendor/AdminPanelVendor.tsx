@@ -302,13 +302,12 @@ const AdminPanelVendor = () => {
                             <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 13 }} />
                             {t`Back`}
                         </div>
-                        <span className={styles.modal_label}>Add a vendor</span>
+                        <span className={styles.modal_label}>{t`Add a vendor`}</span>
                         <TextField className={styles.marginBottom}
                             value={data.name}
                             required
-                            label="Name"
+                            label={t`Name`}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, name: e.target.value })} />
-
                         {location.map((data: any) => {
                             if (data.city && data.country && data.address !== '') {
                                 return (
@@ -324,7 +323,7 @@ const AdminPanelVendor = () => {
 
                         })}
                         <TextField className={styles.marginBottom}
-                            label="Country"
+                            label={t`Country`}
                             value={newLocation.newCountry}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                 if (e.target.value !== '') {
@@ -333,7 +332,7 @@ const AdminPanelVendor = () => {
                             }}
                         />
                         <TextField className={styles.marginBottom}
-                            label="City"
+                            label={t`City`}
                             value={newLocation.newCity}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                 if (e.target.value !== '') {
@@ -343,7 +342,7 @@ const AdminPanelVendor = () => {
                         />
 
                         <TextField className={styles.marginBottom}
-                            label="Address"
+                            label={t`Address`}
                             value={newLocation.newAddress}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                 if (e.target.value !== '') {
@@ -353,12 +352,11 @@ const AdminPanelVendor = () => {
                         />
 
                         <div className={styles.addressButtons}>
-                            <Button onClick={submitAddress} className={styles.address_submit}>Add location</Button>
-                            {/* <Button onClick={cancelAddress} className={styles.address_cancel}>Cancel</Button> */}
+                            <Button onClick={submitAddress} className={styles.address_submit}>{t`Submit`}</Button>
                         </div>
                         <TextField className={styles.marginBottom}
                             value={data.email}
-                            label="E-mail"
+                            label={t`E-mail`}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, email: e.target.value })}
                             required
                         />
@@ -367,7 +365,7 @@ const AdminPanelVendor = () => {
                             required
                             multiline
                             rows={5}
-                            label="Description"
+                            label={t`Description`}
                             variant="outlined"
                             inputProps={{
                                 maxLength: 200,
@@ -375,14 +373,15 @@ const AdminPanelVendor = () => {
                             }}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, description: e.target.value })} />
                         <div className={styles.uploadPhotoMobile}>
-                            <button className={styles.uploadFile__btn}>Upload photo</button>
+                            <button className={styles.uploadFile__btn}>{t`Upload photo`}</button>
                         </div>
                         <div className={styles.dropzone}>
                             <DropZone uploadPhoto={(image: any) => setImage(image)} />
                         </div>
                         <span className={styles.uploadedFileName}>{uploadFileName}</span>
+
                         <Button onClick={addVendor}
-                            className={styles.submitButton}>Submit</Button>
+                            className={styles.submitButton}>{t`Submit`}</Button>
                         <Snackbar
                             anchorOrigin={{ vertical, horizontal }}
                             open={open}
@@ -401,7 +400,7 @@ const AdminPanelVendor = () => {
     )
     return (
         <div>
-            <button onClick={toggleDrawer(true)} className={styles.adminModalButton}>Add a vendor</button>
+            <button onClick={toggleDrawer(true)} className={styles.adminModalButton}>{t`Add a vendor`}</button>
             <Drawer anchor={'right'}
                 open={state}
                 onClose={toggleDrawer(false)}>

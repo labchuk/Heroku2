@@ -10,20 +10,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const Submitbutton = ({name,  handleClick, classN}:{name:string, handleClick:any, classN:string}) => {
+const Submitbutton = ({name,  handleClick, classN, open, setOpen}:{name:string, handleClick:any, classN:string, open:boolean, setOpen:any}) => {
     const classes = useStyles()
-    const [open, setOpen] = useState(false);
      
-    const handleToggle = (e:any) => {
-        setOpen(!open);
-        handleClick(e);
-    };
     return (
         <>
-            <Button variant="contained" onClick={(e)=>handleToggle(e)} className={`${classes.root} ${classN}`}>
+            <Button variant="contained" onClick={(e)=>handleClick(e)} className={`${classes.root} ${classN}`}>
                 {name}
             </Button>
-            <Spinner handleClose={()=>setOpen(false)} open={open}/>
+            <Spinner handleClose={()=> setOpen(false)} open={open}/>
       </>
     );
 };

@@ -399,7 +399,8 @@ const AdminPanelCard = () => {
               <DropZone uploadPhoto={(image: any) => setImage(image)} />
             </div>
             <span className={styles.uploadedFileName}>{uploadFileName}</span>
-            <Button className={styles.submitButton}>Submit</Button>
+            <Button className={styles.submitButton}>{t`Submit`}</Button>
+
           </Grid>
         </form>
       </ListItem>
