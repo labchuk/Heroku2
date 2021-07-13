@@ -123,8 +123,8 @@ export const postVendorLocation = async ( {country, city, addressLine, vendorId}
     return data;
 }
 
-export const getVendorLocationId = async (idLocation:string, ) =>{
-    const data = await authHost.get(`/vendor/location/${idLocation}`);
+export const getVendorLocationId = async (idLocation:string, idVendor: string) =>{
+    const data = await authHost.get(`/vendor/${idVendor}/location/${idLocation}`);
     return data;
 };
 
