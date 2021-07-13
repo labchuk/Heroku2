@@ -326,18 +326,14 @@ const AdminPanelVendor = () => {
                             label={t`Country`}
                             value={newLocation.newCountry}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                if (e.target.value !== '') {
-                                    setNewLocation({ ...newLocation, newCountry: e.target.value })
-                                }
+                                setNewLocation({ ...newLocation, newCountry: e.target.value })
                             }}
                         />
                         <TextField className={styles.marginBottom}
                             label={t`City`}
                             value={newLocation.newCity}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                if (e.target.value !== '') {
-                                    setNewLocation({ ...newLocation, newCity: e.target.value })
-                                }
+                                setNewLocation({ ...newLocation, newCity: e.target.value })
                             }}
                         />
 
@@ -345,9 +341,7 @@ const AdminPanelVendor = () => {
                             label={t`Address`}
                             value={newLocation.newAddress}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                if (e.target.value !== '') {
-                                    setNewLocation({ ...newLocation, newAddress: e.target.value })
-                                }
+                                setNewLocation({ ...newLocation, newAddress: e.target.value })
                             }}
                         />
 
