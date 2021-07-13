@@ -34,13 +34,13 @@ const MenuProps = {
 };
 
 
+
 const SelectMultiple = ({ clName, data, name, isCategory, id, localName, setArrTag, disabled, helperText }: { clName: string, data: string[], name: string, localName: string, isCategory: boolean, id: string, setArrTag?: any, disabled?: boolean, helperText?: string }) => {
   const { pathname } = useLocation();
   const chipDataMain = useAppSelector(state => state.chips.ChipsArray)
   const chipDataStatistic = useAppSelector(state => state.chips.ChipsArrayStatistic)
   const dispatch = useAppDispatch();
   const [personName, setPersonName] = useState<string[]>([]);
-
   const handleChange = (event: React.ChangeEvent<{ value: any }>, index: any) => {
     const numberChip = index.props.value
 
@@ -59,7 +59,6 @@ const SelectMultiple = ({ clName, data, name, isCategory, id, localName, setArrT
     }
 
   };
-
   const filterChips = (): any => {
     let ListChip = []
     if (pathname === MAIN_ROUTE) ListChip = chipDataMain
@@ -85,7 +84,6 @@ const SelectMultiple = ({ clName, data, name, isCategory, id, localName, setArrT
       return list
     }
   }
-
   return (
     // <ThemeProvider theme={theme}>
       <FormControl disabled={disabled} className={clName}>
@@ -100,7 +98,7 @@ const SelectMultiple = ({ clName, data, name, isCategory, id, localName, setArrT
           renderValue={(selected) => (selected as string[]).join(', ')}
           MenuProps={MenuProps}
         >
-          {data.map((name: string, index) => (
+          {data.map((name: string, index:number) => (
             <MenuItem key={index} value={name}>
               <Checkbox  checked={filterChips().indexOf(name) > -1}/>
               <ListItemText primary={name} />

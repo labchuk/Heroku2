@@ -51,6 +51,7 @@ const MySelect = ({clName,data, id, name, localName, setAble, isCategory, disabl
             let list = ''
             for (const i in data) {
                 if (data[i].name === name) {
+                    setAble && setAble(Object.keys(data[i])[0]);
                     list = Object.keys(data[i])[0]
                 }
             }
@@ -60,6 +61,7 @@ const MySelect = ({clName,data, id, name, localName, setAble, isCategory, disabl
             let list = ''
             for (const i in data) {
                 if (data[i].id === id) {
+                    setAble && setAble(data[i][Object.keys(data[i])[0]].toString());
                     list = data[i][Object.keys(data[i])[0]].toString()
                 }
             }
@@ -69,8 +71,6 @@ const MySelect = ({clName,data, id, name, localName, setAble, isCategory, disabl
     }
 
 
-    const [validation, setVal] = React.useState<string>();
-    const [errors, setErrors] = React.useState<{ validation: string }>();
 
     return (
         <FormControl className={clName} >
