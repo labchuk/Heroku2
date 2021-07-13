@@ -22,7 +22,11 @@ const useStyles = makeStyles((theme) => ({
     btn: {
         // backgroundColor: theme.palette.secondary.light,
         // color: theme.palette.secondary.main
-    }
+    },
+
+    icon: {
+        color: 'black',
+    },
 
 }));
 
@@ -69,7 +73,7 @@ const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
                         variant="outlined"
                         // color="secondary"
                         onClick={handleClick}
-                        endIcon={<CloseIcon color="secondary" />}
+                        endIcon={<CloseIcon className={classes.icon} />}
                     >
                         Close
                     </Button>
