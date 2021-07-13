@@ -83,13 +83,15 @@ const CardList: React.FC = (props) => {
             } else {
                 myElement.style.zIndex = "1";
                 myElement.style.opacity= "1";
-                myElement.style.position= "relative";
+                myElement.style.position= "block";
+
                 if (mainContent === null) {
                     return null;
                 } else {
-                    mainContent.style.opacity = "0";
-                    mainContent.style.zIndex = "-10";
-                    mainContent.style.position = "absolute";
+                    mainContent.style.paddingTop = (mainContent.style.paddingTop + myElement.clientHeight + 'px');
+                    /*mainContent.style.opacity = "0";
+                    mainContent.style.zIndex = "-10";*/
+                   /* mainContent.style.position = "absolute";*/
                 }
                 document.getElementById("excard")!.scrollIntoView({ behavior: 'smooth' });
                 if (page === 1) {

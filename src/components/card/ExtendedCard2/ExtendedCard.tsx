@@ -37,17 +37,23 @@ const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
             document.querySelector(".main-content");
 
         if (myElement === null) {
-            alert("Fuck");
+            alert("nothing");
         } else {
             myElement.style.zIndex = "-1";
             myElement.style.opacity = "0";
             myElement.style.position = "absolute";
+
             if (mainContent === null) {
                 return null;
             }  else {
                 mainContent.style.opacity = "1";
                 mainContent.style.zIndex = "0";
                 mainContent.style.position = "relative";
+
+                let padTopValue = mainContent.style.paddingTop;
+                let padTopValueToNumber = padTopValue.split('').slice(0, (padTopValue.length - 2)).join('');
+                mainContent.style.paddingTop = String((+padTopValueToNumber - myElement.clientHeight) + 'px');
+
             }
         }
     };
