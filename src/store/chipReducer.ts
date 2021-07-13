@@ -39,7 +39,8 @@ const chipReducer = createSlice({
         },
 
         removeChipStatistic(state, actions: PayloadAction<any>) {
-            if (state.ChipsArrayStatistic) state.ChipsArrayStatistic = [...state.ChipsArrayStatistic.filter(item=>Object.keys(item)[0] !== actions.payload)]
+            if (actions.payload.id) state.ChipsArrayStatistic = [...state.ChipsArrayStatistic.filter(item=>item.id !== actions.payload.id)]
+            else state.ChipsArrayStatistic = [...state.ChipsArrayStatistic.filter(item=>Object.keys(item)[0] !== actions.payload.name)]
         },
         removeCategoryMain(state, actions: PayloadAction<any>) {
             state.ChipsArray = removeChip(state.ChipsArray,actions)

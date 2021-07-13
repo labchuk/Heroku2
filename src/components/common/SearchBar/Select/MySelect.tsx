@@ -2,7 +2,7 @@
 import React,{useState} from 'react';
 import {FormControl, Select, InputLabel, MenuItem, FormHelperText } from "@material-ui/core";
 import "./Select.scss"
-import {addChipMain, updateChipMain,updateChipStatistic, removeCategoryMain,removeChipMain, addChipStatistic,removeChipStatistic} from "../../../../store/chipReducer";
+import {addChipMain, removeCategoryStatistic, removeCategoryMain,removeChipMain, addChipStatistic,removeChipStatistic} from "../../../../store/chipReducer";
 import {useAppDispatch,useAppSelector} from '../../../../store/Redux-toolkit-hook';
 import { useLocation } from "react-router-dom";
 import { MAIN_ROUTE } from "../../../../utils/consts"
@@ -32,12 +32,16 @@ const MySelect = ({clName,data, id, name, localName, setAble, isCategory, disabl
             setAble(event.target.value)
         }
         else {
-
-            dispatch(removeChipStatistic(numberChip))
-            dispatch(addChipStatistic(newChip))
-            setAge2(event.target.value);
+            if (isCategory){
+                dispatch(removeCategoryStatistic({name: numberChip, id: id, isCategory}))
+                dispatch(addChipStatistic([numberChip, id]))
+            }
+            else {
+                dispatch(removeChipStatistic({id}))
+                dispatch(addChipStatistic(newChip))
+            }
+            setAge(event.target.value);
             setAble(event.target.value)
-
         }
 
     };
@@ -51,17 +55,16 @@ const MySelect = ({clName,data, id, name, localName, setAble, isCategory, disabl
             let list = ''
             for (const i in data) {
                 if (data[i].name === name) {
-                    setAble && setAble(Object.keys(data[i])[0]);
                     list = Object.keys(data[i])[0]
                 }
             }
+            setAble && setAble(list)
             return list
         }
         else if (isCategory) {
             let list = ''
             for (const i in data) {
                 if (data[i].id === id) {
-                    setAble && setAble(data[i][Object.keys(data[i])[0]].toString());
                     list = data[i][Object.keys(data[i])[0]].toString()
                 }
             }
@@ -77,7 +80,7 @@ const MySelect = ({clName,data, id, name, localName, setAble, isCategory, disabl
             <InputLabel id="select">
                 {localName}
             </InputLabel>
-            <Select labelId="select" value={filterChips()} onChange={handleChange}>
+            <Select labelId="select" value={filterChips()} onChange={handleChange} disabled={disabled}>
                 {data.map((item, index) => (
                     <MenuItem value={item} key={index}>
                         {item}

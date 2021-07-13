@@ -10,12 +10,16 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Switch } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { useLocation } from "react-router-dom";
+import { LOGIN_ROUTE } from "./utils/consts"
+import {log} from "util";
 
 declare module "@material-ui/core/styles/createPalette" {
 }
 
 const  App = () => {
     const [darkMode, setDarkMode] = useState(false)
+    const [pathname, setPathname] = useState('')
 
     const theme = createMuiTheme({
         palette: {
@@ -54,8 +58,10 @@ const  App = () => {
                 {isAuth && <ThemeProvider theme={theme}><Header/></ThemeProvider>}
                 <div className={"app-wrapper-container"} style={{minHeight: '100vh'}}>
                     <ThemeProvider theme={theme}>
-                            <Switch checked={darkMode} onChange={()=>setDarkMode(!darkMode)} color={"secondary"}/>
-                            <AppRouter/>
+                        {pathname !== LOGIN_ROUTE ?
+                            <Switch checked={darkMode} onChange={()=>setDarkMode(!darkMode)} color={"secondary"}/> : null
+                        }
+                            <AppRouter setPath={setPathname}/>
                             <CssBaseline/>
                     </ThemeProvider>
                 </div>

@@ -42,7 +42,7 @@ export default function ChipsArray() {
 
     const handleDelete = (name: string) =>{
         if (pathname === MAIN_ROUTE) dispatch(removeChipMain({name}))
-        else dispatch(removeChipStatistic(name))
+        else dispatch(removeChipStatistic({name}))
 
     };
     const handleDeleteSub = (name: string, id: string) => {
