@@ -5,8 +5,7 @@ import "./Select.scss"
 import {addChip, removeChip} from "../../../../store/chipReducer";
 import {useAppDispatch,useAppSelector} from '../../../../store/Redux-toolkit-hook';
 
-
-const MySelect = ({clName,data,name, setAble, disabled, helperText}:{helperText:string, disabled: boolean ,clName:string, data:string[], name:string, setAble:any}) => {
+const MySelect = ({clName,data,name, setAble, disabled, helperText, nameId}:{ nameId: string, helperText:string, disabled: boolean ,clName:string, data:string[], name:string, setAble:any}) => {
     
     const [age, setAge] = useState("");
     const dispatch = useAppDispatch()
@@ -14,41 +13,37 @@ const MySelect = ({clName,data,name, setAble, disabled, helperText}:{helperText:
 
     const handleChange = (event: React.ChangeEvent<{ value: any }>, index: any) => {
         const numberChip = event.target.value
+        console.log()
         const indexChip = index.key.slice(2)
-        const newChip = { id: name + indexChip, label: numberChip }
+        const newChip = { id: name + indexChip, label: numberChip, name: nameId }
         dispatch(addChip(newChip))
         if (numberChip) {
             const indexRemove = data.indexOf(age)
             dispatch(removeChip(name + indexRemove))
         }
         setAge(event.target.value);
-        setAble(event.target.value)
+        
     };
 
 
     const filterChips = () => {
         for (const i in chipData) {
             if (chipData[i].id.slice(0, 4) === name.slice(0, 4)) {
+                setAble && setAble(chipData[i].label);
                 return chipData[i].label
             }
         }
+        setAble && setAble('');
         return ''
     }
 
 
-    const [validation, setVal] = React.useState<string>();
-    const [errors, setErrors] = React.useState<{ validation: string }>();
-
+    
     return (
         <FormControl className={clName} >
-            <InputLabel id="select">
-                {name}
-            </InputLabel>
-
+            <InputLabel id="select">{name}</InputLabel>
             <Select labelId="select" value={filterChips()} onChange={handleChange} disabled={disabled}>
                 {data.map((item,index) => (
-
-
                     <MenuItem value={item} key={index}>
                         {item}
                     </MenuItem>

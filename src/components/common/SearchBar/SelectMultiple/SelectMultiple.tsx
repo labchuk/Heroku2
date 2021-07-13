@@ -15,7 +15,6 @@ import {
 import { useLocation } from "react-router-dom";
 import { MAIN_ROUTE } from "../../../../utils/consts"
 import { ThemeProvider } from "@material-ui/styles";
-
 import { useAppDispatch, useAppSelector } from '../../../../store/Redux-toolkit-hook';
 import { addChip, removeChip } from '../../../../store/chipReducer';
 
@@ -39,25 +38,26 @@ const theme = createMuiTheme({
   },
 });
 
-const SelectMultiple = ({ clName, data, name, setArrTag, disabled, helperText }: { clName: string, data: string[], name: string, setArrTag?: any, disabled?: boolean, helperText?: string }) => {
+const SelectMultiple = ({ clName, data, name, setArrTag, disabled, helperText, nameId }: {nameId: string, clName: string, data: string[], name: string, setArrTag?: any, disabled?: boolean, helperText?: string }) => {
   const { pathname } = useLocation();
   const chipData = useAppSelector(state => state.chips.ChipsArray)
   const dispatch = useAppDispatch();
   const [personName, setPersonName] = useState<string[]>([]);
   const handleChange = (event: React.ChangeEvent<{ value: any }>, index: any) => {
+    
     if (pathname === MAIN_ROUTE) {
       const numberChip = event.target.value
       const indexChip = index.key.slice(2)
       if (index.props.children[0].props.checked === false) {
-        const newChip = { id: name + indexChip, label: numberChip[numberChip.length - 1] }
+        const newChip = { id: name + indexChip, label: numberChip[numberChip.length - 1], name: nameId }
         dispatch(addChip(newChip))
       } else {
         dispatch(removeChip(name + indexChip))
       }
+      setPersonName(event.target.value)
     } else {
       setPersonName(event.target.value)
     }
-
   };
   const filterChips = (): any => {
     if (pathname === MAIN_ROUTE) {
@@ -87,7 +87,7 @@ const SelectMultiple = ({ clName, data, name, setArrTag, disabled, helperText }:
           renderValue={(selected) => (selected as string[]).join(', ')}
           MenuProps={MenuProps}
         >
-          {data.map((name: string, index) => (
+          {data.map((name: string, index:number) => (
             <MenuItem key={index} value={name}>
               <Checkbox color="primary" checked={filterChips().indexOf(name) > -1} />
               <ListItemText primary={name} />
