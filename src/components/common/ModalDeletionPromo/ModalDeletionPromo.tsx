@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         paper: {
             backgroundColor: theme.palette.background.paper,
-            border: '2px solid #1877F2',
+            /*border: '2px solid #1877F2',*/
             boxShadow: theme.shadows[5],
             padding: theme.spacing(2, 4, 3),
         },
@@ -28,11 +28,11 @@ const useStyles = makeStyles((theme: Theme) =>
         description: {
             color: 'red',
             fontFamily: 'Poppins, sans-serif',
-            paddingBottom: '30px',
+            paddingBottom: '20px',
         },
         button: {
 
-            marginRight: '20px',
+
         },
     }),
 );
@@ -72,20 +72,22 @@ export default function ModalDeletionPromo(props: any){
                     <div className={classes.paper}>
                         <h1 className={classes.title}>Are you sure?</h1>
                         <p className={classes.description}>Deleted promo will not be recoverable!</p>
-                        <Button variant="contained"
-                                color="primary"
-                                onClick={handleAction}
-                                className={classes.button}
-                        >
-                            Confirm
-                        </Button>
-                        <Button variant="contained"
-                                color="primary"
-                        onClick={handleClose}
-                        >
-                            Cancel
-                        </Button>
-
+                        <div className="confirm">
+                            <Button variant="contained"
+                                    color="primary"
+                                    onClick={handleAction}
+                                    className="confirm__button"
+                            >
+                                Confirm
+                            </Button>
+                            <Button variant="contained"
+                                    color="primary"
+                            onClick={handleClose}
+                                    className="confirm__button"
+                            >
+                                Cancel
+                            </Button>
+                        </div>
                     </div>
                 </Fade>
             </Modal>
