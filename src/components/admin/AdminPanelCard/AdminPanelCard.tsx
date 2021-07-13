@@ -23,7 +23,7 @@ const AdminPanelCard = () => {
   const [newAddress, setNewAddress] = React.useState('');
   const [newCategory, setNewCategory] = React.useState('');
   const [newTag, setNewTag] = React.useState('');
-  const [image, setImage] = React.useState();
+  const [fileName, setFileName] = React.useState<string | Blob>('');
   const parentRef = useRef<any>();
 
   const [address, setAddress] = React.useState([
@@ -120,6 +120,12 @@ const AdminPanelCard = () => {
 
   const cancelTag = () => {
     setTagInput(false);
+  }
+
+
+  const setImage = (image: any) => {
+    setFileName(image)
+    setUploadFileName(image.name)
   }
 
   const useStyles = makeStyles({
@@ -262,26 +268,6 @@ const AdminPanelCard = () => {
       wrapper: {
         width: '320px'
       },
-      dropzone: {
-        zIndex: 25,
-        opacity: 0,
-        height: 40,
-        width: 131,
-        borderRadius: '0px',
-        position: 'relative',
-        border: 'none',
-        outline: 'none',
-        marginBottom: '-18px'
-      },
-      uploadPhotoMobile: {
-        display: 'flex',
-        fontSize: 15,
-        position: 'relative',
-        bottom: '20px',
-        'span': {
-          position: 'relative'
-        }
-      },
       modal_label: {
         fontSize: 18,
       },
@@ -297,6 +283,28 @@ const AdminPanelCard = () => {
       },
       address_cancel: {
         width: '100%'
+      },
+      uploadPhotoMobile: {
+        display: 'flex',
+        marginBottom: 20,
+        fontSize: 15,
+        'span': {
+          position: 'relative'
+        }
+      },
+      uploadedFileName: {
+        marginTop: '-74px',
+      },
+      dropzone: {
+        width: 134,
+        height: 40,
+        border: 'none',
+        outline: 'none',
+        position: 'relative',
+        top: '-61px',
+        '&:hover': {
+          border: 'none'
+        }
       }
     },
   })
@@ -373,6 +381,7 @@ const AdminPanelCard = () => {
             <TextField className={styles.marginBottom}
               required
               label={t`Discount %`}
+              type='number'
               InputProps={{ inputProps: { min: 0 } }} />
             <TextField className={styles.marginBottom}
               required
@@ -383,19 +392,15 @@ const AdminPanelCard = () => {
                 maxLength: 2000,
                 minLength: 50
               }} />
-            <div className={styles.dropzone}>
-            </div>
             <div className={styles.uploadPhotoMobile}>
-              <input type="file"
-                ref={parentRef}
-                className={styles.fileName}
-                id='fileName'
-                accept=".png, .jpg, .jpeg"
-                onChange={(e) => { setUploadFileName(parentRef.current.files[0].name) }} />
-              <button className={styles.uploadFile__btn}>{t`Upload photo`}</button>
+              <button className={styles.uploadFile__btn}>Upload photo</button>
+            </div>
+            <div className={styles.dropzone}>
+              <DropZone uploadPhoto={(image: any) => setImage(image)} />
             </div>
             <span className={styles.uploadedFileName}>{uploadFileName}</span>
-            <Button type='submit' className={styles.submitButton}>{t`Submit`}</Button>
+            <Button className={styles.submitButton}>{t`Submit`}</Button>
+
           </Grid>
         </form>
       </ListItem>
