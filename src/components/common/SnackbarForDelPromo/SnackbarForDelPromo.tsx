@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -10,6 +9,8 @@ function Alert(props: AlertProps) {
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
+        position: 'absolute',
+        boxShadow: 'none',
         width: '100%',
         '& > * + *': {
             marginTop: theme.spacing(2),
@@ -17,28 +18,23 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-export default function SnackbarForDelPromo() {
+export default function SnackbarForDelPromo(props: any) {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
-
-    const handleClick = () => {
-        setOpen(true);
-    };
 
     const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
         if (reason === 'clickaway') {
             return;
         }
 
-        setOpen(false);
+        props.setSnackbar(false);
     };
 
     return (
         <div className={classes.root}>
-            <Button variant="outlined" onClick={handleClick}>
-                Open success snackbar
-            </Button>
-            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+
+            <Snackbar
+
+                open={props.snackbarState} autoHideDuration={3000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="success">
                     Promo was succsessfully deleted!
                 </Alert>

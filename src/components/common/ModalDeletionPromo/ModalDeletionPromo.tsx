@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -31,8 +31,16 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingBottom: '20px',
         },
         button: {
+            border: '2px solid #0082CA',
+            backgroundColor: '#fff',
+            width: '120px',
+            boxSizing: 'border-box',
 
-
+            '&:hover': {
+                color: 'white',
+                backgroundColor: '#0082CA',
+                border: '2px solid #fff',
+            }
         },
     }),
 );
@@ -42,12 +50,15 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function ModalDeletionPromo(props: any){
 
+
+
     const classes = useStyles();
 
 
     const handleAction = () => {
        props.action();
        props.setModalState(false);
+
     };
 
     const handleClose = () => {
@@ -76,14 +87,14 @@ export default function ModalDeletionPromo(props: any){
                             <Button variant="contained"
                                     color="primary"
                                     onClick={handleAction}
-                                    className="confirm__button"
+                                    className={classes.button}
                             >
                                 Confirm
                             </Button>
                             <Button variant="contained"
                                     color="primary"
                             onClick={handleClose}
-                                    className="confirm__button"
+                                    className={classes.button}
                             >
                                 Cancel
                             </Button>
@@ -91,6 +102,7 @@ export default function ModalDeletionPromo(props: any){
                     </div>
                 </Fade>
             </Modal>
+
         </div>
     );
 }

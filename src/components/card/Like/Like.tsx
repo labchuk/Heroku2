@@ -7,6 +7,7 @@ import AdminEditCardPanel from '../../admin/AdminEditCardPanel/AdminEditCardPane
 import SettingsIcon from '@material-ui/icons/Settings';
 import { makeStyles, Popover } from '@material-ui/core';
 import ModalDeletionPromo from "../../common/ModalDeletionPromo/ModalDeletionPromo";
+import SnackbarForDelPromo from "../../common/SnackbarForDelPromo/SnackbarForDelPromo";
 
 
 interface LikeProps {
@@ -31,9 +32,12 @@ interface LikeProps {
 const Like: FC<LikeProps> = (props) => {
 
     const [openModal, setOpenModal] = useState(false);
+    const [openSnackbar, setSnackbar] = useState(false);
+
 
     const heandlerDeleteCard = () => {
         deleteCard(props.discount);
+        setSnackbar(true);
     }
 
     const deleteCard = (currentCard: any) => {
@@ -87,6 +91,8 @@ const Like: FC<LikeProps> = (props) => {
 
     return (
         <Fragment>
+
+
             <div className="card-buttons">
                 <button className="card-buttons__item" onClick={handleLike}>
                     <svg id="svg1" width="30px" height="28px" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="heart"
@@ -197,7 +203,7 @@ const Like: FC<LikeProps> = (props) => {
             </div>
 
                 <ModalDeletionPromo setModalState={setOpenModal} modalState={openModal} action={heandlerDeleteCard}/>
-
+                <SnackbarForDelPromo setSnackbar={setSnackbar} snackbarState={openSnackbar}/>
         </Fragment >
     );
 };
