@@ -1,4 +1,4 @@
-import React, {Fragment, MouseEvent, useState} from 'react';
+import React, {Fragment, MouseEvent, useState, useEffect} from 'react';
 import { SaleCard } from '../../index';
 import "./CardList.scss";
 import Pagination from "@material-ui/lab/Pagination";
@@ -77,21 +77,26 @@ const CardList: React.FC = (props) => {
             const mainContent: HTMLElement | null =
                 document.querySelector(".main-content");
 
+            console.log('myElement.clientHeight = ', myElement.clientHeight);
+            console.log('mainContent.style.marginTop', mainContent.style.marginTop);
+            console.log('after logic');
 
             if (myElement === null) {
                 return null;
             } else {
                 myElement.style.zIndex = "1";
                 myElement.style.opacity= "1";
-                myElement.style.position= "block";
+                myElement.style.position= "absolute";
 
                 if (mainContent === null) {
                     return null;
                 } else {
-                    mainContent.style.paddingTop = (mainContent.style.paddingTop + myElement.clientHeight + 'px');
+                   mainContent.style.marginTop = (mainContent.style.marginTop + myElement.clientHeight + 'px');
+                    console.log('mainContent.style.marginTop', mainContent.style.marginTop);
+
                     /*mainContent.style.opacity = "0";
                     mainContent.style.zIndex = "-10";*/
-                   /* mainContent.style.position = "absolute";*/
+                   /* mainContent.style.position = "relative";*/
                 }
                 document.getElementById("excard")!.scrollIntoView({ behavior: 'smooth' });
                 if (page === 1) {
