@@ -1,4 +1,4 @@
-import { Button, ListItem, Snackbar, SnackbarOrigin } from '@material-ui/core';
+import { Button, Chip, ListItem, Snackbar, SnackbarOrigin } from '@material-ui/core';
 import { Drawer, List } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
@@ -13,20 +13,24 @@ import { t } from 'ttag';
 import PositionedSnackbar from '../../common/Snackbar/Snackbar';
 import { Alert } from '@material-ui/lab';
 
+
 interface State extends SnackbarOrigin {
     open: boolean;
+}
+
+interface ChipData {
+    key: number;
+    country: string,
+    city: string,
+    address: string,
 }
 
 const AdminPanelVendor = () => {
     const [state, setState] = React.useState(false);
     const [uploadFileName, setUploadFileName] = React.useState<string | Blob>('');
     const [fileName, setFileName] = React.useState<string | Blob>('');
-    const [addressInput, setAddressInput] = React.useState(false);
-    const [location, setLocation] = React.useState({
-        country: '',
-        city: '',
-        address: '',
-    });
+
+    const [location, setLocation] = React.useState<any[]>([])
 
     const [data, setData] = React.useState({
         email: '',
@@ -40,21 +44,11 @@ const AdminPanelVendor = () => {
         newAddress: '',
     });
 
-    const parentRef = useRef<any>();
-    // console.log('fileName ====== ', fileName)
-    // console.log('location.country ======== ', location.country)
-
-
     const setImage = (image: any) => {
         setFileName(image)
         setUploadFileName(image.name)
     }
     const clearForm = () => {
-        setLocation({
-            country: '',
-            city: '',
-            address: '',
-        })
         setNewLocation({
             newCountry: '',
             newCity: '',
@@ -75,7 +69,6 @@ const AdminPanelVendor = () => {
             "file",
             fileName,
         );
-        // console.log('fileName ============ ', fileName);
         return uploadImage(formData)
     }
 
@@ -85,9 +78,9 @@ const AdminPanelVendor = () => {
         const vendor = await postVendor({ name: data.name, description: data.description, email: data.email, image: logoURL })
         const vendorId = vendor.data.id
         const vendorLocation = await postVendorLocation({
-            country: location.country,
-            city: location.city,
-            addressLine: location.address,
+            country: newLocation.newCountry,
+            city: newLocation.newCity,
+            addressLine: newLocation.newAddress,
             vendorId: vendorId
         })
         console.log(getVendorAll())
@@ -95,27 +88,27 @@ const AdminPanelVendor = () => {
         handleClickAlert()
     }
 
-    // console.log('fileName =========== ', fileName)
-    // console.log('state ============= ', state)
-    // console.log('location.country =========== ', location.country)
-
     const toggleDrawer = (open: any) => (event: any) => {
         setState(open);
     }
 
-    const addAddress = () => {
-        setAddressInput(true)
-    }
 
     const submitAddress = () => {
-        setAddressInput(false);
-        // console.log('newLocation ================== ', newLocation)
-        // console.log('location ============== ', location)
+        if (newLocation.newCountry !== '' && newLocation.newCity !== '' && newLocation.newAddress !== '') {
+            setLocation([...location, { key: Math.random(), country: newLocation.newCountry, city: newLocation.newCity, address: newLocation.newAddress }])
+            setNewLocation({
+                newCountry: '',
+                newCity: '',
+                newAddress: '',
+            })
+        }
+
+
     }
 
-    const cancelAddress = () => {
-        setAddressInput(false);
-    }
+
+    //LOCATION ARRAY
+    console.log(location);
 
     const [alertState, setAlertState] = React.useState<State>({
         open: false,
@@ -245,6 +238,9 @@ const AdminPanelVendor = () => {
             fontSize: '15px',
             marginBottom: '20px'
         },
+        displayN: {
+            display: 'none'
+        },
         '@media(max-width:700px)': {
             wrapper: {
                 width: '320px'
@@ -292,6 +288,10 @@ const AdminPanelVendor = () => {
 
     const styles = useStyles();
 
+    const handleDeleteChip = (chipToDelete: ChipData) => () => {
+        setLocation((chips: any) => chips.filter((chip: any) => chip.key !== chipToDelete.key));
+    };
+
 
     const list = () => (
         <List className={styles.wrapper}>
@@ -308,20 +308,54 @@ const AdminPanelVendor = () => {
                             required
                             label="Name"
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, name: e.target.value })} />
-                        <TextField className={styles.marginBottom} required label="Country" value={location.country} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLocation({ ...location, country: e.target.value })} />
-                        <TextField className={styles.marginBottom} required label="City" value={location.city} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLocation({ ...location, city: e.target.value })} />
-                        <TextField className={styles.marginBottom} required label="Address" value={location.address} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLocation({ ...location, address: e.target.value })} />
-                        {addressInput ?
-                            <>
-                                <TextField className={styles.marginBottom} label="Country" value={newLocation.newCountry} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewLocation({ ...newLocation, newCountry: e.target.value })} />
-                                <TextField className={styles.marginBottom} label="City" value={newLocation.newCity} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewLocation({ ...newLocation, newCity: e.target.value })} />
-                                <TextField className={styles.marginBottom} label="Address" value={newLocation.newAddress} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewLocation({ ...newLocation, newAddress: e.target.value })} />
-                                <div className={styles.addressButtons}>
-                                    <Button onClick={submitAddress} className={styles.address_submit}>Submit</Button>
-                                    <Button onClick={cancelAddress} className={styles.address_cancel}>Cancel</Button>
-                                </div>
-                            </>
-                            : <span className={styles.address__span} onClick={addAddress}>+ Add new location</span>}
+
+                        {location.map((data: any) => {
+                            if (data.city && data.country && data.address !== '') {
+                                return (
+                                    <li key={data.key}>
+                                        <Chip
+                                            label={data.country + ', ' + data.city + ', ' + data.address}
+                                            variant='outlined'
+                                            onDelete={handleDeleteChip(data)}
+                                        />
+                                    </li>
+                                );
+                            }
+
+                        })}
+                        <TextField className={styles.marginBottom}
+                            label="Country"
+                            value={newLocation.newCountry}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                if (e.target.value !== '') {
+                                    setNewLocation({ ...newLocation, newCountry: e.target.value })
+                                }
+                            }}
+                        />
+                        <TextField className={styles.marginBottom}
+                            label="City"
+                            value={newLocation.newCity}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                if (e.target.value !== '') {
+                                    setNewLocation({ ...newLocation, newCity: e.target.value })
+                                }
+                            }}
+                        />
+
+                        <TextField className={styles.marginBottom}
+                            label="Address"
+                            value={newLocation.newAddress}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                if (e.target.value !== '') {
+                                    setNewLocation({ ...newLocation, newAddress: e.target.value })
+                                }
+                            }}
+                        />
+
+                        <div className={styles.addressButtons}>
+                            <Button onClick={submitAddress} className={styles.address_submit}>Add location</Button>
+                            {/* <Button onClick={cancelAddress} className={styles.address_cancel}>Cancel</Button> */}
+                        </div>
                         <TextField className={styles.marginBottom}
                             value={data.email}
                             label="E-mail"
