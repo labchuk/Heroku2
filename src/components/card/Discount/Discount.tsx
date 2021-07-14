@@ -11,21 +11,14 @@ interface DiscountProps {
     },
     handleClick: (e: any) => void
 }
-const useStyles = makeStyles((theme) =>
-    createStyles({
-        root: {
 
-        },
-    }),
-);
 
 const Discount: React.FC<DiscountProps> = ({ discount, handleClick }) => {
     // React.useEffect(() => {
     //     console.log(discount.sizeDiscount)
     // }, [])
-    const classes = useStyles()
     return (
-        <div className={classes.root}>
+
             <div className="discount" onClick={handleClick}>
                 <h1 className="discount__title">{discount.nameDiscount}</h1>
                 <div className="discount__info">
@@ -39,7 +32,6 @@ const Discount: React.FC<DiscountProps> = ({ discount, handleClick }) => {
                     {discount.place}
                 </div>
             </div>
-        </div>
 
     );
 };

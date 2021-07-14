@@ -2,53 +2,86 @@
 import React,{useState} from 'react';
 import {FormControl, Select, InputLabel, MenuItem, FormHelperText } from "@material-ui/core";
 import "./Select.scss"
-import {addChip, removeChip} from "../../../../store/chipReducer";
+import {addChipMain, removeCategoryStatistic, removeCategoryMain,removeChipMain, addChipStatistic,removeChipStatistic} from "../../../../store/chipReducer";
 import {useAppDispatch,useAppSelector} from '../../../../store/Redux-toolkit-hook';
+import { useLocation } from "react-router-dom";
+import { MAIN_ROUTE } from "../../../../utils/consts"
 
 
-const MySelect = ({clName,data,name, setAble, disabled, helperText}:{helperText:string, disabled: boolean ,clName:string, data:string[], name:string, setAble:any}) => {
-    
+const MySelect = ({clName,data, id, name, localName, setAble, isCategory, disabled, helperText}:{ helperText:string, isCategory: boolean, disabled: boolean ,clName:string, data:string[], id: string, name:string,localName:string, setAble:any}) => {
+    const { pathname } = useLocation();
     const [age, setAge] = useState("");
+    const [age2, setAge2] = useState("");
     const dispatch = useAppDispatch()
-    const chipData = useAppSelector(state => state.chips.ChipsArray)
+    const chipDataMain = useAppSelector(state => state.chips.ChipsArray)
+    const chipDataStatistic = useAppSelector(state => state.chips.ChipsArrayStatistic)
 
     const handleChange = (event: React.ChangeEvent<{ value: any }>, index: any) => {
         const numberChip = event.target.value
-        const indexChip = index.key.slice(2)
-        const newChip = { id: name + indexChip, label: numberChip }
-        dispatch(addChip(newChip))
-        if (numberChip) {
-            const indexRemove = data.indexOf(age)
-            dispatch(removeChip(name + indexRemove))
+        const newChip = {[numberChip]: [], name: name, id: id}
+        if (pathname === MAIN_ROUTE){
+            if (isCategory){
+                dispatch(removeCategoryMain({name: numberChip, id: id, isCategory}))
+                dispatch(addChipMain([numberChip, id]))
+            }
+            else {
+                dispatch(removeChipMain({id}))
+                dispatch(addChipMain(newChip))
+            }
+            setAge(event.target.value);
+            setAble(event.target.value)
         }
-        setAge(event.target.value);
-        setAble(event.target.value)
+        else {
+            if (isCategory){
+                dispatch(removeCategoryStatistic({name: numberChip, id: id, isCategory}))
+                dispatch(addChipStatistic([numberChip, id]))
+            }
+            else {
+                dispatch(removeChipStatistic({id}))
+                dispatch(addChipStatistic(newChip))
+            }
+            setAge(event.target.value);
+            setAble(event.target.value)
+        }
+
     };
 
 
     const filterChips = () => {
-        for (const i in chipData) {
-            if (chipData[i].id.slice(0, 4) === name.slice(0, 4)) {
-                return chipData[i].label
+        let data = []
+        if (pathname===MAIN_ROUTE) data = chipDataMain
+        else data = chipDataStatistic
+        if (!isCategory) {
+            let list = ''
+            for (const i in data) {
+                if (data[i].name === name) {
+                    list = Object.keys(data[i])[0]
+                }
             }
+            setAble && setAble(list)
+            return list
         }
-        return ''
+        else if (isCategory) {
+            let list = ''
+            for (const i in data) {
+                if (data[i].id === id) {
+                    list = data[i][Object.keys(data[i])[0]].toString()
+                }
+            }
+            return list
+        }
+
     }
 
 
-    const [validation, setVal] = React.useState<string>();
-    const [errors, setErrors] = React.useState<{ validation: string }>();
 
     return (
         <FormControl className={clName} >
             <InputLabel id="select">
-                {name}
+                {localName}
             </InputLabel>
-
             <Select labelId="select" value={filterChips()} onChange={handleChange} disabled={disabled}>
-                {data.map((item,index) => (
-
-
+                {data.map((item, index) => (
                     <MenuItem value={item} key={index}>
                         {item}
                     </MenuItem>

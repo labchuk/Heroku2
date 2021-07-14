@@ -14,10 +14,12 @@ import {
 
 import { useLocation } from "react-router-dom";
 import { MAIN_ROUTE } from "../../../../utils/consts"
+import { STATISTIC_ROUTE } from "../../../../utils/consts"
 import { ThemeProvider } from "@material-ui/styles";
+import { t } from 'ttag';
 
 import { useAppDispatch, useAppSelector } from '../../../../store/Redux-toolkit-hook';
-import { addChip, removeChip } from '../../../../store/chipReducer';
+import { addChipMain, removeChipMain, removeCategoryMain,addChipStatistic,removeCategoryStatistic,removeChipStatistic } from '../../../../store/chipReducer';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -31,52 +33,61 @@ const MenuProps = {
   },
 };
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#0082CA",
-    }
-  },
-});
 
-const SelectMultiple = ({ clName, data, name, setArrTag, disabled, helperText }: { clName: string, data: string[], name: string, setArrTag?: any, disabled?: boolean, helperText?: string }) => {
+
+const SelectMultiple = ({ clName, data, name, isCategory, id, localName, setArrTag, disabled, helperText }: { clName: string, data: string[], name: string, localName: string, isCategory: boolean, id: string, setArrTag?: any, disabled?: boolean, helperText?: string }) => {
   const { pathname } = useLocation();
-  const chipData = useAppSelector(state => state.chips.ChipsArray)
+  const chipDataMain = useAppSelector(state => state.chips.ChipsArray)
+  const chipDataStatistic = useAppSelector(state => state.chips.ChipsArrayStatistic)
   const dispatch = useAppDispatch();
   const [personName, setPersonName] = useState<string[]>([]);
   const handleChange = (event: React.ChangeEvent<{ value: any }>, index: any) => {
-    if (pathname === MAIN_ROUTE) {
-      const numberChip = event.target.value
-      const indexChip = index.key.slice(2)
-      if (index.props.children[0].props.checked === false) {
-        const newChip = { id: name + indexChip, label: numberChip[numberChip.length - 1] }
-        dispatch(addChip(newChip))
-      } else {
-        dispatch(removeChip(name + indexChip))
-      }
-    } else {
-      setPersonName(event.target.value)
+    const numberChip = index.props.value
+
+    if (pathname === MAIN_ROUTE && index.props.children[0].props.checked === false) {
+        if (isCategory) dispatch(addChipMain([index.props.value, id]))
+        else dispatch(addChipMain({[numberChip]: [], name: name, id: id}))
+    } else if (pathname === MAIN_ROUTE && index.props.children[0].props.checked === true) {
+        if (isCategory) dispatch(removeCategoryMain({name: index.props.value, id: id}))
+        else dispatch(removeChipMain(index.props.value))
+    } else if (pathname === STATISTIC_ROUTE && index.props.children[0].props.checked === false) {
+        if (isCategory) dispatch(addChipStatistic([index.props.value, id]))
+        else dispatch(addChipStatistic({[numberChip]: [], name: name, id: id}))
+    } else if (pathname === STATISTIC_ROUTE && index.props.children[0].props.checked === true) {
+        if (isCategory) dispatch(removeCategoryStatistic({name: index.props.value, id: id}))
+        else dispatch(removeChipStatistic(index.props.value))
     }
 
   };
   const filterChips = (): any => {
-    if (pathname === MAIN_ROUTE) {
-      const list = []
-      for (const i in chipData) {
-        if (chipData[i].id.slice(0, 4) === name.slice(0, 4)) {
-          list.push(chipData[i].label)
+    let ListChip = []
+    if (pathname === MAIN_ROUTE) ListChip = chipDataMain
+    else ListChip = chipDataStatistic
+
+    if(isCategory) {
+      let list = []
+      for (const i in ListChip) {
+        if (ListChip[i].id === id) {
+          let key = Object.keys(ListChip[i])[0]
+          list = ListChip[i][key]
         }
       }
       return list
-    } else {
-      return personName
     }
-
+    else {
+      let list =[]
+      for (const i in ListChip) {
+        if (ListChip[i].name === name) {
+          list.push(Object.keys(ListChip[i])[0])
+        }
+      }
+      return list
+    }
   }
   return (
-    <ThemeProvider theme={theme}>
+    // <ThemeProvider theme={theme}>
       <FormControl disabled={disabled} className={clName}>
-        <InputLabel id="demo-mutiple-checkbox-label">{name}</InputLabel>
+        <InputLabel id="demo-mutiple-checkbox-label">{localName}</InputLabel>
         <Select
           labelId="demo-mutiple-checkbox-label"
           id="demo-mutiple-checkbox"
@@ -87,16 +98,16 @@ const SelectMultiple = ({ clName, data, name, setArrTag, disabled, helperText }:
           renderValue={(selected) => (selected as string[]).join(', ')}
           MenuProps={MenuProps}
         >
-          {data.map((name: string, index) => (
+          {data.map((name: string, index:number) => (
             <MenuItem key={index} value={name}>
-              <Checkbox color="primary" checked={filterChips().indexOf(name) > -1} />
+              <Checkbox  checked={filterChips().indexOf(name) > -1}/>
               <ListItemText primary={name} />
             </MenuItem>
           ))}
         </Select>
         <FormHelperText>{helperText}</FormHelperText>
       </FormControl>
-    </ThemeProvider>
+    // </ThemeProvider>
 
   );
 }
