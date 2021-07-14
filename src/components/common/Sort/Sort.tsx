@@ -23,7 +23,6 @@ const Sort = () => {
 
     }
     useEffect(() => {
-        console.log(currentSort)
     }, [currentSort]);
 
 

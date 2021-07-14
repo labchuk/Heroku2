@@ -1,4 +1,4 @@
-import { Checkbox, ListItem } from '@material-ui/core';
+import { Checkbox, Chip, ListItem, Snackbar, SnackbarOrigin } from '@material-ui/core';
 import { Drawer, List } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
@@ -8,10 +8,23 @@ import DropZone from '../../common/DropZone/DropZone';
 import ContainerDataPiker from '../../common/SearchBar/ContainerDatePiker/ContainerDatePiker';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import Button from '@material-ui/core/Button';
-import Autocomplete, { AutocompleteRenderOptionState } from '@material-ui/lab/Autocomplete';
 import "./AdminPanelCard.scss";
-import AutocompleteMultipleChoise from '../../common/AutocompleteMultipleChoise/AutocompleteMultipleChoise';
 import { t } from 'ttag';
+import AdminSelect from '../AdminSelect';
+import { Alert } from '@material-ui/lab';
+
+
+interface State extends SnackbarOrigin {
+  open: boolean;
+}
+
+interface ChipData {
+  key: number;
+  country: string,
+  city: string,
+  address: string,
+}
+
 
 const AdminPanelCard = () => {
   const [state, setState] = React.useState(false);
@@ -20,59 +33,47 @@ const AdminPanelCard = () => {
   const [categoryInput, setCategoryInput] = React.useState(false);
   const [tagInput, setTagInput] = React.useState(false);
   const [uploadFileName, setUploadFileName] = React.useState();
-  const [newAddress, setNewAddress] = React.useState('');
   const [newCategory, setNewCategory] = React.useState('');
   const [newTag, setNewTag] = React.useState('');
-  const [image, setImage] = React.useState();
-  const parentRef = useRef<any>();
+  const [fileName, setFileName] = React.useState<string | Blob>('');
 
-  const [address, setAddress] = React.useState([
-    { title: 'Chornovola Str, 27' },
-    { title: 'Yakuba Kolasa Str, 37' },
-    { title: 'Horodotska Str, 7a' },
-    { title: 'Rynok Sqr, 1' },
-    { title: 'Mazepy Str, 1a' },
-    { title: 'Warshavska Str, 127' },
-  ]);
+  const [title, setTitle] = React.useState();
+  const [description, setDescription] = React.useState();
+
+  const [location, setLocation] = React.useState<any[]>([])
+  const [newLocation, setNewLocation] = React.useState({
+    newCountry: '',
+    newCity: '',
+    newAddress: '',
+  });
 
   const [category, setCategory] = React.useState([
-    { title: 'Category 1' },
-    { title: 'Category 2' },
-    { title: 'Category 3' },
-    { title: 'Category 4' },
+    'Category 1',
+    'Category 2',
+    'Category 3',
+    'Category 4',
   ]);
 
 
   const [tags, setTag] = React.useState([
-    { title: 'Tag 1' },
-    { title: 'Tag 2' },
-    { title: 'Tag 3' },
-    { title: 'Tag 4' },
+    'Tag 1',
+    'Tag 2',
+    'Tag 3',
+    'Tag 4',
   ]);
 
   const vendors = [
-    { title: 'Nike' },
-    { title: 'Puma' },
-    { title: 'Dominos' },
-    { title: 'Zara' },
+    'Nike',
+    'Puma',
+    'Dominos',
+    'Zara',
   ];
 
-  const country = [
-    { title: 'Country 1' },
-    { title: 'Country 2' },
-    { title: 'Country 3' },
-    { title: 'Country 4' },
-
-  ];
-
-  const city = [
-    { title: 'City 1' },
-    { title: 'City 2' },
-    { title: 'City 3' },
-    { title: 'City 4' },
-    { title: 'City 5' },
-
-  ];
+  const addDiscount = () => {
+    handleClickAlert()
+    console.log(fileName)
+    console.log(description)
+  }
 
   const toggleDrawer = (open: any) => (event: any) => {
     setState(open);
@@ -87,9 +88,14 @@ const AdminPanelCard = () => {
   }
 
   const submitAddress = () => {
-    setAddressInput(false);
-    let addNewAddress = address.concat({ title: newAddress });
-    setAddress(addNewAddress)
+    if (newLocation.newCountry !== '' && newLocation.newCity !== '' && newLocation.newAddress !== '') {
+      setLocation([...location, { key: Math.random(), country: newLocation.newCountry, city: newLocation.newCity, address: newLocation.newAddress }])
+      setNewLocation({
+        newCountry: '',
+        newCity: '',
+        newAddress: '',
+      })
+    }
   }
 
   const cancelAddress = () => {
@@ -101,7 +107,7 @@ const AdminPanelCard = () => {
   }
   const submitCategory = () => {
     setCategoryInput(false);
-    let addNewCategory = category.concat({ title: newCategory });
+    let addNewCategory = category.concat(newCategory);
     setCategory(addNewCategory)
   }
 
@@ -112,9 +118,10 @@ const AdminPanelCard = () => {
   const addTag = () => {
     setTagInput(true)
   }
+
   const submitTag = () => {
     setTagInput(false);
-    let addNewTag = tags.concat({ title: newTag });
+    let addNewTag = tags.concat(newTag);
     setTag(addNewTag)
   }
 
@@ -122,17 +129,13 @@ const AdminPanelCard = () => {
     setTagInput(false);
   }
 
+
+  const setImage = (image: any) => {
+    setFileName(image)
+    setUploadFileName(image.name)
+  }
+
   const useStyles = makeStyles({
-    root: {
-      // "& .MuiButton:hover": {
-      //   backgroundColor: 'red'
-      // },
-      // '.MuiListItem-root': {
-      //   flexDirection: 'column',
-      //   alignItems: 'normal',
-      //   justifyContent: 'normal'
-      // },
-    },
     wrapper: {
       background: '#F7F9FB',
       height: '100%',
@@ -162,7 +165,7 @@ const AdminPanelCard = () => {
     checkbox__label: {
       position: 'relative',
       fontSize: 16,
-      top: '3px'
+      bottom: 5
     },
     marginBottom: {
       marginBottom: 15,
@@ -262,26 +265,6 @@ const AdminPanelCard = () => {
       wrapper: {
         width: '320px'
       },
-      dropzone: {
-        zIndex: 25,
-        opacity: 0,
-        height: 40,
-        width: 131,
-        borderRadius: '0px',
-        position: 'relative',
-        border: 'none',
-        outline: 'none',
-        marginBottom: '-18px'
-      },
-      uploadPhotoMobile: {
-        display: 'flex',
-        fontSize: 15,
-        position: 'relative',
-        bottom: '20px',
-        'span': {
-          position: 'relative'
-        }
-      },
       modal_label: {
         fontSize: 18,
       },
@@ -297,24 +280,65 @@ const AdminPanelCard = () => {
       },
       address_cancel: {
         width: '100%'
+      },
+      uploadPhotoMobile: {
+        display: 'flex',
+        marginBottom: 20,
+        fontSize: 15,
+        'span': {
+          position: 'relative'
+        }
+      },
+      uploadedFileName: {
+        marginTop: '-74px',
+      },
+      dropzone: {
+        width: 134,
+        height: 40,
+        border: 'none',
+        outline: 'none',
+        position: 'relative',
+        top: '-61px',
+        '&:hover': {
+          border: 'none'
+        }
       }
     },
   })
 
   const styles = useStyles();
 
+  const handleDeleteChip = (chipToDelete: ChipData) => () => {
+    setLocation((chips: any) => chips.filter((chip: any) => chip.key !== chipToDelete.key));
+  };
+
+  const [alertState, setAlertState] = React.useState<State>({
+    open: false,
+    vertical: 'top',
+    horizontal: 'right',
+  });
+  const { vertical, horizontal, open } = alertState;
+
+  const handleClickAlert = () => {
+    setAlertState({ ...alertState, open: true });
+  };
+
+  const handleCloseAlert = () => {
+    setAlertState({ ...alertState, open: false });
+  };
+
   const list = () => (
     <List className={styles.wrapper}>
       <ListItem>
-        <form onSubmit={toggleDrawer(false)} className={styles.form}>
+        <form className={styles.form}>
           <Grid container direction='column'>
             <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
               <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 11 }} />
               {t`Back`}
             </div>
             <span className={styles.modal_label}>{t`Add a promotion`}</span>
-            <TextField required className={styles.marginBottom} label={t`Title`} />
-            <AutocompleteMultipleChoise data={category} lab={t`Category`} />
+            <TextField required className={styles.marginBottom} label={t`Title`} onChange={(e: any) => setTitle(e.target.value)} />
+            <AdminSelect name={t`Category`} data={category} multi={true} />
             {categoryInput ?
               <>
                 <TextField className={styles.marginBottom} label={t`Add new category`} onChange={(e: any) => setNewCategory(e.target.value)} />
@@ -324,7 +348,7 @@ const AdminPanelCard = () => {
                 </div>
               </>
               : <span className={styles.address__span} onClick={addCategory}>{t`+ Add new category`}</span>}
-            <AutocompleteMultipleChoise data={tags} lab={t`Tags`} />
+            <AdminSelect name={t`Tags`} data={tags} multi={true} />
             {tagInput ?
               <>
                 <TextField className={styles.marginBottom} label={t`Add new tag`} onChange={(e: any) => setNewTag(e.target.value)} />
@@ -334,33 +358,48 @@ const AdminPanelCard = () => {
                 </div>
               </>
               : <span className={styles.address__span} onClick={addTag}>{t`+ Add new tag`}</span>}
-            <Autocomplete
-              options={vendors}
-              getOptionLabel={(option) => option.title}
-              renderOption={(option: { title: string }, state: AutocompleteRenderOptionState) => (
-                <li {...state}>
-                  {option.title}
-                </li>
-              )}
-              style={{ width: '100%', marginBottom: 15 }}
-              renderInput={(params) => (
-                <TextField {...params} label={t`Vendor name`} required />
-              )}
-            />
+            <AdminSelect name={t`Vendor Name`} data={vendors} multi={false} />
             {disableInput ? '' : (
               <>
-                <AutocompleteMultipleChoise data={country} lab={t`Country`} />
-                <AutocompleteMultipleChoise data={city} lab={t`City`} />
-                <AutocompleteMultipleChoise data={address} lab={t`Address`} />
-                {addressInput ?
-                  <>
-                    <TextField className={styles.marginBottom} label={t`Add an address`} onChange={(e: any) => setNewAddress(e.target.value)} />
-                    <div className={styles.addressButtons}>
-                      <Button onClick={submitAddress} className={styles.address_submit}>{t`Submit`}</Button>
-                      <Button onClick={cancelAddress} className={styles.address_cancel}>{t`Cancel`}</Button>
-                    </div>
-                  </>
-                  : <span className={styles.address__span} onClick={addAddress}>{t`+ Add new address`}</span>}
+                {location.map((data: any) => {
+                  if (data.city && data.country && data.address !== '') {
+                    return (
+                      <li key={data.key}>
+                        <Chip
+                          label={data.country + ', ' + data.city + ', ' + data.address}
+                          variant='outlined'
+                          onDelete={handleDeleteChip(data)}
+                        />
+                      </li>
+                    );
+                  }
+
+                })}
+                <TextField className={styles.marginBottom}
+                  label={t`Country`}
+                  value={newLocation.newCountry}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setNewLocation({ ...newLocation, newCountry: e.target.value })
+                  }}
+                />
+                <TextField className={styles.marginBottom}
+                  label={t`City`}
+                  value={newLocation.newCity}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setNewLocation({ ...newLocation, newCity: e.target.value })
+                  }}
+                />
+
+                <TextField className={styles.marginBottom}
+                  label={t`Address`}
+                  value={newLocation.newAddress}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setNewLocation({ ...newLocation, newAddress: e.target.value })
+                  }}
+                />
+                <div className={styles.addressButtons}>
+                  <Button onClick={submitAddress} className={styles.address_submit}>{t`Submit`}</Button>
+                </div>
               </>
             )}
             <div className={styles.checkbox__wrapper}>
@@ -373,29 +412,37 @@ const AdminPanelCard = () => {
             <TextField className={styles.marginBottom}
               required
               label={t`Discount %`}
+              type='number'
               InputProps={{ inputProps: { min: 0 } }} />
             <TextField className={styles.marginBottom}
               required
               multiline rows={5}
               label={t`Description`}
+              onChange={(e: any) => setDescription(e.target.value)}
               variant="outlined"
               inputProps={{
                 maxLength: 2000,
                 minLength: 50
               }} />
-            <div className={styles.dropzone}>
-            </div>
             <div className={styles.uploadPhotoMobile}>
-              <input type="file"
-                ref={parentRef}
-                className={styles.fileName}
-                id='fileName'
-                accept=".png, .jpg, .jpeg"
-                onChange={(e) => { setUploadFileName(parentRef.current.files[0].name) }} />
-              <button className={styles.uploadFile__btn}>{t`Upload photo`}</button>
+              <button className={styles.uploadFile__btn}>Upload photo</button>
+            </div>
+            <div className={styles.dropzone}>
+              <DropZone uploadPhoto={(image: any) => setImage(image)} />
             </div>
             <span className={styles.uploadedFileName}>{uploadFileName}</span>
-            <Button type='submit' className={styles.submitButton}>{t`Submit`}</Button>
+            <Button className={styles.submitButton} onClick={addDiscount}>{t`Submit`}</Button>
+            <Snackbar
+              anchorOrigin={{ vertical, horizontal }}
+              open={open}
+              onClose={handleCloseAlert}
+              key={vertical + horizontal}
+              autoHideDuration={3000}
+            >
+              <Alert onClose={handleCloseAlert} severity='success'>
+                Promotion was successfully created!
+              </Alert>
+            </Snackbar>
           </Grid>
         </form>
       </ListItem>

@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
 
 const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
     const classes = useStyles()
-    console.log(classes)
     const handleClick = () => {
         const myElement: HTMLElement | null =
             document.querySelector(".ExtendedCard");

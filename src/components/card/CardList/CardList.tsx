@@ -1,5 +1,5 @@
-import React, { useState} from 'react';
-import { SaleCard } from '../../index';
+import React, {Fragment, MouseEvent, useState, useEffect} from 'react';
+import { SaleCard, ModalSearchBar } from '../../index';
 import "./CardList.scss";
 import Pagination from "@material-ui/lab/Pagination";
 import { makeStyles, createStyles } from '@material-ui/core/styles';
@@ -8,8 +8,14 @@ import ExtendedCard from "../../card/ExtendedCard2/ExtendedCard";
 import AdminBtn from '../../admin/AdminBtn/AdminBtn';
 import Sort from "../../common/Sort/Sort";
 import ChipsArray from "../../common/ChipsArray/ChipsArray";
-import { useAppSelector } from "../../../store/Redux-toolkit-hook";
-
+import { useAppSelector, useAppDispatch } from "../../../store/Redux-toolkit-hook";
+import purple from '@material-ui/core/colors/purple';
+import {MAIN_ROUTE, HISTORY_ROUTE} from "../../../utils/consts"
+import {useLocation} from "react-router-dom";
+import Skeleton from '@material-ui/lab/Skeleton';
+import {Spinner} from "../../index";
+import {addDiscounds, setSearchObjectPage} from "../../../store/filtersStore";
+import {getDiscounts} from "../../../http/discountApi";
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -23,9 +29,11 @@ const useStyles = makeStyles((theme) =>
     }),
 );
 
-
 const CardList: React.FC = (props) => {
-
+    const dispatch = useAppDispatch();
+    const {searchObject} = useAppSelector(state=>state.filters);
+    console.log(searchObject)
+    const {pathname} = useLocation();
     const NUMBER_CARD = 15
 
     const [data, setData] = useState([
@@ -50,11 +58,23 @@ const CardList: React.FC = (props) => {
         { id: 19, nameDiscount: 'Samsung', sizeDiscount: "45%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
         { id: 20, nameDiscount: 'Pizza', sizeDiscount: "40%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
 
-    ])
+    ]);
     const classes = useStyles();
     const [page, setPage] = React.useState(1);
-    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        setPage(value);
+    const loadingDiscount = async()=>{
+            const {data} = await getDiscounts(searchObject);
+            dispatch(addDiscounds(data.content));
+        };
+
+    useEffect(()=>{
+        loadingDiscount()
+        setPage(searchObject.page+1)
+    },[searchObject?.page])
+
+
+
+    const handleChange = async (event: React.ChangeEvent<unknown>, value: number) => {
+        dispatch(setSearchObjectPage(value-1));
     };
     const [card, setCard] = React.useState(0);
 
@@ -104,12 +124,12 @@ const CardList: React.FC = (props) => {
                 <ExtendedCard discount={data[card]} />
                 <div className="main-content">
                     <div className={"sort-admin"}>
-                        <Sort />
+                        {pathname===MAIN_ROUTE?<Sort /> : <ModalSearchBar/>}
                         {isAdmin &&
                         <AdminBtn />}
                     </div>
                     <div className={"chips"}>
-                        <ChipsArray />
+                        {!(pathname === HISTORY_ROUTE)&& <ChipsArray />}
                     </div>
                     <Grid container spacing={3} justify="center" >
                         {
@@ -124,10 +144,12 @@ const CardList: React.FC = (props) => {
                         }
                     </Grid>
                     <Grid xs={12} justify="center">
+                         <Grid xs={12} justify="center">
                         <div className={classes.root}>
                             <Pagination count={Math.ceil(data.length / NUMBER_CARD)} variant="outlined"
                                         page={page} onChange={handleChange} />
                         </div>
+                    </Grid>
                     </Grid>
                 </div>
             </div>

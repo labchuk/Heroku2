@@ -71,7 +71,6 @@ export const deleteCategoryId = async (categoryId:string ) =>{
 
 export const getVendorAll = async ( ) =>{
     const {data} = await authHost.get("/vendor");
-    console.log(data);
     return data;
 
 }
@@ -106,32 +105,39 @@ export const uploadImage = async (fd: any) => {
 }
 
 
-export const getVendorLocationAll = async ( ) =>{
-    const data = await authHost.get("/vendor/location");
+
+
+export const getAllVendorLocation = async () =>{
+    const data = await authHost.get(`/vendor/location`);
     return data;
 }
 
-export const getDeletedVendorLocation = async ( ) =>{
-    const data = await authHost.get(`/vendor/location/?isDeleted=true`);
-    return data;
-};
-
-export const postVendorLocation = async ( {country, city, addressLine, vendorId}: IvendorLocation) =>{
-    const data = await authHost.post(`/vendor/location`,{country, city, addressLine, vendorId});
+export const getVendorLocation = async (vendorId:string) =>{
+    const data = await authHost.get(`/vendor/${vendorId}/location`);
     return data;
 }
 
-export const getVendorLocationId = async (idLocation:string, ) =>{
-    const data = await authHost.get(`/vendor/location/${idLocation}`);
+export const getDeletedVendorLocation = async (  vendorid:string) =>{
+    const data = await authHost.get(`/vendor/${vendorid}/location?isDeleted=true`);
     return data;
 };
 
-export const restVendorLocationId = async (idLocation:string, {country, city, addressLine}: IvendorLocation ) =>{
-    const data = await authHost.put(`/vendor/location/${idLocation}`, {country, city, addressLine});
+export const postVendorLocation = async ( {country, city, addressLine, vendorId}: IvendorLocation,) =>{
+    const data = await authHost.post(`/vendor/${vendorId}/location`,{country, city, addressLine, vendorId});
+    return data;
+}
+
+export const getVendorLocationId = async (idLocation:string, idVendor: string) =>{
+    const data = await authHost.get(`/vendor/${idVendor}/location/${idLocation}`);
     return data;
 };
 
-export const deleteVendorLocationId = async (idLocation:string ) =>{
-    const data = await authHost.delete(`/vendor/location/${idLocation}`);
+export const restVendorLocationId = async (idLocation:string, {country, city, addressLine}: IvendorLocation,vendorid:string ) =>{
+    const data = await authHost.put(`/vendor/${vendorid}/location/${idLocation}`, {country, city, addressLine});
+    return data;
+};
+
+export const deleteVendorLocationId = async (idLocation:string,vendorid: string ) =>{
+    const data = await authHost.delete(`/vendor/${vendorid}/location/${idLocation}`);
     return data;
 }
