@@ -30,6 +30,13 @@ export const initialUserState: IinitialUserState={
     searchWord: '',
     searchObject: {
         page: 0,
+        size: 10,
+        vendorIds: [],
+        categoryId: "",
+        country: "",
+        city: "",
+        searchWord: "",
+        subCategoriesIds: [],
     }
 }
 
