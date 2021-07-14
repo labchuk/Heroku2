@@ -15,7 +15,7 @@ import {useAppSelector, useAppDispatch} from "../../../store/Redux-toolkit-hook"
 import { makeStyles } from "@material-ui/core/styles";
 import { t } from 'ttag';
 import {getDiscounts} from "../../../http/discountApi"
-import {setSearchObject, addDiscounds} from "../../../store/filtersStore"
+import {setSearchObject, addDiscounds, setSearchWord} from "../../../store/filtersStore"
 const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: theme.palette.secondary.main,
@@ -25,13 +25,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
-
 const SearchBar =()=>{
     const dispatch = useAppDispatch();
     const arrChips = useAppSelector(state => state.chips);
     const {category, vendorLocation, vendor, searchWord, searchObject} = useAppSelector(state=>state.filters);
-    
+
     const [open, setOpen] =useState<Boolean>(false)
     const getIds = (name: string, array: any): string[]=>{
         const arr = arrChips.ChipsArray.filter(item => item.name=== name).map(item=>item.label);
@@ -45,6 +43,7 @@ const SearchBar =()=>{
     }
 
     useEffect(()=>{
+        console.log(arrChips.ChipsArray)
         dispatch(setSearchObject({
             page: 0,
             size: 15,
@@ -57,7 +56,9 @@ const SearchBar =()=>{
         }))
         handleClick()
     },[arrChips])
-    const handleClick = async() =>  {
+    const handleClick = async(searchWord: string) =>  {
+        searchWord && dispatch(setSearchWord(searchWord));
+        console.log(searchObject)
         const {data} = await getDiscounts(searchObject);
         dispatch(addDiscounds(data.content))
      };
@@ -89,7 +90,9 @@ const SearchBar =()=>{
     return (
         <div className={classes.root}>
         <div className={className} >
+
             <SearchForm handleClick={handleClick}/>
+
             {pathname !== STATISTIC_ROUTE && <div className="containerFavorite">
                 <ControlLabel lable={t`Favorite`} setStateControlLableMy={setStateControlLableMy}/>
                 {pathname===HISTORY_ROUTE &&  <>
@@ -100,12 +103,12 @@ const SearchBar =()=>{
                 </>}
             </div>}
             {pathname !== HISTORY_ROUTE && <>
-                <MySelect data={arrCountry? uniqueArr(arrCountry): []} nameId={"country"}  clName={"location"} name={t`Country`} setAble={setAbleCyti} />
-                <MySelect data={uniqueArr(choiceCity)?uniqueArr(choiceCity):[]}  clName={"location"} nameId={"city"}  name={t`City`}   disabled={!ableCity} helperText={!ableCity? "Please choose country": ""}/>
-                <SelectMultiple data={arrVendorName? arrVendorName: []}  nameId={"vendor"}  clName={"location"}  name={t`Vendor`} />
-                <MySelect data={categoryArr? categoryArr : []}  nameId={"category"}  clName={"location"} name={`Category`} setAble={setAbleSubCategory}/>
-                <SelectMultiple data={arr} clName={"location"} nameId={"subCategory"}  name={t`Sub Category`} disabled={!ableSubCategory} helperText={!ableSubCategory? "Please choose category": ""}/>
-            {pathname === STATISTIC_ROUTE &&  <SelectMultiple data={arr} nameId={"SubCategory"}  clName={"location"} name={t`User`} />}
+                <MySelect data={arrCountry? uniqueArr(arrCountry): []} isCategory={false} clName={"location"} id={'1'} name={`Country`} localName={t`Country`} setAble={setAbleCyti} disabled={false} helperText=''/>
+                <MySelect data={uniqueArr(choiceCity)} clName={"location"} isCategory={true} name={`City`} localName={t`City`} id={'1'}  setAble={()=>{}} disabled={!ableCity} helperText={!ableCity? "Please choose country": ""}/>
+                <SelectMultiple data={arrVendorName? arrVendorName: []} isCategory={false} clName={"location"}  name={`Vendor`} localName={t`Vendor`} disabled={false} helperText={""}/>
+                <MySelect data={categoryArr? categoryArr : []} id={'2'} isCategory={false} clName={"location"} name={`Category`} localName={t`Category`} setAble={setAbleSubCategory} disabled={false} helperText=''/>
+                <SelectMultiple data={arr} clName={"location"} id={'2'} name={`Sub Category`} localName={t`Sub Category`} isCategory={true} disabled={!ableSubCategory} helperText={!ableSubCategory? "Please choose category": ""}/>
+            {pathname === STATISTIC_ROUTE &&  <SelectMultiple data={arr} clName={"location"} name={`User`} localName={t`User`} isCategory={false} disabled={false} helperText={""}/>}
 
             </>}
             {pathname !== MAIN_ROUTE  &&  <ContainerDataPiker />}

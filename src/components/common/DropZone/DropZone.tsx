@@ -4,7 +4,7 @@ import "./DropZone.scss";
 import { t } from 'ttag';
 
 
-function DropZone(props: {uploadPhoto: any}) {
+function DropZone(props: { uploadPhoto: any }) {
     const onDrop = useCallback(acceptedFiles => {
         props.uploadPhoto(acceptedFiles[0])
     }, [])
@@ -23,4 +23,3 @@ function DropZone(props: {uploadPhoto: any}) {
     )
 }
 export default DropZone;
-

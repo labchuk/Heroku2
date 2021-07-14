@@ -35,7 +35,7 @@ const CardList: React.FC = (props) => {
     const {pathname} = useLocation();
     const NUMBER_CARD = 15
 
-     const [data, setData] = useState([
+    const [data, setData] = useState([
         { id: 1, nameDiscount: 'Macdonald', sizeDiscount: "34%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
         { id: 2, nameDiscount: 'Adidas Original', sizeDiscount: "25%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
         { id: 3, nameDiscount: 'Nike', sizeDiscount: "50%", date: '06 May 2021', place: 'Yakuba Kolasa St,37' },
@@ -76,7 +76,7 @@ const CardList: React.FC = (props) => {
         dispatch(setSearchObjectPage(value-1));
     };
     const [card, setCard] = React.useState(0);
-    
+
     const paginateCard = () => {
         let from = (page - 1) * NUMBER_CARD
         let to = from + NUMBER_CARD
@@ -119,7 +119,7 @@ const CardList: React.FC = (props) => {
     };
     const isAdmin = useAppSelector(state => state.user.admine);
 
-    return  (
+    return (
             <div className="card-list">
                 <ExtendedCard discount={data[card]} />
                 <div className="main-content">
