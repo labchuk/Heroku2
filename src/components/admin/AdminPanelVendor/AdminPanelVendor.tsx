@@ -27,8 +27,6 @@ const AdminPanelVendor = () => {
 
     });
     const parentRef = useRef<any>();
-    console.log(fileName)
-    console.log(countryValue)
 
     const setImage = (event: any) => {
         setFileName(event.target.files[0])
@@ -39,7 +37,6 @@ const AdminPanelVendor = () => {
             "file",
             fileName,
         );
-        console.log(fileName);
         return uploadImage(formData)
     }
 
@@ -55,11 +52,8 @@ const AdminPanelVendor = () => {
             vendorId: vendorId
         })
         toggleDrawer(false)
-        console.log(getVendorAll())
     }
 
-    console.log(fileName)
-    console.log(countryValue)
 
 
     const country = [

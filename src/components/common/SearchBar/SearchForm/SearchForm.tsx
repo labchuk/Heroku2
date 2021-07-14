@@ -17,14 +17,21 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const SearchForm = () => {
+const SearchForm = ({handleClick}:{handleClick:any}) => {
   const dispatch = useAppDispatch();
     const classes = useStyles();
+    const [state, setState] = useState<String>('')
+    const click =() =>{
+      dispatch(setSearchWord(state));
+      handleClick()
+      setState("")
+    }
+
     return (
        <form action="#"   noValidate autoComplete="off" className={classes.root}>
             <div className="searchForm" >
-             <TextField id="outlined-search" label={t`Search`} type="search" variant="outlined" onChange={(e: React.ChangeEvent<{ value: any }>) => dispatch(setSearchWord( e.target.value ))} size="small"/>
-             <button type="submit"> <Search/> </button> 
+             <TextField id="outlined-search" label={t`Search`} type="search" variant="outlined" onChange={(e: React.ChangeEvent<{ value: any }>) => setState(e.target.value)} size="small"/>
+             <button type="submit" onClick={click}> <Search/> </button> 
              </div>
             
             

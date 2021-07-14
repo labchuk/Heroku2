@@ -13,7 +13,6 @@ const MySelect = ({clName,data,name, setAble, disabled, helperText, nameId}:{ na
 
     const handleChange = (event: React.ChangeEvent<{ value: any }>, index: any) => {
         const numberChip = event.target.value
-        console.log()
         const indexChip = index.key.slice(2)
         const newChip = { id: name + indexChip, label: numberChip, name: nameId }
         dispatch(addChip(newChip))

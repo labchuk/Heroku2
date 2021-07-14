@@ -107,6 +107,10 @@ export const uploadImage = async (fd: any) => {
 
 
 
+export const getAllVendorLocation = async () =>{
+    const data = await authHost.get(`/vendor/location`);
+    return data;
+}
 
 export const getVendorLocation = async (vendorId:string) =>{
     const data = await authHost.get(`/vendor/${vendorId}/location`);
@@ -118,8 +122,8 @@ export const getDeletedVendorLocation = async (  vendorid:string) =>{
     return data;
 };
 
-export const postVendorLocation = async ( {country, city, addressLine, vendorId}: IvendorLocation, vendorid:string) =>{
-    const data = await authHost.post(`/vendor/${vendorid}/location`,{country, city, addressLine, vendorId});
+export const postVendorLocation = async ( {country, city, addressLine, vendorId}: IvendorLocation,) =>{
+    const data = await authHost.post(`/vendor/${vendorId}/location`,{country, city, addressLine, vendorId});
     return data;
 }
 

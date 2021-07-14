@@ -55,12 +55,11 @@ const SearchBar =()=>{
             searchWord: searchWord,
             subCategoryIds: [],
         }))
+        handleClick()
     },[arrChips])
     const handleClick = async() =>  {
-        setOpen(true)
         const {data} = await getDiscounts(searchObject);
         dispatch(addDiscounds(data.content))
-        setOpen(false)
      };
     const [ableSubCategory, setAbleSubCategory] = useState<String>("");
     const [ableCity, setAbleCyti] = useState();
@@ -82,7 +81,6 @@ const SearchBar =()=>{
         setStateControlLabel({...stateControlLabel, [name]: state})
     }
     const arr: string[] = ["aaaaaaa","dddddddddddd","sssssssssss"].map(item=>firsLetterToUpperCase(item));
-
     const arrVendorName =vendor?.map(item=>firsLetterToUpperCase(item.name));
     const arrCountry = vendorLocation?.map(item=>firsLetterToUpperCase(item.country))
     const uniqueArr = (arr:string[]) => Array.from(new Set(arr));
@@ -91,7 +89,7 @@ const SearchBar =()=>{
     return (
         <div className={classes.root}>
         <div className={className} >
-            <SearchForm/>
+            <SearchForm handleClick={handleClick}/>
             {pathname !== STATISTIC_ROUTE && <div className="containerFavorite">
                 <ControlLabel lable={t`Favorite`} setStateControlLableMy={setStateControlLableMy}/>
                 {pathname===HISTORY_ROUTE &&  <>
@@ -111,7 +109,6 @@ const SearchBar =()=>{
 
             </>}
             {pathname !== MAIN_ROUTE  &&  <ContainerDataPiker />}
-            <Submitbutton name={t`Apply`} handleClick={handleClick} classN={"submit"} setOpen={setOpen} open={open}/>
         </div>
         </div>
 
