@@ -73,7 +73,7 @@ const AdminPanelVendor = () => {
         return uploadImage(formData)
     }
 
-    const addVendor = async () => {
+     const addVendor = async () => {
         const logo = await addLogoVendor()
         const logoURL = logo?.data.message
         const vendor = await postVendor({ name: data.name, description: data.description, email: data.email, image: logoURL })
@@ -92,6 +92,7 @@ const AdminPanelVendor = () => {
     const toggleDrawer = (open: any) => (event: any) => {
         setState(open);
     }
+
 
 
     const submitAddress = () => {

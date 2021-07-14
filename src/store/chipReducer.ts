@@ -27,7 +27,7 @@ const chipReducer = createSlice({
     initialState: initialUserState,
     reducers: {
         addChipMain(state, actions: PayloadAction<any>) {
-            console.log(state.ChipsArray)
+            
             state.ChipsArray = AddChip(state.ChipsArray,actions)
         },
         addChipStatistic(state, actions: PayloadAction<any>) {
@@ -67,7 +67,6 @@ export const AddChip = (df:any,actions:any) => {
 }
 export const removeChip = (chip:any,actions:any) => {
     if (actions.payload.isCategory === true){
-        console.log('ff')
         return [...chip.map((item:any)=>{
             if (item.id === actions.payload.id){
                 return {[Object.keys(item)[0]]:[],name: item.name, id:item.id}

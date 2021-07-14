@@ -17,7 +17,6 @@ interface IinitialUserState {
     vendorLocation: any[],
     subCategory: any[],
     discounds: any[],
-    searchWord: string,
     searchObject: IdiscountFilter
 }
 
@@ -27,11 +26,11 @@ export const initialUserState: IinitialUserState={
     vendorLocation: [],
     subCategory: [],
     discounds: [],
-    searchWord: '',
+
     searchObject: {
         page: 0,
-        size: 10,
-        vendorIds: [],
+        size: 15,
+        vendorIds:[],
         categoryId: "",
         country: "",
         city: "",
@@ -45,13 +44,13 @@ const filtersReducer = createSlice({
     initialState: initialUserState,
     reducers: {
         setSearchObject(state, actions: PayloadAction<any>) {
-            state.searchObject = actions.payload;
+            state.searchObject = {...state.searchObject, ...actions.payload};
         },
         setSearchObjectPage(state, actions: PayloadAction<number>) {
             state.searchObject.page = actions.payload;
         },
         setSearchWord(state, actions: PayloadAction<any>) {
-            state.searchWord = actions.payload;
+            state.searchObject.searchWord = actions.payload;
         },
         addCategory(state, actions: PayloadAction<any>) {
             state.category = [...actions.payload];
