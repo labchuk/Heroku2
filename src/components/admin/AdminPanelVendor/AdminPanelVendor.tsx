@@ -61,6 +61,7 @@ const AdminPanelVendor = () => {
             description: '',
             name: '',
         })
+        setLocation([])
     }
 
     const addLogoVendor = () => {
@@ -344,7 +345,6 @@ const AdminPanelVendor = () => {
                                 setNewLocation({ ...newLocation, newAddress: e.target.value })
                             }}
                         />
-
                         <div className={styles.addressButtons}>
                             <Button onClick={submitAddress} className={styles.address_submit}>{t`Submit`}</Button>
                         </div>
