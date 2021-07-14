@@ -15,7 +15,7 @@ import {useAppSelector, useAppDispatch} from "../../../store/Redux-toolkit-hook"
 import { makeStyles } from "@material-ui/core/styles";
 import { t } from 'ttag';
 import {getDiscounts} from "../../../http/discountApi"
-import {setSearchObject, addDiscounds} from "../../../store/filtersStore"
+import {setSearchObject, addDiscounds, setSearchWord} from "../../../store/filtersStore"
 const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: theme.palette.secondary.main,
@@ -43,6 +43,7 @@ const SearchBar =()=>{
     }
 
     useEffect(()=>{
+        console.log(arrChips.ChipsArray)
         dispatch(setSearchObject({
             page: 0,
             size: 15,
@@ -53,12 +54,13 @@ const SearchBar =()=>{
             searchWord: searchWord,
             subCategoryIds: [],
         }))
+        handleClick()
     },[arrChips])
-    const handleClick = async() =>  {
-        setOpen(true)
+    const handleClick = async(searchWord: string) =>  {
+        searchWord && dispatch(setSearchWord(searchWord));
+        console.log(searchObject)
         const {data} = await getDiscounts(searchObject);
         dispatch(addDiscounds(data.content))
-        setOpen(false)
      };
     const [ableSubCategory, setAbleSubCategory] = useState<String>("");
     const [ableCity, setAbleCyti] = useState();
@@ -80,7 +82,6 @@ const SearchBar =()=>{
         setStateControlLabel({...stateControlLabel, [name]: state})
     }
     const arr: string[] = ["aaaaaaa","dddddddddddd","sssssssssss"].map(item=>firsLetterToUpperCase(item));
-
     const arrVendorName =vendor?.map(item=>firsLetterToUpperCase(item.name));
     const arrCountry = vendorLocation?.map(item=>firsLetterToUpperCase(item.country))
     const uniqueArr = (arr:string[]) => Array.from(new Set(arr));
@@ -89,7 +90,9 @@ const SearchBar =()=>{
     return (
         <div className={classes.root}>
         <div className={className} >
-            <SearchForm />
+
+            <SearchForm handleClick={handleClick}/>
+
             {pathname !== STATISTIC_ROUTE && <div className="containerFavorite">
                 <ControlLabel lable={t`Favorite`} setStateControlLableMy={setStateControlLableMy}/>
                 {pathname===HISTORY_ROUTE &&  <>
@@ -109,7 +112,6 @@ const SearchBar =()=>{
 
             </>}
             {pathname !== MAIN_ROUTE  &&  <ContainerDataPiker />}
-            <Submitbutton name={t`Apply`} handleClick={(e:any)=>{}} classN={"submit"}/>
         </div>
         </div>
 

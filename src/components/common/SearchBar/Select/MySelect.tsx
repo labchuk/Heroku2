@@ -18,10 +18,18 @@ const MySelect = ({clName,data, id, name, localName, setAble, isCategory, disabl
 
     const handleChange = (event: React.ChangeEvent<{ value: any }>, index: any) => {
         const numberChip = event.target.value
+// <<<<<<< HEAD
+//         const indexChip = index.key.slice(2)
+//         const newChip = { id: name + indexChip, label: numberChip, name: nameId }
+//         dispatch(addChip(newChip))
+//         if (numberChip) {
+//             const indexRemove = data.indexOf(age)
+//             dispatch(removeChip(name + indexRemove))
+// =======
         const newChip = {[numberChip]: [], name: name, id: id}
         if (pathname === MAIN_ROUTE){
             if (isCategory){
-                dispatch(removeCategoryMain({name: numberChip, id: id, isCategory}))
+                dispatch(removeCategoryMain({name: numberChip, id: id, isCategory, }))
                 dispatch(addChipMain([numberChip, id]))
             }
             else {
@@ -42,6 +50,7 @@ const MySelect = ({clName,data, id, name, localName, setAble, isCategory, disabl
             }
             setAge(event.target.value);
             setAble(event.target.value)
+
         }
 
     };

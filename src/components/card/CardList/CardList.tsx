@@ -59,13 +59,10 @@ const CardList: React.FC = (props) => {
 
     ]);
     const classes = useStyles();
-    const [open,setOpen] = useState<Boolean>(false);
     const [page, setPage] = React.useState(1);
     const loadingDiscount = async()=>{
-            setOpen(true);
             const {data} = await getDiscounts(searchObject);
             dispatch(addDiscounds(data.content));
-            setOpen(false);
         };
 
     useEffect(()=>{
@@ -151,7 +148,6 @@ const CardList: React.FC = (props) => {
                         <div className={classes.root}>
                             <Pagination count={Math.ceil(data.length / NUMBER_CARD)} variant="outlined"
                                         page={page} onChange={handleChange} />
-                                        <Spinner open={open}/>
                         </div>
                     </Grid>
                     </Grid>

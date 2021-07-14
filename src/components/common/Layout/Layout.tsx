@@ -29,7 +29,6 @@ const FullWidthGrid = (props: any) => {
     const filterClick = () => {
         const myElement: HTMLElement | null = document.querySelector(".filterBar");
         if (myElement === null) {
-            console.log("no element");
         } else {
             myElement.classList.toggle("open");
         }
