@@ -26,6 +26,7 @@ export const initialUserState: IinitialUserState={
     vendorLocation: [],
     subCategory: [],
     discounds: [],
+
     searchObject: {
         page: 0,
         size: 15,

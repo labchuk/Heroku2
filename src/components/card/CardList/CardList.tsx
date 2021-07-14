@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) =>
 const CardList: React.FC = (props) => {
     const dispatch = useAppDispatch();
     const {searchObject} = useAppSelector(state=>state.filters);
+    console.log(searchObject)
     const {pathname} = useLocation();
     const NUMBER_CARD = 15
 
@@ -68,7 +69,7 @@ const CardList: React.FC = (props) => {
     useEffect(()=>{
         loadingDiscount()
         setPage(searchObject.page+1)
-    },[searchObject.page])
+    },[searchObject?.page])
 
 
 
