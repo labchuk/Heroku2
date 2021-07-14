@@ -373,9 +373,9 @@ const AdminPanelVendor = () => {
                             <DropZone uploadPhoto={(image: any) => setImage(image)} />
                         </div>
                         <span className={styles.uploadedFileName}>{uploadFileName}</span>
-
                         <Button onClick={addVendor}
-                            className={styles.submitButton}>{t`Submit`}</Button>
+                            className={styles.submitButton}>{t`Submit`}
+                        </Button>
                         <Snackbar
                             anchorOrigin={{ vertical, horizontal }}
                             open={open}

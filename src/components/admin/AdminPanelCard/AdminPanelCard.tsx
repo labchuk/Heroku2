@@ -1,4 +1,4 @@
-import { Checkbox, Chip, ListItem, SnackbarOrigin } from '@material-ui/core';
+import { Checkbox, Chip, ListItem, Snackbar, SnackbarOrigin } from '@material-ui/core';
 import { Drawer, List } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import "./AdminPanelCard.scss";
 import { t } from 'ttag';
 import AdminSelect from '../AdminSelect';
+import { Alert } from '@material-ui/lab';
 
 
 interface State extends SnackbarOrigin {
@@ -32,10 +33,12 @@ const AdminPanelCard = () => {
   const [categoryInput, setCategoryInput] = React.useState(false);
   const [tagInput, setTagInput] = React.useState(false);
   const [uploadFileName, setUploadFileName] = React.useState();
-  const [newAddress, setNewAddress] = React.useState('');
   const [newCategory, setNewCategory] = React.useState('');
   const [newTag, setNewTag] = React.useState('');
   const [fileName, setFileName] = React.useState<string | Blob>('');
+
+  const [title, setTitle] = React.useState();
+  const [description, setDescription] = React.useState();
 
   const [location, setLocation] = React.useState<any[]>([])
   const [newLocation, setNewLocation] = React.useState({
@@ -43,16 +46,6 @@ const AdminPanelCard = () => {
     newCity: '',
     newAddress: '',
   });
-
-
-  const [address, setAddress] = React.useState([
-    'Chornovola Str, 27',
-    'Yakuba Kolasa Str, 37',
-    'Horodotska Str, 7a',
-    'Rynok Sqr, 1',
-    'Mazepy Str, 1a',
-    'Warshavska Str, 127',
-  ]);
 
   const [category, setCategory] = React.useState([
     'Category 1',
@@ -76,22 +69,11 @@ const AdminPanelCard = () => {
     'Zara',
   ];
 
-  const country = [
-    'Country 1',
-    'Country 2',
-    'Country 3',
-    'Country 4',
-
-  ];
-
-  const city = [
-    'City 1',
-    'City 2',
-    'City 3',
-    'City 4',
-    'City 5',
-
-  ];
+  const addDiscount = () => {
+    handleClickAlert()
+    console.log(fileName)
+    console.log(description)
+  }
 
   const toggleDrawer = (open: any) => (event: any) => {
     setState(open);
@@ -116,10 +98,6 @@ const AdminPanelCard = () => {
     }
   }
 
-  //LOCATION ARRAY OF OBJECTS
-  // console.log(location)
-
-
   const cancelAddress = () => {
     setAddressInput(false);
   }
@@ -140,6 +118,7 @@ const AdminPanelCard = () => {
   const addTag = () => {
     setTagInput(true)
   }
+
   const submitTag = () => {
     setTagInput(false);
     let addNewTag = tags.concat(newTag);
@@ -333,6 +312,21 @@ const AdminPanelCard = () => {
     setLocation((chips: any) => chips.filter((chip: any) => chip.key !== chipToDelete.key));
   };
 
+  const [alertState, setAlertState] = React.useState<State>({
+    open: false,
+    vertical: 'top',
+    horizontal: 'right',
+  });
+  const { vertical, horizontal, open } = alertState;
+
+  const handleClickAlert = () => {
+    setAlertState({ ...alertState, open: true });
+  };
+
+  const handleCloseAlert = () => {
+    setAlertState({ ...alertState, open: false });
+  };
+
   const list = () => (
     <List className={styles.wrapper}>
       <ListItem>
@@ -343,7 +337,7 @@ const AdminPanelCard = () => {
               {t`Back`}
             </div>
             <span className={styles.modal_label}>{t`Add a promotion`}</span>
-            <TextField required className={styles.marginBottom} label={t`Title`} />
+            <TextField required className={styles.marginBottom} label={t`Title`} onChange={(e: any) => setTitle(e.target.value)} />
             <AdminSelect name={t`Category`} data={category} multi={true} />
             {categoryInput ?
               <>
@@ -354,8 +348,6 @@ const AdminPanelCard = () => {
                 </div>
               </>
               : <span className={styles.address__span} onClick={addCategory}>{t`+ Add new category`}</span>}
-
-
             <AdminSelect name={t`Tags`} data={tags} multi={true} />
             {tagInput ?
               <>
@@ -426,6 +418,7 @@ const AdminPanelCard = () => {
               required
               multiline rows={5}
               label={t`Description`}
+              onChange={(e: any) => setDescription(e.target.value)}
               variant="outlined"
               inputProps={{
                 maxLength: 2000,
@@ -438,7 +431,18 @@ const AdminPanelCard = () => {
               <DropZone uploadPhoto={(image: any) => setImage(image)} />
             </div>
             <span className={styles.uploadedFileName}>{uploadFileName}</span>
-            <Button className={styles.submitButton}>{t`Submit`}</Button>
+            <Button className={styles.submitButton} onClick={addDiscount}>{t`Submit`}</Button>
+            <Snackbar
+              anchorOrigin={{ vertical, horizontal }}
+              open={open}
+              onClose={handleCloseAlert}
+              key={vertical + horizontal}
+              autoHideDuration={3000}
+            >
+              <Alert onClose={handleCloseAlert} severity='success'>
+                Promotion was successfully created!
+              </Alert>
+            </Snackbar>
           </Grid>
         </form>
       </ListItem>
