@@ -28,7 +28,9 @@ export const initialUserState: IinitialUserState={
     subCategory: [],
     discounds: [],
     searchWord: '',
-    searchObject: {}
+    searchObject: {
+        page: 0,
+    }
 }
 
 const filtersReducer = createSlice({
