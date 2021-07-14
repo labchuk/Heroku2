@@ -8,10 +8,10 @@ interface Idiscount{
     imageLink:string;
     startDate:string;
     endDate: string;
-    subCategories: string[];
-    locations: string[];
+    subCategoryIds: string[];
+    locationIds: string[];
     categoryId: string;
-    percent: number;
+    percentage: number;
 }
 
 interface IdiscountFilter{
@@ -36,10 +36,12 @@ export const getDiscountById = async ( idDiscount: string) =>{
 };
 
 export const getDiscounts = async (obj:IdiscountFilter ) =>{
-    const {page,size,vendorIds,categoryId,country,city,searchWord,subCategoriesIds} = obj;
     const arrObj = Object.entries(obj);
     const string = arrObj.reduce((previousValue, item) => {
         let str =``
+        if(item[1] === undefined){
+            return previousValue;
+        }
         if(Array.isArray(item[1])){
           item[1].forEach(i =>{
             str +=`${item[0]}=${i}&`;
@@ -52,3 +54,4 @@ export const getDiscounts = async (obj:IdiscountFilter ) =>{
     const data = await authHost.get(string.slice(0,string.length-1));
     return data;
 };
+

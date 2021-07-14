@@ -78,12 +78,12 @@ const AdminPanelVendor = () => {
         const logoURL = logo?.data.message
         const vendor = await postVendor({ name: data.name, description: data.description, email: data.email, image: logoURL })
         const vendorId = vendor.data.id
-        const vendorLocation = await postVendorLocation({
-            country: newLocation.newCountry,
-            city: newLocation.newCity,
-            addressLine: newLocation.newAddress,
+        location.forEach(l => postVendorLocation({
+            country: l.country,
+            city: l.city,
+            addressLine: l.address,
             vendorId: vendorId
-        })
+            }))
         console.log(getVendorAll())
         clearForm()
         handleClickAlert()
@@ -305,10 +305,10 @@ const AdminPanelVendor = () => {
                         </div>
                         <span className={styles.modal_label}>{t`Add a vendor`}</span>
                         <TextField className={styles.marginBottom}
-                            value={data.name}
-                            required
-                            label={t`Name`}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, name: e.target.value })} />
+                                   value={data.name}
+                                   required
+                                   label={t`Name`}
+                                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, name: e.target.value })} />
                         {location.map((data: any) => {
                             if (data.city && data.country && data.address !== '') {
                                 return (
@@ -324,48 +324,48 @@ const AdminPanelVendor = () => {
 
                         })}
                         <TextField className={styles.marginBottom}
-                            label={t`Country`}
-                            value={newLocation.newCountry}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                setNewLocation({ ...newLocation, newCountry: e.target.value })
-                            }}
+                                   label={t`Country`}
+                                   value={newLocation.newCountry}
+                                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                       setNewLocation({ ...newLocation, newCountry: e.target.value })
+                                   }}
                         />
                         <TextField className={styles.marginBottom}
-                            label={t`City`}
-                            value={newLocation.newCity}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                setNewLocation({ ...newLocation, newCity: e.target.value })
-                            }}
+                                   label={t`City`}
+                                   value={newLocation.newCity}
+                                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                       setNewLocation({ ...newLocation, newCity: e.target.value })
+                                   }}
                         />
 
                         <TextField className={styles.marginBottom}
-                            label={t`Address`}
-                            value={newLocation.newAddress}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                setNewLocation({ ...newLocation, newAddress: e.target.value })
-                            }}
+                                   label={t`Address`}
+                                   value={newLocation.newAddress}
+                                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                       setNewLocation({ ...newLocation, newAddress: e.target.value })
+                                   }}
                         />
                         <div className={styles.addressButtons}>
                             <Button onClick={submitAddress} className={styles.address_submit}>{t`Submit`}</Button>
                         </div>
                         <TextField className={styles.marginBottom}
-                            value={data.email}
-                            label={t`E-mail`}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, email: e.target.value })}
-                            required
+                                   value={data.email}
+                                   label={t`E-mail`}
+                                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, email: e.target.value })}
+                                   required
                         />
                         <TextField className={styles.marginBottom}
-                            value={data.description}
-                            required
-                            multiline
-                            rows={5}
-                            label={t`Description`}
-                            variant="outlined"
-                            inputProps={{
-                                maxLength: 200,
-                                minLength: 50
-                            }}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, description: e.target.value })} />
+                                   value={data.description}
+                                   required
+                                   multiline
+                                   rows={5}
+                                   label={t`Description`}
+                                   variant="outlined"
+                                   inputProps={{
+                                       maxLength: 200,
+                                       minLength: 50
+                                   }}
+                                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, description: e.target.value })} />
                         <div className={styles.uploadPhotoMobile}>
                             <button className={styles.uploadFile__btn}>{t`Upload photo`}</button>
                         </div>
@@ -376,6 +376,7 @@ const AdminPanelVendor = () => {
                         <Button onClick={addVendor}
                             className={styles.submitButton}>{t`Submit`}
                         </Button>
+
                         <Snackbar
                             anchorOrigin={{ vertical, horizontal }}
                             open={open}
@@ -396,8 +397,8 @@ const AdminPanelVendor = () => {
         <div>
             <button onClick={toggleDrawer(true)} className={styles.adminModalButton}>{t`Add a vendor`}</button>
             <Drawer anchor={'right'}
-                open={state}
-                onClose={toggleDrawer(false)}>
+                    open={state}
+                    onClose={toggleDrawer(false)}>
                 <div>
                     {list()}
                 </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {Filter, } from "../../index";
+import ChipsArray from "../../common/ChipsArray/ChipsArray";
 
 import {  StatisticInformation,  ModalSearchBar} from "../../index";
 import "./StatisticPage.scss";
@@ -11,6 +12,7 @@ const StatisticPage = () => {
         
         <div className={"statistic"}>
             <ModalSearchBar/>
+            <ChipsArray/>
            <StatisticInformation/>
            
         </div>
