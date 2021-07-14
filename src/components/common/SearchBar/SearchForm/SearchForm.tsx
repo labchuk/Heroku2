@@ -19,18 +19,18 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const SearchForm = ({handleClick}:{handleClick:any}) => {
   const dispatch = useAppDispatch();
+  const {searchObject} = useAppSelector(state=>state.filters)
     const classes = useStyles();
     const [state, setState] = useState<String>('')
     const click =() =>{
-      // dispatch(setSearchWord(state));
-      handleClick(state);
+      dispatch(setSearchWord(state));
     }
 
     return (
        <form action="#"   noValidate autoComplete="off" className={classes.root}>
             <div className="searchForm" >
              <TextField id="outlined-search" label={t`Search`} value={state} type="search" variant="outlined" onChange={(e: React.ChangeEvent<{ value: any }>) => setState(e.target.value)} size="small"/>
-             <button type="submit" onClick={click}> <Search/> </button> 
+             <button  onClick={click}> <Search/> </button> 
              </div>
             
             

@@ -28,11 +28,19 @@ const useStyles = makeStyles((theme) => ({
 const SearchBar =()=>{
     const dispatch = useAppDispatch();
     const arrChips = useAppSelector(state => state.chips);
-    const {category, vendorLocation, vendor, searchWord, searchObject} = useAppSelector(state=>state.filters);
+    const {category, vendorLocation, vendor,  searchObject} = useAppSelector(state=>state.filters);
+    
+    const arrCountry = vendorLocation?.map(item=>firsLetterToUpperCase(item.country))
+    const uniqueArr = (arr:string[]) => Array.from(new Set(arr));
+    const categoryArr = category?.filter((item: any)=> item.deleted === false).map(item=> firsLetterToUpperCase(item.name));
+    const arr: string[] = ["aaaaaaa","dddddddddddd","sssssssssss"].map(item=>firsLetterToUpperCase(item));
+    const arrVendorName =vendor?.map(item=>firsLetterToUpperCase(item.name));
 
-    const [open, setOpen] =useState<Boolean>(false)
     const getIds = (name: string, array: any): string[]=>{
-        const arr = arrChips.ChipsArray.filter(item => item.name=== name).map(item=>item.label);
+        if(name==="Category"){
+            return arrChips.ChipsArray.filter(item => item.name=== "Category").map(item=> Object.keys(item)[0]);
+        }
+        const arr = arrChips.ChipsArray.filter(item => item.name=== name).map(item=> Object.keys(item)[0])
         const arrid:string[] = [];
         arr.forEach(item => {
             array.forEach(i => {
@@ -43,21 +51,19 @@ const SearchBar =()=>{
     }
 
     useEffect(()=>{
-        console.log(arrChips.ChipsArray)
+
         dispatch(setSearchObject({
             page: 0,
             size: 15,
-            city: arrChips.ChipsArray.filter(item => item.name==="city").map(item=>item.label),
-            country: arrChips.ChipsArray.filter(item => item.name==="country").map(item=>item.label),
-            vendorIds: getIds("vendor", vendor),
-            categoryId: getIds("category", category),
-            searchWord: searchWord,
+            city: arrChips.ChipsArray.filter(item => item.name=== "Country").map(item=> Object.values(item)[0]),
+            country: arrChips.ChipsArray.filter(item => item.name=== "Country").map(item=> Object.keys(item)[0]),
+            vendorIds: getIds("Vendor", vendor),
+            categoryId:  arrChips.ChipsArray.filter(item => item.name=== "Category").map(item=> Object.keys(item)[0]),
             subCategoryIds: [],
         }))
         handleClick()
-    },[arrChips])
-    const handleClick = async(searchWord: string) =>  {
-        searchWord && dispatch(setSearchWord(searchWord));
+    },[arrChips,searchObject.searchWord])
+    const handleClick = async() =>  {
         console.log(searchObject)
         const {data} = await getDiscounts(searchObject);
         dispatch(addDiscounds(data.content))
@@ -81,11 +87,8 @@ const SearchBar =()=>{
     const setStateControlLableMy = (name: string, state:boolean) =>{
         setStateControlLabel({...stateControlLabel, [name]: state})
     }
-    const arr: string[] = ["aaaaaaa","dddddddddddd","sssssssssss"].map(item=>firsLetterToUpperCase(item));
-    const arrVendorName =vendor?.map(item=>firsLetterToUpperCase(item.name));
-    const arrCountry = vendorLocation?.map(item=>firsLetterToUpperCase(item.country))
-    const uniqueArr = (arr:string[]) => Array.from(new Set(arr));
-    const categoryArr = category?.filter((item: any)=> item.deleted === false).map(item=> firsLetterToUpperCase(item.name));
+    
+    
     const className = pathname === STATISTIC_ROUTE || pathname === HISTORY_ROUTE ? "container-searchbar modal-searchBar": "container-searchbar";
     return (
         <div className={classes.root}>
@@ -103,7 +106,7 @@ const SearchBar =()=>{
                 </>}
             </div>}
             {pathname !== HISTORY_ROUTE && <>
-                <MySelect data={arrCountry? uniqueArr(arrCountry): []} isCategory={false} clName={"location"} id={'1'} name={`Country`} localName={t`Country`} setAble={setAbleCyti} disabled={false} helperText=''/>
+                <MySelect data={arrCountry? uniqueArr(arrCountry):[]} isCategory={false} clName={"location"} id={'1'} name={`Country`} localName={t`Country`} setAble={setAbleCyti} disabled={false} helperText=''/>
                 <MySelect data={uniqueArr(choiceCity)} clName={"location"} isCategory={true} name={`City`} localName={t`City`} id={'1'}  setAble={()=>{}} disabled={!ableCity} helperText={!ableCity? "Please choose country": ""}/>
                 <SelectMultiple data={arrVendorName? arrVendorName: []} isCategory={false} clName={"location"}  name={`Vendor`} localName={t`Vendor`} disabled={false} helperText={""}/>
                 <MySelect data={categoryArr? categoryArr : []} id={'2'} isCategory={false} clName={"location"} name={`Category`} localName={t`Category`} setAble={setAbleSubCategory} disabled={false} helperText=''/>
@@ -117,5 +120,5 @@ const SearchBar =()=>{
 
     );
 };
-
+// arrCountry? uniqueArr(arrCountry): ,uniqueArr(choiceCity), categoryArr? categoryArr : []
 export default SearchBar;

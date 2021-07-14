@@ -39,7 +39,7 @@ export const getDiscounts = async (obj:IdiscountFilter ) =>{
     const arrObj = Object.entries(obj);
     const string = arrObj.reduce((previousValue, item) => {
         let str =``
-        if(item[1] === undefined){
+        if(item[1] === undefined||item[1]===""){
             return previousValue;
         }
         if(Array.isArray(item[1])){
@@ -51,6 +51,7 @@ export const getDiscounts = async (obj:IdiscountFilter ) =>{
         } 
         return previousValue += str;
     },`/discount/get_discounts?`);
+    console.log(string.slice(0,string.length-1))
     const data = await authHost.get(string.slice(0,string.length-1));
     return data;
 };

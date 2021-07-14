@@ -58,7 +58,7 @@ export default function ChipsArray() {
     return (
         <Paper component="ul" className={classes.root}>
             {ListChips() ? ListChips().map((item,index) => {
-                console.log(item[Object.keys(item)[0]])
+                
                 return (
                     <Fragment key={index}>
                         <li key={index}>
