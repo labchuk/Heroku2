@@ -6,6 +6,9 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AdminEditCardPanel from '../../admin/AdminEditCardPanel/AdminEditCardPanel';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { makeStyles, Popover } from '@material-ui/core';
+import ModalDeletionPromo from "../../common/ModalDeletionPromo/ModalDeletionPromo";
+import SnackbarForDelPromo from "../../common/SnackbarForDelPromo/SnackbarForDelPromo";
+
 
 interface LikeProps {
     discount?: {
@@ -28,6 +31,15 @@ interface LikeProps {
 
 const Like: FC<LikeProps> = (props) => {
 
+    const [openModal, setOpenModal] = useState(false);
+    const [openSnackbar, setSnackbar] = useState(false);
+
+
+    const heandlerDeleteCard = () => {
+        deleteCard(props.discount);
+        setSnackbar(true);
+    }
+
     const deleteCard = (currentCard: any) => {
         const filteredArr = props.cards.filter((item: any) => item.id !== currentCard.id);
         props.updateData(filteredArr)
@@ -41,6 +53,8 @@ const Like: FC<LikeProps> = (props) => {
     const handleLike = () => {
         setLike(prev => !prev)
     }
+
+
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
@@ -77,6 +91,8 @@ const Like: FC<LikeProps> = (props) => {
 
     return (
         <Fragment>
+
+
             <div className="card-buttons">
                 <button className="card-buttons__item" onClick={handleLike}>
                     <svg id="svg1" width="30px" height="28px" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="heart"
@@ -142,7 +158,11 @@ const Like: FC<LikeProps> = (props) => {
                         <AdminEditCardPanel currentCard={props.discount}
                             style={{ fontSize: 30, position: 'relative', bottom: '5px' }} />
                         <DeleteOutlineIcon style={{ color: '#d32f2f', fontSize: 30, cursor: 'pointer' }}
-                            onClick={() => deleteCard(props.discount)} />
+                           /* onClick={() => deleteCard(props.discount)} />*/
+                            onClick={()=> {setOpenModal(true)}} />
+
+
+
                     </Popover>
                 </div>
                 <button className="card-buttons__info" onClick={handleChang}>
@@ -177,10 +197,13 @@ const Like: FC<LikeProps> = (props) => {
                     </button>
                     <button className="card-more__item" onClick={()=>{}}>
                         <DeleteOutlineIcon style={{ color: '#d32f2f', fontSize: 30 }} onClick={() => deleteCard(props.discount)} />
+
                     </button>
                 </Popover>
             </div>
 
+                <ModalDeletionPromo setModalState={setOpenModal} modalState={openModal} action={heandlerDeleteCard}/>
+                <SnackbarForDelPromo setSnackbar={setSnackbar} snackbarState={openSnackbar}/>
         </Fragment >
     );
 };

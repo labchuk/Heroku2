@@ -17,6 +17,7 @@ const MainPage = () => {
     },[]);
  return (
         <div className={"homepage"}>
+
             <Layout />
         </div>
     );

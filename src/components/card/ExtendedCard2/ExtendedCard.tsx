@@ -22,7 +22,11 @@ const useStyles = makeStyles((theme) => ({
     btn: {
         // backgroundColor: theme.palette.secondary.light,
         // color: theme.palette.secondary.main
-    }
+    },
+
+    icon: {
+        color: 'black',
+    },
 
 }));
 
@@ -35,18 +39,26 @@ const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
         const mainContent: HTMLElement | null =
             document.querySelector(".main-content");
 
+
         if (myElement === null) {
-            alert("Fuck");
+            alert("nothing");
         } else {
             myElement.style.zIndex = "-1";
             myElement.style.opacity = "0";
             myElement.style.position = "absolute";
+
             if (mainContent === null) {
                 return null;
             }  else {
                 mainContent.style.opacity = "1";
                 mainContent.style.zIndex = "0";
                 mainContent.style.position = "relative";
+
+                (() => {
+
+                    mainContent.style.marginTop = '';
+                })();
+
             }
         }
     };
@@ -60,7 +72,7 @@ const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
                         variant="outlined"
                         // color="secondary"
                         onClick={handleClick}
-                        endIcon={<CloseIcon color="secondary" />}
+                        endIcon={<CloseIcon className={classes.icon} />}
                     >
                         Close
                     </Button>

@@ -1,0 +1,17 @@
+.confirm__button {
+  border: 2px solid #0082CA;
+  background-color: #fff;
+  width: 120px;
+  box-sizing: border-box;
+  }
+
+.confirm__button:hover {
+  color: white;
+  background-color: #0082CA;
+  border: 2px solid #fff;
+}
+
+.confirm {
+  display: flex;
+  justify-content: space-around;
+}
