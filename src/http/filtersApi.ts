@@ -15,7 +15,7 @@ export const postSubCategory = async ({name }:{name: string}, categoryId: string
 };
 
 export const restSubCategory = async (subCategoryId:string, categoryId:string , {name}:Iname) =>{
-    const data = await authHost.put(`/sub_category/${subCategoryId}`, {name});
+    const data = await authHost.put(`/category/${categoryId}/sub_category/${subCategoryId}`, {name});
     return data;
 };
 
@@ -125,7 +125,7 @@ export const getDeletedVendorLocation = async (  vendorid:string) =>{
 };
 
 export const postVendorLocation = async ( {country, city, addressLine, vendorId}: IvendorLocation,) =>{
-    const data = await authHost.post(`/vendor/${vendorId}/location`,{country, city, addressLine, vendorId});
+    const data = await authHost.post(`/vendor/${vendorId}/location`,{country, city, addressLine});
     return data;
 }
 
