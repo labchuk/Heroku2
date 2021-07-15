@@ -29,7 +29,7 @@ const materialTheme = (createMuiTheme as any)({
     },
 });
 
-const DatePiker = ({label,setDate,selectedDate }: {label: string, setDate: any, selectedDate:any,}) => {
+const DatePiker = ({label,setDate,selectedDate, setTime }: {setTime:any, label: string, setDate: any, selectedDate:any,}) => {
 
      const handleDateChange = (date: any) => {
          setDate(label, date);

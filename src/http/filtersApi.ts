@@ -1,27 +1,26 @@
-import {authHost} from "./index";
+import {authHost, refreshToken} from "./index";
 
 interface Ivendor{name:string, description:string, email:string, image:string};
 interface IvendorLocation{country:string, city:string, addressLine:string, vendorId:string};
 interface Iname{name:string}
-interface InameAndId {name:string, id: string}
 
-export const getSubCategoryAll = async ( ) =>{
-    const data = await authHost.get("/sub_category");
+export const getSubCategoryAll = async (categoryId:string) =>{
+    const data = await authHost.get(`/category/${categoryId}/sub_category`);
     return data;
 };
 
-export const postSubCategory = async ({name, categoryId}:{name: string, categoryId: string}) =>{
-    const data = await authHost.post(`/sub_category`, {name, categoryId});
+export const postSubCategory = async ({name }:{name: string}, categoryId: string) =>{
+    const data = await authHost.post(`/category/${categoryId}/sub_category` , {name});
     return data;
 };
 
-export const restSubCategory = async (subCategoryId:string, {name}:Iname) =>{
+export const restSubCategory = async (subCategoryId:string, categoryId:string , {name}:Iname) =>{
     const data = await authHost.put(`/sub_category/${subCategoryId}`, {name});
     return data;
 };
 
-export const getSubCategoryId = async (subCategoryId:string ) =>{
-    const data = await authHost.get(`/sub_category/${subCategoryId}`);
+export const getSubCategoryId = async (subCategoryId:string, categoryId:string ) =>{
+    const data = await authHost.get(`/category/${categoryId}/sub_category/${subCategoryId}`);
     return data;
 };
 
@@ -30,8 +29,8 @@ export const getDeletedSubCategory = async () =>{
     return data;
 };
 
-export const deleteSubCategoryId = async (subCategoryId:string ) =>{
-    const data = await authHost.delete(`/sub_category/${subCategoryId}`);
+export const deleteSubCategoryId = async (subCategoryId:string, categoryId:string) =>{
+    const data = await authHost.delete(`/category/${categoryId}/sub_category/${subCategoryId}`);
     return data;
 };
 
@@ -59,6 +58,9 @@ export const getCategoryId = async (categoryId:string ) =>{
 
 export const postCategory = async ({name}:Iname) =>{
     const data = await authHost.post("/category", {name});
+    // console.log(data)
+    // data.status === 403 && refreshToken().then(resolve=>localStorage.setItem("token", resolve.token))
+    
     return data;
 };
 

@@ -19,7 +19,7 @@ const theme = createMuiTheme({
 });
 
 
-const ContainerDataPiker = () => {
+const ContainerDataPiker = ({setTime}:{setTime:any}) => {
     const {pathname} = useLocation();
     const [selectedDate, setSelectedDate] = useState({
         From: new Date(),
@@ -30,13 +30,14 @@ const ContainerDataPiker = () => {
     }
     const setDate = (name:string, date:any) => {
         setSelectedDate({...selectedDate, [name]: date });
+        setTime({...selectedDate, [name]: date })
     }
     return (
         <div className={pathname !== MAIN_ROUTE? "containerData-searchBar":"containerData"}>
             <span className="containerData__span">{t`Date`}</span>
             <div className="containerData__picker">
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                <DatePiker label={t`From`} setDate={setDate} selectedDate={selectedDate.From}/>
+                                <DatePiker label={t`From`}  setDate={setDate} selectedDate={selectedDate.From}/>
                                 <DatePiker label={t`To`} setDate={setDate} selectedDate={selectedDate.To}/>
                 </MuiPickersUtilsProvider>
                 {!(pathname === MAIN_ROUTE) && <ThemeProvider theme={theme}>

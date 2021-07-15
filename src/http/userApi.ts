@@ -15,6 +15,7 @@ export const getUserDetails = async ( id: string) =>{
 }
 
 
+
 export const logout = async ({email,password}:{ email: string, password:string }) => {
     const response = await authHost.post("user/logout", { email, password });
     return response;

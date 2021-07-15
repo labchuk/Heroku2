@@ -64,7 +64,6 @@ const SearchBar =()=>{
         handleClick()
     },[arrChips,searchObject.searchWord])
     const handleClick = async() =>  {
-        console.log(searchObject)
         const {data} = await getDiscounts(searchObject);
         dispatch(addDiscounds(data.content))
      };

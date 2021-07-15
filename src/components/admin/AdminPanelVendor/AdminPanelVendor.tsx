@@ -36,7 +36,6 @@ const AdminPanelVendor = () => {
         email: '',
         description: '',
         name: '',
-
     });
     const [newLocation, setNewLocation] = React.useState({
         newCountry: '',
@@ -84,7 +83,6 @@ const AdminPanelVendor = () => {
             addressLine: l.address,
             vendorId: vendorId
             }))
-        console.log(getVendorAll())
         clearForm()
         handleClickAlert()
     }
@@ -110,7 +108,6 @@ const AdminPanelVendor = () => {
 
 
     //LOCATION ARRAY
-    console.log(location);
 
     const [alertState, setAlertState] = React.useState<State>({
         open: false,
