@@ -5,7 +5,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
 import './ModalDeletionPromo.scss'
-
+import { t } from 'ttag';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -89,14 +89,14 @@ export default function ModalDeletionPromo(props: any){
                                     onClick={handleAction}
                                     className={classes.button}
                             >
-                                Confirm
+                                {t`Confirm`}
                             </Button>
                             <Button variant="contained"
                                     color="primary"
                             onClick={handleClose}
                                     className={classes.button}
                             >
-                                Cancel
+                                {t`Cancel`}
                             </Button>
                         </div>
                     </div>

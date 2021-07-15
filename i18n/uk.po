@@ -1,3 +1,5 @@
+
+
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
@@ -335,3 +337,20 @@ msgstr "Знижка %"
 #: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:299
 msgid "Edit a discount"
 msgstr "Редагувати промо"
+
+#: src/components/common/ModalDeletionPromo/ModalDeletionPromo.tsx:92
+msgid "Confirm"
+msgstr "Підтвердити"
+
+#: src/components/common/ModalDeletionPromo/ModalDeletionPromo.tsx:92
+msgid "Confirm"
+msgstr "Підтвердити"
+
+#: src/components/common/SnackbarForDelPromo/SnackbarForDelPromo.tsx:43
+msgid "Promo was successfully deleted!"
+msgstr "Промо було успішно видалено!"
+
+#: src/components/common/SnackbarForDelPromo/SnackbarForDelPromo.tsx:43
+msgid "Something went wrong..."
+msgstr "Щось пішло не так..."
+
