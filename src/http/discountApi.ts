@@ -51,7 +51,6 @@ export const getDiscounts = async (obj:IdiscountFilter ) =>{
         } 
         return previousValue += str;
     },`/discount/get_discounts?`);
-    console.log(string.slice(0,string.length-1))
     const data = await authHost.get(string.slice(0,string.length-1));
     return data;
 };
