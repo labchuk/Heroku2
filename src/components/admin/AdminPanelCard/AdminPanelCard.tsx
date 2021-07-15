@@ -3,7 +3,7 @@ import { Drawer, List } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import DropZone from '../../common/DropZone/DropZone';
 import ContainerDataPiker from '../../common/SearchBar/ContainerDatePiker/ContainerDatePiker';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
@@ -12,8 +12,11 @@ import "./AdminPanelCard.scss";
 import { t } from 'ttag';
 import AdminSelect from '../AdminSelect';
 import { Alert } from '@material-ui/lab';
-
-
+import {getVendorId, postCategory, postVendorLocation} from "../../../http/filtersApi"
+import {useAppSelector, useAppDispatch} from "../../../store/Redux-toolkit-hook";
+import {firsLetterToUpperCase} from "../../../helpers/functionHelpers";
+import { utimes } from 'fs';
+import { captureRejectionSymbol } from 'stream';
 interface State extends SnackbarOrigin {
   open: boolean;
 }
@@ -25,8 +28,23 @@ interface ChipData {
   address: string,
 }
 
+interface Idiscount{
+    name: string;
+    vendorId: string;
+    fullDescription: string;
+    isOnline:boolean;
+    imageLink:string;
+    startDate:string;
+    endDate: string;
+    subCategoryIds: string[];
+    locationIds: string[];
+    categoryId: string;
+    percentage: number;
+}
+
 
 const AdminPanelCard = () => {
+  const {category, vendorLocation, vendor,  searchObject} = useAppSelector(state=>state.filters);
   const [state, setState] = React.useState(false);
   const [disableInput, setDisableInput] = React.useState(false);
   const [addressInput, setAddressInput] = React.useState(false);
@@ -36,23 +54,33 @@ const AdminPanelCard = () => {
   const [newCategory, setNewCategory] = React.useState('');
   const [newTag, setNewTag] = React.useState('');
   const [fileName, setFileName] = React.useState<string | Blob>('');
-
+  const [choeseCategory, setChoeseCategory] = React.useState('');
+  const [choeseVendor, setChoeseVendor] = React.useState('');
+  const [choeseTag, setChoeseTag] = React.useState([]);
   const [title, setTitle] = React.useState();
   const [description, setDescription] = React.useState();
-
-  const [location, setLocation] = React.useState<any[]>([])
+  const [isOnline, setIsOnline] = React.useState(false);
+  const [location, setLocation] = React.useState<any[]>([]);
+  const [time, setTime] = useState();
   const [newLocation, setNewLocation] = React.useState({
     newCountry: '',
     newCity: '',
     newAddress: '',
   });
 
-  const [category, setCategory] = React.useState([
-    'Category 1',
-    'Category 2',
-    'Category 3',
-    'Category 4',
-  ]);
+  const categoryArr = category?.filter((item: any)=> item.deleted === false).map(item=> firsLetterToUpperCase(item.name));
+  const [categoryState, setcategoryState] = React.useState([...categoryArr]);
+  const getVendorId = () => (vendor.filter(item=> item.name === choeseVendor).map(item => item.id))[0];
+
+  useEffect(()=>{
+    setLocation([])
+    const choeseLocation = vendorLocation.filter(item => item.vendorId === getVendorId());
+    choeseLocation?.forEach(item=>{
+      if(item.deleted){return};
+      setLocation([...location, { key: Math.random(), country: item.country, city: item.city, address: item.addressLine }])
+    })
+  },[choeseVendor]);
+
 
 
   const [tags, setTag] = React.useState([
@@ -62,17 +90,12 @@ const AdminPanelCard = () => {
     'Tag 4',
   ]);
 
-  const vendors = [
-    'Nike',
-    'Puma',
-    'Dominos',
-    'Zara',
-  ];
+  const vendors = vendor?.map(item=>firsLetterToUpperCase(item.name));
+
 
   const addDiscount = () => {
     handleClickAlert()
-    console.log(fileName)
-    console.log(description)
+    createDiscount()
   }
 
   const toggleDrawer = (open: any) => (event: any) => {
@@ -80,6 +103,7 @@ const AdminPanelCard = () => {
   }
 
   let changeDisable = () => {
+    setIsOnline(!isOnline)
     setDisableInput(!disableInput)
   }
 
@@ -95,6 +119,7 @@ const AdminPanelCard = () => {
         newCity: '',
         newAddress: '',
       })
+      postVendorLocation({country: newLocation.newCountry, city: newLocation.newCity, addressLine: newLocation.newAddress , vendorId: getVendorId()})
     }
   }
 
@@ -105,10 +130,13 @@ const AdminPanelCard = () => {
   const addCategory = () => {
     setCategoryInput(true)
   }
-  const submitCategory = () => {
+  const submitCategory = async() => {
     setCategoryInput(false);
-    let addNewCategory = category.concat(newCategory);
-    setCategory(addNewCategory)
+    const {status} = await postCategory({name:newCategory})
+    if(status>=200 && status <=299){
+      let addNewCategory = category.concat(newCategory);
+      setcategoryState(addNewCategory)
+    }
   }
 
   const cancelCategory = () => {
@@ -327,6 +355,48 @@ const AdminPanelCard = () => {
     setAlertState({ ...alertState, open: false });
   };
 
+  const timeString = (time) =>{
+    const year = time.getFullYear()
+    const month = time.getMonth()
+    const date = time.getDate()
+    const hours =time.getHours()
+    const minutes =time.getMinutes()
+    const check = (some) => some < 10 ? "0" + some: some
+
+    return `${year}-${check(month)}-${check(date)}T${check(hours)}:${check(minutes)}+02:00`
+  }
+
+  const createDiscount = () =>{
+//     interface Idiscount{
+//     name: string;
+//     vendorId: string;
+//     fullDescription: string;
+//     isOnline:boolean;
+//     imageLink:string;
+//     startDate:string;
+//     endDate: string;
+//     subCategoryIds: string[];
+//     locationIds: string[];
+//     categoryId: string;
+//     percentage: number;
+// "2017-07-19T14:25+02:00"
+// }
+    const newDiscount = {
+      name: title,
+      fullDescription:description,
+      imageLink: fileName,
+      categoryId: (category.filter(item=> item.name === choeseCategory).map(item => item.id))[0],
+      isOnline: isOnline,
+      vendorId: getVendorId(),
+      locationIds: vendorLocation.filter(item => item.vendorId === getVendorId()).map(item=>item.id),
+      endDate: timeString(time.From),
+      startDate: timeString(time.To),
+    }
+    console.log(newDiscount)
+  }
+    
+  //  `${time?.To.getFullYear()}-${time?.To.getMonth()}-${time?.To.getDate()}T${time?.To.getHours() < 10 ? "0"+time?.To.getHours() : time?.To.getHours()}:${time?.To.getMinutes()< 10 ? "0" +time?.To.getMinutes(): time?.To.getMinutes()}+02:00`
+
   const list = () => (
     <List className={styles.wrapper}>
       <ListItem>
@@ -338,7 +408,7 @@ const AdminPanelCard = () => {
             </div>
             <span className={styles.modal_label}>{t`Add a promotion`}</span>
             <TextField required className={styles.marginBottom} label={t`Title`} onChange={(e: any) => setTitle(e.target.value)} />
-            <AdminSelect name={t`Category`} data={category} multi={true} />
+            <AdminSelect name={t`Category`} data={categoryState}  multi={false} handleChange={setChoeseCategory} state={choeseCategory}/>
             {categoryInput ?
               <>
                 <TextField className={styles.marginBottom} label={t`Add new category`} onChange={(e: any) => setNewCategory(e.target.value)} />
@@ -348,17 +418,17 @@ const AdminPanelCard = () => {
                 </div>
               </>
               : <span className={styles.address__span} onClick={addCategory}>{t`+ Add new category`}</span>}
-            <AdminSelect name={t`Tags`} data={tags} multi={true} />
+            <AdminSelect name={t`Tags`} data={tags} disabled={!choeseCategory} multi={true} handleChange={setChoeseTag}/>
             {tagInput ?
               <>
-                <TextField className={styles.marginBottom} label={t`Add new tag`} onChange={(e: any) => setNewTag(e.target.value)} />
+                <TextField className={styles.marginBottom} disabled={!choeseCategory} label={t`Add new tag`} onChange={(e: any) => setNewTag(e.target.value)} />
                 <div className={styles.addressButtons}>
                   <Button onClick={submitTag} className={styles.address_submit}>{t`Submit`}</Button>
                   <Button onClick={cancelTag} className={styles.address_cancel}>{t`Cancel`}</Button>
                 </div>
               </>
               : <span className={styles.address__span} onClick={addTag}>{t`+ Add new tag`}</span>}
-            <AdminSelect name={t`Vendor Name`} data={vendors} multi={false} />
+            <AdminSelect name={t`Vendor Name`} data={vendors} multi={false} handleChange={setChoeseVendor}/>
             {disableInput ? '' : (
               <>
                 {location.map((data: any) => {
@@ -376,6 +446,7 @@ const AdminPanelCard = () => {
 
                 })}
                 <TextField className={styles.marginBottom}
+                  disabled={!choeseVendor}
                   label={t`Country`}
                   value={newLocation.newCountry}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -383,6 +454,7 @@ const AdminPanelCard = () => {
                   }}
                 />
                 <TextField className={styles.marginBottom}
+                  disabled={!choeseVendor}
                   label={t`City`}
                   value={newLocation.newCity}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -391,6 +463,7 @@ const AdminPanelCard = () => {
                 />
 
                 <TextField className={styles.marginBottom}
+                  disabled={!choeseVendor}
                   label={t`Address`}
                   value={newLocation.newAddress}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -403,11 +476,11 @@ const AdminPanelCard = () => {
               </>
             )}
             <div className={styles.checkbox__wrapper}>
-              <input type="checkbox" className={styles.checkbox} onClick={changeDisable} />
+              <input type="checkbox" className={styles.checkbox} onClick={changeDisable}/>
               <label className={styles.checkbox__label} >{t`Online`}</label>
             </div>
             <div className={styles.marginBottom}>
-              <ContainerDataPiker />
+              <ContainerDataPiker setTime={setTime} />
             </div>
             <TextField className={styles.marginBottom}
               required

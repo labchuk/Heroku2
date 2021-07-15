@@ -48,7 +48,7 @@ function getStyles(name: any, personName: any, theme: any) {
     };
 }
 
-export default function AdminSelect(props: { name: string, data: string[], multi: boolean }) {
+export default function AdminSelect(props: {disabled: boolean ,  name: string, data: string[], multi: boolean, handleChange: any }) {
     const classes = useStyles();
     const theme = useTheme();
     const [personName, setPersonName] = React.useState([]);
@@ -59,6 +59,7 @@ export default function AdminSelect(props: { name: string, data: string[], multi
         props.multi ?
             setPersonName(event.target.value)
             : setAge(event.target.value)
+            props.handleChange(event.target.value)
     };
 
     return (
@@ -66,6 +67,7 @@ export default function AdminSelect(props: { name: string, data: string[], multi
             <FormControl className={classes.formControl}>
                 <InputLabel>{props.name}</InputLabel>
                 <Select
+                    disabled={props.disabled}
                     multiple={props.multi}
                     value={props.multi ? personName : age}
                     onChange={handleChange}

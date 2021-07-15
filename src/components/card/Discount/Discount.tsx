@@ -14,9 +14,7 @@ interface DiscountProps {
 
 
 const Discount: React.FC<DiscountProps> = ({ discount, handleClick }) => {
-    // React.useEffect(() => {
-    //     console.log(discount.sizeDiscount)
-    // }, [])
+    
     return (
 
             <div className="discount" onClick={handleClick}>
