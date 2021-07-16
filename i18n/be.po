@@ -149,39 +149,39 @@ msgstr "Перацягніце сюды файл або націсніце, ка
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:10
 msgid "Users actives:"
-msgstr "Унікальных карыстальнікаў"
+msgstr "Унікальных карыстальнікаў:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:11
 msgid "Users CR actives:"
-msgstr "Мэтавых дзеянняў"
+msgstr "Мэтавых дзеянняў:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:12
 msgid "Last activity:"
-msgstr "Апошняя актыўнасць"
+msgstr "Апошняя актыўнасць:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:13
 msgid "Most active location:"
-msgstr "Самае актыўнае месца"
+msgstr "Самае актыўнае месца:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:16
 msgid "Number of Vendors:"
-msgstr "Колькасць пастаўшчыкоў"
+msgstr "Колькасць пастаўшчыкоў:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:17
 msgid "Number of promos:"
-msgstr "Колькасць прома"
+msgstr "Колькасць прома:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:18
 msgid "Number of active promos:"
-msgstr "Колькасць актыўных прома"
+msgstr "Колькасць актыўных прома:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:19
 msgid "Promotions durations:"
-msgstr "Працягласць прома"
+msgstr "Працягласць прома:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:22
 msgid "The most popular Vendor:"
-msgstr "Самы папулярны пастаўшчык"
+msgstr "Самы папулярны пастаўшчык:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:23
 msgid "The most popular Promo:"

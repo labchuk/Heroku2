@@ -17,9 +17,13 @@ import {useAppSelector, useAppDispatch} from "../../../store/Redux-toolkit-hook"
 import {firsLetterToUpperCase} from "../../../helpers/functionHelpers";
 import { utimes } from 'fs';
 import { captureRejectionSymbol } from 'stream';
+import { saveLocale, locale } from '../../../components/common/LangSwitcher/i18nInit';
 interface State extends SnackbarOrigin {
   open: boolean;
 }
+
+
+
 
 interface ChipData {
   key: number;
@@ -41,6 +45,7 @@ interface Idiscount{
     categoryId: string;
     percentage: number;
 }
+
 
 
 const AdminPanelCard = () => {
@@ -67,6 +72,36 @@ const AdminPanelCard = () => {
     newCity: '',
     newAddress: '',
   });
+
+
+
+  const handleKeyDownForTitle = (event: any): void => {
+    if (locale === 'en') {
+      if (event.keyCode === 65) {
+        (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+        setTimeout(() => {event.target.focus()}, 0);
+        setTitle(event.target.value)
+      }
+    } else {
+      return;
+    }
+   };
+
+  const handleKeyDownForCategory = (event: any): void  => {
+    if (event.keyCode === 65) {
+      (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+       setTimeout(() => {event.target.focus()}, 0);
+      setNewCategory(event.target.value)
+    }};
+
+  const handleKeyDownForTag = (event: any): void  => {
+    if (event.keyCode === 65) {
+      (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+      setTimeout(() => {event.target.focus()}, 0);
+      setNewTag(event.target.value);
+    }};
+
+
 
   const categoryArr = category?.filter((item: any)=> item.deleted === false).map(item=> firsLetterToUpperCase(item.name));
   const [categoryState, setcategoryState] = React.useState([...categoryArr]);
@@ -334,6 +369,8 @@ const AdminPanelCard = () => {
     },
   })
 
+
+
   const styles = useStyles();
 
   const handleDeleteChip = (chipToDelete: ChipData) => () => {
@@ -400,18 +437,26 @@ const AdminPanelCard = () => {
   const list = () => (
     <List className={styles.wrapper}>
       <ListItem>
-        <form className={styles.form}>
+        <form className={styles.form} >
           <Grid container direction='column'>
             <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
               <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 11 }} />
               {t`Back`}
             </div>
             <span className={styles.modal_label}>{t`Add a promotion`}</span>
-            <TextField required className={styles.marginBottom} label={t`Title`} onChange={(e: any) => setTitle(e.target.value)} />
+           <TextField required
+                      className={styles.marginBottom} label={t`Title`}
+                      onKeyDown={handleKeyDownForTitle}
+                      onChange={(e: any) => {
+                      setTitle(e.target.value)
+                        }}
+           />
+
+
             <AdminSelect name={t`Category`} data={categoryState}  multi={false} handleChange={setChoeseCategory} state={choeseCategory}/>
             {categoryInput ?
               <>
-                <TextField className={styles.marginBottom} label={t`Add new category`} onChange={(e: any) => setNewCategory(e.target.value)} />
+                <TextField className={styles.marginBottom} label={t`Add new category`} onKeyDown={handleKeyDownForCategory} onChange={(e: any) => setNewCategory(e.target.value)} />
                 <div className={styles.addressButtons}>
                   <Button onClick={submitCategory} className={styles.address_submit}>{t`Submit`}</Button>
                   <Button onClick={cancelCategory} className={styles.address_cancel}>{t`Cancel`}</Button>
@@ -421,7 +466,7 @@ const AdminPanelCard = () => {
             <AdminSelect name={t`Tags`} data={tags} disabled={!choeseCategory} multi={true} handleChange={setChoeseTag}/>
             {tagInput ?
               <>
-                <TextField className={styles.marginBottom} disabled={!choeseCategory} label={t`Add new tag`} onChange={(e: any) => setNewTag(e.target.value)} />
+                <TextField className={styles.marginBottom} disabled={!choeseCategory} label={t`Add new tag`} onKeyDown={handleKeyDownForTag} onChange={(e: any) => setNewTag(e.target.value)} />
                 <div className={styles.addressButtons}>
                   <Button onClick={submitTag} className={styles.address_submit}>{t`Submit`}</Button>
                   <Button onClick={cancelTag} className={styles.address_cancel}>{t`Cancel`}</Button>
@@ -529,7 +574,8 @@ const AdminPanelCard = () => {
         onClose={toggleDrawer(false)}>
         <div>
           {list()}
-        </div>
+
+                 </div>
       </Drawer>
     </div>
   );

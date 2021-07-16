@@ -196,7 +196,7 @@ const Like: FC<LikeProps> = (props) => {
                         <AdminEditCardPanel currentCard={props.discount} style={{ fontSize: 30, position: 'relative', bottom: '5px' }} />
                     </button>
                     <button className="card-more__item" onClick={()=>{}}>
-                        <DeleteOutlineIcon style={{ color: '#d32f2f', fontSize: 30 }} onClick={() => deleteCard(props.discount)} />
+                        <DeleteOutlineIcon style={{ color: '#d32f2f', fontSize: 30 }} onClick={() => {setOpenModal(true)}} />
 
                     </button>
                 </Popover>

@@ -8,7 +8,7 @@ function Alert(props: AlertProps) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-let successDel = false;
+let successDel = true;
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
