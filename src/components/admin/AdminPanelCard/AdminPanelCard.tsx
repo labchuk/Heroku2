@@ -12,7 +12,7 @@ import "./AdminPanelCard.scss";
 import { t } from 'ttag';
 import AdminSelect from '../AdminSelect';
 import { Alert } from '@material-ui/lab';
-import {getVendorId, postCategory, postVendorLocation} from "../../../http/filtersApi"
+import {getVendorId, postCategory, postVendorLocation, uploadImage} from "../../../http/filtersApi"
 import {useAppSelector, useAppDispatch} from "../../../store/Redux-toolkit-hook";
 import {firsLetterToUpperCase} from "../../../helpers/functionHelpers";
 import { utimes } from 'fs';
@@ -92,6 +92,14 @@ const AdminPanelCard = () => {
 
   const vendors = vendor?.map(item=>firsLetterToUpperCase(item.name));
 
+  const addLogoVendor = () => {
+    const formData = new FormData();
+    formData.append(
+        "file",
+        fileName,
+    );
+    return uploadImage(formData)
+  }
 
   const addDiscount = () => {
     handleClickAlert()

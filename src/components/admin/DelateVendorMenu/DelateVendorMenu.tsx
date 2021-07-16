@@ -1,13 +1,13 @@
-import { Button, ListItem } from '@material-ui/core';
-import { Drawer, List } from '@material-ui/core';
-import { TextField } from '@material-ui/core';
+import {Button, Chip, ListItem, SnackbarOrigin} from '@material-ui/core';
+import {Drawer, List} from '@material-ui/core';
+import {TextField} from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import { makeStyles } from '@material-ui/core/styles';
-import React, { useRef } from 'react';
+import {makeStyles} from '@material-ui/core/styles';
+import React, {useRef} from 'react';
 import DropZone from '../../common/DropZone/DropZone';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import EditIcon from '@material-ui/icons/Edit';
@@ -15,7 +15,11 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import "./DelateVendorMenu.scss";
 import AdminPanelVendor from '../AdminPanelVendor/AdminPanelVendor';
-import { t } from 'ttag';
+import {t} from 'ttag';
+import {useAppDispatch, useAppSelector} from "../../../store/Redux-toolkit-hook";
+import {addVendor} from '../../../store/filtersStore';
+import {getVendorLocation} from "../../../http/filtersApi";
+import {setEditing} from "../../../store/filtersStore";
 
 const DelateVendorMenu = () => {
     const [state, setState] = React.useState(false);
@@ -24,7 +28,7 @@ const DelateVendorMenu = () => {
     const [addressValue, setAddressValue] = React.useState(['']);
     const [uploadFileName, setUploadFileName] = React.useState('');
     const parentRef = useRef<any>();
-    const [vendors, setVendor] = React.useState([
+    /*const [vendors, setVendor] = React.useState([
         {
             id: 1,
             name: "Nike",
@@ -69,7 +73,21 @@ const DelateVendorMenu = () => {
             image: 'logo1.jpg',
             editing: false
         },
-    ]);
+    ]);*/
+    const {vendor} = useAppSelector(state => state.filters)
+    const [vendors, setVendor] = React.useState(vendor)
+
+
+    /*const getVLocation = async () => {
+        const loc = await getVendorLocation()
+        loc.forEach(item=>{
+            setLocation([...location, { key: Math.random(), country: item.country, city: item.city, address: item.addressLine }])
+        })
+    }*/
+
+    const [edit, setEdit] = React.useState([])
+    console.log(vendors)
+    const dispatch = useAppDispatch();
     const address = [
         'Chornovola Str, 27',
         'Yakuba Kolasa Str, 37',
@@ -83,48 +101,54 @@ const DelateVendorMenu = () => {
     const cities = ['Lviv', 'Minsk', 'Kharkiv'];
 
     const [category, setCategory] = React.useState([
-        { title: 'Category 1' },
-        { title: 'Category 2' },
-        { title: 'Category 3' },
-        { title: 'Category 4' },
-        { title: 'Category 5' },
+        {title: 'Category 1'},
+        {title: 'Category 2'},
+        {title: 'Category 3'},
+        {title: 'Category 4'},
+        {title: 'Category 5'},
     ]);
 
     const [tags, setTag] = React.useState([
-        { title: 'Tag 1' },
-        { title: 'Tag 2' },
-        { title: 'Tag 3' },
-        { title: 'Tag 4' },
-        { title: 'Tag 5' },
+        {title: 'Tag 1'},
+        {title: 'Tag 2'},
+        {title: 'Tag 3'},
+        {title: 'Tag 4'},
+        {title: 'Tag 5'},
     ]);
 
-    //   const vendors = [
-    //     { title: 'Nike' },
-    //     { title: 'Puma' },
-    //     { title: `Domino's` },
-    //     { title: 'Zara' },
-    //     { title: 'Steam' },
-    //   ];
+    interface State extends SnackbarOrigin {
+        open: boolean;
+    }
 
-    //   const country = [
-    //     { title: 'Ukraine' },
-    //     { title: 'USA' },
-    //     { title: 'Belarus' },
-    //   ];
+    interface ChipData {
+        key: number;
+        country: string,
+        city: string,
+        address: string,
+    }
 
-    // const city = [
-    //     { title: 'Lviv' },
-    //     { title: 'Minsk' },
-    //     { title: 'Kyiv' },
-    //     { title: 'Herson' },
-    // ];
+    const [location, setLocation] = React.useState<any[]>([])
+    const [newLocation, setNewLocation] = React.useState({
+        newCountry: '',
+        newCity: '',
+        newAddress: '',
+    });
+    const submitAddress = () => {
+        if (newLocation.newCountry !== '' && newLocation.newCity !== '' && newLocation.newAddress !== '') {
+            setLocation([...location, {
+                key: Math.random(),
+                country: newLocation.newCountry,
+                city: newLocation.newCity,
+                address: newLocation.newAddress
+            }])
+            setNewLocation({
+                newCountry: '',
+                newCity: '',
+                newAddress: '',
+            })
+        }
+    }
 
-    const city = [
-        'Lviv',
-        'Minsk',
-        'Kyiv',
-        'Herson',
-    ];
 
     const toggleDrawer = (open: any) => (event: any) => {
         setState(open);
@@ -147,15 +171,15 @@ const DelateVendorMenu = () => {
         setVendor(removedArr);
     }
 
-    const editVendor = (id: number) => {
+    /*const editVendor = (id: number) => {
         let edits: any = vendors.map((item: any) => {
             if (item.id === id) {
-                item.editing = !item.editing
+                dispatch(setEditing({id: item.id , editing: !item.editing}
+                ))
             }
-            return item;
         })
-        setVendor(edits)
-    }
+    }*/
+
 
     const submitEditVendor = (v: any) => {
         let edits: any = vendors.map((item: any) => {
@@ -166,6 +190,12 @@ const DelateVendorMenu = () => {
         })
         setVendor(edits)
     }
+
+
+    const handleDeleteChip = (chipToDelete: ChipData) => () => {
+        setLocation((chips: any) => chips.filter((chip: any) => chip.key !== chipToDelete.key));
+    };
+
     const useStyles = makeStyles({
         root: {
             "& .MuiDrawerPaper-root": {
@@ -350,91 +380,110 @@ const DelateVendorMenu = () => {
             <ListItem>
                 <Grid container direction='column'>
                     <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
-                        <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 11 }} />
+                        <KeyboardBackspaceOutlinedIcon style={{fontSize: 40, position: 'relative', top: 11}}/>
                         {t`Back`}
                     </div>
                     <span className={styles.modal_label}>{t`Vendors`}</span>
                     <div className={styles.attention}>
-                        <ErrorOutlineIcon style={{ color: '#d32f2f', fontSize: 30 }} />
-                        <span className={styles.attention__span}>{t`Removing a vendor will delete all its discounts`}</span>
+                        <ErrorOutlineIcon style={{color: '#d32f2f', fontSize: 30}}/>
+                        <span
+                            className={styles.attention__span}>{t`Removing a vendor will delete all its discounts`}</span>
                     </div>
                     {vendors.map((value: any) => {
+                        /*const locationVendor = getVendorLocation(value.id).then(resolve => console.log(resolve.data.content) )*/
+
+                            /*setEdit([...edit, {e: false}])*/
                         return <div className={styles.vendorName}>
                             {value.name}
                             <section className={styles.vendor__icons}>
-                                <EditIcon onClick={() => { editVendor(value.id) }}
-                                    style={{ fontSize: 22, marginRight: 5, position: 'relative', bottom: 4 }} />
-                                <DeleteOutlineIcon onClick={() => { deleteVendor(value.id) }}
-                                    style={{ color: '#d32f2f', fontSize: 22, position: 'relative', bottom: 4 }} />
+                                <EditIcon onClick={() => {/*setEdit([...edit, edit.e = !edit.e])*/}
+
+                                }
+                                          style={{fontSize: 22, marginRight: 5, position: 'relative', bottom: 4}}/>
+                                <DeleteOutlineIcon onClick={() => {
+                                    deleteVendor(value.id)
+                                }}
+                                                   style={{
+                                                       color: '#d32f2f',
+                                                       fontSize: 22,
+                                                       position: 'relative',
+                                                       bottom: 4
+                                                   }}/>
                             </section>
-                            {value.editing ? (
+                            {{/*edit.e */}? (
                                 <form onSubmit={toggleDrawer(false)}>
                                     <div className={styles.editingForm}>
-                                        <TextField className={styles.marginBottom} required defaultValue={value.name} label={t`Name`} />
-                                        <FormControl>
-                                            <InputLabel></InputLabel>
-                                            <Select value={countryValue}
-                                                required
-                                                multiple
-                                                defaultValue={value.country}
-                                                onChange={handleChangeCountry}
-                                                className={styles.marginBottom}
-                                                displayEmpty>
-                                                {countries.map((country: string) => {
-                                                    return <MenuItem value={country}>{country}</MenuItem>
-                                                })}
-                                                <MenuItem value=''>{value.country}</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                        <FormControl>
-                                            <InputLabel></InputLabel>
-                                            <Select value={cityValue}
-                                                required
-                                                multiple
-                                                onChange={handleChangeCity}
-                                                className={styles.marginBottom}
-                                                displayEmpty>
-                                                {cities.map((city: string) => {
-                                                    return <MenuItem value={city}>{city}</MenuItem>
-                                                })}
-                                                <MenuItem value=''>{value.city}</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                        {/* <TextField className={styles.marginBottom} defaultValue={value.address} label="Address" /> */}
-                                        {/* <AutocompleteMultipleChoise data={address} lab='Address' /> */}
-                                        <FormControl>
-                                            <InputLabel></InputLabel>
-                                            <Select value={addressValue}
-                                                required
-                                                multiple
-                                                defaultValue={value.address}
-                                                onChange={handleChangeAddress}
-                                                className={styles.marginBottom}
-                                                displayEmpty>
-                                                {address.map((address: string) => {
-                                                    return <MenuItem value={address}>{address}</MenuItem>
-                                                })}
-                                                <MenuItem value=''>{value.address}</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                        <TextField className={styles.marginBottom} required defaultValue={value.email} label={t`E-mail`} />
+                                        <TextField className={styles.marginBottom} required defaultValue={value.name}
+                                                   label={t`Name`}/>
+                                        {location.map((data: any) => {
+
+                                            if (data.city && data.country && data.address !== '') {
+
+
+                                                return (
+                                                    <li key={data.key}>
+                                                        <Chip
+                                                            label={data.country + ', ' + data.city + ', ' + data.address}
+                                                            variant='outlined'
+                                                            onDelete={handleDeleteChip(data)}
+                                                        />
+                                                    </li>
+                                                );
+                                            }
+
+                                        })}
                                         <TextField className={styles.marginBottom}
-                                            required
-                                            multiline
-                                            rows={5}
-                                            label={t`Description`}
-                                            variant="outlined"
-                                            defaultValue={value.description} />
+                                                   label={t`Country`}
+                                                   value={newLocation.newCountry}
+                                                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                                       setNewLocation({...newLocation, newCountry: e.target.value})
+                                                   }}
+                                        />
+                                        <TextField className={styles.marginBottom}
+                                                   label={t`City`}
+                                                   value={newLocation.newCity}
+                                                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                                       setNewLocation({...newLocation, newCity: e.target.value})
+                                                   }}
+                                        />
+
+                                        <TextField className={styles.marginBottom}
+                                                   label={t`Address`}
+                                                   value={newLocation.newAddress}
+                                                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                                       setNewLocation({...newLocation, newAddress: e.target.value})
+                                                   }}
+                                        />
+                                        <div className={styles.addressButtons}>
+                                            <Button onClick={submitAddress}
+                                                    className={styles.address_submit}>{t`Submit`}</Button>
+                                        </div>
+                                        <TextField className={styles.marginBottom} required defaultValue={value.email}
+                                                   label={t`E-mail`}/>
+                                        <TextField className={styles.marginBottom}
+                                                   required
+                                                   multiline
+                                                   rows={5}
+                                                   label={t`Description`}
+                                                   variant="outlined"
+                                                   defaultValue={value.description}/>
                                         <div className={styles.dropzone}>
-                                            <DropZone uploadPhoto={(image: any) => { setUploadFileName(image) }} />
+                                            <DropZone uploadPhoto={(image: any) => {
+                                                setUploadFileName(image)
+                                            }}/>
                                         </div>
                                         <div className={styles.uploadPhotoMobile}>
-                                            <button type='button' className={styles.uploadFile__btn}>Upload photo</button>
+                                            <button type='button' className={styles.uploadFile__btn}>Upload photo
+                                            </button>
                                         </div>
-                                        <span className={styles.uploadFile__span}>{uploadFileName}</span>
+                                        <span className={styles.uploadFile__span}>{value.image}</span>
                                         <div className={styles.addressButtons}>
-                                            <Button type='submit' onClick={() => { submitEditVendor(value) }} className={styles.address_submit}>{t`Submit`}</Button>
-                                            <Button onClick={() => { submitEditVendor(value) }} className={styles.address_cancel}>{t`Cancel`}</Button>
+                                            <Button type='submit' onClick={() => {
+                                                submitEditVendor(value)
+                                            }} className={styles.address_submit}>{t`Submit`}</Button>
+                                            <Button onClick={() => {
+                                                submitEditVendor(value)
+                                            }} className={styles.address_cancel}>{t`Cancel`}</Button>
                                         </div>
                                     </div>
                                 </form>
@@ -442,7 +491,7 @@ const DelateVendorMenu = () => {
                         </div>
                     })}
                     <button className={styles.adminPanel}>
-                        <AdminPanelVendor />
+                        <AdminPanelVendor/>
                     </button>
                 </Grid>
             </ListItem>
@@ -452,8 +501,8 @@ const DelateVendorMenu = () => {
         <div>
             <button onClick={toggleDrawer(true)} className={styles.adminModalButton}>{t`Vendors`}</button>
             <Drawer anchor={'right'}
-                open={state}
-                onClose={toggleDrawer(false)}>
+                    open={state}
+                    onClose={toggleDrawer(false)}>
                 <div>
                     {list()}
                 </div>

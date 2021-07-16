@@ -115,7 +115,7 @@ export const getAllVendorLocation = async () =>{
 }
 
 export const getVendorLocation = async (vendorId:string) =>{
-    const data = await authHost.get(`/vendor/${vendorId}/location`);
+    const data = await authHost.get(`/vendor/${vendorId}/location?page=0&size=10`);
     return data;
 }
 

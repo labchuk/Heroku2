@@ -8,14 +8,14 @@ import {
     getVendorAll,
     postSubCategory,
     getAllVendorLocation,
-    getSubCategoryAll
+    getSubCategoryAll, getVendorLocation
 } from "../../../http/filtersApi"
 const MainPage = () => {
     const dispatch = useAppDispatch();
     useEffect(()=>{
         getCategoryAll().then(resolve=>{dispatch(addCategory(resolve.data)); console.log(resolve)}).catch(f=> console.log(f))
         getAllVendorLocation().then(resolve =>{dispatch(addVendorLocation(resolve.data)); console.log(resolve) } ).catch(f=> console.log(f))
-        getVendorAll().then(resolve=> {dispatch(addVendor(resolve));console.log(resolve) })
+        getVendorAll().then(resolve=> {resolve.forEach(r => r.editing = false); dispatch(addVendor(resolve));console.log(resolve) })
        // postSubCategory({name:"Fish"},"081d305e-3a10-4f1f-9a14-80e44ff4eca9").then(resolve=> {console.log(resolve) })
        // getCategoryAll().then(resolve => console.log(resolve))
        // getSubCategoryAll("081d305e-3a10-4f1f-9a14-80e44ff4eca9").then(resolve => console.log(resolve))
