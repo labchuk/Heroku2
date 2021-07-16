@@ -27,14 +27,12 @@ const SearchForm = ({handleClick}:{handleClick:any}) => {
     }
 
     return (
-       <form action="#"   noValidate autoComplete="off" className={classes.root}>
+      <form action="#"   noValidate autoComplete="off" className={classes.root}>
             <div className="searchForm" >
              <TextField id="outlined-search" label={t`Search`} value={state} type="search" variant="outlined" onChange={(e: React.ChangeEvent<{ value: any }>) => setState(e.target.value)} size="small"/>
              <button  onClick={click}> <Search/> </button> 
              </div>
-            
-            
-        </form>
+      </form>
     );
 };
 
