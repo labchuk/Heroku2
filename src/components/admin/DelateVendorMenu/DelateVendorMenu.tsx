@@ -19,7 +19,7 @@ import {t} from 'ttag';
 import {useAppDispatch, useAppSelector} from "../../../store/Redux-toolkit-hook";
 import {addVendor} from '../../../store/filtersStore';
 import {getVendorLocation} from "../../../http/filtersApi";
-import {setEditing} from "../../../store/filtersStore";
+import DelateVendorMenuEdit from "./DelateVendorMenuEdit";
 
 const DelateVendorMenu = () => {
     const [state, setState] = React.useState(false);
@@ -85,9 +85,8 @@ const DelateVendorMenu = () => {
         })
     }*/
 
-    const [edit, setEdit] = React.useState([])
-    console.log(vendors)
-    const dispatch = useAppDispatch();
+
+
     const address = [
         'Chornovola Str, 27',
         'Yakuba Kolasa Str, 37',
@@ -116,38 +115,7 @@ const DelateVendorMenu = () => {
         {title: 'Tag 5'},
     ]);
 
-    interface State extends SnackbarOrigin {
-        open: boolean;
-    }
 
-    interface ChipData {
-        key: number;
-        country: string,
-        city: string,
-        address: string,
-    }
-
-    const [location, setLocation] = React.useState<any[]>([])
-    const [newLocation, setNewLocation] = React.useState({
-        newCountry: '',
-        newCity: '',
-        newAddress: '',
-    });
-    const submitAddress = () => {
-        if (newLocation.newCountry !== '' && newLocation.newCity !== '' && newLocation.newAddress !== '') {
-            setLocation([...location, {
-                key: Math.random(),
-                country: newLocation.newCountry,
-                city: newLocation.newCity,
-                address: newLocation.newAddress
-            }])
-            setNewLocation({
-                newCountry: '',
-                newCity: '',
-                newAddress: '',
-            })
-        }
-    }
 
 
     const toggleDrawer = (open: any) => (event: any) => {
@@ -165,36 +133,6 @@ const DelateVendorMenu = () => {
     const handleChangeAddress = (event: any) => {
         setAddressValue(event.target.value)
     }
-
-    const deleteVendor = (id: number) => {
-        let removedArr = vendors.filter((item) => item.id !== id);
-        setVendor(removedArr);
-    }
-
-    /*const editVendor = (id: number) => {
-        let edits: any = vendors.map((item: any) => {
-            if (item.id === id) {
-                dispatch(setEditing({id: item.id , editing: !item.editing}
-                ))
-            }
-        })
-    }*/
-
-
-    const submitEditVendor = (v: any) => {
-        let edits: any = vendors.map((item: any) => {
-            if (item.id === v.id) {
-                item.editing = false
-            }
-            return item;
-        })
-        setVendor(edits)
-    }
-
-
-    const handleDeleteChip = (chipToDelete: ChipData) => () => {
-        setLocation((chips: any) => chips.filter((chip: any) => chip.key !== chipToDelete.key));
-    };
 
     const useStyles = makeStyles({
         root: {
@@ -389,107 +327,9 @@ const DelateVendorMenu = () => {
                         <span
                             className={styles.attention__span}>{t`Removing a vendor will delete all its discounts`}</span>
                     </div>
-                    {vendors.map((value: any) => {
-                        /*const locationVendor = getVendorLocation(value.id).then(resolve => console.log(resolve.data.content) )*/
+                    {vendors.map((value: any) => <DelateVendorMenuEdit styles={styles} key={value.id} value={value} vendors={value.vendors} />)}
+                    {/*const locationVendor = getVendorLocation(value.id).then(resolve => console.log(resolve.data.content) )*/}
 
-                            /*setEdit([...edit, {e: false}])*/
-                        return <div className={styles.vendorName}>
-                            {value.name}
-                            <section className={styles.vendor__icons}>
-                                <EditIcon onClick={() => {/*setEdit([...edit, edit.e = !edit.e])*/}
-
-                                }
-                                          style={{fontSize: 22, marginRight: 5, position: 'relative', bottom: 4}}/>
-                                <DeleteOutlineIcon onClick={() => {
-                                    deleteVendor(value.id)
-                                }}
-                                                   style={{
-                                                       color: '#d32f2f',
-                                                       fontSize: 22,
-                                                       position: 'relative',
-                                                       bottom: 4
-                                                   }}/>
-                            </section>
-                            {{/*edit.e */}? (
-                                <form onSubmit={toggleDrawer(false)}>
-                                    <div className={styles.editingForm}>
-                                        <TextField className={styles.marginBottom} required defaultValue={value.name}
-                                                   label={t`Name`}/>
-                                        {location.map((data: any) => {
-
-                                            if (data.city && data.country && data.address !== '') {
-
-
-                                                return (
-                                                    <li key={data.key}>
-                                                        <Chip
-                                                            label={data.country + ', ' + data.city + ', ' + data.address}
-                                                            variant='outlined'
-                                                            onDelete={handleDeleteChip(data)}
-                                                        />
-                                                    </li>
-                                                );
-                                            }
-
-                                        })}
-                                        <TextField className={styles.marginBottom}
-                                                   label={t`Country`}
-                                                   value={newLocation.newCountry}
-                                                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                                       setNewLocation({...newLocation, newCountry: e.target.value})
-                                                   }}
-                                        />
-                                        <TextField className={styles.marginBottom}
-                                                   label={t`City`}
-                                                   value={newLocation.newCity}
-                                                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                                       setNewLocation({...newLocation, newCity: e.target.value})
-                                                   }}
-                                        />
-
-                                        <TextField className={styles.marginBottom}
-                                                   label={t`Address`}
-                                                   value={newLocation.newAddress}
-                                                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                                       setNewLocation({...newLocation, newAddress: e.target.value})
-                                                   }}
-                                        />
-                                        <div className={styles.addressButtons}>
-                                            <Button onClick={submitAddress}
-                                                    className={styles.address_submit}>{t`Submit`}</Button>
-                                        </div>
-                                        <TextField className={styles.marginBottom} required defaultValue={value.email}
-                                                   label={t`E-mail`}/>
-                                        <TextField className={styles.marginBottom}
-                                                   required
-                                                   multiline
-                                                   rows={5}
-                                                   label={t`Description`}
-                                                   variant="outlined"
-                                                   defaultValue={value.description}/>
-                                        <div className={styles.dropzone}>
-                                            <DropZone uploadPhoto={(image: any) => {
-                                                setUploadFileName(image)
-                                            }}/>
-                                        </div>
-                                        <div className={styles.uploadPhotoMobile}>
-                                            <button type='button' className={styles.uploadFile__btn}>Upload photo
-                                            </button>
-                                        </div>
-                                        <span className={styles.uploadFile__span}>{value.image}</span>
-                                        <div className={styles.addressButtons}>
-                                            <Button type='submit' onClick={() => {
-                                                submitEditVendor(value)
-                                            }} className={styles.address_submit}>{t`Submit`}</Button>
-                                            <Button onClick={() => {
-                                                submitEditVendor(value)
-                                            }} className={styles.address_cancel}>{t`Cancel`}</Button>
-                                        </div>
-                                    </div>
-                                </form>
-                            ) : ''}
-                        </div>
-                    })}
                     <button className={styles.adminPanel}>
                         <AdminPanelVendor/>
                     </button>

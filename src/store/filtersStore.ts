@@ -53,11 +53,6 @@ const filtersReducer = createSlice({
         setSearchWord(state, actions: PayloadAction<any>) {
             state.searchObject.searchWord = actions.payload;
         },
-        setEditing(state, actions: PayloadAction<any>) {
-            state.vendor.forEach(v => {if(v.id ==  actions.payload.id) {
-                v.editing = actions.payload.editing
-            }})
-        },
         addCategory(state, actions: PayloadAction<any>) {
             state.category = [...actions.payload];
         },
@@ -81,4 +76,4 @@ const filtersReducer = createSlice({
 });
 
 export default filtersReducer.reducer
-export const { addCategory, addVendor,  addVendorLocation, addDiscounds, setSearchWord, setSearchObject, setSearchObjectPage, setEditing} = filtersReducer.actions;
+export const { addCategory, addVendor,  addVendorLocation, addDiscounds, setSearchWord, setSearchObject, setSearchObjectPage} = filtersReducer.actions;
