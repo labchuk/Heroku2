@@ -74,13 +74,12 @@ const AdminPanelCard = () => {
   });
 
 
-
   const handleKeyDownForTitle = (event: any): void => {
     if (locale === 'en') {
       if (event.keyCode === 65) {
         (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
         setTimeout(() => {event.target.focus()}, 0);
-        setTitle(event.target.value)
+        setTitle(event.target.value);
       }
     } else {
       return;
@@ -88,18 +87,73 @@ const AdminPanelCard = () => {
    };
 
   const handleKeyDownForCategory = (event: any): void  => {
-    if (event.keyCode === 65) {
-      (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
-       setTimeout(() => {event.target.focus()}, 0);
-      setNewCategory(event.target.value)
-    }};
+    if (locale === 'en') {
+      if (event.keyCode === 65) {
+        (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+         setTimeout(() => {event.target.focus()}, 0);
+        setNewCategory(event.target.value);
+      }
+    } else {
+      return;
+    }
+    };
 
   const handleKeyDownForTag = (event: any): void  => {
-    if (event.keyCode === 65) {
-      (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
-      setTimeout(() => {event.target.focus()}, 0);
-      setNewTag(event.target.value);
+    if (locale === 'en') {
+      if (event.keyCode === 65) {
+        (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+        setTimeout(() => {event.target.focus()}, 0);
+        setNewTag(event.target.value);
+      }
+    } else {
+      return;
     }};
+
+  const handleKeyDownForCountry = (event: any): void  => {
+    if (locale === 'en') {
+      if (event.keyCode === 65) {
+        (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+        setTimeout(() => {event.target.focus()}, 0);
+        setNewLocation({ ...newLocation, newCountry: event.target.value });
+      }
+    } else {
+      return;
+    }};
+
+  const handleKeyDownForCity = (event: any): void  => {
+    if (locale === 'en') {
+      if (event.keyCode === 65) {
+        (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+        setTimeout(() => {event.target.focus()}, 0);
+        setNewLocation({ ...newLocation, newCity: event.target.value })
+      }
+    } else {
+      return;
+    }};
+
+  const handleKeyDownForAddress = (event: any): void  => {
+    if (locale === 'en') {
+      if (event.keyCode === 65) {
+        (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+        setTimeout(() => {event.target.focus()}, 0);
+        setNewLocation({ ...newLocation, newAddress: event.target.value });
+      }
+    } else {
+      return;
+    }};
+
+  const handleKeyDownForDescription = (event: any): void  => {
+    if (locale === 'en') {
+      if (event.keyCode === 65) {
+        (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+        setTimeout(() => {event.target.focus()}, 0);
+        setDescription(event.target.value);
+      }
+    } else {
+      return;
+    }};
+
+
 
 
 
@@ -494,6 +548,7 @@ const AdminPanelCard = () => {
                   disabled={!choeseVendor}
                   label={t`Country`}
                   value={newLocation.newCountry}
+                  onKeyDown={handleKeyDownForCountry}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setNewLocation({ ...newLocation, newCountry: e.target.value })
                   }}
@@ -502,6 +557,7 @@ const AdminPanelCard = () => {
                   disabled={!choeseVendor}
                   label={t`City`}
                   value={newLocation.newCity}
+                           onKeyDown={handleKeyDownForCity}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setNewLocation({ ...newLocation, newCity: e.target.value })
                   }}
@@ -511,6 +567,7 @@ const AdminPanelCard = () => {
                   disabled={!choeseVendor}
                   label={t`Address`}
                   value={newLocation.newAddress}
+                           onKeyDown={handleKeyDownForAddress}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setNewLocation({ ...newLocation, newAddress: e.target.value })
                   }}
@@ -536,6 +593,7 @@ const AdminPanelCard = () => {
               required
               multiline rows={5}
               label={t`Description`}
+              onKeyDown={handleKeyDownForDescription}
               onChange={(e: any) => setDescription(e.target.value)}
               variant="outlined"
               inputProps={{
