@@ -77,9 +77,10 @@ const AdminPanelCard = () => {
   const handleKeyDownForTitle = (event: any): void => {
     if (locale === 'en') {
       if (event.keyCode === 65) {
+        event.preventDefault();
         (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+         setTitle(event.target.value);
         setTimeout(() => {event.target.focus()}, 0);
-        setTitle(event.target.value);
       }
     } else {
       return;
@@ -89,9 +90,10 @@ const AdminPanelCard = () => {
   const handleKeyDownForCategory = (event: any): void  => {
     if (locale === 'en') {
       if (event.keyCode === 65) {
+        event.preventDefault();
         (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
-         setTimeout(() => {event.target.focus()}, 0);
-        setNewCategory(event.target.value);
+         setNewCategory(event.target.value);
+        setTimeout(() => {event.target.focus()}, 0);
       }
     } else {
       return;
@@ -101,9 +103,10 @@ const AdminPanelCard = () => {
   const handleKeyDownForTag = (event: any): void  => {
     if (locale === 'en') {
       if (event.keyCode === 65) {
+        event.preventDefault();
         (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
-        setTimeout(() => {event.target.focus()}, 0);
         setNewTag(event.target.value);
+        setTimeout(() => {event.target.focus()}, 0);
       }
     } else {
       return;
@@ -112,9 +115,11 @@ const AdminPanelCard = () => {
   const handleKeyDownForCountry = (event: any): void  => {
     if (locale === 'en') {
       if (event.keyCode === 65) {
+        event.preventDefault();
         (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
-        setTimeout(() => {event.target.focus()}, 0);
         setNewLocation({ ...newLocation, newCountry: event.target.value });
+        setTimeout(() => {event.target.focus()}, 0);
+
       }
     } else {
       return;
@@ -123,9 +128,11 @@ const AdminPanelCard = () => {
   const handleKeyDownForCity = (event: any): void  => {
     if (locale === 'en') {
       if (event.keyCode === 65) {
+        event.preventDefault();
         (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
-        setTimeout(() => {event.target.focus()}, 0);
         setNewLocation({ ...newLocation, newCity: event.target.value })
+        setTimeout(() => {event.target.focus()}, 0);
+
       }
     } else {
       return;
@@ -134,9 +141,11 @@ const AdminPanelCard = () => {
   const handleKeyDownForAddress = (event: any): void  => {
     if (locale === 'en') {
       if (event.keyCode === 65) {
+        event.preventDefault();
         (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
-        setTimeout(() => {event.target.focus()}, 0);
         setNewLocation({ ...newLocation, newAddress: event.target.value });
+        setTimeout(() => {event.target.focus()}, 0);
+
       }
     } else {
       return;
@@ -145,9 +154,11 @@ const AdminPanelCard = () => {
   const handleKeyDownForDescription = (event: any): void  => {
     if (locale === 'en') {
       if (event.keyCode === 65) {
+        event.preventDefault();
         (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
-        setTimeout(() => {event.target.focus()}, 0);
         setDescription(event.target.value);
+        setTimeout(() => {event.target.focus()}, 0);
+
       }
     } else {
       return;
