@@ -14,8 +14,9 @@ import {STATISTIC_ROUTE, HISTORY_ROUTE, MAIN_ROUTE} from "../../../utils/consts"
 import {useAppSelector, useAppDispatch} from "../../../store/Redux-toolkit-hook";
 import { makeStyles } from "@material-ui/core/styles";
 import { t } from 'ttag';
-import {getDiscounts} from "../../../http/discountApi"
-import {setSearchObject, addDiscounds, setSearchWord} from "../../../store/filtersStore"
+import {getSubCategoryAll} from "../../../http/filtersApi";
+import {getDiscounts} from "../../../http/discountApi";
+import {setSearchObject, addDiscounds, setSearchWord, addSubCategory} from "../../../store/filtersStore"
 const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: theme.palette.secondary.main,
@@ -26,45 +27,64 @@ const useStyles = makeStyles((theme) => ({
 
 
 const SearchBar =()=>{
+    const getArrName =(name) =>{
+        return name?.filter((item: any)=> item.deleted === false).map(item=> firsLetterToUpperCase(item.name));
+    }
     const dispatch = useAppDispatch();
     const arrChips = useAppSelector(state => state.chips);
-    const {category, vendorLocation, vendor,  searchObject} = useAppSelector(state=>state.filters);
-    
+    const {category, vendorLocation, vendor,  searchObject , subCategory} = useAppSelector(state=>state.filters);
+    const arrSubCatygory = getArrName(subCategory)
     const arrCountry = vendorLocation?.map(item=>firsLetterToUpperCase(item.country))
     const uniqueArr = (arr:string[]) => Array.from(new Set(arr));
-    const categoryArr = category?.filter((item: any)=> item.deleted === false).map(item=> firsLetterToUpperCase(item.name));
-    const arr: string[] = ["aaaaaaa","dddddddddddd","sssssssssss"].map(item=>firsLetterToUpperCase(item));
+    const categoryArr = getArrName(category)
     const arrVendorName =vendor?.map(item=>firsLetterToUpperCase(item.name));
+    const [categoryId, setCategoryId] = useState("")
+
 
     const getIds = (name: string, array: any): string[]=>{
-        if(name==="Category"){
-            return arrChips.ChipsArray.filter(item => item.name=== "Category").map(item=> Object.keys(item)[0]);
-        }
         const arr = arrChips.ChipsArray.filter(item => item.name=== name).map(item=> Object.keys(item)[0])
         const arrid:string[] = [];
         arr.forEach(item => {
             array.forEach(i => {
-                i.name === item && arrid.push(i.id);
+                i.name.toLowerCase() === item.toLowerCase() && arrid.push(i.id);
             })
         })
         return arrid;
     }
 
     useEffect(()=>{
+        categoryId && getSubCategoryAll(categoryId).then(resolve=>dispatch(addSubCategory(resolve.data)));
+    },[categoryId])
 
-        dispatch(setSearchObject({
+    const getSubCatygoryId = () =>{
+        const arr = arrChips.ChipsArray.filter(item => item.name=== "Category").map(item=> Object.values(item)[0]).flat();
+        const arrid:string[] = [];
+        arr.forEach(item => {
+            subCategory.forEach(i => {
+                i.name.toLowerCase() === item.toLowerCase() && arrid.push(i.id);
+            })
+        })
+        return arrid;
+    }
+
+    useEffect(()=>{
+        const categoryId =  getIds("Category", category)[0];
+        setCategoryId(categoryId)
+        const obj = {
             page: 0,
             size: 15,
             city: arrChips.ChipsArray.filter(item => item.name=== "Country").map(item=> Object.values(item)[0]),
             country: arrChips.ChipsArray.filter(item => item.name=== "Country").map(item=> Object.keys(item)[0]),
             vendorIds: getIds("Vendor", vendor),
-            categoryId:  arrChips.ChipsArray.filter(item => item.name=== "Category").map(item=> Object.keys(item)[0]),
-            subCategoryIds: [],
-        }))
-        handleClick()
+            categoryId:  categoryId,
+            subCategoryIds: getSubCatygoryId(),
+        }
+        dispatch(setSearchObject(obj))
+        handleClick(obj)
+
     },[arrChips,searchObject.searchWord])
-    const handleClick = async() =>  {
-        const {data} = await getDiscounts(searchObject);
+    const handleClick = async(obj) =>  {
+        const {data} = await getDiscounts(obj);
         dispatch(addDiscounds(data.content))
      };
     const [ableSubCategory, setAbleSubCategory] = useState<String>("");
@@ -106,11 +126,11 @@ const SearchBar =()=>{
             </div>}
             {pathname !== HISTORY_ROUTE && <>
                 <MySelect data={arrCountry? uniqueArr(arrCountry):[]} isCategory={false} clName={"location"} id={'1'} name={`Country`} localName={t`Country`} setAble={setAbleCyti} disabled={false} helperText=''/>
-                <MySelect data={uniqueArr(choiceCity)} clName={"location"} isCategory={true} name={`City`} localName={t`City`} id={'1'}  setAble={()=>{}} disabled={!ableCity} helperText={!ableCity? t`Please choose country` : ""}/>
+                <MySelect data={uniqueArr(choiceCity)} clName={"location"}  isCategory={true} name={`City`} localName={t`City`} id={'1'}  setAble={()=>{}} disabled={!ableCity} helperText={!ableCity? "Please choose country": ""}/>
                 <SelectMultiple data={arrVendorName? arrVendorName: []} isCategory={false} clName={"location"}  name={`Vendor`} localName={t`Vendor`} disabled={false} helperText={""}/>
                 <MySelect data={categoryArr? categoryArr : []} id={'2'} isCategory={false} clName={"location"} name={`Category`} localName={t`Category`} setAble={setAbleSubCategory} disabled={false} helperText=''/>
-                <SelectMultiple data={arr} clName={"location"} id={'2'} name={`Sub Category`} localName={t`Sub Category`} isCategory={true} disabled={!ableSubCategory} helperText={!ableSubCategory? t`Please choose category` : ""}/>
-            {pathname === STATISTIC_ROUTE &&  <SelectMultiple data={arr} clName={"location"} name={`User`} localName={t`User`} isCategory={false} disabled={false} helperText={""}/>}
+                <SelectMultiple data={arrSubCatygory? arrSubCatygory: []} clName={"location"} id={'2'} name={`Sub Category`} localName={t`Sub Category`} isCategory={true} disabled={!ableSubCategory} helperText={!ableSubCategory? "Please choose category": ""}/>
+            {pathname === STATISTIC_ROUTE &&  <SelectMultiple data={[]} clName={"location"} name={`User`} localName={t`User`} isCategory={false} disabled={false} helperText={""}/>}
 
             </>}
             {pathname !== MAIN_ROUTE  &&  <ContainerDataPiker />}

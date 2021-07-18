@@ -12,18 +12,18 @@ import "./AdminPanelCard.scss";
 import { t } from 'ttag';
 import AdminSelect from '../AdminSelect';
 import { Alert } from '@material-ui/lab';
-import {getVendorId, postCategory, postVendorLocation} from "../../../http/filtersApi"
+import {getVendorId, postCategory, postVendorLocation, getSubCategoryAll, postSubCategory, uploadImage} from "../../../http/filtersApi"
+import {postDiscount} from "../../../http/discountApi"
 import {useAppSelector, useAppDispatch} from "../../../store/Redux-toolkit-hook";
 import {firsLetterToUpperCase} from "../../../helpers/functionHelpers";
 import { utimes } from 'fs';
 import { captureRejectionSymbol } from 'stream';
+import {addNewCategory, addNewSubCategory,addNewVendorLocation,addSubCategory, addNewDiscounds} from "../../../store/filtersStore"
+import { CancelPresentationOutlined, ContactsOutlined } from '@material-ui/icons';
 import { saveLocale, locale } from '../../../components/common/LangSwitcher/i18nInit';
 interface State extends SnackbarOrigin {
   open: boolean;
 }
-
-
-
 
 interface ChipData {
   key: number;
@@ -47,9 +47,8 @@ interface Idiscount{
 }
 
 
-
 const AdminPanelCard = () => {
-  const {category, vendorLocation, vendor,  searchObject} = useAppSelector(state=>state.filters);
+  const {category, vendorLocation, vendor,  searchObject, subCategory} = useAppSelector(state=>state.filters);
   const [state, setState] = React.useState(false);
   const [disableInput, setDisableInput] = React.useState(false);
   const [addressInput, setAddressInput] = React.useState(false);
@@ -66,12 +65,17 @@ const AdminPanelCard = () => {
   const [description, setDescription] = React.useState();
   const [isOnline, setIsOnline] = React.useState(false);
   const [location, setLocation] = React.useState<any[]>([]);
-  const [time, setTime] = useState();
+  const [time, setTime] = useState({
+    To: new Date(),
+    From: new Date(),
+  });
+  const [tags, setTag] = React.useState(["a","a","a","a",]);
   const [newLocation, setNewLocation] = React.useState({
     newCountry: '',
     newCity: '',
     newAddress: '',
   });
+  const dispatch =useAppDispatch()
 
 
   const handleKeyDownForTitle = (event: any): void => {
@@ -169,26 +173,44 @@ const AdminPanelCard = () => {
 
 
   const categoryArr = category?.filter((item: any)=> item.deleted === false).map(item=> firsLetterToUpperCase(item.name));
+  const addLogoDiscount = () => {
+        const formData = new FormData();
+        formData.append(
+            "file",
+            fileName,
+        );
+        return uploadImage(formData)
+    }
+
   const [categoryState, setcategoryState] = React.useState([...categoryArr]);
-  const getVendorId = () => (vendor.filter(item=> item.name === choeseVendor).map(item => item.id))[0];
+  const getVendorId = () => (vendor.filter(item=> item.name.toLowerCase() === choeseVendor.toLowerCase()).map(item => item.id))[0];
+  const getCategoryId = () => (category.filter(item=> item.name.toLowerCase() === choeseCategory.toLowerCase()).map(item => item.id))[0]
 
   useEffect(()=>{
     setLocation([])
     const choeseLocation = vendorLocation.filter(item => item.vendorId === getVendorId());
+    const arrLocation :any[] = []
     choeseLocation?.forEach(item=>{
       if(item.deleted){return};
-      setLocation([...location, { key: Math.random(), country: item.country, city: item.city, address: item.addressLine }])
+      arrLocation.push({ key: Math.random(), country: item.country, city: item.city, address: item.addressLine})
     })
+    setLocation([...arrLocation])
   },[choeseVendor]);
 
+  useEffect(()=>{
+    const categoryId = getCategoryId();
+    choeseCategory && getSubCategoryAll(categoryId).then(resolve=>dispatch(addSubCategory(resolve.data)));
+  },[choeseCategory])
 
+  useEffect(()=>{
+    const subCategoryArr = subCategory?.filter((item: any)=> item.deleted === false).map(item=> firsLetterToUpperCase(item.name));
+    setTag([...subCategoryArr])
+  },[subCategory])
 
-  const [tags, setTag] = React.useState([
-    'Tag 1',
-    'Tag 2',
-    'Tag 3',
-    'Tag 4',
-  ]);
+  useEffect(()=>{
+    const categoryArr = category?.filter((item: any)=> item.deleted === false).map(item=> firsLetterToUpperCase(item.name));
+    setcategoryState([...categoryArr])
+  },[category])
 
   const vendors = vendor?.map(item=>firsLetterToUpperCase(item.name));
 
@@ -232,10 +254,9 @@ const AdminPanelCard = () => {
   }
   const submitCategory = async() => {
     setCategoryInput(false);
-    const {status} = await postCategory({name:newCategory})
+    const {status, data} = await postCategory({name:newCategory})
     if(status>=200 && status <=299){
-      let addNewCategory = category.concat(newCategory);
-      setcategoryState(addNewCategory)
+      dispatch(addNewCategory(data))
     }
   }
 
@@ -247,10 +268,13 @@ const AdminPanelCard = () => {
     setTagInput(true)
   }
 
-  const submitTag = () => {
+
+  const submitTag = async() => {
     setTagInput(false);
-    let addNewTag = tags.concat(newTag);
-    setTag(addNewTag)
+    const {status, data} = await postSubCategory({name: newTag},getCategoryId())
+    if(status>=200 && status <=299){
+      dispatch(addNewSubCategory(data))
+    }
   }
 
   const cancelTag = () => {
@@ -434,8 +458,6 @@ const AdminPanelCard = () => {
     },
   })
 
-
-
   const styles = useStyles();
 
   const handleDeleteChip = (chipToDelete: ChipData) => () => {
@@ -458,51 +480,47 @@ const AdminPanelCard = () => {
   };
 
   const timeString = (time) =>{
-    const year = time.getFullYear()
-    const month = time.getMonth()
-    const date = time.getDate()
-    const hours =time.getHours()
-    const minutes =time.getMinutes()
-    const check = (some) => some < 10 ? "0" + some: some
-
-    return `${year}-${check(month)}-${check(date)}T${check(hours)}:${check(minutes)}+02:00`
+    const year = time.getFullYear();
+    const month = time.getMonth();
+    const date = time.getDate();
+    const hours =time.getHours();
+    const minutes =time.getMinutes();
+    const check = (some) => some < 10 ? "0" + some: some;
+    const timezoneOffset = Math.abs(time.getTimezoneOffset() / 60) ;
+    return `${year}-${check(month)}-${check(date)}T${check(hours)}:${check(minutes)}+${check(timezoneOffset)}:00`
   }
 
-  const createDiscount = () =>{
-//     interface Idiscount{
-//     name: string;
-//     vendorId: string;
-//     fullDescription: string;
-//     isOnline:boolean;
-//     imageLink:string;
-//     startDate:string;
-//     endDate: string;
-//     subCategoryIds: string[];
-//     locationIds: string[];
-//     categoryId: string;
-//     percentage: number;
-// "2017-07-19T14:25+02:00"
-// }
-    const newDiscount = {
-      name: title,
-      fullDescription:description,
-      imageLink: fileName,
-      categoryId: (category.filter(item=> item.name === choeseCategory).map(item => item.id))[0],
-      isOnline: isOnline,
-      vendorId: getVendorId(),
-      locationIds: vendorLocation.filter(item => item.vendorId === getVendorId()).map(item=>item.id),
-      endDate: timeString(time.From),
-      startDate: timeString(time.To),
+  const getSubCatygoryId = (subCategory, choeseTag) =>{
+    const arrId = choeseTag.map(element => subCategory.filter(item => item.name.toLowerCase() === element.toLowerCase()).map(item=>item.id));
+    return arrId.flat();
+  }
+
+  const createDiscount = async () =>{
+    const newDiscount:Idiscount = {
+          name: title,
+          fullDescription: description,
+          imageLink: addLogoDiscount(),
+          categoryId: getCategoryId(),
+          isOnline: isOnline,
+          vendorId: getVendorId(),
+          locationIds: vendorLocation.filter(item => item.vendorId === getVendorId()).map(item=>item.id),
+          endDate: timeString(time.To),
+          startDate: timeString(time.From),
+          subCategoryIds: getSubCatygoryId(subCategory, choeseTag),
+      };
+    if(!(Object.values(newDiscount)).includes(undefined)){
+      await postDiscount(newDiscount).catch((e)=>console.log(e));
     }
-    console.log(newDiscount)
+    else{
+      console.log("erro createDiscount")
+    }
   }
     
-  //  `${time?.To.getFullYear()}-${time?.To.getMonth()}-${time?.To.getDate()}T${time?.To.getHours() < 10 ? "0"+time?.To.getHours() : time?.To.getHours()}:${time?.To.getMinutes()< 10 ? "0" +time?.To.getMinutes(): time?.To.getMinutes()}+02:00`
 
   const list = () => (
     <List className={styles.wrapper}>
       <ListItem>
-        <form className={styles.form} >
+        <form className={styles.form}>
           <Grid container direction='column'>
             <div className={styles.wrapper__title} onClick={toggleDrawer(false)}>
               <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 11 }} />
@@ -643,8 +661,7 @@ const AdminPanelCard = () => {
         onClose={toggleDrawer(false)}>
         <div>
           {list()}
-
-                 </div>
+        </div>
       </Drawer>
     </div>
   );

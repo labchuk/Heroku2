@@ -70,9 +70,27 @@ const filtersReducer = createSlice({
         addVendorLocation(state, actions: PayloadAction<any>) {
             state.vendorLocation = [...actions.payload];
         },
+        addNewCategory(state, actions: PayloadAction<any>) {
+            state.category = [...state.category ,actions.payload];
+        },
+        
+        addNewVendor(state, actions: PayloadAction<any>) {
+            state.vendor = [...state.vendor,actions.payload];
+        },
+        
+        addNewDiscounds(state, actions: PayloadAction<any>) {
+            state.discounds = [...state.discounds,actions.payload];
+        },
+        addNewSubCategory(state, actions: PayloadAction<any>) {
+            state.subCategory = [...state.subCategory,actions.payload];
+        },
+        
+        addNewVendorLocation(state, actions: PayloadAction<any>) {
+            state.vendorLocation = [...state.vendorLocation,actions.payload];
+        },
         
     },
 });
 
 export default filtersReducer.reducer
-export const { addCategory, addVendor,  addVendorLocation, addDiscounds, setSearchWord, setSearchObject, setSearchObjectPage} = filtersReducer.actions;
+export const { addCategory, addVendor,addNewCategory,addSubCategory, addNewSubCategory,addNewVendorLocation,addNewDiscounds, addNewVendor,addVendorLocation, addDiscounds, setSearchWord, setSearchObject, setSearchObjectPage} = filtersReducer.actions;
