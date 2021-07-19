@@ -10,14 +10,15 @@ interface SaleCardProps {
         place: string,
         nameDiscount: string,
         sizeDiscount: string,
-        date: string
+        date: string,
+        active: boolean
     },
     cards: {
         id: number,
         place: string,
         nameDiscount: string,
         sizeDiscount: string,
-        date: string
+        date: string,
     }[],
     updateData: (data: any) => void,
     handleClick: (e: any) => void
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const SaleCard: React.FC<SaleCardProps> = ({ discount, cards, updateData, handleClick }) => {
+const SaleCard: React.FC<SaleCardProps> = ({ discount, cards, updateData, active, handleClick }) => {
     const classes = useStyles()
     const [loading, setLoading] = useState(true)
 
@@ -58,7 +59,8 @@ const SaleCard: React.FC<SaleCardProps> = ({ discount, cards, updateData, handle
 
 
                 <Like discount={discount} cards={cards} updateData={updateData} />
-
+                {!loading ? !discount.active ? <div className={"notActive"}>Not Active</div> : null  : null}
+                {/*{!loading ? !discount.ac ? <div className={"notActive"}>Come in soon</div> : null  : null}*/}
             </div>
         </div>
 

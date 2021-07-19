@@ -55,13 +55,15 @@ const  App = () => {
     return (
         <div className={"app-wrapper"} style={{backgroundColor: theme.palette.primary.main }}>
             <BrowserRouter>
-                {isAuth && <ThemeProvider theme={theme}><Header/></ThemeProvider>}
+                {isAuth && <ThemeProvider theme={theme}>
+                    <Header/>
+                    <div className={'switch-btn'} style={{width: '1260px',margin: "0 auto"}}>
+                        <Switch checked={darkMode} onChange={()=>setDarkMode(!darkMode)} /><span onClick={()=>setDarkMode(!darkMode)} style={{cursor: "pointer"}}>Dark Mode</span>
+                    </div>
+                </ThemeProvider>}
                 <div className={"app-wrapper-container"} style={{minHeight: '100vh'}}>
                     <ThemeProvider theme={theme}>
-                        {pathname !== LOGIN_ROUTE ?
-                            <Switch checked={darkMode} onChange={()=>setDarkMode(!darkMode)} color={"secondary"}/> : null
-                        }
-                            <AppRouter setPath={setPathname}/>
+                            <AppRouter/>
                             <CssBaseline/>
                     </ThemeProvider>
                 </div>

@@ -49,12 +49,12 @@ const SelectMultiple = ({ clName, data, name, isCategory, id, localName, setArrT
         else dispatch(addChipMain({[numberChip]: [], name: name, id: id}))
     } else if (pathname === MAIN_ROUTE && index.props.children[0].props.checked === true) {
         if (isCategory) dispatch(removeCategoryMain({name: index.props.value, id: id}))
-        else dispatch(removeChipMain(index.props.value))
+        else dispatch(removeChipMain({name:numberChip}))
     } else if (pathname === STATISTIC_ROUTE && index.props.children[0].props.checked === false) {
         if (isCategory) dispatch(addChipStatistic([index.props.value, id]))
         else dispatch(addChipStatistic({[numberChip]: [], name: name, id: id}))
     } else if (pathname === STATISTIC_ROUTE && index.props.children[0].props.checked === true) {
-        if (isCategory) dispatch(removeCategoryStatistic({name: index.props.value, id: id}))
+        if (isCategory) dispatch(removeCategoryStatistic({name: numberChip}))
         else dispatch(removeChipStatistic(index.props.value))
     }
 
