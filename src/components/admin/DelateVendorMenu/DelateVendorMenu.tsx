@@ -1,137 +1,24 @@
-import {Button, Chip, ListItem, SnackbarOrigin} from '@material-ui/core';
+import {ListItem} from '@material-ui/core';
 import {Drawer, List} from '@material-ui/core';
-import {TextField} from '@material-ui/core';
-import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 import {makeStyles} from '@material-ui/core/styles';
 import React, {useRef} from 'react';
-import DropZone from '../../common/DropZone/DropZone';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import "./DelateVendorMenu.scss";
 import AdminPanelVendor from '../AdminPanelVendor/AdminPanelVendor';
 import {t} from 'ttag';
-import {useAppDispatch, useAppSelector} from "../../../store/Redux-toolkit-hook";
-import {addVendor} from '../../../store/filtersStore';
-import {getVendorLocation} from "../../../http/filtersApi";
+import {useAppSelector} from "../../../store/Redux-toolkit-hook";
 import DelateVendorMenuEdit from "./DelateVendorMenuEdit";
 
 const DelateVendorMenu = () => {
     const [state, setState] = React.useState(false);
-    const [countryValue, setCountryValue] = React.useState(['']);
-    const [cityValue, setCityValue] = React.useState(['']);
-    const [addressValue, setAddressValue] = React.useState(['']);
-    const [uploadFileName, setUploadFileName] = React.useState('');
-    const parentRef = useRef<any>();
-    /*const [vendors, setVendor] = React.useState([
-        {
-            id: 1,
-            name: "Nike",
-            country: "Ukraine",
-            city: "Lviv",
-            address: "Horodotska Str, 16",
-            email: "company.nike@gmail.com",
-            description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid fuga, ab odit delectus suscipit dignissimos nemo accusamus repellat eius ipsum excepturi optio quis eligendi in ullam nobis sapiente officia vero!",
-            image: 'logo1.jpg',
-            editing: false
-        },
-        {
-            id: 2,
-            name: "Puma",
-            country: "Belarus",
-            city: "Minsk",
-            address: "Horodotska Str, 16",
-            email: "company.puma@gmail.com",
-            description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid fuga, ab odit delectus suscipit dignissimos nemo accusamus repellat eius ipsum excepturi optio quis eligendi in ullam nobis sapiente officia vero!",
-            image: 'logo1.jpg',
-            editing: false
-        },
-        {
-            id: 3,
-            name: "Zara",
-            country: "Ukraine",
-            city: "Lviv",
-            address: "Horodotska Str, 16",
-            email: "company.zara@gmail.com",
-            description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid fuga, ab odit delectus suscipit dignissimos nemo accusamus repellat eius ipsum excepturi optio quis eligendi in ullam nobis sapiente officia vero!",
-            image: 'logo1.jpg',
-            editing: false
-        },
-        {
-            id: 4,
-            name: "Domino's",
-            country: "Ukraine",
-            city: "Lviv",
-            address: "Horodotska Str, 16",
-            email: "company.dominos@gmail.com",
-            description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid fuga, ab odit delectus suscipit dignissimos nemo accusamus repellat eius ipsum excepturi optio quis eligendi in ullam nobis sapiente officia vero!",
-            image: 'logo1.jpg',
-            editing: false
-        },
-    ]);*/
     const {vendor} = useAppSelector(state => state.filters)
     const [vendors, setVendor] = React.useState(vendor)
 
 
-    /*const getVLocation = async () => {
-        const loc = await getVendorLocation()
-        loc.forEach(item=>{
-            setLocation([...location, { key: Math.random(), country: item.country, city: item.city, address: item.addressLine }])
-        })
-    }*/
-
-
-
-    const address = [
-        'Chornovola Str, 27',
-        'Yakuba Kolasa Str, 37',
-        'Horodotska Str, 7a',
-        'Rynok Sqr, 1',
-        'Mazepy Str, 1a',
-        'Warshavska Str, 127',
-    ];
-
-    const countries = ['Ukraine', 'Belarus', 'USA'];
-    const cities = ['Lviv', 'Minsk', 'Kharkiv'];
-
-    const [category, setCategory] = React.useState([
-        {title: 'Category 1'},
-        {title: 'Category 2'},
-        {title: 'Category 3'},
-        {title: 'Category 4'},
-        {title: 'Category 5'},
-    ]);
-
-    const [tags, setTag] = React.useState([
-        {title: 'Tag 1'},
-        {title: 'Tag 2'},
-        {title: 'Tag 3'},
-        {title: 'Tag 4'},
-        {title: 'Tag 5'},
-    ]);
-
-
-
-
     const toggleDrawer = (open: any) => (event: any) => {
         setState(open);
-    }
-
-    const handleChangeCountry = (event: any) => {
-        setCountryValue(event.target.value)
-    }
-
-    const handleChangeCity = (event: any) => {
-        setCityValue(event.target.value)
-    }
-
-    const handleChangeAddress = (event: any) => {
-        setAddressValue(event.target.value)
     }
 
     const useStyles = makeStyles({
@@ -327,9 +214,7 @@ const DelateVendorMenu = () => {
                         <span
                             className={styles.attention__span}>{t`Removing a vendor will delete all its discounts`}</span>
                     </div>
-                    {vendors.map((value: any) => <DelateVendorMenuEdit styles={styles} key={value.id} value={value} vendors={value.vendors} />)}
-                    {/*const locationVendor = getVendorLocation(value.id).then(resolve => console.log(resolve.data.content) )*/}
-
+                    {vendors.map((value: any) => <DelateVendorMenuEdit styles={styles} key={value.id} value={value} />)}
                     <button className={styles.adminPanel}>
                         <AdminPanelVendor/>
                     </button>
