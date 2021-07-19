@@ -347,3 +347,11 @@ msgstr "Акцыя была паспяхова выдалена!"
 #: src/components/common/SnackbarForDelPromo/SnackbarForDelPromo.tsx:43
 msgid "Something went wrong..."
 msgstr "Нешта пайшло не так..."
+
+#: src/components/card/Like/Like.tsx:209
+msgid "Are you sure?"
+msgstr "Вы ўпэўнены?"
+
+#: src/components/card/Like/Like.tsx:210
+msgid "Deleted promo will not be recoverable!"
+msgstr "Выдаленая прома не падлягае аднаўленню!"

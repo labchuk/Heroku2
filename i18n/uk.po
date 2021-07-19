@@ -354,3 +354,10 @@ msgstr "Промо було успішно видалено!"
 msgid "Something went wrong..."
 msgstr "Щось пішло не так..."
 
+#: src/components/card/Like/Like.tsx:209
+msgid "Are you sure?"
+msgstr "Ви впевнені?"
+
+#: src/components/card/Like/Like.tsx:210
+msgid "Deleted promo will not be recoverable!"
+msgstr "Видалене промо не можна буде відновити!"

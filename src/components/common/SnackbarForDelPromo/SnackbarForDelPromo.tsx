@@ -40,10 +40,10 @@ export default function SnackbarForDelPromo(props: any) {
                 open={props.snackbarState} autoHideDuration={3000} onClose={handleClose}>
                 { successDel ? (
                     <Alert onClose={handleClose} severity="success">
-                        {t`Promo was successfully deleted!`}
+                        {props.successMessage}
                     </Alert>  )
                  : (<Alert onClose={handleClose} severity="error">
-                        {t`Something went wrong...`}
+                        {props.errorMessage}
                     </Alert>  )
                 }
 

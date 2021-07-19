@@ -81,8 +81,8 @@ export default function ModalDeletionPromo(props: any){
             >
                 <Fade in={props.modalState}>
                     <div className={classes.paper}>
-                        <h1 className={classes.title}>Are you sure?</h1>
-                        <p className={classes.description}>Deleted promo will not be recoverable!</p>
+                        <h1 className={classes.title}>{props.title}</h1>
+                        <p className={classes.description}>{props.description}</p>
                         <div className="confirm">
                             <Button variant="contained"
                                     color="primary"

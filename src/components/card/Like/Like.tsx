@@ -8,6 +8,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import { makeStyles, Popover } from '@material-ui/core';
 import ModalDeletionPromo from "../../common/ModalDeletionPromo/ModalDeletionPromo";
 import SnackbarForDelPromo from "../../common/SnackbarForDelPromo/SnackbarForDelPromo";
+import {t} from "ttag";
 
 
 interface LikeProps {
@@ -35,7 +36,7 @@ const Like: FC<LikeProps> = (props) => {
     const [openSnackbar, setSnackbar] = useState(false);
 
 
-    const heandlerDeleteCard = () => {
+    const handlerDeleteCard = () => {
         deleteCard(props.discount);
         setSnackbar(true);
     }
@@ -202,8 +203,20 @@ const Like: FC<LikeProps> = (props) => {
                 </Popover>
             </div>
 
-                <ModalDeletionPromo setModalState={setOpenModal} modalState={openModal} action={heandlerDeleteCard}/>
-                <SnackbarForDelPromo setSnackbar={setSnackbar} snackbarState={openSnackbar}/>
+                <ModalDeletionPromo
+                    setModalState={setOpenModal}
+                    modalState={openModal}
+                    title={t`Are you sure?`}
+                    description={t`Deleted promo will not be recoverable!`}
+                    action={handlerDeleteCard}
+                />
+                <SnackbarForDelPromo
+                    setSnackbar={setSnackbar}
+                    snackbarState={openSnackbar}
+                    successMessage={t`Promo was successfully deleted!`}
+                    errorMessage={t`Something went wrong...`}
+
+                />
         </Fragment >
     );
 };
