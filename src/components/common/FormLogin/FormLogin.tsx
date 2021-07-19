@@ -126,6 +126,7 @@ const FormLogin: React.FC = () => {
                 <ReCAPTCHA
                     sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
                     ref={recaptchaRef}
+                    key={1}
                     onChange={onChange}
                     onExpired={onError}
                     hl={"en"}
