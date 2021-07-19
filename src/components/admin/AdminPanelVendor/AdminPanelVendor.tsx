@@ -12,6 +12,7 @@ import { getVendorAll, postVendor, postVendorLocation, uploadImage } from "../..
 import { t } from 'ttag';
 import PositionedSnackbar from '../../common/Snackbar/Snackbar';
 import { Alert } from '@material-ui/lab';
+import {locale} from "../../common/LangSwitcher/i18nInit";
 
 
 interface State extends SnackbarOrigin {
@@ -24,6 +25,7 @@ interface ChipData {
     city: string,
     address: string,
 }
+
 
 const AdminPanelVendor = () => {
     const [state, setState] = React.useState(false);
@@ -123,6 +125,93 @@ const AdminPanelVendor = () => {
     const handleCloseAlert = () => {
         setAlertState({ ...alertState, open: false });
     };
+
+
+
+    const handleKeyDownForName = (event: any): void => {
+        if (locale === 'en') {
+            if (event.keyCode === 65) {
+                event.preventDefault();
+                (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+                setData({ ...data, name: event.target.value })
+                setTimeout(() => {event.target.focus()}, 0);
+            }
+        } else {
+            return;
+        }
+    };
+
+    const handleKeyDownForCountry = (event: any): void => {
+        if (locale === 'en') {
+            if (event.keyCode === 65) {
+                event.preventDefault();
+                (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+                setNewLocation({ ...newLocation, newCountry: event.target.value })
+                setTimeout(() => {event.target.focus()}, 0);
+
+            }
+        } else {
+            return;
+        }
+    };
+
+    const handleKeyDownForCity = (event: any): void => {
+        if (locale === 'en') {
+            if (event.keyCode === 65) {
+                event.preventDefault();
+                (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+                setNewLocation({ ...newLocation, newCity: event.target.value })
+                setTimeout(() => {event.target.focus()}, 0);
+
+            }
+        } else {
+            return;
+        }
+    };
+
+    const handleKeyDownForAddress = (event: any): void => {
+        if (locale === 'en') {
+            if (event.keyCode === 65) {
+                event.preventDefault();
+                (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+                setNewLocation({ ...newLocation, newAddress: event.target.value })
+                setTimeout(() => {event.target.focus()}, 0);
+
+            }
+        } else {
+            return;
+        }
+    };
+
+    const handleKeyDownForEmail = (event: any): void => {
+        if (locale === 'en') {
+            if (event.keyCode === 65) {
+                event.preventDefault();
+                (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+                setData({ ...data, email: event.target.value })
+                setTimeout(() => {event.target.focus()}, 0);
+
+            }
+        } else {
+            return;
+        }
+    };
+
+    const handleKeyDownForDescription = (event: any): void => {
+        if (locale === 'en') {
+            if (event.keyCode === 65) {
+                event.preventDefault();
+                (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+                setData({ ...data, description: event.target.value })
+                setTimeout(() => {event.target.focus()}, 0);
+
+            }
+        } else {
+            return;
+        }
+    };
+
+
 
 
     const useStyles = makeStyles({
@@ -306,6 +395,7 @@ const AdminPanelVendor = () => {
                                    value={data.name}
                                    required
                                    label={t`Name`}
+                                   onKeyDown={handleKeyDownForName}
                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, name: e.target.value })} />
                         {location.map((data: any) => {
                             if (data.city && data.country && data.address !== '') {
@@ -324,6 +414,7 @@ const AdminPanelVendor = () => {
                         <TextField className={styles.marginBottom}
                                    label={t`Country`}
                                    value={newLocation.newCountry}
+                                   onKeyDown={handleKeyDownForCountry}
                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                        setNewLocation({ ...newLocation, newCountry: e.target.value })
                                    }}
@@ -331,6 +422,7 @@ const AdminPanelVendor = () => {
                         <TextField className={styles.marginBottom}
                                    label={t`City`}
                                    value={newLocation.newCity}
+                                   onKeyDown={handleKeyDownForCity}
                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                        setNewLocation({ ...newLocation, newCity: e.target.value })
                                    }}
@@ -339,6 +431,7 @@ const AdminPanelVendor = () => {
                         <TextField className={styles.marginBottom}
                                    label={t`Address`}
                                    value={newLocation.newAddress}
+                                   onKeyDown={handleKeyDownForAddress}
                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                        setNewLocation({ ...newLocation, newAddress: e.target.value })
                                    }}
@@ -349,6 +442,7 @@ const AdminPanelVendor = () => {
                         <TextField className={styles.marginBottom}
                                    value={data.email}
                                    label={t`E-mail`}
+                                   onKeyDown={handleKeyDownForEmail}
                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, email: e.target.value })}
                                    required
                         />
@@ -363,6 +457,7 @@ const AdminPanelVendor = () => {
                                        maxLength: 200,
                                        minLength: 50
                                    }}
+                                   onKeyDown={handleKeyDownForDescription}
                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, description: e.target.value })} />
                         <div className={styles.uploadPhotoMobile}>
                             <button className={styles.uploadFile__btn}>{t`Upload photo`}</button>

@@ -2,10 +2,13 @@ import React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+import { t } from 'ttag';
 
 function Alert(props: AlertProps) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
+
+let successDel = true;
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -18,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-export default function SnackbarForDelPromo(props: any) {
+export default function SnackbarForModalWithConfirm(props: any) {
     const classes = useStyles();
 
     const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
@@ -35,9 +38,15 @@ export default function SnackbarForDelPromo(props: any) {
             <Snackbar
 
                 open={props.snackbarState} autoHideDuration={3000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="success">
-                    Promo was succsessfully deleted!
-                </Alert>
+                { successDel ? (
+                    <Alert onClose={handleClose} severity="success">
+                        {props.successMessage}
+                    </Alert>  )
+                 : (<Alert onClose={handleClose} severity="error">
+                        {props.errorMessage}
+                    </Alert>  )
+                }
+
             </Snackbar>
 
         </div>

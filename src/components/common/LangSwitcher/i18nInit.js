@@ -5,6 +5,8 @@ const LOCALE_COOKIE = '__locale';
 
 function getLocale() {
     return cookie.get(LOCALE_COOKIE) || 'en';
+
+
 }
 
 export function saveLocale(locale) {

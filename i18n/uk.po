@@ -1,3 +1,5 @@
+
+
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
@@ -149,58 +151,58 @@ msgstr "Перетягніть та відпустіть файл сюди, аб
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:10
 msgid "Users actives:"
-msgstr "Унікальних користувачів"
+msgstr "Унікальних користувачів:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:11
 msgid "Users CR actives:"
-msgstr "Цільових дій"
+msgstr "Цільових дій:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:12
 msgid "Last activity:"
-msgstr "Остання активність"
+msgstr "Остання активність:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:13
 msgid "Most active location:"
-msgstr "Найактивніша локація"
+msgstr "Найактивніша локація:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:16
 msgid "Number of Vendors:"
-msgstr "Всього постачальників"
+msgstr "Всього постачальників:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:17
 msgid "Number of promos:"
-msgstr "Всього промо"
+msgstr "Всього промо:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:18
 msgid "Number of active promos:"
-msgstr "Активних промо"
+msgstr "Активних промо:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:19
 msgid "Promotions durations:"
-msgstr "Тривалість промо"
+msgstr "Тривалість промо:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:22
 msgid "The most popular Vendor:"
-msgstr "Найпопулярніший постачальник"
+msgstr "Найпопулярніший постачальник:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:23
 msgid "The most popular Promo:"
-msgstr "Найпопулярніше промо"
+msgstr "Найпопулярніше промо:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:24
 msgid "The most popular category:"
-msgstr "Найпопулярніша категорія"
+msgstr "Найпопулярніша категорія:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:25
 msgid "The most popular subcategory:"
-msgstr "Найпопулярніша підкатегорія"
+msgstr "Найпопулярніша підкатегорія:"
 
 #: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:297
 #: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:279
 #: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:216
 #: src\components\admin\DelateVendorMenu\DelateVendorMenu.tsx:343
 msgid "Back"
-msgstr "Повернутися"
+msgstr "Повернутися:"
 
 #: src\components\admin\DelateVendorMenu\DelateVendorMenu.tsx:345
 #: src\components\admin\DelateVendorMenu\DelateVendorMenu.tsx:443
@@ -335,3 +337,27 @@ msgstr "Знижка %"
 #: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:299
 msgid "Edit a discount"
 msgstr "Редагувати промо"
+
+#: src/components/common/ModalWithConfirm/ModalWithConfirm.tsx:92
+msgid "Confirm"
+msgstr "Підтвердити"
+
+#: src/components/common/ModalWithConfirm/ModalWithConfirm.tsx:92
+msgid "Confirm"
+msgstr "Підтвердити"
+
+#: src/components/common/SnackbarForModalWithConfirm/SnackbarForModalWithConfirm.tsx:43
+msgid "Promo was successfully deleted!"
+msgstr "Промо було успішно видалено!"
+
+#: src/components/common/SnackbarForModalWithConfirm/SnackbarForModalWithConfirm.tsx:43
+msgid "Something went wrong..."
+msgstr "Щось пішло не так..."
+
+#: src/components/card/Like/Like.tsx:209
+msgid "Are you sure?"
+msgstr "Ви впевнені?"
+
+#: src/components/card/Like/Like.tsx:210
+msgid "Deleted promo will not be recoverable!"
+msgstr "Видалене промо не можна буде відновити!"
