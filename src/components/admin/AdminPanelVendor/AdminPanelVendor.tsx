@@ -14,11 +14,6 @@ import { Alert } from '@material-ui/lab';
 import { locale } from "../../common/LangSwitcher/i18nInit";
 import SimpleSnackbar from '../../common/SimpleSnackbar/SimpleSnackbar';
 
-
-interface State extends SnackbarOrigin {
-    open: boolean;
-}
-
 interface ChipData {
     key: number;
     country: string,
@@ -32,7 +27,9 @@ const AdminPanelVendor = () => {
     const [uploadFileName, setUploadFileName] = React.useState<string | Blob>('');
     const [fileName, setFileName] = React.useState<string | Blob>('');
     const [location, setLocation] = React.useState<any[]>([])
-    const [openSnackbar, setSnackbar] = React.useState(false);
+    const [openSuccessSnackbar, setSuccessSnackbar] = React.useState(false);
+    const [openErrorSnackbar, setErrorSnackbar] = React.useState(false);
+    const emailReg: any = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     const [data, setData] = React.useState({
         email: '',
         description: '',
@@ -73,26 +70,46 @@ const AdminPanelVendor = () => {
         return uploadImage(formData)
     }
 
+    const checkValidation = () => {
+        const emailCheck = new RegExp(emailReg).test(data.email)
+        if (data.name !== '' &&
+            data.email !== '' &&
+            emailCheck &&
+            data.description !== '' &&
+            data.description.length <= 200 &&
+            data.description.length >= 50 &&
+            location.length !== 0 &&
+            uploadFileName !== '' &&
+            fileName !== '') {
+            return true
+        } else {
+            return false
+        }
+    }
+
     const addVendor = async () => {
-        const logo = await addLogoVendor()
-        const logoURL = logo?.data.message
-        const vendor = await postVendor({ name: data.name, description: data.description, email: data.email, image: logoURL })
-        const vendorId = vendor.data.id
-        location.forEach(l => postVendorLocation({
-            country: l.country,
-            city: l.city,
-            addressLine: l.address,
-            vendorId: vendorId
-        }))
-        clearForm()
-        setSnackbar(true)
+        if (checkValidation()) {
+            const logo = await addLogoVendor()
+            const logoURL = logo?.data.message
+            const vendor = await postVendor({ name: data.name, description: data.description, email: data.email, image: logoURL })
+            const vendorId = vendor.data.id
+            location.forEach(l => postVendorLocation({
+                country: l.country,
+                city: l.city,
+                addressLine: l.address,
+                vendorId: vendorId
+            }))
+            clearForm()
+            setSuccessSnackbar(true)
+        } else {
+            setErrorSnackbar(true)
+        }
+
     }
 
     const toggleDrawer = (open: any) => (event: any) => {
         setState(open);
     }
-
-
 
     const submitAddress = () => {
         if (newLocation.newCountry !== '' && newLocation.newCity !== '' && newLocation.newAddress !== '') {
@@ -103,8 +120,6 @@ const AdminPanelVendor = () => {
                 newAddress: '',
             })
         }
-
-
     }
 
     const handleKeyDownForName = (event: any): void => {
@@ -197,6 +212,9 @@ const AdminPanelVendor = () => {
             },
             "& .MuiButton-root:hover": {
                 backgroundColor: 'none'
+            },
+            "& .MuiFormHelperText-contained": {
+                margin: 0
             }
         },
         wrapper: {
@@ -305,6 +323,10 @@ const AdminPanelVendor = () => {
         displayN: {
             display: 'none'
         },
+        helperTetxtSpan: {
+            fontSize: 14,
+            color: 'rgba(0, 0, 0, 0.54)'
+        },
         '@media(max-width:700px)': {
             wrapper: {
                 width: '320px'
@@ -346,7 +368,10 @@ const AdminPanelVendor = () => {
                 '&:hover': {
                     border: 'none'
                 }
-            }
+            },
+            helperTetxtSpan: {
+                fontSize: 10
+            },
         }
     })
 
@@ -355,7 +380,6 @@ const AdminPanelVendor = () => {
     const handleDeleteChip = (chipToDelete: ChipData) => () => {
         setLocation((chips: any) => chips.filter((chip: any) => chip.key !== chipToDelete.key));
     };
-
 
     const list = () => (
         <List className={styles.wrapper}>
@@ -389,6 +413,7 @@ const AdminPanelVendor = () => {
                         })}
                         <TextField className={styles.marginBottom}
                             label={t`Country`}
+                            required
                             value={newLocation.newCountry}
                             onKeyDown={handleKeyDownForCountry}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -397,6 +422,7 @@ const AdminPanelVendor = () => {
                         />
                         <TextField className={styles.marginBottom}
                             label={t`City`}
+                            required
                             value={newLocation.newCity}
                             onKeyDown={handleKeyDownForCity}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -406,6 +432,7 @@ const AdminPanelVendor = () => {
 
                         <TextField className={styles.marginBottom}
                             label={t`Address`}
+                            required
                             value={newLocation.newAddress}
                             onKeyDown={handleKeyDownForAddress}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -414,10 +441,12 @@ const AdminPanelVendor = () => {
                         />
                         <div className={styles.addressButtons}>
                             <Button onClick={submitAddress} className={styles.address_submit}>{t`Submit`}</Button>
+                            <span className={styles.helperTetxtSpan}>Should be minimum 1 location: country, city and address</span>
                         </div>
                         <TextField className={styles.marginBottom}
                             value={data.email}
                             label={t`E-mail`}
+                            helperText='Example: example@gmail.com'
                             onKeyDown={handleKeyDownForEmail}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, email: e.target.value })}
                             required
@@ -428,6 +457,7 @@ const AdminPanelVendor = () => {
                             multiline
                             rows={5}
                             label={t`Description`}
+                            helperText='Min length 50, max length 200'
                             variant="outlined"
                             inputProps={{
                                 maxLength: 200,
@@ -446,9 +476,14 @@ const AdminPanelVendor = () => {
                             className={styles.submitButton}>{t`Submit`}
                         </Button>
                         <SimpleSnackbar
-                            setSnackbar={setSnackbar}
-                            snackbarState={openSnackbar}
-                            label='Vendor was successfully created!'
+                            setSnackbar={setErrorSnackbar}
+                            snackbarState={openErrorSnackbar}
+                            label='Please, check all fields'
+                            type='error' />
+                        <SimpleSnackbar
+                            setSnackbar={setSuccessSnackbar}
+                            snackbarState={openSuccessSnackbar}
+                            label='Vendor is successfully created'
                             type='success' />
                     </Grid>
                 </form>
