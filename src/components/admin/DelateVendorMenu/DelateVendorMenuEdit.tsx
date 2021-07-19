@@ -7,10 +7,9 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import "./DelateVendorMenu.scss";
 import {t} from 'ttag';
 import {
+    deleteVendorId,
     deleteVendorLocationId, getVendorAll,
-    getVendorId,
     getVendorLocation,
-    postVendor,
     postVendorLocation, restVendorId,
     uploadImage
 } from "../../../http/filtersApi";
@@ -62,8 +61,13 @@ const DelateVendorMenuEdit = ({styles, value}) => {
     }
 
     const deleteVendor = () => {
+       let conf = window.confirm("Delete vendor? If you will delete vendor his promo will deleted also");
+        if(conf){
+            deleteVendorId(value.id).then(v => getVendorAll().then(resolve=> {dispatch(addVendor(resolve));console.log(resolve)}))
+        }
         setEdit(false)
     }
+
     const handleDeleteChip = (chipToDelete: ChipData) => () => {
         if(chipToDelete.key){
         setLocation((chips: any) => chips.filter((chip: any) => chip.key !== chipToDelete.key))
@@ -86,11 +90,22 @@ const DelateVendorMenuEdit = ({styles, value}) => {
             const logo = await addLogoVendor()
             const logoURL = logo?.data.message
             const vendor = await restVendorId(value.id ,{ name: data.name, description: data.description, email: data.email, image: logoURL })
+            getVendorAll().then(resolve=> {dispatch(addVendor(resolve));console.log(resolve)})
         } else {
             const vendor = await restVendorId(value.id ,{ name: data.name, description: data.description, email: data.email, image: uploadFileName })
+            getVendorAll().then(resolve=> {dispatch(addVendor(resolve));console.log(resolve)})
         }
-        getVendorAll().then(resolve=> {dispatch(addVendor(resolve));console.log(resolve)})
         setEdit(false)
+    }
+
+    const cancelEdit = () => {
+        setData({
+            email: value.email,
+            description: value.description,
+            name: value.name,
+        })
+        setEdit(false)
+
     }
 
     /// test console.log
@@ -114,18 +129,19 @@ const DelateVendorMenuEdit = ({styles, value}) => {
 
 
     return <div className={styles.vendorName}>
-        {data.name}
+        {value.name}
         <section className={styles.vendor__icons}>
             <EditIcon onClick={() => {
                 editVendor()
             }}
-                      style={{fontSize: 22, marginRight: 5, position: 'relative', bottom: 4}}/>
+                      style={{fontSize: 22, marginRight: 5, position: 'relative', bottom: 4, cursor: "pointer"}}/>
             <DeleteOutlineIcon onClick={() => {deleteVendor()}}
                                style={{
                                    color: '#d32f2f',
                                    fontSize: 22,
                                    position: 'relative',
-                                   bottom: 4
+                                   bottom: 4,
+                                   cursor: "pointer"
                                }}/>
         </section>
         {edit ? (
@@ -200,7 +216,7 @@ const DelateVendorMenuEdit = ({styles, value}) => {
                             submitEditVendor()
                         }} className={styles.address_submit}>{t`Submit`}</Button>
                         <Button onClick={() => {
-                            submitEditVendor()
+                            cancelEdit()
                         }} className={styles.address_cancel}>{t`Cancel`}</Button>
                     </div>
                 </div>

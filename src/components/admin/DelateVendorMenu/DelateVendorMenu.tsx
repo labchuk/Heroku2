@@ -10,12 +10,12 @@ import AdminPanelVendor from '../AdminPanelVendor/AdminPanelVendor';
 import {t} from 'ttag';
 import {useAppSelector} from "../../../store/Redux-toolkit-hook";
 import DelateVendorMenuEdit from "./DelateVendorMenuEdit";
+import {getVendorAll} from "../../../http/filtersApi";
+import {addVendor} from "../../../store/filtersStore";
 
 const DelateVendorMenu = () => {
     const [state, setState] = React.useState(false);
     const {vendor} = useAppSelector(state => state.filters)
-    const [vendors, setVendor] = React.useState(vendor)
-
 
     const toggleDrawer = (open: any) => (event: any) => {
         setState(open);
@@ -214,7 +214,7 @@ const DelateVendorMenu = () => {
                         <span
                             className={styles.attention__span}>{t`Removing a vendor will delete all its discounts`}</span>
                     </div>
-                    {vendors.map((value: any) => <DelateVendorMenuEdit styles={styles} key={value.id} value={value} />)}
+                    {vendor.map((value: any) => <DelateVendorMenuEdit styles={styles} key={value.id} value={value} />)}
                     <button className={styles.adminPanel}>
                         <AdminPanelVendor/>
                     </button>
