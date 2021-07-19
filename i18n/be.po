@@ -336,15 +336,15 @@ msgstr "Зніжка %"
 msgid "Edit a discount"
 msgstr "Рэдагаваць прома"
 
-#: src/components/common/ModalDeletionPromo/ModalDeletionPromo.tsx:92
+#: src/components/common/ModalWithConfirm/ModalWithConfirm.tsx:92
 msgid "Confirm"
 msgstr "Пацвердзіце"
 
-#: src/components/common/SnackbarForDelPromo/SnackbarForDelPromo.tsx:43
+#: src/components/common/SnackbarForModalWithConfirm/SnackbarForModalWithConfirm.tsx:43
 msgid "Promo was successfully deleted!"
 msgstr "Акцыя была паспяхова выдалена!"
 
-#: src/components/common/SnackbarForDelPromo/SnackbarForDelPromo.tsx:43
+#: src/components/common/SnackbarForModalWithConfirm/SnackbarForModalWithConfirm.tsx:43
 msgid "Something went wrong..."
 msgstr "Нешта пайшло не так..."
 

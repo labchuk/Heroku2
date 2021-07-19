@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-export default function SnackbarForDelPromo(props: any) {
+export default function SnackbarForModalWithConfirm(props: any) {
     const classes = useStyles();
 
     const handleClose = (event?: React.SyntheticEvent, reason?: string) => {

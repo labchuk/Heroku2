@@ -6,8 +6,8 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AdminEditCardPanel from '../../admin/AdminEditCardPanel/AdminEditCardPanel';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { makeStyles, Popover } from '@material-ui/core';
-import ModalDeletionPromo from "../../common/ModalDeletionPromo/ModalDeletionPromo";
-import SnackbarForDelPromo from "../../common/SnackbarForDelPromo/SnackbarForDelPromo";
+import ModalWithConfirm from "../../common/ModalWithConfirm/ModalWithConfirm";
+import SnackbarForModalWithConfirm from "../../common/SnackbarForModalWithConfirm/SnackbarForModalWithConfirm";
 import {t} from "ttag";
 
 
@@ -203,14 +203,14 @@ const Like: FC<LikeProps> = (props) => {
                 </Popover>
             </div>
 
-                <ModalDeletionPromo
+                <ModalWithConfirm
                     setModalState={setOpenModal}
                     modalState={openModal}
                     title={t`Are you sure?`}
                     description={t`Deleted promo will not be recoverable!`}
                     action={handlerDeleteCard}
                 />
-                <SnackbarForDelPromo
+                <SnackbarForModalWithConfirm
                     setSnackbar={setSnackbar}
                     snackbarState={openSnackbar}
                     successMessage={t`Promo was successfully deleted!`}

@@ -4,7 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
-import './ModalDeletionPromo.scss'
+import './ModalWithConfirm.scss'
 import { t } from 'ttag';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 
-export default function ModalDeletionPromo(props: any){
+export default function ModalWithConfirm(props: any){
 
 
 
