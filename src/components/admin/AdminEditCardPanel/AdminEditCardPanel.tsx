@@ -4,13 +4,11 @@ import { TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { useRef } from 'react';
-import DropZone from '../../common/DropZone/DropZone';
 import ContainerDataPiker from '../../common/SearchBar/ContainerDatePiker/ContainerDatePiker';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import EditIcon from '@material-ui/icons/Edit';
 import AutocompleteMultipleChoise from '../../common/AutocompleteMultipleChoise/AutocompleteMultipleChoise';
 import { Autocomplete, AutocompleteRenderOptionState } from '@material-ui/lab';
-import { useForm, Controller } from "react-hook-form";
 import SelectMultiple from '../../common/SearchBar/SelectMultiple/SelectMultiple';
 import { t } from 'ttag';
 

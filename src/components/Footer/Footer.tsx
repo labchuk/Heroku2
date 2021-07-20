@@ -1,10 +1,9 @@
-import React, {useRef, useState} from 'react';
+import React, { useState} from 'react';
 import {Logo} from '../index';
 import "./Footer.scss";
 import phone from '../../images/icons/phone.svg';
 import email from '../../images/icons/email.svg';
-import {Button, Tooltip, withStyles} from "@material-ui/core";
-import {makeStyles} from "@material-ui/styles";
+import { Tooltip, withStyles} from "@material-ui/core";
 import { Theme } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 

@@ -1,5 +1,5 @@
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import {Box, createMuiTheme, Hidden, IconButton, makeStyles} from "@material-ui/core";
+import { Hidden, IconButton, makeStyles} from "@material-ui/core";
 import React from "react";
 import { Menu } from '@material-ui/core';
 import { MenuItem } from '@material-ui/core';
