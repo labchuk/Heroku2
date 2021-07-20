@@ -3,7 +3,6 @@ import './SaleCard.scss'
 import {makeStyles} from "@material-ui/core/styles";
 import React, {useEffect, useState} from "react";
 import Skeleton from "@material-ui/lab/Skeleton";
-import Grid from "@material-ui/core/Grid";
 interface SaleCardProps {
     discount: {
         id: number,

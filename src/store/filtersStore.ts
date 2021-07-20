@@ -11,7 +11,7 @@ interface IdiscountFilter{
     searchWord: string;
     subCategoriesIds: string[];
 }
-interface IinitialUserState {
+interface IinitialState {
     category: any[],
     vendor: any[],
     vendorLocation: any[],
@@ -20,7 +20,7 @@ interface IinitialUserState {
     searchObject: IdiscountFilter
 }
 
-export const initialUserState: IinitialUserState={
+export const initialFiltersState: IinitialState={
     category: [],
     vendor: [],
     vendorLocation: [],
@@ -41,8 +41,9 @@ export const initialUserState: IinitialUserState={
 
 const filtersReducer = createSlice({
     name: "filtersSlise",
-    initialState: initialUserState,
+    initialState: initialFiltersState,
     reducers: {
+        resetFilteState: state =>  initialFiltersState,
         setSearchObject(state, actions: PayloadAction<any>) {
             state.searchObject = {...state.searchObject, ...actions.payload};
         },
@@ -93,4 +94,4 @@ const filtersReducer = createSlice({
 });
 
 export default filtersReducer.reducer
-export const { addCategory, addVendor,addNewCategory,addSubCategory, addNewSubCategory,addNewVendorLocation,addNewDiscounds, addNewVendor,addVendorLocation, addDiscounds, setSearchWord, setSearchObject, setSearchObjectPage} = filtersReducer.actions;
+export const { addCategory, addVendor,addNewCategory,addSubCategory, addNewSubCategory,addNewVendorLocation,addNewDiscounds, addNewVendor,addVendorLocation,resetFilteState, addDiscounds, setSearchWord, setSearchObject, setSearchObjectPage} = filtersReducer.actions;

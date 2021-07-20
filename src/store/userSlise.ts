@@ -24,6 +24,7 @@ export const userSlise = createSlice({
     name: "userSlise",
     initialState: initialUserState,
     reducers: {
+        resetUserState: state =>  initialUserState,
         setEmail(state, actions: PayloadAction<string>) {
             state.email = actions.payload;
         },
@@ -49,4 +50,4 @@ export const userSlise = createSlice({
 
 
 export default userSlise.reducer
-export const { setEmail, setUserId, setIsAuth, setAdmine, setUserName, setLocation } = userSlise.actions;
+export const { setEmail, setUserId, setIsAuth, setAdmine,resetUserState, setUserName, setLocation } = userSlise.actions;

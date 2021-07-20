@@ -173,13 +173,14 @@ const AdminPanelCard = () => {
 
 
   const categoryArr = category?.filter((item: any)=> item.deleted === false).map(item=> firsLetterToUpperCase(item.name));
-  const addLogoDiscount = () => {
+  const addLogoDiscount = async() => {
         const formData = new FormData();
         formData.append(
             "file",
             fileName,
         );
-        return uploadImage(formData)
+        let imgLink = await uploadImage(formData);
+        return imgLink.data.message
     }
 
   const [categoryState, setcategoryState] = React.useState([...categoryArr]);
@@ -499,7 +500,7 @@ const AdminPanelCard = () => {
     const newDiscount:Idiscount = {
           name: title,
           fullDescription: description,
-          imageLink: addLogoDiscount(),
+          imageLink: await addLogoDiscount(),
           categoryId: getCategoryId(),
           isOnline: isOnline,
           vendorId: getVendorId(),
@@ -508,6 +509,7 @@ const AdminPanelCard = () => {
           startDate: timeString(time.From),
           subCategoryIds: getSubCatygoryId(subCategory, choeseTag),
       };
+      console.log(newDiscount)
     if(!(Object.values(newDiscount)).includes(undefined)){
       await postDiscount(newDiscount).catch((e)=>console.log(e));
     }
