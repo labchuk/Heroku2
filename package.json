@@ -83,6 +83,7 @@
   "devDependencies": {
     "@types/file-saver": "^2.0.2",
     "@types/react-gravatar": "^2.6.8",
+    "express-favicon": "^2.0.1",
     "json-loader": "^0.5.7",
     "redux-devtools-extension": "^2.13.9",
     "ttag-cli": "^1.9.2",
