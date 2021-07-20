@@ -130,7 +130,7 @@ const CardList: React.FC = (props) => {
                     <div className={"chips"}>
                         {!(pathname === HISTORY_ROUTE)&& <ChipsArray />}
                     </div>
-                    <Grid container spacing={3} justify="center" >
+                     <Grid container spacing={3} justify="center" >
                         {
                             paginateCard().map((item, index) => {
                                 return (<Grid key={index} item >

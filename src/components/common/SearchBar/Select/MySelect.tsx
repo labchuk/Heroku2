@@ -10,22 +10,13 @@ import { MAIN_ROUTE } from "../../../../utils/consts"
 
 const MySelect = ({clName,data, id, name, localName, setAble, isCategory, disabled, helperText}:{ helperText:string, isCategory: boolean, disabled: boolean ,clName:string, data:string[], id: string, name:string,localName:string, setAble:any}) => {
     const { pathname } = useLocation();
-    const [age, setAge] = useState("");
-    const [age2, setAge2] = useState("");
     const dispatch = useAppDispatch()
     const chipDataMain = useAppSelector(state => state.chips.ChipsArray)
     const chipDataStatistic = useAppSelector(state => state.chips.ChipsArrayStatistic)
 
     const handleChange = (event: React.ChangeEvent<{ value: any }>, index: any) => {
         const numberChip = event.target.value
-// <<<<<<< HEAD
-//         const indexChip = index.key.slice(2)
-//         const newChip = { id: name + indexChip, label: numberChip, name: nameId }
-//         dispatch(addChip(newChip))
-//         if (numberChip) {
-//             const indexRemove = data.indexOf(age)
-//             dispatch(removeChip(name + indexRemove))
-// =======
+
         const newChip = {[numberChip]: [], name: name, id: id}
         if (pathname === MAIN_ROUTE){
             if (isCategory){
@@ -36,7 +27,6 @@ const MySelect = ({clName,data, id, name, localName, setAble, isCategory, disabl
                 dispatch(removeChipMain({id}))
                 dispatch(addChipMain(newChip))
             }
-            setAge(event.target.value);
             setAble(event.target.value)
         }
         else {
@@ -48,7 +38,6 @@ const MySelect = ({clName,data, id, name, localName, setAble, isCategory, disabl
                 dispatch(removeChipStatistic({id}))
                 dispatch(addChipStatistic(newChip))
             }
-            setAge(event.target.value);
             setAble(event.target.value)
 
         }

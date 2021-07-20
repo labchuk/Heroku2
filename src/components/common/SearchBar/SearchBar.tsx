@@ -83,12 +83,12 @@ const SearchBar =()=>{
         handleClick(obj)
         
     },[arrChips,searchObject.searchWord])
-    const handleClick = async(obj) =>  {
+    const handleClick = async(obj:any) =>  {
         const {data} = await getDiscounts(obj);
         dispatch(addDiscounds(data.content))
      };
     const [ableSubCategory, setAbleSubCategory] = useState<String>("");
-    const [ableCity, setAbleCyti] = useState();
+    const [ableCity, setAbleCyti] = useState<String>("");
     const [choiceCity, setChoiceCity] = useState<string[]>([])
     useEffect(()=>{
        setChoiceCity(vendorLocation?.filter(item=>item.country === ableCity).map(item=>firsLetterToUpperCase(item.city)));
@@ -125,12 +125,12 @@ const SearchBar =()=>{
                 </>}
             </div>}
             {pathname !== HISTORY_ROUTE && <>
-                <MySelect data={arrCountry? uniqueArr(arrCountry):[]} isCategory={false} clName={"location"} id={'1'} name={`Country`} localName={t`Country`} setAble={setAbleCyti} disabled={false} helperText=''/>
-                <MySelect data={uniqueArr(choiceCity)} clName={"location"}  isCategory={true} name={`City`} localName={t`City`} id={'1'}  setAble={()=>{}} disabled={!ableCity} helperText={!ableCity? "Please choose country": ""}/>
-                <SelectMultiple data={arrVendorName? arrVendorName: []} isCategory={false} clName={"location"}  name={`Vendor`} localName={t`Vendor`} disabled={false} helperText={""}/>
-                <MySelect data={categoryArr? categoryArr : []} id={'2'} isCategory={false} clName={"location"} name={`Category`} localName={t`Category`} setAble={setAbleSubCategory} disabled={false} helperText=''/>
+                <MySelect data={arrCountry? uniqueArr(arrCountry):[]} isCategory={false} clName={"location"} id={'1'} name={`Country`} localName={t`Country`} setAble={setAbleCyti} disabled={false} />
+                <MySelect data={uniqueArr(choiceCity)} clName={"location"}  isCategory={true} name={`City`} localName={t`City`} id={'1'}  disabled={!ableCity} helperText={!ableCity? "Please choose country": ""}/>
+                <SelectMultiple data={arrVendorName? arrVendorName: []} isCategory={false} clName={"location"}  name={`Vendor`} localName={t`Vendor`} disabled={false} />
+                <MySelect data={categoryArr? categoryArr : []} id={'2'} isCategory={false} clName={"location"} name={`Category`} localName={t`Category`} setAble={setAbleSubCategory} disabled={false} />
                 <SelectMultiple data={arrSubCatygory? arrSubCatygory: []} clName={"location"} id={'2'} name={`Sub Category`} localName={t`Sub Category`} isCategory={true} disabled={!ableSubCategory} helperText={!ableSubCategory? "Please choose category": ""}/>
-            {pathname === STATISTIC_ROUTE &&  <SelectMultiple data={[]} clName={"location"} name={`User`} localName={t`User`} isCategory={false} disabled={false} helperText={""}/>}
+            {pathname === STATISTIC_ROUTE &&  <SelectMultiple data={[]} clName={"location"} name={`User`} localName={t`User`} isCategory={false} disabled={false} />}
 
             </>}
             {pathname !== MAIN_ROUTE  &&  <ContainerDataPiker />}
@@ -139,5 +139,4 @@ const SearchBar =()=>{
 
     );
 };
-// arrCountry? uniqueArr(arrCountry): ,uniqueArr(choiceCity), categoryArr? categoryArr : []
 export default SearchBar;

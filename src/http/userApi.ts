@@ -3,9 +3,10 @@ import jwt_decode from "jwt-decode";
 
 
 export const login = async({email,password}:{ email: string, password:string }) =>{
-    const {data} = await host.post("user/login", { email, password });
-    localStorage.setItem("token", data.token);
-    return jwt_decode(data.token);
+    const response = await host.post("user/login", { email, password });
+    console.log(response)
+    localStorage.setItem("token", response.data.token);
+    return jwt_decode(response.data.token);
 }
 
 export const getUserDetails = async ( id: string) =>{
