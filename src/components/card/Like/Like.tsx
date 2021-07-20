@@ -6,8 +6,9 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AdminEditCardPanel from '../../admin/AdminEditCardPanel/AdminEditCardPanel';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { makeStyles, Popover } from '@material-ui/core';
-import ModalDeletionPromo from "../../common/ModalDeletionPromo/ModalDeletionPromo";
-import SnackbarForDelPromo from "../../common/SnackbarForDelPromo/SnackbarForDelPromo";
+import ModalWithConfirm from "../../common/ModalWithConfirm/ModalWithConfirm";
+import SnackbarForModalWithConfirm from "../../common/SnackbarForModalWithConfirm/SnackbarForModalWithConfirm";
+import {t} from "ttag";
 
 
 interface LikeProps {
@@ -35,7 +36,7 @@ const Like: FC<LikeProps> = (props) => {
     const [openSnackbar, setSnackbar] = useState(false);
 
 
-    const heandlerDeleteCard = () => {
+    const handlerDeleteCard = () => {
         deleteCard(props.discount);
         setSnackbar(true);
     }
@@ -196,14 +197,26 @@ const Like: FC<LikeProps> = (props) => {
                         <AdminEditCardPanel currentCard={props.discount} style={{ fontSize: 30, position: 'relative', bottom: '5px' }} />
                     </button>
                     <button className="card-more__item" onClick={()=>{}}>
-                        <DeleteOutlineIcon style={{ color: '#d32f2f', fontSize: 30 }} onClick={() => deleteCard(props.discount)} />
+                        <DeleteOutlineIcon style={{ color: '#d32f2f', fontSize: 30 }} onClick={() => {setOpenModal(true)}} />
 
                     </button>
                 </Popover>
             </div>
 
-                <ModalDeletionPromo setModalState={setOpenModal} modalState={openModal} action={heandlerDeleteCard}/>
-                <SnackbarForDelPromo setSnackbar={setSnackbar} snackbarState={openSnackbar}/>
+                <ModalWithConfirm
+                    setModalState={setOpenModal}
+                    modalState={openModal}
+                    title={t`Are you sure?`}
+                    description={t`Deleted promo will not be recoverable!`}
+                    action={handlerDeleteCard}
+                />
+                <SnackbarForModalWithConfirm
+                    setSnackbar={setSnackbar}
+                    snackbarState={openSnackbar}
+                    successMessage={t`Promo was successfully deleted!`}
+                    errorMessage={t`Something went wrong...`}
+
+                />
         </Fragment >
     );
 };

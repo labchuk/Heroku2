@@ -149,39 +149,39 @@ msgstr "Перацягніце сюды файл або націсніце, ка
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:10
 msgid "Users actives:"
-msgstr "Унікальных карыстальнікаў"
+msgstr "Унікальных карыстальнікаў:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:11
 msgid "Users CR actives:"
-msgstr "Мэтавых дзеянняў"
+msgstr "Мэтавых дзеянняў:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:12
 msgid "Last activity:"
-msgstr "Апошняя актыўнасць"
+msgstr "Апошняя актыўнасць:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:13
 msgid "Most active location:"
-msgstr "Самае актыўнае месца"
+msgstr "Самае актыўнае месца:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:16
 msgid "Number of Vendors:"
-msgstr "Колькасць пастаўшчыкоў"
+msgstr "Колькасць пастаўшчыкоў:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:17
 msgid "Number of promos:"
-msgstr "Колькасць прома"
+msgstr "Колькасць прома:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:18
 msgid "Number of active promos:"
-msgstr "Колькасць актыўных прома"
+msgstr "Колькасць актыўных прома:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:19
 msgid "Promotions durations:"
-msgstr "Працягласць прома"
+msgstr "Працягласць прома:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:22
 msgid "The most popular Vendor:"
-msgstr "Самы папулярны пастаўшчык"
+msgstr "Самы папулярны пастаўшчык:"
 
 #: src\components\admin\statistic\InformationBlock\InformationBlock.tsx:23
 msgid "The most popular Promo:"
@@ -335,3 +335,23 @@ msgstr "Зніжка %"
 #: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:299
 msgid "Edit a discount"
 msgstr "Рэдагаваць прома"
+
+#: src/components/common/ModalWithConfirm/ModalWithConfirm.tsx:92
+msgid "Confirm"
+msgstr "Пацвердзіце"
+
+#: src/components/common/SnackbarForModalWithConfirm/SnackbarForModalWithConfirm.tsx:43
+msgid "Promo was successfully deleted!"
+msgstr "Акцыя была паспяхова выдалена!"
+
+#: src/components/common/SnackbarForModalWithConfirm/SnackbarForModalWithConfirm.tsx:43
+msgid "Something went wrong..."
+msgstr "Нешта пайшло не так..."
+
+#: src/components/card/Like/Like.tsx:209
+msgid "Are you sure?"
+msgstr "Вы ўпэўнены?"
+
+#: src/components/card/Like/Like.tsx:210
+msgid "Deleted promo will not be recoverable!"
+msgstr "Выдаленая прома не падлягае аднаўленню!"

@@ -20,6 +20,7 @@ import { utimes } from 'fs';
 import { captureRejectionSymbol } from 'stream';
 import {addNewCategory, addNewSubCategory,addNewVendorLocation,addSubCategory, addNewDiscounds} from "../../../store/filtersStore"
 import { CancelPresentationOutlined, ContactsOutlined } from '@material-ui/icons';
+import { saveLocale, locale } from '../../../components/common/LangSwitcher/i18nInit';
 interface State extends SnackbarOrigin {
   open: boolean;
 }
@@ -75,6 +76,102 @@ const AdminPanelCard = () => {
     newAddress: '',
   });
   const dispatch =useAppDispatch()
+
+
+  const handleKeyDownForTitle = (event: any): void => {
+    if (locale === 'en') {
+      if (event.keyCode === 65) {
+        event.preventDefault();
+        (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+         setTitle(event.target.value);
+        setTimeout(() => {event.target.focus()}, 0);
+      }
+    } else {
+      return;
+    }
+   };
+
+  const handleKeyDownForCategory = (event: any): void  => {
+    if (locale === 'en') {
+      if (event.keyCode === 65) {
+        event.preventDefault();
+        (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+         setNewCategory(event.target.value);
+        setTimeout(() => {event.target.focus()}, 0);
+      }
+    } else {
+      return;
+    }
+    };
+
+  const handleKeyDownForTag = (event: any): void  => {
+    if (locale === 'en') {
+      if (event.keyCode === 65) {
+        event.preventDefault();
+        (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+        setNewTag(event.target.value);
+        setTimeout(() => {event.target.focus()}, 0);
+      }
+    } else {
+      return;
+    }};
+
+  const handleKeyDownForCountry = (event: any): void  => {
+    if (locale === 'en') {
+      if (event.keyCode === 65) {
+        event.preventDefault();
+        (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+        setNewLocation({ ...newLocation, newCountry: event.target.value });
+        setTimeout(() => {event.target.focus()}, 0);
+
+      }
+    } else {
+      return;
+    }};
+
+  const handleKeyDownForCity = (event: any): void  => {
+    if (locale === 'en') {
+      if (event.keyCode === 65) {
+        event.preventDefault();
+        (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+        setNewLocation({ ...newLocation, newCity: event.target.value })
+        setTimeout(() => {event.target.focus()}, 0);
+
+      }
+    } else {
+      return;
+    }};
+
+  const handleKeyDownForAddress = (event: any): void  => {
+    if (locale === 'en') {
+      if (event.keyCode === 65) {
+        event.preventDefault();
+        (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+        setNewLocation({ ...newLocation, newAddress: event.target.value });
+        setTimeout(() => {event.target.focus()}, 0);
+
+      }
+    } else {
+      return;
+    }};
+
+  const handleKeyDownForDescription = (event: any): void  => {
+    if (locale === 'en') {
+      if (event.keyCode === 65) {
+        event.preventDefault();
+        (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+        setDescription(event.target.value);
+        setTimeout(() => {event.target.focus()}, 0);
+
+      }
+    } else {
+      return;
+    }};
+
+
+
+
+
   const categoryArr = category?.filter((item: any)=> item.deleted === false).map(item=> firsLetterToUpperCase(item.name));
   const addLogoDiscount = async() => {
         const formData = new FormData();
@@ -110,7 +207,7 @@ const AdminPanelCard = () => {
     const subCategoryArr = subCategory?.filter((item: any)=> item.deleted === false).map(item=> firsLetterToUpperCase(item.name));
     setTag([...subCategoryArr])
   },[subCategory])
-  
+
   useEffect(()=>{
     const categoryArr = category?.filter((item: any)=> item.deleted === false).map(item=> firsLetterToUpperCase(item.name));
     setcategoryState([...categoryArr])
@@ -172,7 +269,7 @@ const AdminPanelCard = () => {
     setTagInput(true)
   }
 
-  
+
   const submitTag = async() => {
     setTagInput(false);
     const {status, data} = await postSubCategory({name: newTag},getCategoryId())
@@ -421,7 +518,7 @@ const AdminPanelCard = () => {
     }
   }
     
-  
+
   const list = () => (
     <List className={styles.wrapper}>
       <ListItem>
@@ -432,11 +529,19 @@ const AdminPanelCard = () => {
               {t`Back`}
             </div>
             <span className={styles.modal_label}>{t`Add a promotion`}</span>
-            <TextField required className={styles.marginBottom} label={t`Title`} onChange={(e: any) => setTitle(e.target.value)} />
+           <TextField required
+                      className={styles.marginBottom} label={t`Title`}
+                      onKeyDown={handleKeyDownForTitle}
+                      onChange={(e: any) => {
+                      setTitle(e.target.value)
+                        }}
+           />
+
+
             <AdminSelect name={t`Category`} data={categoryState}  multi={false} handleChange={setChoeseCategory} state={choeseCategory}/>
             {categoryInput ?
               <>
-                <TextField className={styles.marginBottom} label={t`Add new category`} onChange={(e: any) => setNewCategory(e.target.value)} />
+                <TextField className={styles.marginBottom} label={t`Add new category`} onKeyDown={handleKeyDownForCategory} onChange={(e: any) => setNewCategory(e.target.value)} />
                 <div className={styles.addressButtons}>
                   <Button onClick={submitCategory} className={styles.address_submit}>{t`Submit`}</Button>
                   <Button onClick={cancelCategory} className={styles.address_cancel}>{t`Cancel`}</Button>
@@ -446,7 +551,7 @@ const AdminPanelCard = () => {
             <AdminSelect name={t`Tags`} data={tags} disabled={!choeseCategory} multi={true} handleChange={setChoeseTag}/>
             {tagInput ?
               <>
-                <TextField className={styles.marginBottom} disabled={!choeseCategory} label={t`Add new tag`} onChange={(e: any) => setNewTag(e.target.value)} />
+                <TextField className={styles.marginBottom} disabled={!choeseCategory} label={t`Add new tag`} onKeyDown={handleKeyDownForTag} onChange={(e: any) => setNewTag(e.target.value)} />
                 <div className={styles.addressButtons}>
                   <Button onClick={submitTag} className={styles.address_submit}>{t`Submit`}</Button>
                   <Button onClick={cancelTag} className={styles.address_cancel}>{t`Cancel`}</Button>
@@ -474,6 +579,7 @@ const AdminPanelCard = () => {
                   disabled={!choeseVendor}
                   label={t`Country`}
                   value={newLocation.newCountry}
+                  onKeyDown={handleKeyDownForCountry}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setNewLocation({ ...newLocation, newCountry: e.target.value })
                   }}
@@ -482,6 +588,7 @@ const AdminPanelCard = () => {
                   disabled={!choeseVendor}
                   label={t`City`}
                   value={newLocation.newCity}
+                           onKeyDown={handleKeyDownForCity}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setNewLocation({ ...newLocation, newCity: e.target.value })
                   }}
@@ -491,6 +598,7 @@ const AdminPanelCard = () => {
                   disabled={!choeseVendor}
                   label={t`Address`}
                   value={newLocation.newAddress}
+                           onKeyDown={handleKeyDownForAddress}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setNewLocation({ ...newLocation, newAddress: e.target.value })
                   }}
@@ -516,6 +624,7 @@ const AdminPanelCard = () => {
               required
               multiline rows={5}
               label={t`Description`}
+              onKeyDown={handleKeyDownForDescription}
               onChange={(e: any) => setDescription(e.target.value)}
               variant="outlined"
               inputProps={{

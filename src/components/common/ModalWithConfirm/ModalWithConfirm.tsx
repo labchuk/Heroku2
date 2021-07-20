@@ -4,8 +4,8 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
-import './ModalDeletionPromo.scss'
-
+import './ModalWithConfirm.scss'
+import { t } from 'ttag';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 
-export default function ModalDeletionPromo(props: any){
+export default function ModalWithConfirm(props: any){
 
 
 
@@ -81,22 +81,22 @@ export default function ModalDeletionPromo(props: any){
             >
                 <Fade in={props.modalState}>
                     <div className={classes.paper}>
-                        <h1 className={classes.title}>Are you sure?</h1>
-                        <p className={classes.description}>Deleted promo will not be recoverable!</p>
+                        <h1 className={classes.title}>{props.title}</h1>
+                        <p className={classes.description}>{props.description}</p>
                         <div className="confirm">
                             <Button variant="contained"
                                     color="primary"
                                     onClick={handleAction}
                                     className={classes.button}
                             >
-                                Confirm
+                                {t`Confirm`}
                             </Button>
                             <Button variant="contained"
                                     color="primary"
                             onClick={handleClose}
                                     className={classes.button}
                             >
-                                Cancel
+                                {t`Cancel`}
                             </Button>
                         </div>
                     </div>
