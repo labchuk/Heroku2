@@ -54,10 +54,10 @@ const Footer = () => {
                         }
 
                         <div className={"footerLink__social"}>
-                            <a href="https://www.linkedin.com/company/exadel/" target="_blank">
+                            <a href="https://www.linkedin.com/company/exadel/" target="_blank" rel="noopener noreferrer">
                                 <i className="icon-linkedin"></i>
                             </a>
-                            <a href="https://www.facebook.com/exadelinc/" target="_blank">
+                            <a href="https://www.facebook.com/exadelinc/" target="_blank" rel="noopener noreferrer">
                                 <i className="icon-facebook"></i>
                             </a>
                         </div>
