@@ -518,6 +518,7 @@ const AdminPanelCard = () => {
     }
   }
     
+  //  `${time?.To.getFullYear()}-${time?.To.getMonth()}-${time?.To.getDate()}T${time?.To.getHours() < 10 ? "0"+time?.To.getHours() : time?.To.getHours()}:${time?.To.getMinutes()< 10 ? "0" +time?.To.getMinutes(): time?.To.getMinutes()}+02:00`
 
   const list = () => (
     <List className={styles.wrapper}>
