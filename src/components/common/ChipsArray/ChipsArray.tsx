@@ -50,7 +50,6 @@ export default function ChipsArray() {
         else dispatch(removeCategoryStatistic({name,id}))
     }
     const ListChips = () => {
-        console.log(chipDataMain)
         if (pathname === MAIN_ROUTE) return chipDataMain
         return chipDataStatistic
     }
