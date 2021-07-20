@@ -11,7 +11,7 @@ const app = express()
 
 app.use(cors())
 app.use(express.static(__dirname))
-app.use(favicon(__dirname + '/build/favicon.png'));
+app.use(favicon(__dirname + '/build/favicon.ico'));
 app.use(express.static(path.join(__dirname, 'build')))
 app.use(express.json())
 
