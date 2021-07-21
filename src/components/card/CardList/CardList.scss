@@ -10,6 +10,9 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+  @media (max-width: 762px) {
+    padding-left: 40px;
+  }
 }
 .main-content{
   transition: all 0.7s;
