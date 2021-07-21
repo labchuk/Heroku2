@@ -6,6 +6,9 @@ import { Select } from "@material-ui/core";
 import MenuItem from '@material-ui/core/MenuItem';
 import { useEffect } from "react";
 import { t } from 'ttag';
+import {sortDiscounts}  from "../../../http/discountApi"
+import {useAppDispatch} from "../../../store/Redux-toolkit-hook";
+import {addDiscounds} from "../../../store/filtersStore"
 
 const useStyles = makeStyles((theme) => ({
     sort: {
@@ -17,13 +20,22 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Sort = () => {
+    const dispatch = useAppDispatch();
     const [currentSort, setCurrentSort] = useState("Popular")
     const handleChangeSort = (event: any) => {
         setCurrentSort(event.target.value)
 
     }
+    const requst = async(str:string) =>{
+        const data = await sortDiscounts(str);
+        return data
+    };
     useEffect(() => {
+        const string = currentSort.toLocaleUpperCase().split(" ").join("_");
+        sortDiscounts(string).then(resolve => dispatch(addDiscounds(resolve.content)))
     }, [currentSort]);
+
+    
 
 
 
@@ -43,7 +55,7 @@ const classes = useStyles();
                     >
                         <MenuItem value={"Ending soon"}>{t`Ending soon`}</MenuItem>
                         <MenuItem value={"Popular"}>{t`Popular`}</MenuItem>
-                        <MenuItem value={"New"}>{t`New`}</MenuItem>
+                        <MenuItem value={"New Discounts"}>{t`New Discounts`}</MenuItem>
                         <MenuItem value={"Hot Sales"}>{t`Hot Sales`}</MenuItem>
                         <MenuItem value={"Coming soon"}>{t`Coming soon`}</MenuItem>
                     </Select>

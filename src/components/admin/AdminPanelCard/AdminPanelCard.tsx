@@ -234,7 +234,7 @@ const AdminPanelCard = () => {
     setAddressInput(true)
   }
 
-  const submitAddress = () => {
+  const submitAddress = async() => {
     if (newLocation.newCountry !== '' && newLocation.newCity !== '' && newLocation.newAddress !== '') {
       setLocation([...location, { key: Math.random(), country: newLocation.newCountry, city: newLocation.newCity, address: newLocation.newAddress }])
       setNewLocation({
@@ -243,6 +243,10 @@ const AdminPanelCard = () => {
         newAddress: '',
       })
       postVendorLocation({country: newLocation.newCountry, city: newLocation.newCity, addressLine: newLocation.newAddress , vendorId: getVendorId()})
+      const {status, data} = await postVendorLocation({country: newLocation.newCountry, city: newLocation.newCity, addressLine: newLocation.newAddress , vendorId: getVendorId()})
+      if(status>=200 && status <=299){
+      dispatch(addNewVendorLocation(data))
+    }
     }
   }
 
@@ -488,14 +492,14 @@ const AdminPanelCard = () => {
     const minutes =time.getMinutes();
     const check = (some) => some < 10 ? "0" + some: some;
     const timezoneOffset = Math.abs(time.getTimezoneOffset() / 60) ;
-    return `${year}-${check(month)}-${check(date)}T${check(hours)}:${check(minutes)}+${check(timezoneOffset)}:00`
+    return `${year}-${check(month+1)}-${check(date)}T${check(hours)}:${check(minutes)}+${check(timezoneOffset)}:00`
   }
 
   const getSubCatygoryId = (subCategory, choeseTag) =>{
     const arrId = choeseTag.map(element => subCategory.filter(item => item.name.toLowerCase() === element.toLowerCase()).map(item=>item.id));
     return arrId.flat();
   }
-
+  const [percentage, setPercentage] = useState("0")
   const createDiscount = async () =>{
     const newDiscount:Idiscount = {
           name: title,
@@ -508,8 +512,8 @@ const AdminPanelCard = () => {
           endDate: timeString(time.To),
           startDate: timeString(time.From),
           subCategoryIds: getSubCatygoryId(subCategory, choeseTag),
+          percentage: percentage,
       };
-      console.log(newDiscount)
     if(!(Object.values(newDiscount)).includes(undefined)){
       await postDiscount(newDiscount).catch((e)=>console.log(e));
     }
@@ -518,7 +522,6 @@ const AdminPanelCard = () => {
     }
   }
     
-  //  `${time?.To.getFullYear()}-${time?.To.getMonth()}-${time?.To.getDate()}T${time?.To.getHours() < 10 ? "0"+time?.To.getHours() : time?.To.getHours()}:${time?.To.getMinutes()< 10 ? "0" +time?.To.getMinutes(): time?.To.getMinutes()}+02:00`
 
   const list = () => (
     <List className={styles.wrapper}>
@@ -620,6 +623,8 @@ const AdminPanelCard = () => {
               required
               label={t`Discount %`}
               type='number'
+              value={percentage} 
+              onChange={(e)=>setPercentage(e.target.value)}
               InputProps={{ inputProps: { min: 0 } }} />
             <TextField className={styles.marginBottom}
               required

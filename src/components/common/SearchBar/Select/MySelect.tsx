@@ -27,7 +27,7 @@ const MySelect = ({clName,data, id, name, localName, setAble, isCategory, disabl
                 dispatch(removeChipMain({id}))
                 dispatch(addChipMain(newChip))
             }
-            setAble(event.target.value)
+            setAble && setAble(event.target.value)
         }
         else {
             if (isCategory){
@@ -38,7 +38,7 @@ const MySelect = ({clName,data, id, name, localName, setAble, isCategory, disabl
                 dispatch(removeChipStatistic({id}))
                 dispatch(addChipStatistic(newChip))
             }
-            setAble(event.target.value)
+            setAble && setAble(event.target.value)
 
         }
 
