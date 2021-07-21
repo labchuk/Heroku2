@@ -5,21 +5,16 @@ import "./style/main.css";
 import { useAppSelector, useAppDispatch} from "./store/Redux-toolkit-hook"; 
 import {getUserDetails} from './http/userApi';
 import { setIsAuth,} from "./store/userSlise";
-
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Switch } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { useLocation } from "react-router-dom";
-import { LOGIN_ROUTE } from "./utils/consts"
-import {log} from "util";
 
 declare module "@material-ui/core/styles/createPalette" {
 }
 
 const  App = () => {
     const [darkMode, setDarkMode] = useState(false)
-    const [pathname, setPathname] = useState('')
+    /*const [pathname, setPathname] = useState('')*/
 
     const theme = createMuiTheme({
         palette: {
