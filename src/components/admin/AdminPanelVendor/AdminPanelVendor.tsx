@@ -2,15 +2,13 @@ import { Button, Chip, ListItem, Snackbar, SnackbarOrigin } from '@material-ui/c
 import { Drawer, List } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import InputLabel from '@material-ui/core/InputLabel';
 import { makeStyles } from '@material-ui/core/styles';
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import DropZone from '../../common/DropZone/DropZone';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import "./AdminPanelVendor.scss";
-import { getVendorAll, postVendor, postVendorLocation, uploadImage } from "../../../http/filtersApi";
+import { postVendor, postVendorLocation, uploadImage } from "../../../http/filtersApi";
 import { t } from 'ttag';
-import PositionedSnackbar from '../../common/Snackbar/Snackbar';
 import { Alert } from '@material-ui/lab';
 import {locale} from "../../common/LangSwitcher/i18nInit";
 

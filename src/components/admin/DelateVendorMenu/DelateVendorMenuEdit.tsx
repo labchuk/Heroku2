@@ -15,7 +15,7 @@ import {
 } from "../../../http/filtersApi";
 import {addVendor} from "../../../store/filtersStore";
 import {useAppDispatch} from "../../../store/Redux-toolkit-hook";
-
+import {locale} from "../../common/LangSwitcher/i18nInit";
 
 
 
@@ -128,6 +128,91 @@ const DelateVendorMenuEdit = ({styles, value}) => {
     }
 
 
+    const handleKeyDownForName = (event: any): void => {
+        if (locale === 'en') {
+            if (event.keyCode === 65) {
+                event.preventDefault();
+                (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+                setData({ ...data, name: event.target.value })
+                setTimeout(() => {event.target.focus()}, 0);
+
+            }
+        } else {
+            return;
+        }
+    };
+
+    const handleKeyDownForCountry = (event: any): void => {
+        if (locale === 'en') {
+            if (event.keyCode === 65) {
+                event.preventDefault();
+                (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+                setNewLocation({...newLocation, newCountry: event.target.value})
+                setTimeout(() => {event.target.focus()}, 0);
+
+            }
+        } else {
+            return;
+        }
+    };
+
+    const handleKeyDownForCity = (event: any): void => {
+        if (locale === 'en') {
+            if (event.keyCode === 65) {
+                event.preventDefault();
+                (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+                setNewLocation({...newLocation, newCity: event.target.value})
+                setTimeout(() => {event.target.focus()}, 0);
+
+            }
+        } else {
+            return;
+        }
+    };
+
+    const handleKeyDownForAddress = (event: any): void => {
+        if (locale === 'en') {
+            if (event.keyCode === 65) {
+                event.preventDefault();
+                (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+                setNewLocation({...newLocation, newAddress: event.target.value})
+                setTimeout(() => {event.target.focus()}, 0);
+
+            }
+        } else {
+            return;
+        }
+    };
+
+    const handleKeyDownForEmail = (event: any): void => {
+        if (locale === 'en') {
+            if (event.keyCode === 65) {
+                event.preventDefault();
+                (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+                setData({ ...data, email: event.target.value })
+                setTimeout(() => {event.target.focus()}, 0);
+
+            }
+        } else {
+            return;
+        }
+    };
+
+    const handleKeyDownForDescription = (event: any): void => {
+        if (locale === 'en') {
+            if (event.keyCode === 65) {
+                event.preventDefault();
+                (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
+                setData({ ...data, description: event.target.value })
+                setTimeout(() => {event.target.focus()}, 0);
+
+            }
+        } else {
+            return;
+        }
+    };
+
+
     return <div className={styles.vendorName}>
         {value.name}
         <section className={styles.vendor__icons}>
@@ -149,7 +234,9 @@ const DelateVendorMenuEdit = ({styles, value}) => {
                 <div className={styles.editingForm}>
                     <TextField className={styles.marginBottom} required defaultValue={data.name}
                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, name: e.target.value })}
+                               onKeyDown={handleKeyDownForName}
                                label={t`Name`}/>
+
                     {location.map((data: any) => {
                         if (data.city && data.country && data.address !== '') {
                             return (
@@ -167,6 +254,7 @@ const DelateVendorMenuEdit = ({styles, value}) => {
                     <TextField className={styles.marginBottom}
                                label={t`Country`}
                                value={newLocation.newCountry}
+                               onKeyDown={handleKeyDownForCountry}
                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                    setNewLocation({...newLocation, newCountry: e.target.value})
                                }}
@@ -174,6 +262,7 @@ const DelateVendorMenuEdit = ({styles, value}) => {
                     <TextField className={styles.marginBottom}
                                label={t`City`}
                                value={newLocation.newCity}
+                               onKeyDown={handleKeyDownForCity}
                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                    setNewLocation({...newLocation, newCity: e.target.value})
                                }}
@@ -182,6 +271,7 @@ const DelateVendorMenuEdit = ({styles, value}) => {
                     <TextField className={styles.marginBottom}
                                label={t`Address`}
                                value={newLocation.newAddress}
+                               onKeyDown={handleKeyDownForAddress}
                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                    setNewLocation({...newLocation, newAddress: e.target.value})
                                }}
@@ -192,6 +282,7 @@ const DelateVendorMenuEdit = ({styles, value}) => {
                     </div>
                     <TextField className={styles.marginBottom} required defaultValue={data.email}
                                label={t`E-mail`}
+                               onKeyDown={handleKeyDownForEmail}
                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, email: e.target.value })}
                     />
                     <TextField className={styles.marginBottom}
@@ -201,6 +292,7 @@ const DelateVendorMenuEdit = ({styles, value}) => {
                                label={t`Description`}
                                variant="outlined"
                                defaultValue={data.description}
+                               onKeyDown={handleKeyDownForDescription}
                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, description: e.target.value })}
                     />
                     <div className={styles.dropzone}>
