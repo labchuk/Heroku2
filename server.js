@@ -5,7 +5,7 @@ const cors = require('cors')
 
 
 
-const PORT = process.env.PORT || 8000
+const PORT = process.env.API_URL || 8000
 
 const app = express()
 
@@ -16,7 +16,7 @@ app.use(express.json())
 
 app.get('*', (req,res)=> {
     res.sendFile(path.join(__dirname,"build", 'index.html'))
-    console.log("finish")
+    console.log("start")
 })
 
 app.listen(PORT)
