@@ -1,7 +1,7 @@
 import Geocode from "react-geocode";
-
-export const firsLetterToUpperCase= (str:string):string =>{
-    return str[0].toUpperCase() + str.slice(1);
+export const firsLetterToUpperCase = (str:string):string =>{
+    if (str) return str[0].toUpperCase() + str.slice(1);
+    return ''
 }
 export const geolocation = ({country ,city, addressLine}) => {
     Geocode.setApiKey(process.env.REACT_APP_GEOCODING_KEY);
