@@ -31,33 +31,15 @@ const useStyles = makeStyles((theme) =>
 
 const CardList: React.FC = (props) => {
     const dispatch = useAppDispatch();
-    const {searchObject} = useAppSelector(state=>state.filters);
+    const {searchObject, discounds, numberOfElements} = useAppSelector(state=>state.filters);
     const {pathname} = useLocation();
     const NUMBER_CARD = 15
 
-    const [data, setData] = useState([
-        { id: 1, nameDiscount: 'Macdonald', sizeDiscount: "34%", date: '06 May 2021', place: 'Yakuba Kolasa St,37', active: true},
-        { id: 2, nameDiscount: 'Adidas Original', sizeDiscount: "25%", date: '06 May 2021', place: 'Yakuba Kolasa St,37', active: true },
-        { id: 3, nameDiscount: 'Nike', sizeDiscount: "50%", date: '06 May 2021', place: 'Yakuba Kolasa St,37', active: false },
-        { id: 4, nameDiscount: 'Puma', sizeDiscount: "70%", date: '06 May 2021', place: 'Yakuba Kolasa St,37', active: true },
-        { id: 5, nameDiscount: 'Mega Sport', sizeDiscount: "10%", date: '06 May 2021', place: 'Yakuba Kolasa St,37', active: true },
-        { id: 6, nameDiscount: 'Sport Master', sizeDiscount: "60%", date: '06 May 2021', place: 'Yakuba Kolasa St,37', active: false },
-        { id: 7, nameDiscount: 'StarWood', sizeDiscount: "50%", date: '06 May 2021', place: 'Yakuba Kolasa St,37', active: true },
-        { id: 8, nameDiscount: 'Pizza', sizeDiscount: "40%", date: '06 May 2021', place: 'Yakuba Kolasa St,37', active: false },
-        { id: 9, nameDiscount: 'Smart', sizeDiscount: "10%", date: '06 May 2021', place: 'Yakuba Kolasa St,37', active: true },
-        { id: 10, nameDiscount: 'Eldorado', sizeDiscount: "20%", date: '06 May 2021', place: 'Yakuba Kolasa St,37', active: true },
-        { id: 11, nameDiscount: 'Samsung', sizeDiscount: "45%", date: '06 May 2021', place: 'Yakuba Kolasa St,37', active: true },
-        { id: 12, nameDiscount: 'Pizza', sizeDiscount: "40%", date: '06 May 2021', place: 'Yakuba Kolasa St,37', active: true },
-        { id: 13, nameDiscount: 'Smart', sizeDiscount: "10%", date: '06 May 2021', place: 'Yakuba Kolasa St,37', active: true },
-        { id: 14, nameDiscount: 'Eldorado', sizeDiscount: "20%", date: '06 May 2021', place: 'Yakuba Kolasa St,37', active: true },
-        { id: 15, nameDiscount: 'Samsung', sizeDiscount: "45%", date: '06 May 2021', place: 'Yakuba Kolasa St,37', active: true },
-        { id: 16, nameDiscount: 'Pizza', sizeDiscount: "40%", date: '06 May 2021', place: 'Yakuba Kolasa St,37', active: true },
-        { id: 17, nameDiscount: 'Smart', sizeDiscount: "10%", date: '06 May 2021', place: 'Yakuba Kolasa St,37', active: true },
-        { id: 18, nameDiscount: 'Eldorado', sizeDiscount: "20%", date: '06 May 2021', place: 'Yakuba Kolasa St,37', active: true },
-        { id: 19, nameDiscount: 'Samsung', sizeDiscount: "45%", date: '06 May 2021', place: 'Yakuba Kolasa St,37', active: true },
-        { id: 20, nameDiscount: 'Pizza', sizeDiscount: "40%", date: '06 May 2021', place: 'Yakuba Kolasa St,37', active: true },
-
-    ]);
+    const[data, setData] =useState(discounds)
+    useEffect(()=>{
+        setData(discounds)
+    },[discounds])
+    
     const classes = useStyles();
     const [page, setPage] = React.useState(1);
     const loadingDiscount = async()=>{
@@ -77,11 +59,7 @@ const CardList: React.FC = (props) => {
     };
     const [card, setCard] = React.useState(0);
 
-    const paginateCard = () => {
-        let from = (page - 1) * NUMBER_CARD
-        let to = from + NUMBER_CARD
-        return data.slice(from, to)
-    }
+    
     const handleClick = (e: any, index: number) => {
         const cName: any = e.target.className;
         const tName: any = e.target.tagName;
@@ -117,10 +95,11 @@ const CardList: React.FC = (props) => {
         }
     };
     const isAdmin = useAppSelector(state => state.user.admine);
-
+    console.log(data.length)
     return (
             <div className="card-list">
-                <ExtendedCard discount={data[card]} />
+                
+               {data.length ? <ExtendedCard discount={data[card]} /> : <p>No results found for your request.</p>}
                 <div className="main-content">
                     <div className={"sort-admin"}>
                         {pathname===MAIN_ROUTE?<Sort /> : <ModalSearchBar/>}
@@ -132,11 +111,11 @@ const CardList: React.FC = (props) => {
                     </div>
                      <Grid container spacing={3} justify="center" >
                         {
-                            paginateCard().map((item, index) => {
+                            data.map((item, index) => {
                                 return (<Grid key={index} item >
                                     <SaleCard discount={item}
                                               cards={data}
-                                              updateData={(item: any) => setData(item)}
+                                            //   updateData={(item: any) => setData(item)}
                                               handleClick={(event: any) => handleClick(event, index)} />
                                 </Grid>)
                             })
@@ -145,12 +124,14 @@ const CardList: React.FC = (props) => {
                     <Grid xs={12} justify="center">
                          <Grid xs={12} justify="center">
                         <div className={classes.root}>
-                            <Pagination count={Math.ceil(data.length / NUMBER_CARD)} variant="outlined"
+                            <Pagination count={Math.ceil(numberOfElements / NUMBER_CARD)} variant="outlined"
                                         page={page} onChange={handleChange} />
                         </div>
                     </Grid>
                     </Grid>
                 </div>
+                
+                
             </div>
     );
 };

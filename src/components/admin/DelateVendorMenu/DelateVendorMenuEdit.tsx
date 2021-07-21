@@ -53,11 +53,11 @@ const DelateVendorMenuEdit = ({styles, value}) => {
         !edit && getVendorLocation(value.id).then(v => setLocation(v.data.content))
         console.log(location)
         setEdit(!edit)
-        console.log(data.description)
-        console.log(data.name)
-        console.log(data.email)
-        console.log(uploadFileName)
-        console.log(fileName)
+        // console.log(data.description)
+        // console.log(data.name)
+        // console.log(data.email)
+        // console.log(uploadFileName)
+        // console.log(fileName)
     }
 
     const deleteVendor = () => {

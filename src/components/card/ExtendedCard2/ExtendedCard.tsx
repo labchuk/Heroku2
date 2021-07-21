@@ -5,7 +5,8 @@ import Button from "@material-ui/core/Button";
 /*import Rating from "../../common/SearchBar/Rating/Rating";*/
 import CloseIcon from "@material-ui/icons/Close";
 import {makeStyles} from "@material-ui/core/styles";
-
+import {usedDiscount} from "../../../http/discountApi";
+import { useAppSelector, } from "../../../store/Redux-toolkit-hook";
 interface ExtendedCardProps {
     discount: {
         place: string,
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
+    const {vendor} = useAppSelector(state=>state.filters);
     const classes = useStyles()
     const handleClick = () => {
         const myElement: HTMLElement | null =
@@ -62,7 +64,7 @@ const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
             }
         }
     };
-
+    const date = new Date(discount?.endDate * 1000);
     return (
             <div className={`ExtendedCard ${classes.root}`} id="excard">
                 <div className={"ExtendedCard__btn"}>
@@ -83,19 +85,19 @@ const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
                             <img
                                 className="ExtendedCard__Image"
                                 alt="Brand promo image"
-                                src="https://china-review.com.ua/uploads/posts/2017-05/1496088872_mi-store4.jpg"
+                                src={discount?.imageLink}
                             />
                         </div>
                         <div className="ExtendedCard__Info">
                             <div className="brandTitle">
                                 <h3 className="brandName">
-                                    {discount.nameDiscount} <span className="discount">-{discount.sizeDiscount}</span>
+                                    {discount?.name} <span className="discount">-{`${discount?.percentage}%`}</span>
                                 </h3>
 
                             </div>
                             <div className="valid">
                         <span className="valid__INfo">
-            valid until<strong className="valid__Date">{discount.date}</strong>
+            valid until<strong className="valid__Date">{date.toLocaleDateString()}</strong>
           </span>{" "}
                             </div>
 
@@ -114,7 +116,7 @@ const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
                     </div>*/}
 
                             <div className="ExtendedCard__actions">
-                                <button type="submit" className="submit btn--extCard">
+                                <button className="submit btn--extCard" onClick={()=> usedDiscount(discount?.id)}>
                                     Use Coupon
                                 </button>
                                 {/* <Button variant="contained" color="primary">
@@ -133,11 +135,7 @@ const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
 
                         <div>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-                                alias et facilis quia repudiandae sequi? Doloribus id quae rerum
-                                tenetur. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-                                alias et facilis quia repudiandae sequi? Doloribus id quae rerum
-                                tenetur.
+                                {discount?.fullDescription}
                             </p>
                         </div>
                     </div>
@@ -158,8 +156,7 @@ const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
                         <h3>About mi store</h3>
                         <div>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A
-                                exercitationem facilis praesentium saepe. Deserunt, perspiciatis.
+                                {vendor.filter(item => item.id === discount?.vendorId).map(item=>item.description)}
                             </p>
                         </div>
                     </div>

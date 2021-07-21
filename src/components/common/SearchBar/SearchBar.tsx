@@ -16,7 +16,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { t } from 'ttag';
 import {getSubCategoryAll} from "../../../http/filtersApi";
 import {getDiscounts} from "../../../http/discountApi";
-import {setSearchObject, addDiscounds, setSearchWord, addSubCategory} from "../../../store/filtersStore"
+import {setSearchObject, addDiscounds,setNumberOfElements, setSearchWord, addSubCategory} from "../../../store/filtersStore"
 const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: theme.palette.secondary.main,
@@ -32,7 +32,7 @@ const SearchBar =()=>{
     }
     const dispatch = useAppDispatch();
     const arrChips = useAppSelector(state => state.chips);
-    const {category, vendorLocation, vendor,  searchObject , subCategory} = useAppSelector(state=>state.filters);
+    const {category, vendorLocation, vendor,  searchObject , subCategory, discounds} = useAppSelector(state=>state.filters);
     const arrSubCatygory = getArrName(subCategory)
     const arrCountry = vendorLocation?.map(item=>firsLetterToUpperCase(item.country))
     const uniqueArr = (arr:string[]) => Array.from(new Set(arr));
@@ -40,6 +40,8 @@ const SearchBar =()=>{
     const arrVendorName =vendor?.map(item=>firsLetterToUpperCase(item.name));
     const [categoryId, setCategoryId] = useState("")
 
+
+    
 
     const getIds = (name: string, array: any): string[]=>{
         const arr = arrChips.ChipsArray.filter(item => item.name=== name).map(item=> Object.keys(item)[0])
@@ -85,6 +87,7 @@ const SearchBar =()=>{
     },[arrChips,searchObject.searchWord])
     const handleClick = async(obj:any) =>  {
         const {data} = await getDiscounts(obj);
+        dispatch(setNumberOfElements(data.numberOfElements))
         dispatch(addDiscounds(data.content))
      };
     const [ableSubCategory, setAbleSubCategory] = useState<String>("");
@@ -98,7 +101,6 @@ const SearchBar =()=>{
 
     const [stateControlLabel, setStateControlLabel] = useState({
         "Favorite": false,
-        "Used": false,
         "Active": false,
         "Not Activ": false,
         "For all period": false
@@ -118,7 +120,6 @@ const SearchBar =()=>{
             {pathname !== STATISTIC_ROUTE && <div className="containerFavorite">
                 <ControlLabel lable={t`Favorite`} setStateControlLableMy={setStateControlLableMy}/>
                 {pathname===HISTORY_ROUTE &&  <>
-                <ControlLabel lable={t`Used`} setStateControlLableMy={setStateControlLableMy}/>
                 <ControlLabel lable={t`Active`} setStateControlLableMy={setStateControlLableMy}/>
                 <ControlLabel lable={t`Not Active`} setStateControlLableMy={setStateControlLableMy} />
                 <ControlLabel lable={t`For all period`} setStateControlLableMy={setStateControlLableMy}/>

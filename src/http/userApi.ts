@@ -4,7 +4,6 @@ import jwt_decode from "jwt-decode";
 
 export const login = async({email,password}:{ email: string, password:string }) =>{
     const response = await host.post("user/login", { email, password });
-    console.log(response)
     localStorage.setItem("token", response.data.token);
     return jwt_decode(response.data.token);
 }
