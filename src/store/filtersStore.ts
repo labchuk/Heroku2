@@ -10,6 +10,7 @@ interface IdiscountFilter{
     city: string;
     searchWord: string;
     subCategoriesIds: string[];
+    sortingType: string
 }
 interface IinitialState {
     category: any[],
@@ -17,11 +18,13 @@ interface IinitialState {
     vendorLocation: any[],
     subCategory: any[],
     discounds: any[],
-    numberOfElements: number
-    searchObject: IdiscountFilter
+    numberOfElements: number,
+    searchObject: IdiscountFilter,
+    idEditCard: string,
 }
 
 export const initialFiltersState: IinitialState={
+    idEditCard: "",
     category: [],
     vendor: [],
     vendorLocation: [],
@@ -37,7 +40,7 @@ export const initialFiltersState: IinitialState={
         city: "",
         searchWord: "",
         subCategoriesIds: [],
-        
+        sortingType: "POPULAR"
     }
 }
 
@@ -51,6 +54,12 @@ const filtersReducer = createSlice({
         },
         setNumberOfElements(state, actions: PayloadAction<number>) {
             state.numberOfElements = actions.payload;
+        },
+        setIdEditCard(state, actions: PayloadAction<string>) {
+            state.idEditCard = actions.payload;
+        },
+        setSortingType(state, actions: PayloadAction<string>) {
+            state.searchObject.sortingType = actions.payload;
         },
         setSearchObjectPage(state, actions: PayloadAction<number>) {
             state.searchObject.page = actions.payload;
@@ -99,4 +108,4 @@ const filtersReducer = createSlice({
 });
 
 export default filtersReducer.reducer
-export const { addCategory,setNumberOfElements, addVendor,addNewCategory,addSubCategory, addNewSubCategory,addNewVendorLocation,addNewDiscounds, addNewVendor,addVendorLocation,resetFilteState, addDiscounds, setSearchWord, setSearchObject, setSearchObjectPage} = filtersReducer.actions;
+export const {setSortingType, addCategory,setIdEditCard,setNumberOfElements, addVendor,addNewCategory,addSubCategory, addNewSubCategory,addNewVendorLocation,addNewDiscounds, addNewVendor,addVendorLocation,resetFilteState, addDiscounds, setSearchWord, setSearchObject, setSearchObjectPage} = filtersReducer.actions;

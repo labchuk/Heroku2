@@ -3,7 +3,7 @@ import { Drawer, List } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import React, { useRef } from 'react';
+import React, { useRef, } from 'react';
 import ContainerDataPiker from '../../common/SearchBar/ContainerDatePiker/ContainerDatePiker';
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
 import EditIcon from '@material-ui/icons/Edit';
@@ -11,9 +11,26 @@ import AutocompleteMultipleChoise from '../../common/AutocompleteMultipleChoise/
 import { Autocomplete, AutocompleteRenderOptionState } from '@material-ui/lab';
 import SelectMultiple from '../../common/SearchBar/SelectMultiple/SelectMultiple';
 import { t } from 'ttag';
+import { useAppSelector, useAppDispatch } from "../../../store/Redux-toolkit-hook";
+
+interface Idiscount {
+  name: any;
+  vendorId: any;
+  fullDescription: any;
+  isOnline: boolean;
+  imageLink: any;
+  startDate: string;
+  endDate: string;
+  subCategoryIds: string[];
+  locationIds: string[];
+  categoryId: string;
+  percentage?: number | undefined;
+}
 
 
 const AdminEditCardPanel = (currentCard: any) => {
+  console.log(currentCard.currentCard)
+  const {  vendorLocation, vendor, searchObject, subCategory, } = useAppSelector(state => state.filters);
   const [state, setState] = React.useState(false);
   const [disableInput, setDisableInput] = React.useState(false);
   const [addressInput, setAddressInput] = React.useState(false);

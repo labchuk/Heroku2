@@ -82,7 +82,7 @@ const SearchBar =()=>{
             subCategoryIds: getSubCatygoryId(),
         }
         dispatch(setSearchObject(obj))
-    },[arrChips, searchObject.searchWord])
+    },[arrChips])
 
     useEffect(() => {
         handleClick(searchObject)

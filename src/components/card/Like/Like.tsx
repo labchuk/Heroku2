@@ -195,7 +195,7 @@ const Like: FC<LikeProps> = (props) => {
                     <button className="card-more__item" aria-describedby={id} onClick={handleChange}>
                         <img src="image/icons/Share.svg" alt="" />
                     </button>
-                    <button className="card-more__item">
+                    <button className="card-more__item" onClick={()=>console.log("onClick")}>
                         <AdminEditCardPanel currentCard={props.discount} style={{ fontSize: 30, position: 'relative', bottom: '5px' }} />
                     </button>
                     <button className="card-more__item" onClick={()=>{}}>
