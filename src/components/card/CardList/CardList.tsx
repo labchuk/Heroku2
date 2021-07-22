@@ -95,7 +95,7 @@ const CardList: React.FC = (props) => {
         }
     };
     const isAdmin = useAppSelector(state => state.user.admine);
-    console.log(data.length)
+    
     return (
             <div className="card-list">
                 
