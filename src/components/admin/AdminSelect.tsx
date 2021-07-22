@@ -9,6 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
 import Chip from '@material-ui/core/Chip';
+import { FormHelperText } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -48,7 +49,14 @@ function getStyles(name: any, personName: any, theme: any) {
     };
 }
 
-export default function AdminSelect(props: {disabled: boolean ,  name: string, data: string[], multi: boolean, handleChange: any }) {
+export default function AdminSelect(props: {
+    disabled?: boolean,
+    name: string,
+    data: string[],
+    multi: boolean,
+    handleChange: any,
+    helpText?: string
+}) {
     const classes = useStyles();
     const theme = useTheme();
     const [personName, setPersonName] = React.useState([]);
@@ -59,13 +67,13 @@ export default function AdminSelect(props: {disabled: boolean ,  name: string, d
         props.multi ?
             setPersonName(event.target.value)
             : setAge(event.target.value)
-            props.handleChange(event.target.value)
+        props.handleChange(event.target.value)
     };
 
     return (
         <div>
             <FormControl className={classes.formControl}>
-                <InputLabel>{props.name}</InputLabel>
+                <InputLabel>{`${props.name} *`}</InputLabel>
                 <Select
                     disabled={props.disabled}
                     multiple={props.multi}
@@ -80,8 +88,10 @@ export default function AdminSelect(props: {disabled: boolean ,  name: string, d
                         </MenuItem>
                     ))}
                 </Select>
+                {props.disabled
+                    ? <FormHelperText>{props.helpText}</FormHelperText>
+                    : ''}
             </FormControl>
-
         </div>
     );
 }

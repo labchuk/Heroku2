@@ -45,6 +45,7 @@ const AdminPanelVendor = () => {
         setFileName(image)
         setUploadFileName(image.name)
     }
+
     const clearForm = () => {
         setNewLocation({
             newCountry: '',
@@ -213,7 +214,7 @@ const AdminPanelVendor = () => {
             "& .MuiButton-root:hover": {
                 backgroundColor: 'none'
             },
-            "& .MuiFormHelperText-contained": {
+            ".MuiFormHelperText-contained": {
                 margin: 0
             }
         },
