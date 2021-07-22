@@ -1,4 +1,5 @@
 import axios from "axios";
+// import {API_URL} from '../config.js'
 
 const authHost = axios.create({
     baseURL: process.env.API_URL,
@@ -7,7 +8,7 @@ const authHost = axios.create({
 
 const host = axios.create({
     baseURL: process.env.API_URL,
-    
+    withCredentials: true
 });
 
 
