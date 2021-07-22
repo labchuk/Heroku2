@@ -53,6 +53,7 @@ const AdminPanelCard = () => {
   const [state, setState] = React.useState(false);
   const [disableInput, setDisableInput] = React.useState(false);
   const [addressInput, setAddressInput] = React.useState(false);
+  const [openErrorSnackbarServer, setErrorSnackbarServer] = React.useState(false);
   const [categoryInput, setCategoryInput] = React.useState(false);
   const [tagInput, setTagInput] = React.useState(false);
   const [uploadFileName, setUploadFileName] = React.useState<string>('');
@@ -178,13 +179,14 @@ const AdminPanelCard = () => {
   };
 
   const categoryArr = category?.filter((item: any) => item.deleted === false).map(item => firsLetterToUpperCase(item.name));
-  const addLogoDiscount = () => {
+  const addLogoDiscount = async() => {
     const formData = new FormData();
     formData.append(
       "file",
       fileName,
     );
-    return uploadImage(formData)
+    const {data} = await uploadImage(formData)
+    return data.message
   }
 
   const [categoryState, setcategoryState] = React.useState([...categoryArr]);
@@ -499,7 +501,7 @@ const AdminPanelCard = () => {
 
   const getSubCatygoryId = (subCategory: any, choeseTag: any) => {
     const arrId = choeseTag.map((element: any) => {
-      subCategory.filter((item: any) => item.name.toLowerCase() === element.toLowerCase()).map((item: any) => item.id)
+      return subCategory.filter((item: any) => item.name.toLowerCase() === element.toLowerCase()).map((item: any) => item.id)
     });
     return arrId.flat();
   }
@@ -547,7 +549,7 @@ const AdminPanelCard = () => {
       const newDiscount: Idiscount = {
         name: title,
         fullDescription: description,
-        imageLink: addLogoDiscount(),
+        imageLink: await addLogoDiscount(),
         categoryId: getCategoryId(),
         isOnline: isOnline,
         vendorId: getVendorId(),
@@ -556,19 +558,16 @@ const AdminPanelCard = () => {
         startDate: timeString(time.From),
         subCategoryIds: getSubCatygoryId(subCategory, choeseTag),
       };
-      clearForm()
-      setSuccessSnackbar(true)
-    } else {
+      postDiscount(newDiscount).then(resolve=>{
+          setSuccessSnackbar(true);
+          clearForm();
+      }).catch(e=> {
+        setErrorSnackbarServer(true)
+      })
+    }
+    else {
       setErrorSnackbar(true)
     }
-
-    // if (!(Object.values(newDiscount)).includes(undefined)) {
-    //   await postDiscount(newDiscount).catch((e) => console.log(e));
-    // }
-    // else {
-    //   console.log("erro createDiscount")
-    // }
-
   }
 
   const list = () => (
@@ -739,6 +738,11 @@ const AdminPanelCard = () => {
               snackbarState={openSuccessSnackbar}
               label='Discount is successfully created'
               type='success' />
+              <SimpleSnackbar
+              setSnackbar={setErrorSnackbarServer}
+              snackbarState={openErrorSnackbarServer}
+              label='discount not added because the server has technical work'
+              type='error' />
           </Grid>
         </form>
       </ListItem>
