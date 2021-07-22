@@ -102,15 +102,16 @@ const AdminPanelVendor = () => {
             const logoURL = logo?.data.message
             const vendor = await postVendor({ name: data.name, description: data.description, email: data.email, image: logoURL })
             const vendorId = vendor.data.id
-            location.forEach(l => postVendorLocation({
-                country: l.country,
-                city: l.city,
-                addressLine: l.address,
-                vendorId: vendorId
-            }))
+            for(const l of location){
+                await postVendorLocation({
+                    country: l.country,
+                    city: l.city,
+                    addressLine: l.address,
+                    vendorId: vendorId
+            })}
             clearForm()
-            getAllVendorLocation().then(resolve =>dispatch(addVendorLocation(resolve.data)) ).catch(f=> console.log(f));
-            getVendorAll().then(resolve=> dispatch(addVendor(resolve)));
+            await getVendorAll().then(resolve=> dispatch(addVendor(resolve)));
+            await getAllVendorLocation().then(resolve =>dispatch(addVendorLocation(resolve.data)) ).catch(f=> console.log(f));
             setSuccessSnackbar(true)
         } else {
             setErrorSnackbar(true)
