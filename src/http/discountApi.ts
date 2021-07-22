@@ -55,10 +55,7 @@ export const getDiscounts = async (obj:IdiscountFilter ) =>{
     return data;
 };
 
-export const sortDiscounts = async(sortName: string) => {
-    const {data} = await authHost.get(`/discount/get_discounts?sortingType=${sortName}&page=0&size=15`);
-    return data;
-};
+
 
 export const usedDiscount =  async(idDiscount: string) => {
     const data = await authHost.post(`/discount/use_discount/${idDiscount}`);

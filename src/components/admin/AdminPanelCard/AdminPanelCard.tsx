@@ -15,14 +15,14 @@ import { Alert } from '@material-ui/lab';
 import { getVendorId, postCategory, postVendorLocation, getSubCategoryAll, postSubCategory, uploadImage } from "../../../http/filtersApi"
 import { postDiscount } from "../../../http/discountApi"
 import { useAppSelector, useAppDispatch } from "../../../store/Redux-toolkit-hook";
+import {getDiscounts} from "../../../http/discountApi"
 import { firsLetterToUpperCase } from "../../../helpers/functionHelpers";
 import { utimes } from 'fs';
 import { captureRejectionSymbol } from 'stream';
-import { addNewCategory, addNewSubCategory, addNewVendorLocation, addSubCategory, addNewDiscounds } from "../../../store/filtersStore"
+import { addNewCategory, addNewSubCategory, addNewVendorLocation, addSubCategory, addDiscounds} from "../../../store/filtersStore"
 import { CancelPresentationOutlined, ContactsOutlined } from '@material-ui/icons';
 import { saveLocale, locale } from '../../../components/common/LangSwitcher/i18nInit';
-import SimpleSnackbar from '../../common/SimpleSnackbar/SimpleSnackbar';
-interface State extends SnackbarOrigin {
+import SimpleSnackbar from '../../common/SimpleSnackbar/SimpleSnackbar';interface State extends SnackbarOrigin {
   open: boolean;
 }
 
@@ -49,7 +49,7 @@ interface Idiscount {
 
 
 const AdminPanelCard = () => {
-  const { category, vendorLocation, vendor, searchObject, subCategory } = useAppSelector(state => state.filters);
+  const { category, vendorLocation, vendor, searchObject, subCategory, } = useAppSelector(state => state.filters);
   const [state, setState] = React.useState(false);
   const [disableInput, setDisableInput] = React.useState(false);
   const [addressInput, setAddressInput] = React.useState(false);
@@ -193,13 +193,14 @@ const AdminPanelCard = () => {
   const getVendorId = () => (vendor.filter(item => item.name.toLowerCase() === choeseVendor.toLowerCase()).map(item => item.id))[0];
   const getCategoryId = () => (category.filter(item => item.name.toLowerCase() === choeseCategory.toLowerCase()).map(item => item.id))[0]
 
+  
   useEffect(() => {
     setLocation([])
+    const arrLocation: any[] = [];
     const choeseLocation = vendorLocation.filter(item => item.vendorId === getVendorId());
-    const arrLocation: any[] = []
     choeseLocation?.forEach(item => {
       if (item.deleted) { return };
-      arrLocation.push({ key: Math.random(), country: item.country, city: item.city, address: item.addressLine })
+      arrLocation.push({ key: Math.random(), country: item.country, city: item.city, address: item.addressLine, id: item.id})
     })
     setLocation([...arrLocation])
   }, [choeseVendor]);
@@ -496,7 +497,7 @@ const AdminPanelCard = () => {
     const minutes = time.getMinutes();
     const check = (some: any) => some < 10 ? "0" + some : some;
     const timezoneOffset = Math.abs(time.getTimezoneOffset() / 60);
-    return `${year}-${check(month)}-${check(date)}T${check(hours)}:${check(minutes)}+${check(timezoneOffset)}:00`
+    return `${year}-${check(month+1)}-${check(date)}T${check(hours)}:${check(minutes)}+${check(timezoneOffset)}:00`
   }
 
   const getSubCatygoryId = (subCategory: any, choeseTag: any) => {
@@ -553,14 +554,18 @@ const AdminPanelCard = () => {
         categoryId: getCategoryId(),
         isOnline: isOnline,
         vendorId: getVendorId(),
-        locationIds: vendorLocation.filter(item => item.vendorId === getVendorId()).map(item => item.id),
+        locationIds: location.map(item => item.id),
         endDate: timeString(time.To),
         startDate: timeString(time.From),
         subCategoryIds: getSubCatygoryId(subCategory, choeseTag),
+        percentage: discountValue,
+
       };
+      console.log(newDiscount)
       postDiscount(newDiscount).then(resolve=>{
           setSuccessSnackbar(true);
           clearForm();
+          getDiscounts(searchObject).then(resolve=>dispatch(addDiscounds(resolve.data.content)))
       }).catch(e=> {
         setErrorSnackbarServer(true)
       })
@@ -569,6 +574,8 @@ const AdminPanelCard = () => {
       setErrorSnackbar(true)
     }
   }
+
+ 
 
   const list = () => (
     <List className={styles.wrapper}>

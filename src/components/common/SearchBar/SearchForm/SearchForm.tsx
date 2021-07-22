@@ -21,10 +21,11 @@ const SearchForm = ({handleClick}:{handleClick:any}) => {
   const dispatch = useAppDispatch();
   const {searchObject} = useAppSelector(state=>state.filters)
     const classes = useStyles();
-    const [state, setState] = useState<String>('')
-    const click =() =>{
+    const [state, setState] = useState<String>(searchObject.searchWord)
+    const click =(e) =>{
+      e.preventDefault();
       dispatch(setSearchWord(state));
-    }
+    } 
     
     return (
       <form action="#"   noValidate autoComplete="off" className={classes.root}>

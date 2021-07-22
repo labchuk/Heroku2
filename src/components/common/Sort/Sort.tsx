@@ -6,9 +6,9 @@ import { Select } from "@material-ui/core";
 import MenuItem from '@material-ui/core/MenuItem';
 import { useEffect } from "react";
 import { t } from 'ttag';
-import {sortDiscounts}  from "../../../http/discountApi"
-import {useAppDispatch} from "../../../store/Redux-toolkit-hook";
-import {addDiscounds} from "../../../store/filtersStore"
+import {useAppDispatch, useAppSelector} from "../../../store/Redux-toolkit-hook";
+import {addDiscounds, setSortingType} from "../../../store/filtersStore"
+import {firsLetterToUpperCase} from "../../../helpers/functionHelpers"
 
 const useStyles = makeStyles((theme) => ({
     sort: {
@@ -20,26 +20,15 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Sort = () => {
+    const {searchObject} = useAppSelector(state=>state.filters);
     const dispatch = useAppDispatch();
-    const [currentSort, setCurrentSort] = useState("Popular")
+    const string = searchObject.sortingType.toLocaleLowerCase().split("_").map(item=>firsLetterToUpperCase(item)).join(" ")
+    const [currentSort, setCurrentSort] = useState(string)
     const handleChangeSort = (event: any) => {
         setCurrentSort(event.target.value)
-
-    }
-    const requst = async(str:string) =>{
-        const data = await sortDiscounts(str);
-        return data
-    };
-    useEffect(() => {
         const string = currentSort.toLocaleUpperCase().split(" ").join("_");
-        sortDiscounts(string).then(resolve => dispatch(addDiscounds(resolve.content)))
-    }, [currentSort]);
-
-    
-
-
-
-
+        dispatch(setSortingType(string));
+    }
 const classes = useStyles();
 
     return(
@@ -53,11 +42,11 @@ const classes = useStyles();
                             className={classes.sort}
                             onChange={handleChangeSort}
                     >
-                        <MenuItem value={"Ending soon"}>{t`Ending soon`}</MenuItem>
+                        <MenuItem value={"Ending Soon"}>{t`Ending soon`}</MenuItem>
                         <MenuItem value={"Popular"}>{t`Popular`}</MenuItem>
                         <MenuItem value={"New Discounts"}>{t`New Discounts`}</MenuItem>
                         <MenuItem value={"Hot Sales"}>{t`Hot Sales`}</MenuItem>
-                        <MenuItem value={"Coming soon"}>{t`Coming soon`}</MenuItem>
+                        <MenuItem value={"Coming Soon"}>{t`Coming soon`}</MenuItem>
                     </Select>
                 </FormControl>
 
