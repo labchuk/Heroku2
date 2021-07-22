@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import "./SearchForm.scss"
 import { Search } from "@material-ui/icons";
 import {TextField} from "@material-ui/core"
@@ -25,7 +25,7 @@ const SearchForm = ({handleClick}:{handleClick:any}) => {
     const click =() =>{
       dispatch(setSearchWord(state));
     }
-
+    
     return (
       <form action="#"   noValidate autoComplete="off" className={classes.root}>
             <div className="searchForm" >

@@ -82,9 +82,12 @@ const SearchBar =()=>{
             subCategoryIds: getSubCatygoryId(),
         }
         dispatch(setSearchObject(obj))
-        handleClick(obj)
+    },[arrChips, searchObject.searchWord])
 
-    },[arrChips,searchObject.searchWord])
+    useEffect(() => {
+        handleClick(searchObject)
+    }, [searchObject]);
+
     const handleClick = async(obj:any) =>  {
         const {data} = await getDiscounts(obj);
         dispatch(setNumberOfElements(data.numberOfElements))
