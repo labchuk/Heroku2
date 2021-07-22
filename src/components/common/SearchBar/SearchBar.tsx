@@ -45,11 +45,14 @@ const SearchBar =()=>{
     const getIds = (name: string, array: any): string[]=>{
         const arr = arrChips.ChipsArray.filter(item => item.name=== name).map(item=> Object.keys(item)[0])
         const arrid:string[] = [];
-        arr.forEach(item => {
-            array.forEach(i => {
-                i.name.toLowerCase() === item.toLowerCase() && arrid.push(i.id);
+        if (arr) {
+            arr.forEach(item => {
+                array.forEach(i => {
+                    i.name.toLowerCase() === item.toLowerCase() && arrid.push(i.id);
+                })
             })
-        })
+        }
+
         return arrid;
     }
 

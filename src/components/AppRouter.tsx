@@ -13,12 +13,12 @@ const AppRouter = () => {
     const isAuth = useAppSelector(state => state.user.isAuth);
     return (
         <Switch>
-            {isAuth && authRoutes.map(({path, Component}) =>
+            {isAuth? authRoutes.map(({path, Component}) =>
                 <Route key={path} path={path} component={Component} exact/>
-            )}
-            {!isAuth && publikRoute.map(({path, Component}) =>
+            ) : null}
+            {!isAuth ?  publikRoute.map(({path, Component}) =>
                 <Route key={path} path={path} component={Component} exact/>
-            )}
+            ) : null}
                 {!isAuth ? <Redirect to={LOGIN_ROUTE} /> : <Redirect to={MAIN_ROUTE} />} 
 
         </Switch>
