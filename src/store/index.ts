@@ -16,11 +16,13 @@ const persistConfig = {
   storage,
 };
 
-const reducers = combineReducers({
+export const reducers = combineReducers({
   user: userSlise,
   chips: chipReducer,
   filters: filtersReducer,
-});
+},);
+
+
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 

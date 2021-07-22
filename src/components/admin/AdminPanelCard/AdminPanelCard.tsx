@@ -232,7 +232,7 @@ const AdminPanelCard = () => {
     setAddressInput(true)
   }
 
-  const submitAddress = () => {
+  const submitAddress = async() => {
     if (newLocation.newCountry !== '' && newLocation.newCity !== '' && newLocation.newAddress !== '') {
       setLocation([...location, { key: Math.random(), country: newLocation.newCountry, city: newLocation.newCity, address: newLocation.newAddress }])
       setNewLocation({
@@ -503,6 +503,7 @@ const AdminPanelCard = () => {
     });
     return arrId.flat();
   }
+
 
   const clearForm = () => {
     setTitle('')

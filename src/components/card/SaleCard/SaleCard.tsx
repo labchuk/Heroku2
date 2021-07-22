@@ -3,21 +3,22 @@ import './SaleCard.scss'
 import {makeStyles} from "@material-ui/core/styles";
 import React, {useEffect, useState} from "react";
 import Skeleton from "@material-ui/lab/Skeleton";
-import Grid from "@material-ui/core/Grid";
+import { useAppSelector, } from "../../../store/Redux-toolkit-hook";
 interface SaleCardProps {
     discount: {
         id: number,
         place: string,
         nameDiscount: string,
         sizeDiscount: string,
-        date: string
+        date: string,
+        active: boolean
     },
     cards: {
         id: number,
         place: string,
         nameDiscount: string,
         sizeDiscount: string,
-        date: string
+        date: string,
     }[],
     updateData: (data: any) => void,
     handleClick: (e: any) => void
@@ -31,7 +32,8 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const SaleCard: React.FC<SaleCardProps> = ({ discount, cards, updateData, handleClick }) => {
+const SaleCard: React.FC<SaleCardProps> = ({ discount, cards, updateData,  handleClick }) => {
+    const {vendor} = useAppSelector(state=>state.filters);
     const classes = useStyles()
     const [loading, setLoading] = useState(true)
 
@@ -40,7 +42,9 @@ const SaleCard: React.FC<SaleCardProps> = ({ discount, cards, updateData, handle
             setLoading(false);
         }, 2000)
     }, []);
-
+    const active = new Date() - new Date(discount.endDate * 1000) > 0? false: true;
+    const imgLogo = (vendor.filter(item => item.id === discount.vendorId).map(item=>item.image))[0];
+   
     return (
         <div className={classes.root}>
             <div className="sale-card">
@@ -48,7 +52,7 @@ const SaleCard: React.FC<SaleCardProps> = ({ discount, cards, updateData, handle
                     <React.Fragment>
                         <Skeleton variant="circle" width={60} height={60} style={{ marginTop: 36, marginLeft: 16}}   />
                     </React.Fragment>
-                ) : (<VendorLogo handleClick={handleClick} />)}
+                ) : (<VendorLogo handleClick={handleClick} imgLogo={imgLogo}/>)}
 
                 {loading ? (
                     <React.Fragment>
@@ -58,7 +62,8 @@ const SaleCard: React.FC<SaleCardProps> = ({ discount, cards, updateData, handle
 
 
                 <Like discount={discount} cards={cards} updateData={updateData} />
-
+                {!loading ? !active ? <div className={"notActive"}>Not Active</div> : null  : null}
+                {/*{!loading ? !discount.ac ? <div className={"notActive"}>Come in soon</div> : null  : null}*/}
             </div>
         </div>
 

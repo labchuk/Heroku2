@@ -9,6 +9,7 @@ import { makeStyles, Popover } from '@material-ui/core';
 import ModalWithConfirm from "../../common/ModalWithConfirm/ModalWithConfirm";
 import SnackbarForModalWithConfirm from "../../common/SnackbarForModalWithConfirm/SnackbarForModalWithConfirm";
 import {t} from "ttag";
+import {deletefavoriteDiscount, postfavoriteDiscount} from "../../../http/discountApi"
 
 
 interface LikeProps {
@@ -52,6 +53,7 @@ const Like: FC<LikeProps> = (props) => {
     const [anchorMoreEl, setAnchorMoreEl] = React.useState<HTMLButtonElement | null>(null);
 
     const handleLike = () => {
+        like ? deletefavoriteDiscount(props.discount.id) : postfavoriteDiscount(props.discount.id)
         setLike(prev => !prev)
     }
 

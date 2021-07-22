@@ -42,8 +42,7 @@ const FormLogin: React.FC = () => {
         if(isVerified) {
             setOpen(true)
             signIn()
-        } else {
-        }
+        } 
     }
     const onChange = () => {
         setVerified(true);
@@ -68,6 +67,7 @@ const FormLogin: React.FC = () => {
             redirect();
         }catch(e){
             showError()
+            setOpen(false)
         }
     }
 

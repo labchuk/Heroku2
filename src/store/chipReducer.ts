@@ -4,7 +4,7 @@ import ChipsArray from "../components/common/ChipsArray/ChipsArray";
 import {log} from "util";
 import * as Console from "console";
 
-interface IinitialUserState {
+interface IinitialState {
     ChipsArray: any[]
     ChipsArrayStatistic: any[]
     removeItemMain: string
@@ -12,7 +12,7 @@ interface IinitialUserState {
 
 }
 
-export const initialUserState: IinitialUserState={
+ const initialChipState: IinitialState={
     ChipsArrayStatistic: [],
     ChipsArray: [],
     removeItemMain: '',
@@ -24,8 +24,9 @@ export const initialUserState: IinitialUserState={
 
 const chipReducer = createSlice({
     name: "chipsSlise",
-    initialState: initialUserState,
+    initialState: initialChipState,
     reducers: {
+        resetChipState: state =>  initialChipState,
         addChipMain(state, actions: PayloadAction<any>) {
             
             state.ChipsArray = AddChip(state.ChipsArray,actions)
@@ -86,4 +87,4 @@ export const removeChip = (chip:any,actions:any) => {
 }
 
 export default chipReducer.reducer
-export const { addChipMain,removeChipMain,removeCategoryMain, addChipStatistic,removeChipStatistic, removeCategoryStatistic,updateChipMain,updateChipStatistic } = chipReducer.actions;
+export const { addChipMain,removeChipMain,removeCategoryMain, addChipStatistic,removeChipStatistic,resetChipState, removeCategoryStatistic, } = chipReducer.actions;

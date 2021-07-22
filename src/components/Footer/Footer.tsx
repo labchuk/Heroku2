@@ -1,10 +1,9 @@
-import React, {useRef, useState} from 'react';
+import React, { useState} from 'react';
 import {Logo} from '../index';
 import "./Footer.scss";
 import phone from '../../images/icons/phone.svg';
 import email from '../../images/icons/email.svg';
-import {Button, Tooltip, withStyles} from "@material-ui/core";
-import {makeStyles} from "@material-ui/styles";
+import { Tooltip, withStyles} from "@material-ui/core";
 import { Theme } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 
@@ -55,10 +54,10 @@ const Footer = () => {
                         }
 
                         <div className={"footerLink__social"}>
-                            <a href="https://www.linkedin.com/company/exadel/" target="_blank">
+                            <a href="https://www.linkedin.com/company/exadel/" target="_blank" rel="noopener noreferrer">
                                 <i className="icon-linkedin"></i>
                             </a>
-                            <a href="https://www.facebook.com/exadelinc/" target="_blank">
+                            <a href="https://www.facebook.com/exadelinc/" target="_blank" rel="noopener noreferrer">
                                 <i className="icon-facebook"></i>
                             </a>
                         </div>

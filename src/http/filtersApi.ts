@@ -58,8 +58,6 @@ export const getCategoryId = async (categoryId:string ) =>{
 
 export const postCategory = async ({name}:Iname) =>{
     const data = await authHost.post("/category", {name});
-    // console.log(data)
-    // data.status === 403 && refreshToken().then(resolve=>localStorage.setItem("token", resolve.token))
     
     return data;
 };
@@ -115,7 +113,7 @@ export const getAllVendorLocation = async () =>{
 }
 
 export const getVendorLocation = async (vendorId:string) =>{
-    const data = await authHost.get(`/vendor/${vendorId}/location`);
+    const data = await authHost.get(`/vendor/${vendorId}/location?page=0&size=10`);
     return data;
 }
 
