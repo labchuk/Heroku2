@@ -42,7 +42,7 @@ const SaleCard: React.FC<SaleCardProps> = ({ discount, cards, updateData,  handl
             setLoading(false);
         }, 2000)
     }, []);
-    const active = new Date() - new Date(discount.endDate * 1000) > 0? false: true;
+    const active = new Date() - new Date(discount.startDate * 1000) < 0? false: true;
     const imgLogo = (vendor.filter(item => item.id === discount.vendorId).map(item=>item.image))[0];
    
     return (
