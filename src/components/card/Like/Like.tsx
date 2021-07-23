@@ -3,7 +3,7 @@ import './Like.scss'
 import { VKShareButton, TelegramShareButton, FacebookShareButton } from 'react-share'
 import { VKIcon, FacebookIcon, TelegramIcon } from "react-share";
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import AdminEditCardPanel from '../../admin/AdminEditCardPanel/AdminEditCardPanel';
+import AdminPanelCard from '../../admin/AdminPanelCard/AdminPanelCard';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { makeStyles, Popover } from '@material-ui/core';
 import ModalWithConfirm from "../../common/ModalWithConfirm/ModalWithConfirm";
@@ -32,7 +32,6 @@ interface LikeProps {
 
 
 const Like: FC<LikeProps> = (props) => {
-
     const [openModal, setOpenModal] = useState(false);
     const [openSnackbar, setSnackbar] = useState(false);
 
@@ -158,7 +157,7 @@ const Like: FC<LikeProps> = (props) => {
                             horizontal: 'right',
                         }}
                         className={style.root}>
-                        <AdminEditCardPanel currentCard={props.discount}
+                        <AdminPanelCard currentCard={props.discount}
                             style={{ fontSize: 30, position: 'relative', bottom: '5px' }} />
                         <DeleteOutlineIcon style={{ color: '#d32f2f', fontSize: 30, cursor: 'pointer' }}
                            /* onClick={() => deleteCard(props.discount)} />*/
@@ -196,7 +195,7 @@ const Like: FC<LikeProps> = (props) => {
                         <img src="image/icons/Share.svg" alt="" />
                     </button>
                     <button className="card-more__item" onClick={()=>console.log("onClick")}>
-                        <AdminEditCardPanel currentCard={props.discount} style={{ fontSize: 30, position: 'relative', bottom: '5px' }} />
+                        <AdminPanelCard currentCard={props.discount} style={{ fontSize: 30, position: 'relative', bottom: '5px' }} />
                     </button>
                     <button className="card-more__item" onClick={()=>{}}>
                         <DeleteOutlineIcon style={{ color: '#d32f2f', fontSize: 30 }} onClick={() => {setOpenModal(true)}} />

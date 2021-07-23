@@ -55,12 +55,14 @@ export default function AdminSelect(props: {
     data: string[],
     multi: boolean,
     handleChange: any,
-    helpText?: string
+    helpText?: string,
+    value?: string,
+    valueArr: sring[],
 }) {
     const classes = useStyles();
     const theme = useTheme();
-    const [personName, setPersonName] = React.useState([]);
-    const [age, setAge] = React.useState('');
+    const [personName, setPersonName] = React.useState(props.valueArr?[...props.valueArr]: []);
+    const [age, setAge] = React.useState(props.value);
 
 
     const handleChange = (event: any) => {

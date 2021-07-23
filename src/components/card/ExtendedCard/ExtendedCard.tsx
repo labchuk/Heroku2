@@ -12,6 +12,7 @@ interface ExtendedCardProps {
 }
 
 const ExtendedCard:React.FC<ExtendedCardProps> = ({discount}) => {
+    
     return (
         <div>
             <VendorLogo />

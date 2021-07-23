@@ -22,11 +22,11 @@ const useStyles = makeStyles((theme) => ({
 const Sort = () => {
     const {searchObject} = useAppSelector(state=>state.filters);
     const dispatch = useAppDispatch();
-    const string = searchObject.sortingType.toLocaleLowerCase().split("_").map(item=>firsLetterToUpperCase(item)).join(" ")
+    const string = searchObject?.sortingType?.toLocaleLowerCase().split("_").map(item=>firsLetterToUpperCase(item)).join(" ")
     const [currentSort, setCurrentSort] = useState(string)
     const handleChangeSort = (event: any) => {
         setCurrentSort(event.target.value)
-        const string = currentSort.toLocaleUpperCase().split(" ").join("_");
+        const string = currentSort?.toLocaleUpperCase().split(" ").join("_");
         dispatch(setSortingType(string));
     }
 const classes = useStyles();
