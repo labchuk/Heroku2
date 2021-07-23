@@ -30,6 +30,11 @@ export const postDiscount = async ( obj:Idiscount) =>{
     return data;
 };
 
+export const putDiscount = async (idDiscount: string, obj:Idiscount) =>{
+    const data = await authHost.put(`/discount/${idDiscount}`, obj);
+    return data;
+};
+
 export const getDiscountById = async ( idDiscount: string) =>{
     const data = await authHost.get(`/discount/${idDiscount}`);
     return data;
@@ -54,6 +59,7 @@ export const getDiscounts = async (obj:IdiscountFilter ) =>{
     const data = await authHost.get(string.slice(0,string.length-1));
     return data;
 };
+
 
 
 

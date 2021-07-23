@@ -10,7 +10,7 @@ interface IdiscountFilter{
     city: string;
     searchWord: string;
     subCategoriesIds: string[];
-    sortingType: string
+    sortingType: string;
 }
 interface IinitialState {
     category: any[],

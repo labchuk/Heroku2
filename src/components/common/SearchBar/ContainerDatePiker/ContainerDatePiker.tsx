@@ -19,9 +19,9 @@ const theme = createMuiTheme({
 });
 
 
-const ContainerDataPiker = ({setTime}:{setTime:any}) => {
+const ContainerDataPiker = ({setTime, time}:{setTime:any, time:any}) => {
     const {pathname} = useLocation();
-    const [selectedDate, setSelectedDate] = useState({
+    const [selectedDate, setSelectedDate] = useState(time? time : {
         From: new Date(),
         To : new Date(),
     });

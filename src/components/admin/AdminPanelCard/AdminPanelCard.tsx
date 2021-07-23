@@ -13,7 +13,7 @@ import { t } from 'ttag';
 import AdminSelect from '../AdminSelect';
 import { Alert } from '@material-ui/lab';
 import { getVendorId, postCategory, postVendorLocation, getSubCategoryAll, postSubCategory, uploadImage } from "../../../http/filtersApi"
-import { postDiscount } from "../../../http/discountApi"
+import { postDiscount, putDiscount } from "../../../http/discountApi"
 import { useAppSelector, useAppDispatch } from "../../../store/Redux-toolkit-hook";
 import {getDiscounts} from "../../../http/discountApi"
 import { firsLetterToUpperCase } from "../../../helpers/functionHelpers";
@@ -48,7 +48,28 @@ interface Idiscount {
 }
 
 
-const AdminPanelCard = () => {
+const AdminPanelCard = ({currentCard}) => {
+  const getCurrentvendor = () =>{
+    return (vendor.filter(item => item.id === currentCard.vendorId).map(item=>item.name))[0]
+  }
+
+  const getCurrentcategory = () =>{
+    return (category.filter(item => item.id === currentCard.categoryId).map(item=>item.name))[0]
+  }
+
+  const getCurrentSubcategory = () =>{
+    return currentCard.subCategories.map(item => item.name)
+  }
+
+  const getCurrentTime = () =>{
+    return {
+      From: new Date(currentCard.startDate * 1000),
+      To : new Date(currentCard.endDate * 1000),
+    }
+  }
+
+
+  
   const { category, vendorLocation, vendor, searchObject, subCategory, } = useAppSelector(state => state.filters);
   const [state, setState] = React.useState(false);
   const [disableInput, setDisableInput] = React.useState(false);
@@ -56,17 +77,18 @@ const AdminPanelCard = () => {
   const [openErrorSnackbarServer, setErrorSnackbarServer] = React.useState(false);
   const [categoryInput, setCategoryInput] = React.useState(false);
   const [tagInput, setTagInput] = React.useState(false);
-  const [uploadFileName, setUploadFileName] = React.useState<string>('');
+  const [uploadFileName, setUploadFileName] = React.useState<string>(currentCard ? currentCard.imageLink :'');
+  const [currentImageLinck, delateCurrentImageLinck] = React.useState<string>(currentCard ? currentCard.imageLink: "");
   const [newCategory, setNewCategory] = React.useState('');
   const [newTag, setNewTag] = React.useState('');
   const [fileName, setFileName] = React.useState<string | Blob>('');
-  const [choeseCategory, setChoeseCategory] = React.useState('');
-  const [choeseVendor, setChoeseVendor] = React.useState('');
-  const [choeseTag, setChoeseTag] = React.useState([]);
-  const [title, setTitle] = React.useState<string>('');
-  const [description, setDescription] = React.useState<string>('');
-  const [discountValue, setDiscountValue] = React.useState('');
-  const [isOnline, setIsOnline] = React.useState(false);
+  const [choeseCategory, setChoeseCategory] = React.useState(currentCard ? getCurrentcategory() : "");
+  const [choeseVendor, setChoeseVendor] = React.useState(currentCard ? getCurrentvendor() : "");
+  const [choeseTag, setChoeseTag] = React.useState(currentCard ? getCurrentSubcategory() : []);
+  const [title, setTitle] = React.useState<string>(currentCard ? currentCard.name : '');
+  const [description, setDescription] = React.useState<string>(currentCard ? currentCard.fullDescription : '');
+  const [discountValue, setDiscountValue] = React.useState(currentCard ? currentCard.percentage : '');
+  const [isOnline, setIsOnline] = React.useState(currentCard ?currentCard.online : false);
   const [location, setLocation] = React.useState<any[]>([]);
   const [openSuccessSnackbar, setSuccessSnackbar] = React.useState(false);
   const [openErrorSnackbar, setErrorSnackbar] = React.useState(false);
@@ -185,7 +207,8 @@ const AdminPanelCard = () => {
       "file",
       fileName,
     );
-    const {data} = await uploadImage(formData)
+    const {data} = await uploadImage(formData);
+    delateCurrentImageLinck("");
     return data.message
   }
 
@@ -530,12 +553,12 @@ const AdminPanelCard = () => {
   }
 
   const checkValidation = () => {
+    
     if (title !== '' &&
       description.length <= 2000 &&
       description.length >= 50 &&
       checkLocation() &&
       uploadFileName !== '' &&
-      fileName !== '' &&
       choeseVendor !== '' &&
       choeseTag.length !== 0 &&
       discountValue !== '') {
@@ -547,10 +570,11 @@ const AdminPanelCard = () => {
 
   const createDiscount = async () => {
     if (checkValidation()) {
+      
       const newDiscount: Idiscount = {
         name: title,
         fullDescription: description,
-        imageLink: await addLogoDiscount(),
+        imageLink: currentImageLinck || await addLogoDiscount(),
         categoryId: getCategoryId(),
         isOnline: isOnline,
         vendorId: getVendorId(),
@@ -561,21 +585,30 @@ const AdminPanelCard = () => {
         percentage: discountValue,
 
       };
-      console.log(newDiscount)
-      postDiscount(newDiscount).then(resolve=>{
-          setSuccessSnackbar(true);
-          clearForm();
-          getDiscounts(searchObject).then(resolve=>dispatch(addDiscounds(resolve.data.content)))
+      const resolveFnc = (resolve) => {
+        setSuccessSnackbar(true);
+        clearForm();
+        getDiscounts(searchObject).then(resolve=>dispatch(addDiscounds(resolve.data.content)))
+      }
+      if(currentCard){
+        putDiscount(currentCard.id ,newDiscount).then(resolve=>{
+          resolveFnc(resolve)
       }).catch(e=> {
         setErrorSnackbarServer(true)
       })
+      }else{
+        postDiscount(newDiscount).then(resolve=>{
+          resolveFnc(resolve)
+      }).catch(e=> {
+        setErrorSnackbarServer(true)
+      })
+      } 
     }
     else {
       setErrorSnackbar(true)
     }
   }
-
- 
+  
 
   const list = () => (
     <List className={styles.wrapper}>
@@ -591,7 +624,7 @@ const AdminPanelCard = () => {
               required
               className={styles.marginBottom} label={t`Title`}
               onKeyDown={handleKeyDownForTitle}
-              value={title}
+              value={ title}
               onChange={(e: any) => {
                 setTitle(e.target.value)
               }} />
@@ -599,6 +632,7 @@ const AdminPanelCard = () => {
               name={t`Category`}
               data={categoryState}
               multi={false}
+              value ={choeseCategory}
               handleChange={setChoeseCategory}
               state={choeseCategory} />
             {categoryInput ?
@@ -618,8 +652,9 @@ const AdminPanelCard = () => {
             <AdminSelect
               name={t`Tags`}
               data={tags}
-              disabled={!choeseCategory}
+              disabled={currentCard? false : !choeseCategory}
               multi={true}
+              valueArr = {choeseTag}
               handleChange={setChoeseTag}
               helpText='Please choose category' />
             {tagInput ?
@@ -637,7 +672,7 @@ const AdminPanelCard = () => {
                 </div>
               </>
               : <span className={styles.address__span} onClick={addTag}>{t`+ Add new tag`}</span>}
-            <AdminSelect name={t`Vendor Name`} data={vendors} multi={false} handleChange={setChoeseVendor} />
+            <AdminSelect name={t`Vendor Name`} disabled={currentCard? true : false} value={choeseVendor} data={vendors} multi={false} handleChange={setChoeseVendor} />
             {disableInput ? '' : (
               <>
                 {location.map((data: any) => {
@@ -699,17 +734,17 @@ const AdminPanelCard = () => {
               </>
             )}
             <div className={styles.checkbox__wrapper}>
-              <input type="checkbox" className={styles.checkbox} onClick={changeDisable} />
+              <input type="checkbox" value={currentCard ? currentCard.online : false} className={styles.checkbox} onClick={changeDisable} />
               <label className={styles.checkbox__label} >{t`Online`}</label>
             </div>
             <div className={styles.marginBottom}>
-              <ContainerDataPiker setTime={setTime} />
+              <ContainerDataPiker setTime={setTime} time={currentCard ? getCurrentTime() : false}/>
             </div>
             <TextField
               className={styles.marginBottom}
               required
               label={t`Discount %`}
-              value={discountValue}
+              value={currentCard? currentCard.percentage : discountValue}
               type='number'
               onChange={(e: any) => setDiscountValue(e.target.value)}
               InputProps={{ inputProps: { min: 0 } }} />
@@ -722,7 +757,7 @@ const AdminPanelCard = () => {
               onChange={(e: any) => setDescription(e.target.value)}
               helperText='Min length 50, max length 2000'
               variant="outlined"
-              value={description}
+              value={currentCard ? currentCard.fullDescription : description}
               inputProps={{
                 maxLength: 2000,
                 minLength: 50
