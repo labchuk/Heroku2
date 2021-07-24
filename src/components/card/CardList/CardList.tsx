@@ -16,6 +16,8 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import {Spinner} from "../../index";
 import {addDiscounds, setSearchObjectPage} from "../../../store/filtersStore";
 import {getDiscounts} from "../../../http/discountApi";
+import AlertZeroPromo from "../../common/AlertZeroPromo/AlertZeroPromo"
+
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -98,9 +100,9 @@ const CardList: React.FC = (props) => {
     
     return (
             <div className="card-list">
-                
-               {data.length ? <ExtendedCard discount={data[card]} /> : <p>No results found for your request.</p>}
-                <div className="main-content">
+
+               {data.length ? <ExtendedCard discount={data[card]} /> : null}
+               <div className="main-content">
                     <div className={"sort-admin"}>
                         {pathname===MAIN_ROUTE?<Sort /> : <ModalSearchBar/>}
                         {isAdmin &&
@@ -109,6 +111,7 @@ const CardList: React.FC = (props) => {
                     <div className={"chips"}>
                         {!(pathname === HISTORY_ROUTE)&& <ChipsArray />}
                     </div>
+                    {data.length ? null : <AlertZeroPromo/>}
                      <Grid container spacing={3} justify="center" >
                         {
                             data.map((item, index) => {
