@@ -22,13 +22,19 @@ const useStyles = makeStyles((theme) => ({
 const Sort = () => {
     const {searchObject} = useAppSelector(state=>state.filters);
     const dispatch = useAppDispatch();
-    const string = searchObject?.sortingType?.toLocaleLowerCase().split("_").map(item=>firsLetterToUpperCase(item)).join(" ")
+    let string;
+    searchObject?.sortingType ? string = searchObject?.sortingType?.toLocaleLowerCase().split("_").map(item=>firsLetterToUpperCase(item)).join(" "): string = "Sorting not selected"
     const [currentSort, setCurrentSort] = useState(string)
     const handleChangeSort = (event: any) => {
         setCurrentSort(event.target.value)
-        const string = currentSort?.toLocaleUpperCase().split(" ").join("_");
-        dispatch(setSortingType(string));
     }
+
+    useEffect(() => {
+        let string = currentSort?.toLocaleUpperCase().split(" ").join("_");
+        if (currentSort === "Sorting not selected") string = "";
+        dispatch(setSortingType(string));
+    }, [currentSort]);
+
 const classes = useStyles();
 
     return(
@@ -41,7 +47,8 @@ const classes = useStyles();
                             value={currentSort}
                             className={classes.sort}
                             onChange={handleChangeSort}
-                    >
+                    >   
+                        <MenuItem value={"Sorting not selected"}>{t`Sorting not selected`}</MenuItem> 
                         <MenuItem value={"Ending Soon"}>{t`Ending soon`}</MenuItem>
                         <MenuItem value={"Popular"}>{t`Popular`}</MenuItem>
                         <MenuItem value={"New Discounts"}>{t`New Discounts`}</MenuItem>

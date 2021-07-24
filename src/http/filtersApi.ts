@@ -1,4 +1,4 @@
-import {authHost, refreshToken} from "./index";
+import {authHost} from "./index";
 
 interface Ivendor{name:string, description:string, email:string, image:string};
 interface IvendorLocation{country:string, city:string, addressLine:string, vendorId:string};
