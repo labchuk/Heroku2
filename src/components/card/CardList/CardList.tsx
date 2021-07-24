@@ -69,8 +69,14 @@ const CardList: React.FC = (props) => {
         if ((cName === '')  || (tName === 'circle') || (tName === 'path')) {
             return null
         } else {
+
+
+
+
             const myElement: HTMLElement | null =
+                /*document.querySelector(".ExtendedCard");*/
                 document.querySelector(".ExtendedCard");
+
             const mainContent: HTMLElement | null =
                 document.querySelector(".main-content");
 
@@ -81,12 +87,30 @@ const CardList: React.FC = (props) => {
                 myElement.style.opacity= "1";
                 myElement.style.position= "absolute";
 
-                if (mainContent === null) {
-                    return null;
-                } else {
-                   mainContent.style.marginTop = (mainContent.style.marginTop + myElement.clientHeight + 'px');
 
-                }
+                setTimeout(()=> {
+                    const myElement: HTMLElement | null =
+
+                        document.querySelector(".ExtendedCard");
+
+                    const mainContent: HTMLElement | null =
+                        document.querySelector(".main-content");
+                    if (mainContent === null) {
+                        return null;
+                    } else {
+                        mainContent.style.marginTop = '';
+                        mainContent.style.marginTop = (mainContent.style.marginTop + myElement.clientHeight + 'px');
+
+                    }
+
+                }, 100);
+
+
+
+
+                console.log('myElement.clientHeight =', myElement.clientHeight);
+                console.log('mainContent.style.marginTop =', mainContent.style.marginTop);
+
                 document.getElementById("excard")!.scrollIntoView({ behavior: 'smooth' });
                 if (page === 1) {
                     setCard(index)
@@ -94,6 +118,8 @@ const CardList: React.FC = (props) => {
                     setCard(index + (page - 1) * NUMBER_CARD)
                 }
             }
+
+
         }
     };
     const isAdmin = useAppSelector(state => state.user.admine);
@@ -102,6 +128,7 @@ const CardList: React.FC = (props) => {
             <div className="card-list">
 
                {data.length ? <ExtendedCard discount={data[card]} /> : null}
+
                <div className="main-content">
                     <div className={"sort-admin"}>
                         {pathname===MAIN_ROUTE?<Sort /> : <ModalSearchBar/>}
