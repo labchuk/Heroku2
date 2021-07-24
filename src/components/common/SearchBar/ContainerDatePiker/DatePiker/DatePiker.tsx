@@ -29,7 +29,7 @@ const materialTheme = (createMuiTheme as any)({
     },
 });
 
-const DatePiker = ({label,setDate,selectedDate, setTime }: {setTime:any, label: string, setDate: any, selectedDate:any,}) => {
+const DatePiker = ({label,setDate,selectedDate, setTime, helperText }: {setTime:any, label: string, setDate: any, selectedDate:any, helperText:string}) => {
 
      const handleDateChange = (date: any) => {
          setDate(label, date);
@@ -45,6 +45,7 @@ const DatePiker = ({label,setDate,selectedDate, setTime }: {setTime:any, label: 
                 label={label}
                 value={selectedDate}
                 onChange={handleDateChange}
+                helperText={helperText}
                 KeyboardButtonProps={{
                     "aria-label": "change date",
                 }}
