@@ -54,8 +54,6 @@ const CardList: React.FC = (props) => {
         setPage(searchObject.page+1)
     },[searchObject?.page])
 
-
-
     const handleChange = async (event: React.ChangeEvent<unknown>, value: number) => {
         dispatch(setSearchObjectPage(value-1));
     };
@@ -70,11 +68,7 @@ const CardList: React.FC = (props) => {
             return null
         } else {
 
-
-
-
             const myElement: HTMLElement | null =
-                /*document.querySelector(".ExtendedCard");*/
                 document.querySelector(".ExtendedCard");
 
             const mainContent: HTMLElement | null =
@@ -106,11 +100,6 @@ const CardList: React.FC = (props) => {
                 }, 100);
 
 
-
-
-                console.log('myElement.clientHeight =', myElement.clientHeight);
-                console.log('mainContent.style.marginTop =', mainContent.style.marginTop);
-
                 document.getElementById("excard")!.scrollIntoView({ behavior: 'smooth' });
                 if (page === 1) {
                     setCard(index)
@@ -118,8 +107,6 @@ const CardList: React.FC = (props) => {
                     setCard(index + (page - 1) * NUMBER_CARD)
                 }
             }
-
-
         }
     };
     const isAdmin = useAppSelector(state => state.user.admine);
@@ -152,14 +139,12 @@ const CardList: React.FC = (props) => {
                         }
                     </Grid>
                     <div className="main-content__paginator">
-                        {/*<Grid xs={12} justify="center">
-                             <Grid xs={12} justify="center">*/}
+
                             <div className={classes.root}>
                                 <Pagination count={Math.ceil(numberOfElements / NUMBER_CARD)} variant="outlined"
                                             page={page} onChange={handleChange} />
                             </div>
-                       {/* </Grid>
-                        </Grid>*/}
+
                     </div>
                 </div>
                 
