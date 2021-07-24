@@ -121,14 +121,16 @@ const CardList: React.FC = (props) => {
                             })
                         }
                     </Grid>
-                    <Grid xs={12} justify="center">
-                         <Grid xs={12} justify="center">
-                        <div className={classes.root}>
-                            <Pagination count={Math.ceil(numberOfElements / NUMBER_CARD)} variant="outlined"
-                                        page={page} onChange={handleChange} />
-                        </div>
-                    </Grid>
-                    </Grid>
+                    <div className="main-content__paginator">
+                        {/*<Grid xs={12} justify="center">
+                             <Grid xs={12} justify="center">*/}
+                            <div className={classes.root}>
+                                <Pagination count={Math.ceil(numberOfElements / NUMBER_CARD)} variant="outlined"
+                                            page={page} onChange={handleChange} />
+                            </div>
+                       {/* </Grid>
+                        </Grid>*/}
+                    </div>
                 </div>
                 
                 
