@@ -10,6 +10,7 @@ import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
 import Chip from '@material-ui/core/Chip';
 import { FormHelperText } from '@material-ui/core';
+import {getSubCategoryAll} from "../../http/filtersApi";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -50,6 +51,7 @@ function getStyles(name: any, personName: any, theme: any) {
 }
 
 export default function AdminSelect(props: {
+    idCatygory: string
     disabled?: boolean,
     name: string,
     data: string[],
@@ -57,8 +59,9 @@ export default function AdminSelect(props: {
     handleChange: any,
     helpText?: string,
     value?: string,
-    valueArr: sring[],
+    valueArr: string[],
 }) {
+    console.log(props.data)
     const classes = useStyles();
     const theme = useTheme();
     const [personName, setPersonName] = React.useState(props.valueArr?[...props.valueArr]: []);
@@ -71,6 +74,14 @@ export default function AdminSelect(props: {
             : setAge(event.target.value)
         props.handleChange(event.target.value)
     };
+    
+    const [subCatygory, setSubCatygory] = React.useState([])
+
+    const getData = async() => {
+    const {data} = await getSubCategoryAll(props.idCatygory);
+    return data.map(item => item.name)
+    }
+    props.idCatygory && getData().then(resolve=> setSubCatygory(resolve))
 
     return (
         <div>
@@ -83,12 +94,19 @@ export default function AdminSelect(props: {
                     onChange={handleChange}
                     input={<Input />}
                     MenuProps={MenuProps}
-                >
-                    {props.data.map((item) => (
+                >{!props.idCatygory ? 
+                props.data.map((item) => (
                         <MenuItem key={item} value={item} style={getStyles(item, personName, theme)}>
                             {item}
                         </MenuItem>
-                    ))}
+                    )):
+                subCatygory.map((item) => (
+                    <MenuItem key={item} value={item} style={getStyles(item, personName, theme)}>
+                        {item}
+                    </MenuItem>
+                ))
+                }
+                    
                 </Select>
                 {props.disabled
                     ? <FormHelperText>{props.helpText}</FormHelperText>

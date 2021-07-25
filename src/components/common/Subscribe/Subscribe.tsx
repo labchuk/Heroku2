@@ -10,7 +10,7 @@ import { useAppSelector, useAppDispatch } from "../../../store/Redux-toolkit-hoo
 import AdminSelect from "../../admin/AdminSelect";
 import {firsLetterToUpperCase} from "../../../helpers/functionHelpers"
 import SimpleSnackbar from '../SimpleSnackbar/SimpleSnackbar';
-import {getSubCategoryAll} from "../../../http/filtersApi";
+
 
 interface Idiscount {
   name: any;
@@ -204,6 +204,13 @@ const [state, setState] = useState(false)
     
     const categoryArr = category?.filter((item: any) => item.deleted === false).map(item => firsLetterToUpperCase(item.name));
     const [choeseCategory,setChoeseCategory] = useState(subscribe?.choeseCategory ? subscribe?.choeseCategory: [])
+    const [idCategoryArr, setidCategoryArr] =useState([])
+    useEffect(() => {
+        const arr = choeseCategory.map(item =>{
+          return category.filter(i => i.name.toLowerCase() === item.toLowerCase())
+        });
+        setidCategoryArr(arr.flat().map(item => item.id))
+    }, [choeseCategory])
 
     const vendorsArr = vendor?.map(item => firsLetterToUpperCase(item.name));
     const [choeseVendors ,setVendors] = useState(subscribe?.vendors ? subscribe?.vendors: [""])
@@ -221,10 +228,8 @@ const [state, setState] = useState(false)
     const [openErrorSnackbar, setErrorSnackbar] = React.useState(false);
 
     const uniqueArr = (arr:string[]) => Array.from(new Set(arr));
-    console.log(category)
-    // const getSubCategory = (id) =>{
-    //   getSubCategoryAll(id)
-    // }
+  
+  
     const list = () => (
     <List className={styles.wrapper}>
       <ListItem>
@@ -242,14 +247,17 @@ const [state, setState] = useState(false)
                 multi={true}
                 valueArr = {choeseCategory}
                 handleChange={setChoeseCategory} />
-            {/* { choeseCategory.map((item) => ( 
-                <AdminSelect
-                name={t`Tags ${item}`}
-                data={subCategoryArr}
+
+            {  idCategoryArr?.map((item, index) => 
+              (<AdminSelect
+                idCatygory={item}
+                name={t`Tags ${choeseCategory[index]}`}
                 multi={true}
+                data={categoryArr}
                 valueArr ={choeseSubCategory}
                 handleChange={setSubChoeseCategory} />
-                )) } */}
+                ) 
+              ) }
             <AdminSelect
                 name={t`Vendors`}
                 data={vendorsArr}
