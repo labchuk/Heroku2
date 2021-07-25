@@ -16,6 +16,8 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import {Spinner} from "../../index";
 import {addDiscounds, setSearchObjectPage} from "../../../store/filtersStore";
 import {getDiscounts} from "../../../http/discountApi";
+import AlertZeroPromo from "../../common/AlertZeroPromo/AlertZeroPromo"
+
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -52,8 +54,6 @@ const CardList: React.FC = (props) => {
         setPage(searchObject.page+1)
     },[searchObject?.page])
 
-
-
     const handleChange = async (event: React.ChangeEvent<unknown>, value: number) => {
         dispatch(setSearchObjectPage(value-1));
     };
@@ -67,8 +67,10 @@ const CardList: React.FC = (props) => {
         if ((cName === '')  || (tName === 'circle') || (tName === 'path')) {
             return null
         } else {
+
             const myElement: HTMLElement | null =
                 document.querySelector(".ExtendedCard");
+
             const mainContent: HTMLElement | null =
                 document.querySelector(".main-content");
 
@@ -79,12 +81,25 @@ const CardList: React.FC = (props) => {
                 myElement.style.opacity= "1";
                 myElement.style.position= "absolute";
 
-                if (mainContent === null) {
-                    return null;
-                } else {
-                   mainContent.style.marginTop = (mainContent.style.marginTop + myElement.clientHeight + 'px');
 
-                }
+                setTimeout(()=> {
+                    const myElement: HTMLElement | null =
+
+                        document.querySelector(".ExtendedCard");
+
+                    const mainContent: HTMLElement | null =
+                        document.querySelector(".main-content");
+                    if (mainContent === null) {
+                        return null;
+                    } else {
+                        mainContent.style.marginTop = '';
+                        mainContent.style.marginTop = (mainContent.style.marginTop + myElement.clientHeight + 'px');
+
+                    }
+
+                }, 100);
+
+
                 document.getElementById("excard")!.scrollIntoView({ behavior: 'smooth' });
                 if (page === 1) {
                     setCard(index)
@@ -98,9 +113,10 @@ const CardList: React.FC = (props) => {
     
     return (
             <div className="card-list">
-                
-               {data.length ? <ExtendedCard discount={data[card]} /> : <p>No results found for your request.</p>}
-                <div className="main-content">
+
+               {data.length ? <ExtendedCard discount={data[card]} /> : null}
+
+               <div className="main-content">
                     <div className={"sort-admin"}>
                         {pathname===MAIN_ROUTE?<Sort /> : <ModalSearchBar/>}
                         {isAdmin &&
@@ -109,6 +125,7 @@ const CardList: React.FC = (props) => {
                     <div className={"chips"}>
                         {!(pathname === HISTORY_ROUTE)&& <ChipsArray />}
                     </div>
+                    {data.length ? null : <AlertZeroPromo/>}
                      <Grid container spacing={3} justify="center" >
                         {
                             data.map((item, index) => {
@@ -121,14 +138,14 @@ const CardList: React.FC = (props) => {
                             })
                         }
                     </Grid>
-                    <Grid xs={12} justify="center">
-                         <Grid xs={12} justify="center">
-                        <div className={classes.root}>
-                            <Pagination count={Math.ceil(numberOfElements / NUMBER_CARD)} variant="outlined"
-                                        page={page} onChange={handleChange} />
-                        </div>
-                    </Grid>
-                    </Grid>
+                    <div className="main-content__paginator">
+
+                            <div className={classes.root}>
+                                <Pagination count={Math.ceil(numberOfElements / NUMBER_CARD)} variant="outlined"
+                                            page={page} onChange={handleChange} />
+                            </div>
+
+                    </div>
                 </div>
                 
                 
