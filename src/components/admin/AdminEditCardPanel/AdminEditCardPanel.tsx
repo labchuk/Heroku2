@@ -29,7 +29,6 @@ interface Idiscount {
 
 
 const AdminEditCardPanel = (currentCard: any) => {
-  console.log(currentCard.currentCard)
   const {  vendorLocation, vendor, searchObject, subCategory, } = useAppSelector(state => state.filters);
   const [state, setState] = React.useState(false);
   const [disableInput, setDisableInput] = React.useState(false);

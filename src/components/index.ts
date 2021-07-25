@@ -45,3 +45,5 @@ export {default as Spinner} from "./common/spinner/Spinner";
 export {default as LogoutButton} from "./common/LogoutButton/LogoutButton";
 export {default as ModalSearchBar} from "./ModalSearchBar/ModalSearchBar";
 export {default as Charts} from "./common/Charts/Charts";
+
+export {default as Subscribe} from "./common/Subscribe/Subscribe"

@@ -31,6 +31,7 @@ export const postDiscount = async ( obj:Idiscount) =>{
 };
 
 export const putDiscount = async (idDiscount: string, obj:Idiscount) =>{
+    console.log(obj)
     const data = await authHost.put(`/discount/${idDiscount}`, obj);
     return data;
 };

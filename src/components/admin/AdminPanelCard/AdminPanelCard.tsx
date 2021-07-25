@@ -22,7 +22,8 @@ import { captureRejectionSymbol } from 'stream';
 import { addNewCategory, addNewSubCategory, addNewVendorLocation, addSubCategory, addDiscounds} from "../../../store/filtersStore"
 import { CancelPresentationOutlined, ContactsOutlined } from '@material-ui/icons';
 import { saveLocale, locale } from '../../../components/common/LangSwitcher/i18nInit';
-import SimpleSnackbar from '../../common/SimpleSnackbar/SimpleSnackbar';interface State extends SnackbarOrigin {
+import SimpleSnackbar from '../../common/SimpleSnackbar/SimpleSnackbar';
+interface State extends SnackbarOrigin {
   open: boolean;
 }
 
@@ -71,6 +72,7 @@ const AdminPanelCard = ({currentCard}) => {
 
   
   const { category, vendorLocation, vendor, searchObject, subCategory, } = useAppSelector(state => state.filters);
+  console.log(currentCard)
   const [state, setState] = React.useState(false);
   const [disableInput, setDisableInput] = React.useState(false);
   const [addressInput, setAddressInput] = React.useState(false);
@@ -92,7 +94,7 @@ const AdminPanelCard = ({currentCard}) => {
   const [location, setLocation] = React.useState<any[]>([]);
   const [openSuccessSnackbar, setSuccessSnackbar] = React.useState(false);
   const [openErrorSnackbar, setErrorSnackbar] = React.useState(false);
-  const [time, setTime] = useState({
+  const [time, setTime] = useState(currentCard ? {To: new Date(currentCard.startDate * 1000),From: new Date(currentCard.endDate * 1000),} : {
     To: new Date(),
     From: new Date(),
   });
@@ -570,8 +572,8 @@ const AdminPanelCard = ({currentCard}) => {
   }
 
   const createDiscount = async () => {
-    if (checkValidation()) {
-      
+    if (true) {
+    
       const newDiscount: Idiscount = {
         name: title,
         fullDescription: description,
@@ -583,21 +585,24 @@ const AdminPanelCard = ({currentCard}) => {
         endDate: timeString(time.To),
         startDate: timeString(time.From),
         subCategoryIds: getSubCatygoryId(subCategory, choeseTag),
-        percentage: discountValue,
+        percentage: + discountValue,
 
       };
+      console.log(newDiscount)
       const resolveFnc = (resolve) => {
         setSuccessSnackbar(true);
         clearForm();
         getDiscounts(searchObject).then(resolve=>dispatch(addDiscounds(resolve.data.content)))
       }
       if(currentCard){
-        putDiscount(currentCard.id ,newDiscount).then(resolve=>{
+        
+        putDiscount(currentCard.id, newDiscount).then(resolve=>{
           resolveFnc(resolve)
       }).catch(e=> {
         setErrorSnackbarServer(true)
       })
       }else{
+        console.log(newDiscount)
         postDiscount(newDiscount).then(resolve=>{
           resolveFnc(resolve)
       }).catch(e=> {
@@ -735,7 +740,7 @@ const AdminPanelCard = ({currentCard}) => {
               </>
             )}
             <div className={styles.checkbox__wrapper}>
-              <input type="checkbox" value={currentCard ? currentCard.online : false} className={styles.checkbox} onClick={changeDisable} />
+              <input type="checkbox" value={isOnline} className={styles.checkbox} onClick={changeDisable} />
               <label className={styles.checkbox__label} >{t`Online`}</label>
             </div>
             <div className={styles.marginBottom}>
@@ -745,7 +750,7 @@ const AdminPanelCard = ({currentCard}) => {
               className={styles.marginBottom}
               required
               label={t`Discount %`}
-              value={currentCard? currentCard.percentage : discountValue}
+              value={discountValue}
               type='number'
               onChange={(e: any) => setDiscountValue(e.target.value)}
               InputProps={{ inputProps: { min: 0 } }} />
@@ -758,7 +763,7 @@ const AdminPanelCard = ({currentCard}) => {
               onChange={(e: any) => setDescription(e.target.value)}
               helperText='Min length 50, max length 2000'
               variant="outlined"
-              value={currentCard ? currentCard.fullDescription : description}
+              value={description}
               inputProps={{
                 maxLength: 2000,
                 minLength: 50

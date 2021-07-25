@@ -16,7 +16,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { t } from 'ttag';
 import {getSubCategoryAll} from "../../../http/filtersApi";
 import {getDiscounts} from "../../../http/discountApi";
-import {setSearchObject, addDiscounds,setNumberOfElements, setSearchWord, addSubCategory} from "../../../store/filtersStore"
+import {setSearchObject, addDiscounds,setNumberOfElements, addSubCategory} from "../../../store/filtersStore"
 const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: theme.palette.secondary.main,
@@ -40,7 +40,7 @@ const SearchBar =()=>{
     const arrVendorName =vendor?.map(item=>firsLetterToUpperCase(item.name));
     const [categoryId, setCategoryId] = useState("")
 
-
+    
     
 
     const getIds = (name: string, array: any): string[]=>{
@@ -75,7 +75,7 @@ const SearchBar =()=>{
         const obj = {
             page: 0,
             size: 15,
-            city: arrChips.ChipsArray.filter(item => item.name=== "Country").map(item=> Object.values(item)[0]),
+            city: arrChips.ChipsArray.filter(item => item.name=== "Country").map(item=> Object.values(item)[0])[0],
             country: arrChips.ChipsArray.filter(item => item.name=== "Country").map(item=> Object.keys(item)[0]),
             vendorIds: getIds("Vendor", vendor),
             categoryId:  categoryId,
@@ -90,7 +90,7 @@ const SearchBar =()=>{
 
     const handleClick = async(obj:any) =>  {
         const {data} = await getDiscounts(obj);
-        dispatch(setNumberOfElements(data.numberOfElements))
+        dispatch(setNumberOfElements(data.totalElements))
         dispatch(addDiscounds(data.content))
      };
     const [ableSubCategory, setAbleSubCategory] = useState<String>("");

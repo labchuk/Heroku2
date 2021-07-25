@@ -21,6 +21,7 @@ interface IinitialState {
     numberOfElements: number,
     searchObject: IdiscountFilter,
     idEditCard: string,
+    subscribe: any,
 }
 
 export const initialFiltersState: IinitialState={
@@ -31,6 +32,7 @@ export const initialFiltersState: IinitialState={
     subCategory: [],
     discounds: [],
     numberOfElements: 0,
+    subscribe: "",
     searchObject: {
         page: 0,
         size: 15,

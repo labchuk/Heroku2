@@ -10,7 +10,7 @@ import DelateVendorMenu from '../../admin/DelateVendorMenu/DelateVendorMenu';
 import AdminPanelCard from '../../admin/AdminPanelCard/AdminPanelCard';
 import AdminPanelVendor from '../../admin/AdminPanelVendor/AdminPanelVendor';
 import {useAppSelector} from "../../../store/Redux-toolkit-hook";
-import {LogoutButton} from "../../index";
+import {LogoutButton, Subscribe} from "../../index";
 import {t} from "ttag";
 
 const useStyles = makeStyles((theme) => ({
@@ -100,6 +100,7 @@ const NavBar = () => {
             >
 
                 <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}>{userName}</p></MenuItem>
+                <MenuItem onClick={handleClose} className={classes.link}><p className={"link"}><Subscribe/></p></MenuItem>
                 <Hidden mdUp>
                     <MenuItem onClick={handleClose} className={classes.link}><NavLink to={"/main-page"}
                                                                                       className={"link"}>Home</NavLink></MenuItem>
