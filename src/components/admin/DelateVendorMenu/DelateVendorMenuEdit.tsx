@@ -16,8 +16,8 @@ import {
 import {addVendor, addVendorLocation} from "../../../store/filtersStore";
 import {useAppDispatch} from "../../../store/Redux-toolkit-hook";
 import {locale} from "../../common/LangSwitcher/i18nInit";
-import SimpleSnackbar from "../../common/SimpleSnackbar/SimpleSnackbar";
 import ModalWithConfirm from "../../common/ModalWithConfirm/ModalWithConfirm";
+import {geolocation} from "../../../helpers/functionHelpers";
 
 
 
@@ -57,7 +57,7 @@ const DelateVendorMenuEdit = ({styles, value, success, error, locationUpdate, de
     const editVendor = () => {
         !edit && getVendorLocation(value.id).then(v => setLocation(v.data.content))
         setEdit(!edit)
-
+        getVendorLocation(value.id).then(v => console.log(v.data.content))
 
         // console.log(data.description)
         // console.log(data.name)
@@ -159,13 +159,18 @@ const DelateVendorMenuEdit = ({styles, value, success, error, locationUpdate, de
                 newAddress: '',
             })
             try{
-               await postVendorLocation({country: newLocation.newCountry, city: newLocation.newCity, addressLine: newLocation.newAddress , vendorId: value.id}).then(v => setLocation([...location, v.data]))
+                const loc = await geolocation({country: newLocation.newCountry ,city: newLocation.newCity, addressLine: newLocation.newAddress})
+               await postVendorLocation({country: newLocation.newCountry, city: newLocation.newCity, addressLine: newLocation.newAddress , vendorId: value.id,
+                   latitude: loc.results[0].geometry.location.lat, longitude: loc.results[0].geometry.location.lng }).then(v => setLocation([...location, v.data]))
                 locationUpdate(true)
             }
             catch (e) {
                 error(true)
             }
-            getAllVendorLocation().then(resolve =>dispatch(addVendorLocation(resolve.data)) ).catch(f=> console.log(f));
+            getAllVendorLocation().then(resolve => {
+                dispatch(addVendorLocation(resolve.data));
+                console.log(resolve)
+            } ).catch(f=> console.log(f));
         }
     }
 
@@ -320,7 +325,7 @@ const DelateVendorMenuEdit = ({styles, value, success, error, locationUpdate, de
                     />
                     <div className={styles.addressButtons}>
                         <Button onClick={submitAddress}
-                                className={styles.address_submit}>{t`Submit`}</Button>
+                                className={styles.address_submit}>{t`Add location`}</Button>
                     </div>
                     <TextField className={styles.marginBottom} required defaultValue={data.email}
                                label={t`E-mail`}
