@@ -561,7 +561,8 @@ const AdminPanelCard = ({currentCard}) => {
       uploadFileName !== '' &&
       choeseVendor !== '' &&
       choeseTag.length !== 0 &&
-      discountValue !== '') {
+      discountValue !== ''&&
+      time.To - time.From > 0) {
       return true
     } else {
       return false
@@ -619,7 +620,7 @@ const AdminPanelCard = ({currentCard}) => {
               <KeyboardBackspaceOutlinedIcon style={{ fontSize: 40, position: 'relative', top: 11 }} />
               {t`Back`}
             </div>
-            <span className={styles.modal_label}>{t`Add a promotion`}</span>
+            <span className={styles.modal_label}>{currentCard ? t`Edit a discount`:  t`Add a promotion`}</span>
             <TextField
               required
               className={styles.marginBottom} label={t`Title`}
