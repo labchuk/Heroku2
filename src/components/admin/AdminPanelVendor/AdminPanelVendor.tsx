@@ -20,6 +20,7 @@ import { locale } from "../../common/LangSwitcher/i18nInit";
 import SimpleSnackbar from '../../common/SimpleSnackbar/SimpleSnackbar';
 import {addVendor, addVendorLocation} from "../../../store/filtersStore";
 import {useAppDispatch} from "../../../store/Redux-toolkit-hook";
+import {geolocation} from "../../../helpers/functionHelpers";
 
 interface ChipData {
     key: number;
@@ -103,11 +104,14 @@ const AdminPanelVendor = () => {
             const vendor = await postVendor({ name: data.name, description: data.description, email: data.email, image: logoURL })
             const vendorId = vendor.data.id
             for(const l of location){
+                const loc = await geolocation({country: l.country ,city: l.city, addressLine: l.address})
                 await postVendorLocation({
                     country: l.country,
                     city: l.city,
                     addressLine: l.address,
-                    vendorId: vendorId
+                    vendorId: vendorId,
+                    latitude: loc.results[0].geometry.location.lat,
+                    longitude: loc.results[0].geometry.location.lng
             })}
             clearForm()
             await getVendorAll().then(resolve=> dispatch(addVendor(resolve)));
@@ -452,7 +456,7 @@ const AdminPanelVendor = () => {
                             }}
                         />
                         <div className={styles.addressButtons}>
-                            <Button onClick={submitAddress} className={styles.address_submit}>{t`Submit`}</Button>
+                            <Button onClick={submitAddress} className={styles.address_submit}>{t`Add location`}</Button>
                             <span className={styles.helperTetxtSpan}>Should be minimum 1 location: country, city and address</span>
                         </div>
                         <TextField className={styles.marginBottom}

@@ -1,7 +1,7 @@
 import {authHost} from "./index";
 
 interface Ivendor{name:string, description:string, email:string, image:string};
-interface IvendorLocation{country:string, city:string, addressLine:string, vendorId:string};
+interface IvendorLocation{country:string, city:string, addressLine:string, vendorId:string, latitude: number, longitude: number};
 interface Iname{name:string}
 
 export const getSubCategoryAll = async (categoryId:string) =>{
@@ -123,8 +123,8 @@ export const getDeletedVendorLocation = async (  vendorid:string) =>{
     return data;
 };
 
-export const postVendorLocation = async ( {country, city, addressLine, vendorId}: IvendorLocation,) =>{
-    const data = await authHost.post(`/vendor/${vendorId}/location`,{country, city, addressLine});
+export const postVendorLocation = async ( {country, city, addressLine, vendorId, latitude, longitude}: IvendorLocation,) =>{
+    const data = await authHost.post(`/vendor/${vendorId}/location`,{country, city, addressLine, latitude, longitude});
     return data;
 }
 
