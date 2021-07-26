@@ -16,8 +16,8 @@ import {
 import {addVendor, addVendorLocation} from "../../../store/filtersStore";
 import {useAppDispatch} from "../../../store/Redux-toolkit-hook";
 import {locale} from "../../common/LangSwitcher/i18nInit";
-import SimpleSnackbar from "../../common/SimpleSnackbar/SimpleSnackbar";
 import ModalWithConfirm from "../../common/ModalWithConfirm/ModalWithConfirm";
+import {geolocation} from "../../../helpers/functionHelpers";
 
 
 
@@ -56,8 +56,15 @@ const DelateVendorMenuEdit = ({styles, value, success, error, locationUpdate, de
     }
     const editVendor = () => {
         !edit && getVendorLocation(value.id).then(v => setLocation(v.data.content))
+        console.log(location)
         setEdit(!edit)
+        getVendorLocation(value.id).then(v => console.log(v.data.content))
 
+        // console.log(data.description)
+        // console.log(data.name)
+        // console.log(data.email)
+        // console.log(uploadFileName)
+        // console.log(fileName)
     }
 
     const deleteVendor = async () => {
@@ -69,16 +76,18 @@ const DelateVendorMenuEdit = ({styles, value, success, error, locationUpdate, de
         catch (e){
             error(true)
         }
-
+        getVendorAll().then(resolve=> {dispatch(addVendor(resolve));console.log(resolve)})
     }
 
-    const handleDeleteChip = (chipToDelete: ChipData) => () => {
-        if(chipToDelete.key){
-        setLocation((chips: any) => chips.filter((chip: any) => chip.key !== chipToDelete.key))
-        } else {
-            deleteVendorLocationId(chipToDelete?.id, chipToDelete?.vendorId).then(v => locationUpdate(true))
+    const handleDeleteChip = (chipToDelete: ChipData) => async () => {
+        try {
+            await deleteVendorLocationId(chipToDelete?.id, chipToDelete?.vendorId).then(v => locationUpdate(true))
             setLocation((chips: any) => chips.filter((chip: any) => chip.id !== chipToDelete.id))
         }
+        catch (e){
+            error(true)
+        }
+        await getAllVendorLocation().then(resolve =>dispatch(addVendorLocation(resolve.data)) ).catch(f=> console.log(f));
     };
     const addLogoVendor = () => {
         const formData = new FormData();
@@ -95,7 +104,7 @@ const DelateVendorMenuEdit = ({styles, value, success, error, locationUpdate, de
                 const logo = await addLogoVendor()
                 const logoURL = logo?.data.message
                 const vendor = await restVendorId(value.id ,{ name: data.name, description: data.description, email: data.email, image: logoURL })
-                getVendorAll().then(resolve=> {dispatch(addVendor(resolve));console.log(resolve)})
+
                 success(true)
                 setEdit(false)
             }
@@ -110,7 +119,6 @@ const DelateVendorMenuEdit = ({styles, value, success, error, locationUpdate, de
         } else {
             try {
                 const vendor = await restVendorId(value.id ,{ name: data.name, description: data.description, email: data.email, image: uploadFileName })
-                getVendorAll().then(resolve=> {dispatch(addVendor(resolve));console.log(resolve)})
                 success(true)
                 setEdit(false)
             }
@@ -123,7 +131,7 @@ const DelateVendorMenuEdit = ({styles, value, success, error, locationUpdate, de
                 })
             }
         }
-
+        getVendorAll().then(resolve=> {dispatch(addVendor(resolve));console.log(resolve)})
     }
 
     const cancelEdit = () => {
@@ -151,14 +159,18 @@ const DelateVendorMenuEdit = ({styles, value, success, error, locationUpdate, de
                 newAddress: '',
             })
             try{
-               await postVendorLocation({country: newLocation.newCountry, city: newLocation.newCity, addressLine: newLocation.newAddress , vendorId: value.id}).then(v => setLocation([...location, v.data]))
+                const loc = await geolocation({country: newLocation.newCountry ,city: newLocation.newCity, addressLine: newLocation.newAddress})
+               await postVendorLocation({country: newLocation.newCountry, city: newLocation.newCity, addressLine: newLocation.newAddress , vendorId: value.id,
+                   latitude: loc.results[0].geometry.location.lat, longitude: loc.results[0].geometry.location.lng }).then(v => setLocation([...location, v.data]))
                 locationUpdate(true)
-                getAllVendorLocation().then(resolve =>dispatch(addVendorLocation(resolve.data)) ).catch(f=> console.log(f));
             }
             catch (e) {
                 error(true)
             }
-
+            getAllVendorLocation().then(resolve => {
+                dispatch(addVendorLocation(resolve.data));
+                console.log(resolve)
+            } ).catch(f=> console.log(f));
         }
     }
 
@@ -313,7 +325,7 @@ const DelateVendorMenuEdit = ({styles, value, success, error, locationUpdate, de
                     />
                     <div className={styles.addressButtons}>
                         <Button onClick={submitAddress}
-                                className={styles.address_submit}>{t`Submit`}</Button>
+                                className={styles.address_submit}>{t`Add location`}</Button>
                     </div>
                     <TextField className={styles.marginBottom} required defaultValue={data.email}
                                label={t`E-mail`}
