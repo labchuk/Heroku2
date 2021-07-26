@@ -12,13 +12,6 @@ import {addSubCategory} from "../../../store/filtersStore";
 
 
 
-/*
-(async function(){
-    const result = await authHost.get(`/statistic/main_statistic`);
-    console.log("result is = ", result.data)
-
-})()*/
-
 
 
 const StatisticPage = () => {
@@ -27,7 +20,9 @@ const StatisticPage = () => {
         <div className={"statistic"}>
             <ModalSearchBar/>
             <ChipsArray/>
-           <StatisticInformation/>
+           <StatisticInformation
+
+           />
            
         </div>
     );
