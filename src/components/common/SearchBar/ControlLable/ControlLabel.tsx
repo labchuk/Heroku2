@@ -11,12 +11,10 @@ const theme = createMuiTheme({
 });
 
 const ControlLabel = ({lable, setStateControlLableMy,  }:{ lable:string, setStateControlLableMy:any }) => {
-    const [state, setState] = useState({
-        checked: false,
-    });
+    const [state, setState] = useState(false);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setState({ checked: event.target.checked });
+        setState( event.target.checked );
         setStateControlLableMy(lable, event.target.checked)
     };
     return (
@@ -26,7 +24,7 @@ const ControlLabel = ({lable, setStateControlLableMy,  }:{ lable:string, setStat
                     <Checkbox
                         style={{ color: "#0082CA" }}
                         className="color-check"
-                        checked={state.checked}
+                        checked={state}
                         onChange={handleChange}
                         name="checked"
                         color="primary"

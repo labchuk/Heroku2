@@ -119,8 +119,7 @@ const CardList: React.FC = (props) => {
                <div className="main-content">
                     <div className={"sort-admin"}>
                         {pathname===MAIN_ROUTE?<Sort /> : <ModalSearchBar/>}
-                        {isAdmin &&
-                        <AdminBtn />}
+                        {isAdmin && <AdminBtn />}
                     </div>
                     <div className={"chips"}>
                         {!(pathname === HISTORY_ROUTE)&& <ChipsArray />}

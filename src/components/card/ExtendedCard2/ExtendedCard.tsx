@@ -7,6 +7,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import {makeStyles} from "@material-ui/core/styles";
 import {usedDiscount} from "../../../http/discountApi";
 import { useAppSelector, } from "../../../store/Redux-toolkit-hook";
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import {Submitbutton} from "../../index"
 interface ExtendedCardProps {
     discount: {
         place: string,
@@ -33,6 +35,8 @@ const useStyles = makeStyles((theme) => ({
 
 const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
     const {vendor} = useAppSelector(state=>state.filters);
+    const {vendorLocations} = discount;
+    const location = vendorLocations.map(item => Object.values(item).splice(0,3).join(" "));
     const classes = useStyles()
     const handleClick = () => {
         const myElement: HTMLElement | null =
@@ -100,7 +104,9 @@ const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
             valid until<strong className="valid__Date">{date.toLocaleDateString()}</strong>
           </span>{" "}
                             </div>
-
+                            <div className="">
+                                <><LocationOnIcon style={{color: "red"}}/>{ location.join(", ")}</>
+                            </div>
 
                             <div className="shortDescription">
                                 <p>
@@ -116,9 +122,7 @@ const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
                     </div>*/}
 
                             <div className="ExtendedCard__actions">
-                                <button className="submit btn--extCard" onClick={()=> usedDiscount(discount?.id)}>
-                                    Use Coupon
-                                </button>
+                                <Submitbutton classN={"submit btn--extCard"} name={"Use Coupon"} handleClick={()=> usedDiscount(discount?.id)}/>
                                 {/* <Button variant="contained" color="primary">
                             Use Coupon
                         </Button>*/}

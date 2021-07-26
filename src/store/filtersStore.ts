@@ -11,6 +11,7 @@ interface IdiscountFilter{
     searchWord: string;
     subCategoriesIds: string[];
     sortingType: string;
+    favourite: boolean;
 }
 interface IinitialState {
     category: any[],
@@ -34,6 +35,7 @@ export const initialFiltersState: IinitialState={
     numberOfElements: 0,
     subscribe: "",
     searchObject: {
+        favourite : false,
         page: 0,
         size: 15,
         vendorIds:[],
@@ -42,7 +44,7 @@ export const initialFiltersState: IinitialState={
         city: "",
         searchWord: "",
         subCategoriesIds: [],
-        sortingType: "POPULAR"
+        sortingType: "POPULAR",
     }
 }
 
@@ -54,8 +56,19 @@ const filtersReducer = createSlice({
         setSearchObject(state, actions: PayloadAction<any>) {
             state.searchObject = {...state.searchObject, ...actions.payload};
         },
+        setFavourite(state) {
+            state.searchObject.favourite = !state.searchObject.favourite;
+        },
         setNumberOfElements(state, actions: PayloadAction<number>) {
             state.numberOfElements = actions.payload;
+        },
+        setDiscountLike(state, actions: PayloadAction<string>) {
+            state.discounds = state.discounds.map(item => {
+                if(item.id === actions.payload ){
+                    item.liked = !item.liked
+                }
+                return item;
+            });
         },
         setIdEditCard(state, actions: PayloadAction<string>) {
             state.idEditCard = actions.payload;
@@ -76,7 +89,7 @@ const filtersReducer = createSlice({
             state.category = [...state.category.filter(item => item.id !== actions.payload)];
         },
         delateSubCategory(state, actions: PayloadAction<any>){   
-            state.subCategory = [...state.category.filter(item => item.id !== actions.payload )];
+            state.subCategory = [...state.subCategory.filter(item => item.id !== actions.payload )];
             
         },
         addVendor(state, actions: PayloadAction<any>) {
@@ -116,4 +129,4 @@ const filtersReducer = createSlice({
 });
 
 export default filtersReducer.reducer
-export const {setSortingType, addCategory,delateSubCategory, delateCategory,setIdEditCard,setNumberOfElements, addVendor,addNewCategory,addSubCategory, addNewSubCategory,addNewVendorLocation,addNewDiscounds, addNewVendor,addVendorLocation,resetFilteState, addDiscounds, setSearchWord, setSearchObject, setSearchObjectPage} = filtersReducer.actions;
+export const {setSortingType,setFavourite, addCategory,delateSubCategory,setDiscountLike, delateCategory,setIdEditCard,setNumberOfElements, addVendor,addNewCategory,addSubCategory, addNewSubCategory,addNewVendorLocation,addNewDiscounds, addNewVendor,addVendorLocation,resetFilteState, addDiscounds, setSearchWord, setSearchObject, setSearchObjectPage} = filtersReducer.actions;

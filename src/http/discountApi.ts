@@ -23,6 +23,7 @@ interface IdiscountFilter{
     city: string;
     searchWord: string;
     subCategoriesIds: string[];
+    favourite: boolean;
 }
 
 export const postDiscount = async ( obj:Idiscount) =>{
@@ -32,6 +33,11 @@ export const postDiscount = async ( obj:Idiscount) =>{
 
 export const putDiscount = async (idDiscount: string, obj:Idiscount) =>{
     const data = await authHost.put(`/discount/${idDiscount}`, obj);
+    return data;
+};
+
+export const deleteDiscount = async (idDiscount: string,) =>{
+    const data = await authHost.delete(`/discount/${idDiscount}`);
     return data;
 };
 
@@ -56,6 +62,7 @@ export const getDiscounts = async (obj:IdiscountFilter ) =>{
         } 
         return previousValue += str;
     },`/discount/get_discounts?`);
+    console.log(string)
     const data = await authHost.get(string.slice(0,string.length-1));
     return data;
 };

@@ -389,8 +389,8 @@ const AdminPanelVendor = () => {
 
     const styles = useStyles();
 
-    const handleDeleteChip = (chipToDelete: ChipData) => () => {
-        setLocation((chips: any) => chips.filter((chip: any) => chip.key !== chipToDelete.key));
+    const handleDelateChip = (chipToDelate: ChipData) => () => {
+        setLocation((chips: any) => chips.filter((chip: any) => chip.key !== chipToDelate.key));
     };
 
     const list = () => (
@@ -416,7 +416,7 @@ const AdminPanelVendor = () => {
                                         <Chip
                                             label={data.country + ', ' + data.city + ', ' + data.address}
                                             variant='outlined'
-                                            onDelete={handleDeleteChip(data)}
+                                            onDelate={handleDelateChip(data)}
                                         />
                                     </li>
                                 );

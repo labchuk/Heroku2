@@ -16,7 +16,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { t } from 'ttag';
 import {getSubCategoryAll} from "../../../http/filtersApi";
 import {getDiscounts} from "../../../http/discountApi";
-import {setSearchObject, addDiscounds,setNumberOfElements, addSubCategory} from "../../../store/filtersStore"
+import {setSearchObject, addDiscounds,setNumberOfElements, addSubCategory, setFavourite} from "../../../store/filtersStore"
 const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: theme.palette.secondary.main,
@@ -70,6 +70,7 @@ const SearchBar =()=>{
     }
 
     useEffect(()=>{
+        console.log(searchObject)
         const categoryId =  getIds("Category", category)[0];
         setCategoryId(categoryId)
         const obj = {
@@ -85,10 +86,12 @@ const SearchBar =()=>{
     },[arrChips])
 
     useEffect(() => {
+        
         handleClick(searchObject)
     }, [searchObject]);
 
     const handleClick = async(obj:any) =>  {
+        
         const {data} = await getDiscounts(obj);
         dispatch(setNumberOfElements(data.totalElements))
         dispatch(addDiscounds(data.content))
@@ -103,13 +106,14 @@ const SearchBar =()=>{
     const classes = useStyles()
 
     const [stateControlLabel, setStateControlLabel] = useState({
-        "Favorite": false,
+        "Favorite": searchObject.favourite,
         "Active": false,
         "Not Activ": false,
         "For all period": false
     });
     const setStateControlLableMy = (name: string, state:boolean) =>{
         setStateControlLabel({...stateControlLabel, [name]: state})
+        name === "Favorite" && dispatch(setFavourite()) 
     }
     
     
