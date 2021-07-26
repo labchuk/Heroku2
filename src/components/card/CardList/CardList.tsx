@@ -97,7 +97,7 @@ const CardList: React.FC = (props) => {
 
                     }
 
-                }, 100);
+                }, 500);
 
 
                 document.getElementById("excard")!.scrollIntoView({ behavior: 'smooth' });
