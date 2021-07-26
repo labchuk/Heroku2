@@ -36,7 +36,8 @@ const useStyles = makeStyles((theme) => ({
 
 const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
     const dispatch = useAppDispatch();
-    const {vendor, searchObjectHistory} = useAppSelector(state=>state.filters);
+    const {vendor} = useAppSelector(state=>state.filters);
+     const historyObj = useAppSelector(state => state.historyObj);
     const {vendorLocations} = discount;
     const location = vendorLocations.map(item => Object.values(item).splice(0,3).join(" "));
     const classes = useStyles()
@@ -74,7 +75,7 @@ const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
     const usedDiscountAndSetHistory = async(id) =>{
         const {status} = await usedDiscount(id);
         if(status >= 200 && status <= 299){
-            getDiscountsHistory(searchObjectHistory).then(resolve=> dispatch(setDiscountsHistory(resolve.data.content))).catch(f=> console.log(f));
+            getDiscountsHistory(historyObj).then(resolve=> dispatch(setDiscountsHistory(resolve.data))).catch(f=> console.log(f));
         }
     }
 

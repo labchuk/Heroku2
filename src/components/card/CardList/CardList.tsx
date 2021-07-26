@@ -14,10 +14,10 @@ import {MAIN_ROUTE, HISTORY_ROUTE} from "../../../utils/consts"
 import {useLocation} from "react-router-dom";
 import Skeleton from '@material-ui/lab/Skeleton';
 import {Spinner} from "../../index";
-import {addDiscounds, setSearchObjectPage,  setDiscountsHistory, setPageHistory} from "../../../store/filtersStore";
+import {addDiscounds, setSearchObjectPage,  setDiscountsHistory} from "../../../store/filtersStore";
 import {getDiscounts, getDiscountsHistory, } from "../../../http/discountApi";
 import AlertZeroPromo from "../../common/AlertZeroPromo/AlertZeroPromo"
-
+import {setPageHistory} from "../../../store/historySearch"
 const useStyles = makeStyles((theme) =>
     createStyles({
         root: {
@@ -32,32 +32,34 @@ const useStyles = makeStyles((theme) =>
 
 const CardList: React.FC = (props) => {
     const dispatch = useAppDispatch();
-    const {searchObject, discounds, numberOfElements, discountsHistory, searchObjectHistory, numberOfElementsHistory} = useAppSelector(state=>state.filters);
+    const {searchObject, discounds, numberOfElements, discountsHistory, numberOfElementsHistory} = useAppSelector(state=>state.filters);
+    const historyObj = useAppSelector(state=>state.historyObj);
+    
     const {pathname} = useLocation();
-    const NUMBER_CARD = 15
+    const NUMBER_CARD = 15;
+
     const[data, setData] =useState(pathname === HISTORY_ROUTE ? discountsHistory : discounds)
     useEffect(()=>{
         pathname === HISTORY_ROUTE ? setData(discountsHistory) : setData(discounds)
     },[discounds, discountsHistory])
     
     const classes = useStyles();
-    const [page, setPage] = React.useState(pathname === HISTORY_ROUTE ? searchObjectHistory.page +1 : searchObject.page + 1);
-    setTimeout(() => setPage(pathname === HISTORY_ROUTE ? searchObjectHistory.page +1 : searchObject.page + 1),50)
+    const [page, setPage] = React.useState(pathname === HISTORY_ROUTE ? historyObj?.page +1 : searchObject?.page + 1);
+    setTimeout(() => setPage(pathname === HISTORY_ROUTE ? historyObj?.page +1 : searchObject?.page + 1),50)
     const loadingDiscount = async()=>{
             if(pathname === HISTORY_ROUTE){
-                const {data} = await getDiscountsHistory(searchObjectHistory);
-                dispatch(setDiscountsHistory(data));
+                const resolve = await getDiscountsHistory(historyObj);
+                resolve?.data && dispatch(setDiscountsHistory(resolve.data));
             }else{
-                const {data} = await getDiscounts(searchObject);
-                console.log(data)
-                dispatch(addDiscounds(data));
+                const resolve = await getDiscounts(searchObject);
+                resolve?.data && dispatch(addDiscounds(resolve.data));
             } 
         };
 
     useEffect(()=>{
         loadingDiscount()
         setPage(searchObject.page+1)
-    },[searchObject?.page, searchObjectHistory?.page])
+    },[searchObject?.page, historyObj?.page])
 
     const handleChange = async (event: React.ChangeEvent<unknown>, value: number) => {
         pathname === HISTORY_ROUTE ? dispatch(setPageHistory(value-1)) : dispatch(setSearchObjectPage(value-1));
@@ -119,7 +121,7 @@ const CardList: React.FC = (props) => {
     return (
             <div className="card-list">
 
-               {data.length ? <ExtendedCard discount={data[card]} /> : null}
+               {data?.length ? <ExtendedCard discount={data[card]} /> : null}
 
                <div className="main-content">
                     <div className={"sort-admin"}>
@@ -129,10 +131,10 @@ const CardList: React.FC = (props) => {
                     <div className={"chips"}>
                         {!(pathname === HISTORY_ROUTE)&& <ChipsArray />}
                     </div>
-                    {data.length ? null : <AlertZeroPromo/>}
+                    {data?.length ? null : <AlertZeroPromo/>}
                      <Grid container spacing={3} justify="center" >
                         {
-                            data.map((item, index) => {
+                            data?.map((item, index) => {
                                 return (<Grid key={index} item >
                                     <SaleCard discount={item}
                                               cards={data}

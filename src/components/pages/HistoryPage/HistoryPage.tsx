@@ -7,12 +7,12 @@ import {getDiscountsHistory} from "../../../http/discountApi"
 
 const HistoryPage = () => {
      const dispatch = useAppDispatch();
-    const {searchObjectHistory} = useAppSelector(state => state.filters)
+    const historyObj = useAppSelector(state => state.historyObj)
     useEffect(()=>{
-        getDiscountsHistory(searchObjectHistory).then(resolve=> dispatch(setDiscountsHistory(resolve.data.content))).catch(f=> console.log(f)); 
-    },[searchObjectHistory]);
+        historyObj && getDiscountsHistory(historyObj).then(resolve=> dispatch(setDiscountsHistory(resolve.data))).catch(f=> console.log(f)); 
+    },[historyObj]);
     return (
-        <div className="history">
+        <div className="history"> 
            
            <CardList/>
         </div>

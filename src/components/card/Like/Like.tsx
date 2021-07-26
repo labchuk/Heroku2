@@ -11,7 +11,7 @@ import SnackbarForModalWithConfirm from "../../common/SnackbarForModalWithConfir
 import {t} from "ttag";
 import {deletefavoriteDiscount, postfavoriteDiscount, deleteDiscount, getDiscounts} from "../../../http/discountApi"
 import {useAppSelector, useAppDispatch} from "../../../store/Redux-toolkit-hook"
-import {setDiscountLike,  addDiscounds} from "../../../store/filtersStore"
+import {addDiscounds, setDiscountLike,  } from "../../../store/filtersStore"
 interface LikeProps {
     discount?: {
         id: number,
@@ -204,7 +204,7 @@ const Like: FC<LikeProps> = (props) => {
                     <button className="card-more__item" aria-describedby={id} onClick={handleChange}>
                         <img src="image/icons/Share.svg" alt="" />
                     </button>
-                    {isAuth && <><button className="card-more__item" onClick={()=>console.log("onClick")}>
+                    {isAuth && <><button className="card-more__item" onClick={()=>("onClick")}>
                         <AdminPanelCard currentCard={props.discount} style={{ fontSize: 30, position: 'relative', bottom: '5px' }} />
                     </button>
                     <button className="card-more__item" onClick={()=>{}}>

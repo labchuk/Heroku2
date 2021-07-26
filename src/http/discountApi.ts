@@ -54,6 +54,9 @@ export const getDiscountById = async ( idDiscount: string) =>{
 };
 
 const getstring = (startString, obj) =>{
+    if(!obj){
+        return undefined
+    }
     const arrObj = Object.entries(obj);
     const string = arrObj.reduce((previousValue, item) => {
         let str =``
@@ -74,12 +77,18 @@ const getstring = (startString, obj) =>{
 
 export const getDiscounts = async (obj:IdiscountFilter ) =>{
     const string = getstring(`/discount/get_discounts?`, obj);
+    if(!string) {
+        return
+    }
     const data = await authHost.get(string.slice(0,string.length-1));
     return data;
 };
 
 export const getDiscountsHistory = async (obj:IdiscountFilterHistory ) =>{
     const string = getstring(`/statistic/history?`, obj)
+    if(!string) {
+        return
+    }
     const data = await authHost.get(string.slice(0,string.length-1));
     return data;
 };

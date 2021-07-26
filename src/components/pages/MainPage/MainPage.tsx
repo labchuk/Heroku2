@@ -7,9 +7,12 @@ import {getCategoryAll,getVendorAll,getAllVendorLocation,} from "../../../http/f
 import {getDiscountsHistory} from "../../../http/discountApi"
 const MainPage = () => {
     const dispatch = useAppDispatch();
-    const {searchObjectHistory} = useAppSelector(state => state.filters)
+    const { searchObject} = useAppSelector(state => state.filters)
+    const historyObj = useAppSelector(state => state.historyObj);
     useEffect(()=>{
-        getDiscountsHistory(searchObjectHistory).then(resolve=> dispatch(setDiscountsHistory(resolve.data))).catch(f=> console.log(f));
+         console.log(historyObj)
+         console.log(searchObject)
+         getDiscountsHistory(historyObj).then(resolve=> dispatch(setDiscountsHistory(resolve.data))).catch(f=> console.log(f));
         getCategoryAll().then(resolve=>dispatch(addCategory(resolve.data))).catch(f=> console.log(f));
         getAllVendorLocation().then(resolve =>dispatch(addVendorLocation(resolve.data)) ).catch(f=> console.log(f));
         getVendorAll().then(resolve=> dispatch(addVendor(resolve)));

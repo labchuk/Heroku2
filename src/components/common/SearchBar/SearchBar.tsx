@@ -18,7 +18,9 @@ import { t } from 'ttag';
 import {getSubCategoryAll} from "../../../http/filtersApi";
 import {getDiscounts, getDiscountsHistory} from "../../../http/discountApi";
 import {timeString} from "../../../helpers/functionHelpers"
-import {setSearchObject, addDiscounds,setNumberOfElements, addSubCategory, setFavourite, setEndDataHistory, setStartDataHistory, setDiscountsHistory} from "../../../store/filtersStore"
+import {setSearchObject, addDiscounds, addSubCategory, setFavourite,  setDiscountsHistory} from "../../../store/filtersStore"
+import {setEndDataHistory} from "./../../../store/historySearch"
+import {setStartDataHistory} from "../../../store/historySearch"
 const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: theme.palette.secondary.main,
@@ -34,7 +36,8 @@ const SearchBar =()=>{
     }
     const dispatch = useAppDispatch();
     const arrChips = useAppSelector(state => state.chips);
-    const {category, vendorLocation, vendor,  searchObject , subCategory, discounds, searchObjectHistory} = useAppSelector(state=>state.filters);
+    const {category, vendorLocation, vendor,  searchObject , subCategory, discounds, } = useAppSelector(state=>state.filters);
+    const historyObj = useAppSelector(state => state.historyObj)
     const arrSubCatygory = getArrName(subCategory)
     const arrCountry = vendorLocation?.map(item=>firsLetterToUpperCase(item.country))
     const uniqueArr = (arr:string[]) => Array.from(new Set(arr));
@@ -91,7 +94,6 @@ const SearchBar =()=>{
     }, [searchObject]);
 
     const handleClick = async(obj:any) =>  {
-        
         const {data} = await getDiscounts(obj);
         dispatch(addDiscounds(data))
      };
@@ -112,17 +114,17 @@ const SearchBar =()=>{
     }
     
     const className = pathname === STATISTIC_ROUTE || pathname === HISTORY_ROUTE ? "container-searchbar modal-searchBar": "container-searchbar";
-    const [time, setTime] = useState({To: new Date(), From: new Date()});
+    const [time, setTime] = useState({To: undefined, From: undefined});
 
     useEffect(() => {
-        console.log("a")
-        dispatch(setEndDataHistory(timeString(time.To)))
-        dispatch(setStartDataHistory(timeString(time.From)))
+        const end =timeString(time.To)
+        const start =timeString(time.From)
+        time.To && dispatch(setEndDataHistory(end.slice(0,16)+":03.00-00:00"))
+        time.From && dispatch(setStartDataHistory(start.slice(0,16)+":03.00-00:00"))
     }, [time])
 
-    const apply = () => {
-        getDiscountsHistory(searchObjectHistory).then(resolve=> dispatch(setDiscountsHistory(resolve.data.content))).catch(f=> console.log(f));
-    }
+
+     
 
     return (
         <div className={classes.root}>
@@ -147,7 +149,6 @@ const SearchBar =()=>{
             </>}
             {!(pathname === MAIN_ROUTE)  &&  <>
             <ContainerDataPiker setTime={setTime}/>
-            <Submitbutton  classN={"submit"} handleClick={apply} name={"Apply"}/>
             </>
             }
         </div>
