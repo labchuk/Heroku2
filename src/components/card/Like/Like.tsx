@@ -46,7 +46,7 @@ const Like: FC<LikeProps> = (props) => {
         props.updateData(filteredArr)
         handleClose()
     }
-    const [like, setLike] = useState( false)
+    const [like, setLike] = useState(props.discount.liked)
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const [anchorShareEl, setAnchorShareEl] = React.useState<HTMLButtonElement | null>(null);
     const [anchorMoreEl, setAnchorMoreEl] = React.useState<HTMLButtonElement | null>(null);
