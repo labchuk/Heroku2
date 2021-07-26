@@ -1,6 +1,7 @@
 import { Checkbox, Chip, ListItem, Snackbar, SnackbarOrigin } from '@material-ui/core';
 import { Drawer, List } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { useRef, useState, useEffect } from 'react';
@@ -16,10 +17,10 @@ import { getVendorId, postCategory,   postVendorLocation, getSubCategoryAll, pos
 import { postDiscount, putDiscount } from "../../../http/discountApi"
 import { useAppSelector, useAppDispatch } from "../../../store/Redux-toolkit-hook";
 import {getDiscounts} from "../../../http/discountApi"
-import { firsLetterToUpperCase } from "../../../helpers/functionHelpers";
+import { firsLetterToUpperCase, timeString } from "../../../helpers/functionHelpers";
 import { utimes } from 'fs';
 import { captureRejectionSymbol } from 'stream';
-import { addNewCategory, addNewSubCategory, addNewVendorLocation, addSubCategory, addDiscounds,delateCategory,delateSubCategory, addCategory} from "../../../store/filtersStore"
+import { addNewCategory, addNewSubCategory, addNewVendorLocation, addSubCategory, addDiscounds,delateCategory,delateSubCategory, addCategory,  } from "../../../store/filtersStore"
 import { CancelPresentationOutlined, ContactsOutlined } from '@material-ui/icons';
 import { saveLocale, locale } from '../../../components/common/LangSwitcher/i18nInit';
 import SimpleSnackbar from '../../common/SimpleSnackbar/SimpleSnackbar';
@@ -74,7 +75,7 @@ const AdminPanelCard = ({currentCard}) => {
   const { category, vendorLocation, vendor, searchObject, subCategory, } = useAppSelector(state => state.filters);
   const [state, setState] = React.useState(false);
   const [disableInput, setDisableInput] = React.useState(false);
-  const [addressInput, setAddressInput] = React.useState(false);
+  // const [addressInput, setAddressInput] = React.useState(false);
   const [openErrorSnackbarServer, setErrorSnackbarServer] = React.useState(false);
   const [categoryInput, setCategoryInput] = React.useState(false);
   const [tagInput, setTagInput] = React.useState(false);
@@ -145,47 +146,7 @@ const AdminPanelCard = ({currentCard}) => {
     }
   };
 
-  const handleKeyDownForCountry = (event: any): void => {
-    if (locale === 'en') {
-      if (event.keyCode === 65) {
-        event.preventDefault();
-        (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
-        setNewLocation({ ...newLocation, newCountry: event.target.value });
-        setTimeout(() => { event.target.focus() }, 0);
 
-      }
-    } else {
-      return;
-    }
-  };
-
-  const handleKeyDownForCity = (event: any): void => {
-    if (locale === 'en') {
-      if (event.keyCode === 65) {
-        event.preventDefault();
-        (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
-        setNewLocation({ ...newLocation, newCity: event.target.value })
-        setTimeout(() => { event.target.focus() }, 0);
-
-      }
-    } else {
-      return;
-    }
-  };
-
-  const handleKeyDownForAddress = (event: any): void => {
-    if (locale === 'en') {
-      if (event.keyCode === 65) {
-        event.preventDefault();
-        (event.shiftKey) ? (event.target.value = event.target.value + 'A') : (event.target.value = event.target.value + 'a');
-        setNewLocation({ ...newLocation, newAddress: event.target.value });
-        setTimeout(() => { event.target.focus() }, 0);
-
-      }
-    } else {
-      return;
-    }
-  };
 
   const handleKeyDownForDescription = (event: any): void => {
     if (locale === 'en') {
@@ -263,25 +224,7 @@ const AdminPanelCard = ({currentCard}) => {
     setDisableInput(!disableInput)
   }
 
-  const addAddress = () => {
-    setAddressInput(true)
-  }
 
-  const submitAddress = async() => {
-    if (newLocation.newCountry !== '' && newLocation.newCity !== '' && newLocation.newAddress !== '') {
-      setLocation([...location, { key: Math.random(), country: newLocation.newCountry, city: newLocation.newCity, address: newLocation.newAddress }])
-      setNewLocation({
-        newCountry: '',
-        newCity: '',
-        newAddress: '',
-      })
-      postVendorLocation({ country: newLocation.newCountry, city: newLocation.newCity, addressLine: newLocation.newAddress, vendorId: getVendorId() })
-    }
-  }
-
-  const cancelAddress = () => {
-    setAddressInput(false);
-  }
 
   const addCategory = () => {
     setCategoryInput(true)
@@ -528,16 +471,6 @@ const AdminPanelCard = ({currentCard}) => {
     setAlertState({ ...alertState, open: false });
   };
 
-  const timeString = (time: any) => {
-    const year = time.getFullYear();
-    const month = time.getMonth();
-    const date = time.getDate();
-    const hours = time.getHours();
-    const minutes = time.getMinutes();
-    const check = (some: any) => some < 10 ? "0" + some : some;
-    const timezoneOffset = Math.abs(time.getTimezoneOffset() / 60);
-    return `${year}-${check(month+1)}-${check(date)}T${check(hours)}:${check(minutes)}+${check(timezoneOffset)}:00`
-  }
 
   const getSubCatygoryId = (subCategory: any, choeseTag: any) => {
     const arrId = choeseTag.map((element: any) => {
@@ -569,7 +502,6 @@ const AdminPanelCard = ({currentCard}) => {
   }
 
   const checkValidation = () => {
-    
     if (title !== '' &&
       description.length <= 2000 &&
       description.length >= 50 &&
@@ -586,8 +518,7 @@ const AdminPanelCard = ({currentCard}) => {
   }
 
   const createDiscount = async () => {
-    if (true) {
-    
+    if (checkValidation()) {
       const newDiscount: Idiscount = {
         name: title,
         fullDescription: description,
@@ -605,7 +536,7 @@ const AdminPanelCard = ({currentCard}) => {
       const resolveFnc = (resolve) => {
         setSuccessSnackbar(true);
         clearForm();
-        getDiscounts(searchObject).then(resolve=>dispatch(addDiscounds(resolve.data.content)))
+        getDiscounts(searchObject).then(resolve=>dispatch(addDiscounds(resolve.data)))
       }
       if(currentCard){
         putDiscount(currentCard.id, newDiscount).then(resolve=>{
@@ -699,7 +630,7 @@ const AdminPanelCard = ({currentCard}) => {
                   onKeyDown={handleKeyDownForCategory}
                   onChange={(e: any) => setNewCategory(e.target.value)} />
                 <div className={styles.addressButtons}>
-                  <Button onClick={submitCategory} className={styles.address_submit}>{t`Submit`}</Button>
+                  <Button onClick={submitCategory} className={styles.address_submit}>{t`Add new category`}</Button>
                   <Button onClick={cancelCategory} className={styles.address_cancel}>{t`Cancel`}</Button>
                 </div>
                 <AdminSelect
@@ -709,7 +640,7 @@ const AdminPanelCard = ({currentCard}) => {
                   value ={categoryForeDelate}
                   handleChange={setCategoryForeDelate} />
                 <div className={styles.addressButtons}>
-                  <Button onClick={submitCategoryForeDelate} className={styles.address_submit}>{t`Submit`}</Button>
+                  <Button onClick={submitCategoryForeDelate} className={styles.address_submit}>{t`Delaete category`}</Button>
                   <Button onClick={cancelCategory} className={styles.address_cancel}>{t`Cancel`}</Button>
                 </div>
               </>
@@ -732,7 +663,7 @@ const AdminPanelCard = ({currentCard}) => {
                   onKeyDown={handleKeyDownForTag}
                   onChange={(e: any) => setNewTag(e.target.value)} />
                 <div className={styles.addressButtons}>
-                  <Button onClick={submitTag} className={styles.address_submit}>{t`Submit`}</Button>
+                  <Button onClick={submitTag} className={styles.address_submit}>{t`Add new tag`}</Button>
                   <Button onClick={cancelTag} className={styles.address_cancel}>{t`Cancel`}</Button>
                 </div>
                 <AdminSelect
@@ -743,7 +674,7 @@ const AdminPanelCard = ({currentCard}) => {
                   handleChange={setSubCategoryForeDelate}
                   helpText='Select wthat to delete' />
                   <div className={styles.addressButtons}>
-                  <Button onClick={submitsubCategoryForeDelate} className={styles.address_submit}>{t`Submit`}</Button>
+                  <Button onClick={submitsubCategoryForeDelate} className={styles.address_submit}>{t`Delate tags`}</Button>
                   <Button onClick={cancelTag} className={styles.address_cancel}>{t`Cancel`}</Button>
                 </div>
               </>
@@ -764,49 +695,12 @@ const AdminPanelCard = ({currentCard}) => {
                     );
                   }
                 })}
-                <TextField
-                  required
-                  className={styles.marginBottom}
-                  disabled={!choeseVendor}
-                  label={t`Country`}
-                  value={newLocation.newCountry}
-                  onKeyDown={handleKeyDownForCountry}
-                  helperText={!choeseVendor ? 'Please choose vendor' : ''}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setNewLocation({ ...newLocation, newCountry: e.target.value })
-                  }}
-                />
-                <TextField
-                  required
-                  className={styles.marginBottom}
-                  disabled={!choeseVendor}
-                  label={t`City`}
-                  value={newLocation.newCity}
-                  onKeyDown={handleKeyDownForCity}
-                  helperText={!choeseVendor ? 'Please choose vendor' : ''}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setNewLocation({ ...newLocation, newCity: e.target.value })
-                  }}
-                />
-                <TextField
-                  required
-                  className={styles.marginBottom}
-                  disabled={!choeseVendor}
-                  label={t`Address`}
-                  value={newLocation.newAddress}
-                  onKeyDown={handleKeyDownForAddress}
-                  helperText={!choeseVendor ? 'Please choose vendor' : ''}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setNewLocation({ ...newLocation, newAddress: e.target.value })
-                  }}
-                />
-                <div className={styles.addressButtons}>
-                  <Button onClick={submitAddress} className={styles.address_submit}>{t`Submit`}</Button>
+                
                   <span className={styles.helperTetxtSpan}>
                     Should be minimum 1 location: country, city and address. <br />
                     If location is online - please choose 'Online'
                   </span>
-                </div>
+                
               </>
             )}
             <div className={styles.checkbox__wrapper}>
@@ -868,7 +762,11 @@ const AdminPanelCard = ({currentCard}) => {
   )
   return (
     <div>
+      {currentCard ? <button onClick={toggleDrawer(true)} className={styles.adminModalButton}>
+        <EditIcon style={{ fontSize: 25, marginRight: 5, color: 'black' }} />
+      </button> :
       <button onClick={toggleDrawer(true)} className={styles.adminModalButton}>{t`Add a promotion`}</button>
+      }
       <Drawer anchor={'right'}
         open={state}
         onClose={toggleDrawer(false)}>

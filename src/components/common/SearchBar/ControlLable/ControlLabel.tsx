@@ -10,12 +10,12 @@ const theme = createMuiTheme({
   },
 });
 
-const ControlLabel = ({lable, setStateControlLableMy,  }:{ lable:string, setStateControlLableMy:any }) => {
-    const [state, setState] = useState(false);
+const ControlLabel = ({lable, setStateControlLable, stateControlLable }:{stateControlLable:boolean, lable:string, setStateControlLable:any }) => {
+    const [state, setState] = useState(stateControlLable);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setState( event.target.checked );
-        setStateControlLableMy(lable, event.target.checked)
+        setStateControlLable(event.target.checked)
     };
     return (
         <ThemeProvider theme={theme}>

@@ -33,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SaleCard: React.FC<SaleCardProps> = ({ discount, cards, updateData,  handleClick }) => {
-    console.log(discount)
     const {vendor} = useAppSelector(state=>state.filters);
     const classes = useStyles()
     const [loading, setLoading] = useState(true)
@@ -48,7 +47,6 @@ const SaleCard: React.FC<SaleCardProps> = ({ discount, cards, updateData,  handl
     const {endDate, startDate} = discount;
     const start =new Date(startDate * 1000)
     const active = now - new Date(endDate * 1000) > 0  ? false: true;
-    console.log(now - new Date(startDate * 1000))
     const comingSoon = now - new Date(startDate * 1000) < 0  ? false: true;
     const imgLogo = (vendor.filter(item => item.id === discount.vendorId).map(item=>item.image))[0];
    

@@ -31,7 +31,6 @@ export const getDeletedSubCategory = async () =>{
 
 export const deleteSubCategoryId = async (subCategoryId:string, categoryId:string) =>{
     const data = await authHost.delete(`/category/${categoryId}/sub_category/${subCategoryId}`);
-    console.log(data)
     return data;
 };
 

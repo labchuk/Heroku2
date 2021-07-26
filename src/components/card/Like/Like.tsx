@@ -11,7 +11,7 @@ import SnackbarForModalWithConfirm from "../../common/SnackbarForModalWithConfir
 import {t} from "ttag";
 import {deletefavoriteDiscount, postfavoriteDiscount, deleteDiscount, getDiscounts} from "../../../http/discountApi"
 import {useAppSelector, useAppDispatch} from "../../../store/Redux-toolkit-hook"
-import {setDiscountLike, setNumberOfElements, addDiscounds} from "../../../store/filtersStore"
+import {setDiscountLike,  addDiscounds} from "../../../store/filtersStore"
 interface LikeProps {
     discount?: {
         id: number,
@@ -47,17 +47,15 @@ const Like: FC<LikeProps> = (props) => {
         const {status, data} = await deleteDiscount(props.discount.id); 
         if(status <= 200 || status >= 299){
             const {data} = await getDiscounts(searchObject)
-            dispatch(setNumberOfElements(data.totalElements))
-            dispatch(addDiscounds(data.content))
+            dispatch(addDiscounds(data))
             handleClose()
         } 
         else{
 
         }
     }
-    const {liked} = props.discount
-    const [like, setLike] = useState<Boolean>(liked)
-    console.log (like +" " + props.discount.liked +  " " + searchObject.favourite)
+    const [like, setLike] = useState();
+    setTimeout(()=> setLike(props.discount.liked),50)
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const [anchorShareEl, setAnchorShareEl] = React.useState<HTMLButtonElement | null>(null);
     const [anchorMoreEl, setAnchorMoreEl] = React.useState<HTMLButtonElement | null>(null);
@@ -71,7 +69,6 @@ const Like: FC<LikeProps> = (props) => {
 
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        console.log(1)
         setAnchorEl(event.currentTarget);
     };
     const handleChange = (event: React.MouseEvent<HTMLButtonElement>) => {

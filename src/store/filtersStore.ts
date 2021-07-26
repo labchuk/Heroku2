@@ -13,6 +13,13 @@ interface IdiscountFilter{
     sortingType: string;
     favourite: boolean;
 }
+
+interface historyFilters{
+    page: number;
+    size: number;
+    startDate: string;
+    endDate: string
+}
 interface IinitialState {
     category: any[],
     vendor: any[],
@@ -20,9 +27,12 @@ interface IinitialState {
     subCategory: any[],
     discounds: any[],
     numberOfElements: number,
+    numberOfElementsHistory: number,
     searchObject: IdiscountFilter,
     idEditCard: string,
     subscribe: any,
+    searchObjectHistory: historyFilters,
+    discountsHistory: any[],
 }
 
 export const initialFiltersState: IinitialState={
@@ -32,6 +42,7 @@ export const initialFiltersState: IinitialState={
     vendorLocation: [],
     subCategory: [],
     discounds: [],
+    numberOfElementsHistory: 0,
     numberOfElements: 0,
     subscribe: "",
     searchObject: {
@@ -45,6 +56,13 @@ export const initialFiltersState: IinitialState={
         searchWord: "",
         subCategoriesIds: [],
         sortingType: "POPULAR",
+    },
+    discountsHistory: [],
+    searchObjectHistory:{
+        page: 0,
+        size: 15,
+        startDate: "",
+        endDate: "",
     }
 }
 
@@ -56,11 +74,22 @@ const filtersReducer = createSlice({
         setSearchObject(state, actions: PayloadAction<any>) {
             state.searchObject = {...state.searchObject, ...actions.payload};
         },
+        
+        setStartDataHistory(state, actions: PayloadAction<string>) {
+            state.searchObjectHistory.startDate = actions.payload;
+        },
+        setEndDataHistory(state, actions: PayloadAction<string>) {
+            state.searchObjectHistory.endDate = actions.payload;
+        },
+        setPageHistory(state, actions: PayloadAction<number>) {
+            state.searchObjectHistory.page = actions.payload;
+        },
         setFavourite(state) {
             state.searchObject.favourite = !state.searchObject.favourite;
         },
-        setNumberOfElements(state, actions: PayloadAction<number>) {
-            state.numberOfElements = actions.payload;
+        setDiscountsHistory(state, actions: PayloadAction<any>) {
+            state.discountsHistory = [...actions.payload.content];
+            state.numberOfElementsHistory = actions.payload.totalElements;
         },
         setDiscountLike(state, actions: PayloadAction<string>) {
             state.discounds = state.discounds.map(item => {
@@ -97,7 +126,8 @@ const filtersReducer = createSlice({
         },
         
         addDiscounds(state, actions: PayloadAction<any>) {
-            state.discounds = [...actions.payload];
+            state.discounds = [...actions.payload.content];
+            state.numberOfElements = actions.payload.totalElements;
         },
         addSubCategory(state, actions: PayloadAction<any>) {
             state.subCategory = [...actions.payload];
@@ -129,4 +159,29 @@ const filtersReducer = createSlice({
 });
 
 export default filtersReducer.reducer
-export const {setSortingType,setFavourite, addCategory,delateSubCategory,setDiscountLike, delateCategory,setIdEditCard,setNumberOfElements, addVendor,addNewCategory,addSubCategory, addNewSubCategory,addNewVendorLocation,addNewDiscounds, addNewVendor,addVendorLocation,resetFilteState, addDiscounds, setSearchWord, setSearchObject, setSearchObjectPage} = filtersReducer.actions;
+export const {
+    setPageHistory,
+    setSortingType,
+    setDiscountsHistory, 
+    setFavourite,
+    setStartDataHistory, 
+    setEndDataHistory,
+    addCategory,
+    delateSubCategory,
+    setDiscountLike, 
+    delateCategory,
+    setIdEditCard,
+    addVendor,
+    addNewCategory,
+    addSubCategory, 
+    addNewSubCategory,
+    addNewVendorLocation,
+    addNewDiscounds, 
+    addNewVendor,
+    addVendorLocation,
+    resetFilteState, 
+    addDiscounds, 
+    setSearchWord, 
+    setSearchObject, 
+    setSearchObjectPage,
+} = filtersReducer.actions;

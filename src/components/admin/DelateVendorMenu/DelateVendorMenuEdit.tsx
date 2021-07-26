@@ -60,11 +60,7 @@ const DeleteVendorMenuEdit = ({styles, value, success, error, locationUpdate, de
         setEdit(!edit)
         getVendorLocation(value.id).then(v => console.log(v.data.content))
 
-        // console.log(data.description)
-        // console.log(data.name)
-        // console.log(data.email)
-        // console.log(uploadFileName)
-        // console.log(fileName)
+       
     }
 
     const deleteVendor = async () => {
@@ -169,7 +165,6 @@ const DeleteVendorMenuEdit = ({styles, value, success, error, locationUpdate, de
             }
             getAllVendorLocation().then(resolve => {
                 dispatch(addVendorLocation(resolve.data));
-                console.log(resolve)
             } ).catch(f=> console.log(f));
         }
     }
