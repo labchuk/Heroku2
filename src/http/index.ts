@@ -1,13 +1,15 @@
 import axios from "axios";
-// import {API_URL} from '../config.js'
+import {API_URL} from '../config.js'
+
+
 
 const authHost = axios.create({
-    baseURL: process.env.API_URL,
+    baseURL: API_URL,
     // withCredentials: true,  
 });
 
 const host = axios.create({
-    baseURL: process.env.API_URL,
+    baseURL: API_URL,
     withCredentials: true
 });
 

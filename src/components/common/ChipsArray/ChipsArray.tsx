@@ -1,5 +1,6 @@
 import React,{Fragment} from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import './ChipsArray.scss'
 import Chip from '@material-ui/core/Chip';
 import Paper from '@material-ui/core/Paper';
 import TagFacesIcon from '@material-ui/icons/TagFaces';
@@ -26,8 +27,10 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         chip: {
             margin: theme.spacing(0.5),
-            backgroundColor: "#AAF4C3"
+            backgroundColor: "#AAF4C3",
+            color: '#000',
         },
+
     }),
 );
 
