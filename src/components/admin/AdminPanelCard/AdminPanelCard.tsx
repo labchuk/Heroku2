@@ -12,14 +12,14 @@ import "./AdminPanelCard.scss";
 import { t } from 'ttag';
 import AdminSelect from '../AdminSelect';
 import { Alert } from '@material-ui/lab';
-import { getVendorId, postCategory, postVendorLocation, getSubCategoryAll, postSubCategory, uploadImage } from "../../../http/filtersApi"
+import { getVendorId, postCategory,   postVendorLocation, getSubCategoryAll, postSubCategory,deleteCategoryId, uploadImage, deleteSubCategoryId } from "../../../http/filtersApi"
 import { postDiscount, putDiscount } from "../../../http/discountApi"
 import { useAppSelector, useAppDispatch } from "../../../store/Redux-toolkit-hook";
 import {getDiscounts} from "../../../http/discountApi"
 import { firsLetterToUpperCase } from "../../../helpers/functionHelpers";
 import { utimes } from 'fs';
 import { captureRejectionSymbol } from 'stream';
-import { addNewCategory, addNewSubCategory, addNewVendorLocation, addSubCategory, addDiscounds} from "../../../store/filtersStore"
+import { addNewCategory, addNewSubCategory, addNewVendorLocation, addSubCategory, addDiscounds,delateCategory,delateSubCategory} from "../../../store/filtersStore"
 import { CancelPresentationOutlined, ContactsOutlined } from '@material-ui/icons';
 import { saveLocale, locale } from '../../../components/common/LangSwitcher/i18nInit';
 import SimpleSnackbar from '../../common/SimpleSnackbar/SimpleSnackbar';
@@ -72,7 +72,6 @@ const AdminPanelCard = ({currentCard}) => {
 
   
   const { category, vendorLocation, vendor, searchObject, subCategory, } = useAppSelector(state => state.filters);
-  console.log(currentCard)
   const [state, setState] = React.useState(false);
   const [disableInput, setDisableInput] = React.useState(false);
   const [addressInput, setAddressInput] = React.useState(false);
@@ -216,7 +215,17 @@ const AdminPanelCard = ({currentCard}) => {
 
   const [categoryState, setcategoryState] = React.useState([...categoryArr]);
   const getVendorId = () => (vendor.filter(item => item.name.toLowerCase() === choeseVendor.toLowerCase()).map(item => item.id))[0];
-  const getCategoryId = () => (category.filter(item => item.name.toLowerCase() === choeseCategory.toLowerCase()).map(item => item.id))[0]
+  const getCategoryId = (arr) => {
+    if(Array.isArray(arr)){
+      const arrId = [];
+      arr.forEach((item)=>{
+        console.log(category)
+        arrId.push(category.filter(i => i.name === item).map(item => item.id)); 
+      })
+      return arrId.flat();
+    }
+    return (category.filter(item => item.name.toLowerCase() === arr.toLowerCase()).map(item => item.id))[0]
+  };
 
   
   useEffect(() => {
@@ -231,8 +240,7 @@ const AdminPanelCard = ({currentCard}) => {
   }, [choeseVendor]);
 
   useEffect(() => {
-    const categoryId = getCategoryId();
-    choeseCategory && getSubCategoryAll(categoryId).then(resolve => dispatch(addSubCategory(resolve.data)));
+    choeseCategory && getSubCategoryAll(getCategoryId(choeseCategory)).then(resolve => dispatch(addSubCategory(resolve.data)));
   }, [choeseCategory])
 
   useEffect(() => {
@@ -241,9 +249,11 @@ const AdminPanelCard = ({currentCard}) => {
   }, [subCategory])
 
   useEffect(() => {
+    console.log(category)
+    console.log(category.length)
     const categoryArr = category?.filter((item: any) => item.deleted === false).map(item => firsLetterToUpperCase(item.name));
     setcategoryState([...categoryArr])
-  }, [category])
+  }, [category, category.length])
 
   const vendors = vendor?.map(item => firsLetterToUpperCase(item.name));
 
@@ -281,7 +291,8 @@ const AdminPanelCard = ({currentCard}) => {
   }
   const submitCategory = async () => {
     setCategoryInput(false);
-    const { status, data } = await postCategory({ name: newCategory })
+    const category  = firsLetterToUpperCase(newCategory)
+    const { status, data } = await postCategory({ name: category})
     if (status >= 200 && status <= 299) {
       dispatch(addNewCategory(data))
     }
@@ -295,10 +306,10 @@ const AdminPanelCard = ({currentCard}) => {
     setTagInput(true)
   }
 
-
   const submitTag = async () => {
     setTagInput(false);
-    const { status, data } = await postSubCategory({ name: newTag }, getCategoryId())
+    const tag = firsLetterToUpperCase(newTag)
+    const { status, data } = await postSubCategory({ name:  tag}, getCategoryId(choeseCategory))
     if (status >= 200 && status <= 299) {
       dispatch(addNewSubCategory(data))
     }
@@ -578,7 +589,7 @@ const AdminPanelCard = ({currentCard}) => {
         name: title,
         fullDescription: description,
         imageLink: currentImageLinck || await addLogoDiscount(),
-        categoryId: getCategoryId(),
+        categoryId: getCategoryId(choeseCategory),
         isOnline: isOnline,
         vendorId: getVendorId(),
         locationIds: location.map(item => item.id),
@@ -615,6 +626,40 @@ const AdminPanelCard = ({currentCard}) => {
     }
   }
   
+  const [categoryForeDelate, setCategoryForeDelate] = useState([]);
+  const submitCategoryForeDelate = async () =>{
+    const arrId =  getCategoryId(categoryForeDelate);
+    console.log(arrId)
+    arrId.forEach(async (id) => {
+      const {status} = await deleteCategoryId(id);
+       if(status <= 200 || status >= 299) {
+         dispatch(delateCategory(id))
+        }
+        else{
+          setErrorSnackbarServer(true);
+        }
+    })
+    setCategoryInput(false);
+  }
+
+  const [subcategorySubForeDelate, setSubCategoryForeDelate] = useState([]);
+  const submitsubCategoryForeDelate = async () =>{
+    const categoryId =  getCategoryId(choeseCategory);
+    const subCategoryId  = getSubCatygoryId (subCategory, subcategorySubForeDelate);
+    subCategoryId.forEach(async (id) => {
+      console.log(id)
+      const {status} = await deleteSubCategoryId(categoryId,id);
+      console.log(status)
+       if(status <= 200 || status >= 299) {
+         dispatch(delateSubCategory(id))
+        }
+          else{
+          setErrorSnackbarServer(true);
+        }
+       
+    })
+    setCategoryInput(false);
+  }
 
   const list = () => (
     <List className={styles.wrapper}>
@@ -640,7 +685,7 @@ const AdminPanelCard = ({currentCard}) => {
               multi={false}
               value ={choeseCategory}
               handleChange={setChoeseCategory}
-              state={choeseCategory} />
+              />
             {categoryInput ?
               <>
                 <TextField
@@ -653,8 +698,18 @@ const AdminPanelCard = ({currentCard}) => {
                   <Button onClick={submitCategory} className={styles.address_submit}>{t`Submit`}</Button>
                   <Button onClick={cancelCategory} className={styles.address_cancel}>{t`Cancel`}</Button>
                 </div>
+                <AdminSelect
+                  name={t`Delate category`}
+                  data={categoryState}
+                  multi={true}
+                  value ={categoryForeDelate}
+                  handleChange={setCategoryForeDelate} />
+                <div className={styles.addressButtons}>
+                  <Button onClick={submitCategoryForeDelate} className={styles.address_submit}>{t`Submit`}</Button>
+                  <Button onClick={cancelCategory} className={styles.address_cancel}>{t`Cancel`}</Button>
+                </div>
               </>
-              : <span className={styles.address__span} onClick={addCategory}>{t`+ Add new category`}</span>}
+              : <span className={styles.address__span} onClick={addCategory}>{t`+ Add or delate new category`}</span>}
             <AdminSelect
               name={t`Tags`}
               data={tags}
@@ -674,6 +729,17 @@ const AdminPanelCard = ({currentCard}) => {
                   onChange={(e: any) => setNewTag(e.target.value)} />
                 <div className={styles.addressButtons}>
                   <Button onClick={submitTag} className={styles.address_submit}>{t`Submit`}</Button>
+                  <Button onClick={cancelTag} className={styles.address_cancel}>{t`Cancel`}</Button>
+                </div>
+                <AdminSelect
+                  name={t`Delate tags`}
+                  data={tags}
+                  multi={true}
+                  valueArr = {subcategorySubForeDelate}
+                  handleChange={setSubCategoryForeDelate}
+                  helpText='Select wthat to delete' />
+                  <div className={styles.addressButtons}>
+                  <Button onClick={submitsubCategoryForeDelate} className={styles.address_submit}>{t`Submit`}</Button>
                   <Button onClick={cancelTag} className={styles.address_cancel}>{t`Cancel`}</Button>
                 </div>
               </>
@@ -789,7 +855,7 @@ const AdminPanelCard = ({currentCard}) => {
               <SimpleSnackbar
               setSnackbar={setErrorSnackbarServer}
               snackbarState={openErrorSnackbarServer}
-              label='discount not added because the server has technical work'
+              label='the server cannot handle your request right now'
               type='error' />
           </Grid>
         </form>
