@@ -42,7 +42,8 @@ const SaleCard: React.FC<SaleCardProps> = ({ discount, cards, updateData,  handl
             setLoading(false);
         }, 2000)
     }, []);
-    const active = new Date() - new Date(discount.startDate * 1000) < 0? false: true;
+    const active = new Date() - new Date(discount.endDate * 1000) > 0  ? false: true;
+    const comingSoon = new Date() - new Date(discount.startDate * 1000) < 0  ? false: true;
     const imgLogo = (vendor.filter(item => item.id === discount.vendorId).map(item=>item.image))[0];
    
     return (
@@ -63,10 +64,9 @@ const SaleCard: React.FC<SaleCardProps> = ({ discount, cards, updateData,  handl
 
                 <Like discount={discount} cards={cards} updateData={updateData} />
                 {!loading ? !active ? <div className={"notActive"}>Not Active</div> : null  : null}
-                {/*{!loading ? !discount.ac ? <div className={"notActive"}>Come in soon</div> : null  : null}*/}
+                {!loading ? !comingSoon ? <div className={"comingSoon"}>Come in soon</div> : null  : null}
             </div>
         </div>
-
     );
 };
 
