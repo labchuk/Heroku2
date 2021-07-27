@@ -6,6 +6,7 @@ import reduserHistory from "./historySearch"
 import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import {PersistGate} from "redux-persist/integration/react";
+import reduserStatistic from "./statistic"
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 
@@ -23,6 +24,7 @@ export const reducers = combineReducers({
   chips: chipReducer,
   filters: filtersReducer,
   historyObj: reduserHistory,
+  statistic: reduserStatistic
 },);
 
 
