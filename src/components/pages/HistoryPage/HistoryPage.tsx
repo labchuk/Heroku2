@@ -10,7 +10,8 @@ import { resetChipState } from "../../../store/chipReducer";
 import {resetHistory} from "../../../store/historySearch";
 
 const HistoryPage = () => {
-    
+    const historyObj = useAppSelector(state => state.historyObj);
+    const {page : p, size, startDate, endDate} = historyObj;
      const dispatch = useAppDispatch();
     useEffect(()=>{
         const token = localStorage.getItem("token");
@@ -20,7 +21,7 @@ const HistoryPage = () => {
             dispatch(resetChipState());
             dispatch(resetHistory());
         }
-        getDiscountsHistory({page:0,size:15}).then(resolve=> dispatch(setDiscountsHistory(resolve.data))).catch(f=> console.log(f)); 
+        getDiscountsHistory(historyObj).then(resolve=> dispatch(setDiscountsHistory(resolve.data))).catch(f=> console.log(f)); 
     },[]);
     
     
