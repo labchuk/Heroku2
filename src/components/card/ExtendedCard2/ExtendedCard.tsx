@@ -191,7 +191,7 @@ const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
                     </div>
 
                     <div className="ExtendedCard__Footer">
-                        <h3>About mi store</h3>
+                        <h3>About vendor</h3>
                         <div>
                             <p>
                                 {vendor.filter(item => item.id === discount?.vendorId).map(item=>item.description)}
