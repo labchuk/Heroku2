@@ -8,21 +8,13 @@ interface historyFilters{
     endDate: string;
 }
 
-const searchObjectHistorymy = {
-        page: 0,
-        size: 15,
-        startDate: "",
-        endDate: "",
-}
+
 interface Itime{
     To: any,
     From: any,
 }
 
-const time = {
-    To: "",
-    From: "",
-}
+
 interface Iobj{
     time: Itime,
     searchObjectHistory : historyFilters
@@ -30,8 +22,16 @@ interface Iobj{
 
 
 const obj: Iobj ={
-    time: time,
-    searchObjectHistory : searchObjectHistorymy,
+    time: {
+        To: "",
+        From: "",
+    },
+    searchObjectHistory : {
+        page: 0,
+        size: 15,
+        startDate: "",
+        endDate: "",
+    },
 }
 
 
@@ -39,7 +39,7 @@ const reduserHistory  = createSlice({
     name: "searchObjectHistory",
     initialState: obj,
     reducers: {
-        resetFilteState: state =>  obj,
+        resetHistory: state =>  obj,
         setStartDataHistory(state, actions: PayloadAction<string>) {
             state.searchObjectHistory.startDate = actions.payload;
         },
@@ -47,9 +47,11 @@ const reduserHistory  = createSlice({
             state.searchObjectHistory.endDate = actions.payload;
         },
         setPageHistory(state, actions: PayloadAction<number>) {
+            console.log(state.searchObjectHistory)
             state.searchObjectHistory.page = actions.payload;
         },
         setTimeDatePicker(state, actions: PayloadAction<any>) {
+            console.log(state.time)
             state.time = actions.payload;
         },
         
@@ -57,8 +59,9 @@ const reduserHistory  = createSlice({
 });
 
 export default reduserHistory.reducer;
+
 export const {
-    resetFilteState,
+    resetHistory,
     setStartDataHistory,
     setPageHistory, 
     setEndDataHistory,

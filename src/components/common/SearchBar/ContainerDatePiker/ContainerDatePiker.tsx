@@ -26,6 +26,8 @@ const ContainerDataPiker = ({setTime, time}:{setTime:any, time:any } ) => {
     const dispatch = useAppDispatch();
     const {pathname} = useLocation();
     const {searchObjectHistory} = useAppSelector(state => state.historyObj);
+    const a = useAppSelector(state => state.historyObj);
+    console.log(a)
     const [selectedDate, setSelectedDate] = useState(time? time : {
         From: undefined,
         To : undefined,
@@ -34,22 +36,22 @@ const ContainerDataPiker = ({setTime, time}:{setTime:any, time:any } ) => {
     const [counter, setCounter] = useState(0)
 
     useEffect(() => {
-        console.log(1)
         if(pathname === HISTORY_ROUTE){
             dispatch(setTimeDatePicker(selectedDate))
-            const end =timeString(selectedDate.To)
-            const start =timeString(selectedDate.From)
-            console.log(selectedDate)
-            selectedDate.To && dispatch(setEndDataHistory(end.slice(0,16)+":03.00-00:00"))
-            selectedDate.From && dispatch(setStartDataHistory(start.slice(0,16)+":03.00-00:00"))
+            const end =(timeString(selectedDate.To))?.slice(0,16)+":03.00-00:00";
+            const start =(timeString(selectedDate.From))?.slice(0,16)+":03.00-00:00";
+            console.log(end)
+            console.log(start)
+            selectedDate.To && dispatch(setEndDataHistory(end))
+            selectedDate.From && dispatch(setStartDataHistory(start)) 
             setCounter(counter+1);
         }
     }, [selectedDate])
     
     useEffect(()=>{
-        if(counter > 1 ){
-            console.log(2)
+        if(counter > 1 && pathname === HISTORY_ROUTE){
             getDiscountsHistory(searchObjectHistory).then(resolve=> dispatch(setDiscountsHistory(resolve.data))).catch(f=> console.log(f)); 
+            
         }
     },[searchObjectHistory]);
     

@@ -4,6 +4,7 @@ import {  useAppDispatch} from "../../../store/Redux-toolkit-hook";
 import { resetUserState } from "../../../store/userSlise";
 import {resetFilteState} from "../../../store/filtersStore";
 import { resetChipState } from "../../../store/chipReducer"
+import {resetHistory} from "../../../store/historySearch"
 import {t} from "ttag";
 
 const LogoutButton: React.FC = () => {
@@ -12,6 +13,7 @@ const LogoutButton: React.FC = () => {
         dispatch(resetUserState());
         dispatch(resetFilteState());
         dispatch(resetChipState());
+        dispatch(resetHistory());
         localStorage.removeItem("token")
     };
     return (

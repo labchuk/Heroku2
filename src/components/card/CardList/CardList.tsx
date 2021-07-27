@@ -34,7 +34,8 @@ const CardList: React.FC = (props) => {
     const dispatch = useAppDispatch();
     const {searchObject, discounds, numberOfElements, discountsHistory, numberOfElementsHistory} = useAppSelector(state=>state.filters);
     const {searchObjectHistory} = useAppSelector(state => state.historyObj);
-    
+    const a = useAppSelector(state => state.historyObj)
+    console.log(a)
     const {pathname} = useLocation();
     const NUMBER_CARD = 15;
 
@@ -117,7 +118,6 @@ const CardList: React.FC = (props) => {
         }
     };
     const isAdmin = useAppSelector(state => state.user.admine);
-    
     return (
             <div className="card-list">
 
