@@ -18,7 +18,6 @@ import {addSubCategory} from "../../../store/filtersStore";
 
 const StatisticPage = () => {
     return (
-        
         <div className={"statistic"}>
             <ModalSearchBar/>
             <ChipsArray/>

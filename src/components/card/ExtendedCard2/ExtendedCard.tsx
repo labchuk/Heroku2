@@ -1,16 +1,15 @@
 import React from "react";
 import "./ExtendedCard.scss";
-import PhoneIcon from "@material-ui/icons/Phone";
 import Button from "@material-ui/core/Button";
-/*import Rating from "../../common/SearchBar/Rating/Rating";*/
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import CloseIcon from "@material-ui/icons/Close";
 import {makeStyles} from "@material-ui/core/styles";
-import {usedDiscount, getDiscountsHistory} from "../../../http/discountApi";
-import { useAppSelector, useAppDispatch} from "../../../store/Redux-toolkit-hook";
-import {setDiscountsHistory} from "../../../store/filtersStore"
+import {usedDiscount,} from "../../../http/discountApi";
+import { useAppSelector, } from "../../../store/Redux-toolkit-hook";
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import {Submitbutton} from "../../index";
+import {useLocation} from "react-router-dom"
+import { HISTORY_ROUTE } from "../../../utils/consts";
 interface ExtendedCardProps {
     discount: {
         place: string,
@@ -36,10 +35,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
-    const dispatch = useAppDispatch();
+    const {pathname} = useLocation();
     const {vendor} = useAppSelector(state=>state.filters);
-     const historyObj = useAppSelector(state => state.historyObj);
     const {vendorLocations} = discount;
+
     const location = vendorLocations.map(item => Object.values(item).splice(0,3).join(" "));
     const classes = useStyles()
     const handleClick = () => {
@@ -75,10 +74,7 @@ const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
 
 
     const usedDiscountAndSetHistory = async(id) =>{
-        const {status} = await usedDiscount(id);
-        if(status >= 200 && status <= 299){
-            getDiscountsHistory(historyObj).then(resolve=> dispatch(setDiscountsHistory(resolve.data))).catch(f=> console.log(f));
-        }
+        await usedDiscount(id);
     }
 
     const { isLoaded } = useJsApiLoader({
@@ -95,9 +91,12 @@ const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
         lat: discount?.vendorLocations[0].latitude,
         lng: discount?.vendorLocations[0].longitude
     };
+    const now = new Date()
+    const {endDate, startDate} = discount;
+    const active = now - new Date(endDate * 1000) > 0  
+    const comingSoon = now - new Date(startDate * 1000) < 0  
 
-
-
+    const disable = (pathname === HISTORY_ROUTE || active || comingSoon )? true: false
     const date = new Date(discount?.endDate * 1000);
     return (
             <div className={`ExtendedCard ${classes.root}`} id="excard">
@@ -152,7 +151,7 @@ const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
                     </div>*/}
 
                             <div className="ExtendedCard__actions">
-                                <Submitbutton classN={"submit btn--extCard"} name={"Use Coupon"} handleClick={()=> {usedDiscountAndSetHistory(discount?.id)}}/>
+                                <Submitbutton disable={disable} classN={"submit btn--extCard"} name={"Use Coupon"} handleClick={()=> {usedDiscountAndSetHistory(discount?.id)}}/>
                                 {/* <Button variant="contained" color="primary">
                             Use Coupon
                         </Button>*/}
