@@ -1,6 +1,7 @@
 import { Discount, Like, VendorLogo } from '../../index';
 import './SaleCard.scss'
 import {makeStyles} from "@material-ui/core/styles";
+import { t } from 'ttag';
 import React, {useEffect, useState} from "react";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { useAppSelector, } from "../../../store/Redux-toolkit-hook";
@@ -67,8 +68,8 @@ const SaleCard: React.FC<SaleCardProps> = ({ discount, cards, updateData,  handl
 
 
                 <Like discount={discount} cards={cards} updateData={updateData} />
-                {!loading ? !active ? <div className={"notActive"}>Not Active</div> : null  : null}
-                {!loading ? !comingSoon ? <div className={`notActive comingSoon` }>Come in soon {start.toLocaleDateString()}</div> : null  : null}
+                {!loading ? !active ? <div className={"notActive"}>{t`Not Active`}</div> : null  : null}
+                {!loading ? !comingSoon ? <div className={`notActive comingSoon` }>{t`Coming soon`} {start.toLocaleDateString()}</div> : null  : null}
             </div>
         </div>
     );

@@ -322,6 +322,16 @@ msgstr "Немає даних для відображення. Змініть к
 msgid "Vendor is successfully created"
 msgstr "Постачальник заведений у систему"
 
+
+#: src/components/card/SaleCard/SaleCard.tsx:71
+msgid "Not Active"
+msgstr "Не активна"
+
+#: src/components/card/SaleCard/SaleCard.tsx:72
+msgid "Coming soon"
+msgstr "Очікуйте"
+
+
 #: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:307
 #: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:317
 #: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:361

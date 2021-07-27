@@ -169,6 +169,14 @@ msgstr "Няма дадзеных для адлюстравання. Змені�
 msgid "Vendor is successfully created"
 msgstr "Пастаўшчык усталяваны ў сістэме"
 
+#: src/components/card/SaleCard/SaleCard.tsx:71
+msgid "Not Active"
+msgstr "Неактыўная"
+
+#: src/components/card/SaleCard/SaleCard.tsx:72
+msgid "Coming soon"
+msgstr "Пачакайце"
+
 #: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:476
 msgid "Min length 50, max length 200"
 msgstr "мін колькасць сімвалаў 50, макс. 200"
