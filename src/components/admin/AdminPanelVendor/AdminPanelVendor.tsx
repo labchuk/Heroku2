@@ -457,12 +457,12 @@ const AdminPanelVendor = () => {
                         />
                         <div className={styles.addressButtons}>
                             <Button onClick={submitAddress} className={styles.address_submit}>{t`Add location`}</Button>
-                            <span className={styles.helperTetxtSpan}>Should be minimum 1 location: country, city and address</span>
+                            <span className={styles.helperTetxtSpan}>{t`Should be minimum 1 location: country, city and address`}</span>
                         </div>
                         <TextField className={styles.marginBottom}
                             value={data.email}
                             label={t`E-mail`}
-                            helperText='Example: example@gmail.com'
+                            helperText={t`Example: example@gmail.com`}
                             onKeyDown={handleKeyDownForEmail}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, email: e.target.value })}
                             required
@@ -473,7 +473,7 @@ const AdminPanelVendor = () => {
                             multiline
                             rows={5}
                             label={t`Description`}
-                            helperText='Min length 50, max length 200'
+                            helperText={t`Min length 50, max length 200`}
                             variant="outlined"
                             inputProps={{
                                 maxLength: 200,

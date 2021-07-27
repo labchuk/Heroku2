@@ -289,6 +289,39 @@ msgstr "мін. кількість символів 50, макс. 200"
 msgid "Submit"
 msgstr "Застосувати"
 
+
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:459
+msgid "Add location"
+msgstr "Додати"
+
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:460
+msgid "Should be minimum 1 location: country, city and address"
+msgstr "Має бути додана мінімум одна локація (країна, місто, адреса)"
+
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:465
+msgid "Example: example@gmail.com"
+msgstr "Наприклад: example@gmail.com"
+
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:476
+msgid "Min length 50, max length 200"
+msgstr "Кількість символів: мін. 50 макс. 200"
+
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:476
+msgid "Min length 50, max length 200"
+msgstr "Кількість символів: мін. 50 макс. 200"
+
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:497
+msgid "Please, check all fields"
+msgstr "Перевірте чи заповнені усі поля"
+
+#: src/components/common/AlertZeroPromo/AlertZeroPromo.tsx:24
+msgid "No results found for your request. Please try again with other search options!"
+msgstr "Немає даних для відображення. Змініть критерії пошуку!"
+
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:502
+msgid "Vendor is successfully created"
+msgstr "Постачальник заведений у систему"
+
 #: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:307
 #: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:317
 #: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:361

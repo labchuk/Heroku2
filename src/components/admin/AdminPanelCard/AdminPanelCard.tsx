@@ -652,7 +652,7 @@ const AdminPanelCard = ({currentCard}) => {
               multi={true}
               valueArr = {choeseTag}
               handleChange={setChoeseTag}
-              helpText='Please choose category' />
+              helpText={t`Please choose category`} />
             {tagInput ?
               <>
                 <TextField
