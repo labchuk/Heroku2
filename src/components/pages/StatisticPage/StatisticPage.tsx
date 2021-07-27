@@ -8,8 +8,9 @@ import { resetUserState } from "../../../store/userSlise";
 import {resetFilteState} from "../../../store/filtersStore";
 import { resetChipState } from "../../../store/chipReducer";
 import {resetHistory} from "../../../store/historySearch";
-import {useAppDispatch} from "../../../store/Redux-toolkit-hook";
-import {getStatistic} from "../../../http/discountApi"
+import {useAppDispatch, useAppSelector} from "../../../store/Redux-toolkit-hook";
+import {getStatistic} from "../../../http/discountApi";
+import {setStatistic} from "../../../store/statistic"
 
 const StatisticPage = () => {
     const dispatch = useAppDispatch();
@@ -21,8 +22,12 @@ const StatisticPage = () => {
             dispatch(resetChipState());
             dispatch(resetHistory());
         }
-        getStatistic().then(resolve=>console.log(resolve))
+        getStatistic().then(resolve=>{
+            console.log(resolve);
+            dispatch(setStatistic(resolve.data))
+        })
     },[]);
+    const {statistic} = useAppSelector(state => state.statistic)
     return (
         <div className={"statistic"}>
             <ModalSearchBar/>

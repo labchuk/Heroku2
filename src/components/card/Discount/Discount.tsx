@@ -32,9 +32,9 @@ const Discount: React.FC<DiscountProps> = ({ discount, handleClick }) => {
                 <div className="discount__date">
                     Valid until {date.toLocaleDateString()}
                 </div>
-                <div className="discount__place">
+                <p className="discount__place">
                     <><LocationOnIcon style={{color: "red"}}/>{ (location[0])}</>
-                </div>
+                </p>
             </div>
 
     );
