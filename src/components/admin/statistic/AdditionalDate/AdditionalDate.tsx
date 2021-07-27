@@ -4,7 +4,17 @@ import * as React from 'react';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import {ExportInFile} from "../../../common/ExportInFile/ExportInFile";
 import {makeStyles} from "@material-ui/core/styles";
+import {authHost} from "../../../../http";
+import {useState} from "react";
 
+import { resetUserState } from "../../../../store/userSlise";
+import {resetFilteState} from "../../../../store/filtersStore";
+import { resetChipState } from "../../../../store/chipReducer";
+import {resetHistory} from "../../../../store/historySearch";
+import {useAppDispatch, useAppSelector} from "../../../../store/Redux-toolkit-hook";
+import {getStatistic} from "../../../../http/discountApi";
+import {setStatistic} from "../../../../store/statistic"
+import {useEffect} from 'react'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -13,27 +23,17 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-/*const getInfo = async function(page: number, size: number){
-    const result = await authHost.get(`/statistic/used_discount/history);
-    console.log("data is = ", result.data);
-    return result;
-}*/
-
-
-
-
 const columns: GridColDef[] = [
-    { field: 'vendorName', headerName: 'Vendor', width: 150 },
-    { field: 'promoName', headerName: 'Promo', width: 150 },
-    { field: 'category', headerName: 'Category', width: 150 },
-    { field: 'date', headerName: 'Date of Use', width: 170 },
-    { field: 'userName', headerName: 'User', width: 130 },
-    /*{ field: 'department', headerName: 'Department', width: 180 },*/
-    { field: 'location', headerName: 'Location', width: 150 },
-    /*{ field: 'link', headerName: 'Link', width: 130 },*/
+    { field: 'vendorName', headerName: 'Vendor', width: 240 },
+    { field: 'name', headerName: 'Promo', width: 240 },
+    { field: 'categoryName', headerName: 'Category', width: 240 },
+    { field: 'usageDate', headerName: 'Date of Use', width: 240 },
+    { field: 'userEmail', headerName: 'User', width: 240 },
+
+
 ];
 
-
+let rows2:any = [];
 
 const rows = [
     { id: 1, vendorName: 'Faberlic', promoName: 'Chanel #5', category: 'Beauty', date: '12.07.2021', location: 'Kyiv', department: 'HR', userName: 'Jon', link: 'www.faberlic.com' },
@@ -54,17 +54,40 @@ const rows = [
 
 const AdditionalDate = () => {
     const classes = useStyles();
-    
- /*   const [addData, setAddData] = useState(null);
-    getInfo().then((result) => {
-        setAddData(result.data);
-    })*/
+    const [statObj, setStatObj] = useState([]);
+
+    const dispatch = useAppDispatch();
+    useEffect(()=>{
+        const token = localStorage.getItem("token");
+        if(!token){
+            dispatch(resetUserState());
+            dispatch(resetFilteState());
+            dispatch(resetChipState());
+            dispatch(resetHistory());
+        }
+        getStatistic().then(resolve=>{
+            console.log('resolve.data.content =', resolve.data.content);
+            setStatObj(resolve.data.content);
+            /*console.log('rows2 = ', rows2)*/
+            dispatch(setStatistic(resolve.data.content))
+            rows2 = resolve.data.content
+            console.log('rows2 = ', rows2)
+        })
+    },[]);
+    const {statistic} = useAppSelector(state => state.statistic)
+    console.log('statistic =', statObj)
+
+
+
+
+
+
 
     return (
         <div>
-            <ExportInFile csvData={rows} fileName={'statistic'}/>
+            <ExportInFile csvData={statObj} fileName={'statistic'}/>
             <div className={classes.root} style={{ height: 420, width: '100%', boxShadow: '1px 1px 1px 1px #c5d0d6' }}>
-                <DataGrid rows={rows} columns={columns} pageSize={10} rowHeight={30} />
+                <DataGrid rows={statObj} columns={columns} pageSize={10} rowHeight={30} />
             </div>
         </div>
     );
