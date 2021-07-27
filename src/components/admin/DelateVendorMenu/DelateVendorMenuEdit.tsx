@@ -13,11 +13,12 @@ import {
     postVendorLocation, restVendorId,
     uploadImage
 } from "../../../http/filtersApi";
-import {addVendor, addVendorLocation} from "../../../store/filtersStore";
-import {useAppDispatch} from "../../../store/Redux-toolkit-hook";
+import {addDiscounds, addVendor, addVendorLocation} from "../../../store/filtersStore";
+import {useAppDispatch, useAppSelector} from "../../../store/Redux-toolkit-hook";
 import {locale} from "../../common/LangSwitcher/i18nInit";
 import ModalWithConfirm from "../../common/ModalWithConfirm/ModalWithConfirm";
 import {geolocation} from "../../../helpers/functionHelpers";
+import {getDiscounts} from "../../../http/discountApi";
 
 
 
@@ -32,6 +33,7 @@ const DeleteVendorMenuEdit = ({styles, value, success, error, locationUpdate, de
         open: boolean;
     }
     const dispatch = useAppDispatch();
+    const {searchObject} = useAppSelector(state=>state.filters)
     const [edit, setEdit] = React.useState(false)
     const [state, setState] = React.useState(false);
     const [uploadFileName, setUploadFileName] = React.useState<string>(value.image);
@@ -72,7 +74,8 @@ const DeleteVendorMenuEdit = ({styles, value, success, error, locationUpdate, de
         catch (e){
             error(true)
         }
-        getVendorAll().then(resolve=> {dispatch(addVendor(resolve));console.log(resolve)})
+        await getVendorAll().then(resolve=> {dispatch(addVendor(resolve));console.log(resolve)})
+        await getDiscounts(searchObject).then(resolve => dispatch(addDiscounds(resolve.data)));
     }
 
     const handleDeleteChip = (chipToDelete: ChipData) => async () => {
@@ -127,7 +130,9 @@ const DeleteVendorMenuEdit = ({styles, value, success, error, locationUpdate, de
                 })
             }
         }
-        getVendorAll().then(resolve=> {dispatch(addVendor(resolve));console.log(resolve)})
+       await getVendorAll().then(resolve=> {dispatch(addVendor(resolve));console.log(resolve)})
+        await getDiscounts(searchObject).then(resolve => dispatch(addDiscounds(resolve.data)));
+
     }
 
     const cancelEdit = () => {
