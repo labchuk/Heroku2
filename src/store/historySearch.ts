@@ -1,12 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from './index';
 
-interface historyFilters{
-    page: number;
-    size: number;
-    startDate: string;
-    endDate: string;
-}
 
 
 interface Itime{
@@ -15,43 +9,41 @@ interface Itime{
 }
 
 
-interface Iobj{
+interface historyFilters{
+    page: number,
+    size: number,
+    startDate: string,
+    endDate: string,
     time: Itime,
-    searchObjectHistory : historyFilters
 }
 
-
-const obj: Iobj ={
+const obj: historyFilters ={
     time: {
         To: "",
         From: "",
-    },
-    searchObjectHistory : {
-        page: 0,
-        size: 15,
-        startDate: "",
-        endDate: "",
-    },
+    },  
+    page: 0,
+    size: 15,
+    startDate: "",
+    endDate: "",
 }
 
 
 const reduserHistory  = createSlice({
-    name: "searchObjectHistory",
+    name: "name",
     initialState: obj,
     reducers: {
         resetHistory: state =>  obj,
         setStartDataHistory(state, actions: PayloadAction<string>) {
-            state.searchObjectHistory.startDate = actions.payload;
+            state.startDate = actions.payload;
         },
         setEndDataHistory(state, actions: PayloadAction<string>) {
-            state.searchObjectHistory.endDate = actions.payload;
+            state.endDate = actions.payload;
         },
         setPageHistory(state, actions: PayloadAction<number>) {
-            console.log(state.searchObjectHistory)
-            state.searchObjectHistory.page = actions.payload;
+            state.page = actions.payload;
         },
         setTimeDatePicker(state, actions: PayloadAction<any>) {
-            console.log(state.time)
             state.time = actions.payload;
         },
         

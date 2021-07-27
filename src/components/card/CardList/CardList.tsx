@@ -33,9 +33,9 @@ const useStyles = makeStyles((theme) =>
 const CardList: React.FC = (props) => {
     const dispatch = useAppDispatch();
     const {searchObject, discounds, numberOfElements, discountsHistory, numberOfElementsHistory} = useAppSelector(state=>state.filters);
-    const {searchObjectHistory} = useAppSelector(state => state.historyObj);
-    const a = useAppSelector(state => state.historyObj)
-    console.log(a)
+    const historyObj = useAppSelector(state => state.historyObj);
+    const {page : p, size, startDate, endDate} = historyObj;
+    const searchObjectHistory = {page : p, size : size, startDate : startDate, endDate : endDate};
     const {pathname} = useLocation();
     const NUMBER_CARD = 15;
 
