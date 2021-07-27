@@ -107,6 +107,50 @@ msgstr "Статыстыка"
 msgid "Sort by"
 msgstr "Сартаваць"
 
+#: src\components\common\Sort\Sort.tsx:51
+msgid "Sorting not selected"
+msgstr "Сартаванне не выбрана"
+
+#: src\components\common\Sort\Sort.tsx:54
+msgid "New Discounts"
+msgstr "Новы"
+
+#: src/components/common/Subscribe/Subscribe.tsx:298
+msgid "My Subscription"
+msgstr "Рассылка прома"
+
+#: src/components/common/Subscribe/Subscribe.tsx:242
+msgid "Your Subscription"
+msgstr "Мая прома-рассылка"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:647
+msgid "+ Add or delete category"
+msgstr "+ Дадайце або выдаліце ​​катэгорыю"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:681
+msgid "+ Add or delete tag"
+msgstr "+ Дадайце або выдаліце ​​падкатэгорыю"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:682
+msgid "Vendor Name"
+msgstr "Пастаўшчык"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:700
+msgid "Should be minimum 1 location: country, city and address. If location is online - please choose 'Online'"
+msgstr "Трэба выбраць мінімум 1 месца: краіна, горад, адрас. У выпадку Інтэрнэт-паслугі ўкажыце `у Інтэрнэце`"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:728
+msgid "Min length 50, max length 2000"
+msgstr "мін колькасць сімвалаў 50, макс. 200 "
+
+
+
+
+
+#: src/components/common/Subscribe/Subscribe.tsx:245
+msgid "Categories"
+msgstr "Катэгорыі"
+
 #: src\components\common\Sort\Sort.tsx:44
 msgid "Ending soon"
 msgstr "Хутка скончацца"

@@ -5,7 +5,6 @@ import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import './ExportInFile.scss'
-import {authHost} from "../../../http";
 import { t } from 'ttag';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -23,24 +22,6 @@ interface IExportCSV {
 }
 
 
-const getInfo = async function(){
-    const result = await authHost.get(`/statistic/used_discount/history/file`);
-    /*console.log("result is = ", result.data);*/
-    return result;
-}
-
-const downloadEmployeeData = () => {
-    console.log('Hello')
-    getInfo().then(result => {
-            console.log('response = ', result)
-            const link = document.createElement('a')
-            link.href = window.URL.srcObject = result
-            link.download = 'stat'
-            link.click()
-            });
-};
-
-
 export const ExportInFile: React.FunctionComponent<IExportCSV> = ({csvData, fileName}) => {
     const classes = useStyles();
     const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
@@ -53,19 +34,15 @@ export const ExportInFile: React.FunctionComponent<IExportCSV> = ({csvData, file
         FileSaver.saveAs(data, fileName + fileExtension);
 
 
-      /*  }*/
     };
     return (
-
         <Button
             variant="contained"
             color="secondary"
             size="small"
             className={classes.button}
             startIcon={<SaveIcon />}
-            /*onClick={(e) => exportToCSV(csvData,fileName)}*/
-            onClick={(e) => downloadEmployeeData()}
-
+            onClick={(e) => exportToCSV(csvData,fileName)}
         >
             {t`Export In File`}
         </Button>

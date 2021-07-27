@@ -4,8 +4,7 @@ import * as React from 'react';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import {ExportInFile} from "../../../common/ExportInFile/ExportInFile";
 import {makeStyles} from "@material-ui/core/styles";
-import {authHost} from "../../../../http";
-import {useState} from 'react';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -15,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /*const getInfo = async function(page: number, size: number){
-    const result = await authHost.get(`/statistic/used_discount/history?page=1?size=10`);
+    const result = await authHost.get(`/statistic/used_discount/history);
     console.log("data is = ", result.data);
     return result;
 }*/
@@ -29,9 +28,9 @@ const columns: GridColDef[] = [
     { field: 'category', headerName: 'Category', width: 150 },
     { field: 'date', headerName: 'Date of Use', width: 170 },
     { field: 'userName', headerName: 'User', width: 130 },
-    { field: 'department', headerName: 'Department', width: 180 },
+    /*{ field: 'department', headerName: 'Department', width: 180 },*/
     { field: 'location', headerName: 'Location', width: 150 },
-    { field: 'link', headerName: 'Link', width: 130 },
+    /*{ field: 'link', headerName: 'Link', width: 130 },*/
 ];
 
 
