@@ -76,7 +76,7 @@ const FormLogin: React.FC = () => {
     }
 
     const showError = () => {
-        if (emailErrorTextRef) emailErrorTextRef.current.style.visibility="visible";
+        if (emailErrorTextRef.current) emailErrorTextRef.current.style.visibility="visible";
     }
 
     const hideError =() => {

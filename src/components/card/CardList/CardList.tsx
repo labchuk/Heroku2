@@ -14,11 +14,10 @@ import {MAIN_ROUTE, HISTORY_ROUTE} from "../../../utils/consts"
 import {useLocation} from "react-router-dom";
 import Skeleton from '@material-ui/lab/Skeleton';
 import {Spinner} from "../../index";
-import {addDiscounds, setSearchObjectPage} from "../../../store/filtersStore";
-import {getDiscounts} from "../../../http/discountApi";
+import {addDiscounds, setSearchObjectPage,  setDiscountsHistory} from "../../../store/filtersStore";
+import {getDiscounts, getDiscountsHistory, } from "../../../http/discountApi";
 import AlertZeroPromo from "../../common/AlertZeroPromo/AlertZeroPromo"
-
-
+import {setPageHistory} from "../../../store/historySearch"
 const useStyles = makeStyles((theme) =>
     createStyles({
         root: {
@@ -33,29 +32,37 @@ const useStyles = makeStyles((theme) =>
 
 const CardList: React.FC = (props) => {
     const dispatch = useAppDispatch();
-    const {searchObject, discounds, numberOfElements} = useAppSelector(state=>state.filters);
+    const {searchObject, discounds, numberOfElements, discountsHistory, numberOfElementsHistory} = useAppSelector(state=>state.filters);
+    const historyObj = useAppSelector(state=>state.historyObj);
+    
     const {pathname} = useLocation();
-    const NUMBER_CARD = 15
+    const NUMBER_CARD = 15;
 
-    const[data, setData] =useState(discounds)
+    const[data, setData] =useState(pathname === HISTORY_ROUTE ? discountsHistory : discounds)
     useEffect(()=>{
-        setData(discounds)
-    },[discounds])
+        pathname === HISTORY_ROUTE ? setData(discountsHistory) : setData(discounds)
+    },[discounds, discountsHistory])
     
     const classes = useStyles();
-    const [page, setPage] = React.useState(1);
+    const [page, setPage] = React.useState(pathname === HISTORY_ROUTE ? historyObj?.page +1 : searchObject?.page + 1);
+    setTimeout(() => setPage(pathname === HISTORY_ROUTE ? historyObj?.page +1 : searchObject?.page + 1),50)
     const loadingDiscount = async()=>{
-            const {data} = await getDiscounts(searchObject);
-            dispatch(addDiscounds(data.content));
+            if(pathname === HISTORY_ROUTE){
+                const resolve = await getDiscountsHistory(historyObj);
+                resolve?.data && dispatch(setDiscountsHistory(resolve.data));
+            }else{
+                const resolve = await getDiscounts(searchObject);
+                resolve?.data && dispatch(addDiscounds(resolve.data));
+            } 
         };
 
     useEffect(()=>{
         loadingDiscount()
         setPage(searchObject.page+1)
-    },[searchObject?.page])
+    },[searchObject?.page, historyObj?.page])
 
     const handleChange = async (event: React.ChangeEvent<unknown>, value: number) => {
-        dispatch(setSearchObjectPage(value-1));
+        pathname === HISTORY_ROUTE ? dispatch(setPageHistory(value-1)) : dispatch(setSearchObjectPage(value-1));
     };
     const [card, setCard] = React.useState(0);
 
@@ -114,21 +121,20 @@ const CardList: React.FC = (props) => {
     return (
             <div className="card-list">
 
-               {data.length ? <ExtendedCard discount={data[card]} /> : null}
+               {data?.length ? <ExtendedCard discount={data[card]} /> : null}
 
                <div className="main-content">
                     <div className={"sort-admin"}>
                         {pathname===MAIN_ROUTE?<Sort /> : <ModalSearchBar/>}
-                        {isAdmin &&
-                        <AdminBtn />}
+                        {isAdmin && <AdminBtn />}
                     </div>
                     <div className={"chips"}>
                         {!(pathname === HISTORY_ROUTE)&& <ChipsArray />}
                     </div>
-                    {data.length ? null : <AlertZeroPromo/>}
+                    {data?.length ? null : <AlertZeroPromo/>}
                      <Grid container spacing={3} justify="center" >
                         {
-                            data.map((item, index) => {
+                            data?.map((item, index) => {
                                 return (<Grid key={index} item >
                                     <SaleCard discount={item}
                                               cards={data}
@@ -141,7 +147,7 @@ const CardList: React.FC = (props) => {
                     <div className="main-content__paginator">
 
                             <div className={classes.root}>
-                                <Pagination count={Math.ceil(numberOfElements / NUMBER_CARD)} variant="outlined"
+                                <Pagination count={Math.ceil(pathname === HISTORY_ROUTE ? numberOfElementsHistory / NUMBER_CARD: numberOfElements / NUMBER_CARD)} variant="outlined"
                                             page={page} onChange={handleChange} />
                             </div>
 

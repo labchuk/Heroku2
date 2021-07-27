@@ -9,7 +9,10 @@ import { t } from 'ttag';
 import {MAIN_ROUTE} from "../../../../utils/consts";
 import React, {useState, useEffect} from "react";
 import { ThemeProvider } from "@material-ui/styles";
-
+import {useAppSelector, useAppDispatch} from "../../../../store/Redux-toolkit-hook";
+import {getDiscounts} from "../../../../http/discountApi";
+import {setDiscountsHistory} from "../../../../store/filtersStore";
+import {getDiscountsHistory} from "../../../../http/discountApi"
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -20,6 +23,7 @@ const theme = createMuiTheme({
 
 
 const ContainerDataPiker = ({setTime, time}:{setTime:any, time:any}) => {
+    const dispatch = useAppDispatch();
     const {pathname} = useLocation();
     const [selectedDate, setSelectedDate] = useState(time? time : {
         From: new Date(),
@@ -30,7 +34,9 @@ const ContainerDataPiker = ({setTime, time}:{setTime:any, time:any}) => {
         selectedDate.From - selectedDate.To > 0 ? setHelperText("start date must be earlier then end date") : setHelperText("")
     }, [selectedDate])
     const handleClick = () =>{
-        setSelectedDate({From: new Date(),To : new Date(),})
+        getDiscountsHistory({page: 0, size : 15}).then(resolve=> dispatch(setDiscountsHistory(resolve.data))).catch(f=> console.log(f));
+        setSelectedDate({From: undefined,To : undefined,})
+        setTime({From: undefined,To : undefined,})
     }
     const setDate = (name:string, date:any) => {
         setSelectedDate({...selectedDate, [name]: date });
@@ -44,7 +50,7 @@ const ContainerDataPiker = ({setTime, time}:{setTime:any, time:any}) => {
                                 <DatePiker label={t`From`}  setDate={setDate} selectedDate={selectedDate.From} />
                                 <DatePiker label={t`To`} setDate={setDate} selectedDate={selectedDate.To} helperText={helperText}/>
                 </MuiPickersUtilsProvider>
-                {!(pathname === MAIN_ROUTE) && <ThemeProvider theme={theme}>
+                {pathname !== MAIN_ROUTE && <ThemeProvider theme={theme}>
                     <Button  color="primary" onClick={handleClick} >{t`Clean date`}</Button>
                 </ThemeProvider>}
             </div>

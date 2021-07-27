@@ -7,8 +7,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { useEffect } from "react";
 import { t } from 'ttag';
 import {useAppDispatch, useAppSelector} from "../../../store/Redux-toolkit-hook";
-import {addDiscounds, setSortingType} from "../../../store/filtersStore"
 import {firsLetterToUpperCase} from "../../../helpers/functionHelpers"
+import {setSortingType} from "../../../store/filtersStore"
 
 const useStyles = makeStyles((theme) => ({
     sort: {
@@ -31,7 +31,7 @@ const Sort = () => {
 
     useEffect(() => {
         let string = currentSort?.toLocaleUpperCase().split(" ").join("_");
-        if (currentSort === "Sorting not selected") string = "";
+        if (currentSort === "Sorting not selected"){string = ""};
         dispatch(setSortingType(string));
     }, [currentSort]);
 

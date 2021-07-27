@@ -8,6 +8,7 @@ import {
     ContainerDataPiker,
     Submitbutton
 } from "../../index";
+import Button from '@material-ui/core/Button';
 import {firsLetterToUpperCase} from "../../../helpers/functionHelpers";
 import {useLocation} from "react-router-dom";
 import {STATISTIC_ROUTE, HISTORY_ROUTE, MAIN_ROUTE} from "../../../utils/consts";
@@ -15,8 +16,11 @@ import {useAppSelector, useAppDispatch} from "../../../store/Redux-toolkit-hook"
 import { makeStyles } from "@material-ui/core/styles";
 import { t } from 'ttag';
 import {getSubCategoryAll} from "../../../http/filtersApi";
-import {getDiscounts} from "../../../http/discountApi";
-import {setSearchObject, addDiscounds,setNumberOfElements, addSubCategory} from "../../../store/filtersStore"
+import {getDiscounts, getDiscountsHistory} from "../../../http/discountApi";
+import {timeString} from "../../../helpers/functionHelpers"
+import {setSearchObject, addDiscounds, addSubCategory, setFavourite,  setDiscountsHistory} from "../../../store/filtersStore"
+import {setEndDataHistory} from "./../../../store/historySearch"
+import {setStartDataHistory} from "../../../store/historySearch"
 const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: theme.palette.secondary.main,
@@ -32,7 +36,8 @@ const SearchBar =()=>{
     }
     const dispatch = useAppDispatch();
     const arrChips = useAppSelector(state => state.chips);
-    const {category, vendorLocation, vendor,  searchObject , subCategory, discounds} = useAppSelector(state=>state.filters);
+    const {category, vendorLocation, vendor,  searchObject , subCategory, discounds, } = useAppSelector(state=>state.filters);
+    const historyObj = useAppSelector(state => state.historyObj)
     const arrSubCatygory = getArrName(subCategory)
     const arrCountry = vendorLocation?.map(item=>firsLetterToUpperCase(item.country))
     const uniqueArr = (arr:string[]) => Array.from(new Set(arr));
@@ -90,8 +95,7 @@ const SearchBar =()=>{
 
     const handleClick = async(obj:any) =>  {
         const {data} = await getDiscounts(obj);
-        dispatch(setNumberOfElements(data.totalElements))
-        dispatch(addDiscounds(data.content))
+        dispatch(addDiscounds(data))
      };
     const [ableSubCategory, setAbleSubCategory] = useState<String>("");
     const [ableCity, setAbleCyti] = useState<String>("");
@@ -101,35 +105,39 @@ const SearchBar =()=>{
     },[ableCity])
     const {pathname} = useLocation();
     const classes = useStyles()
-
-    const [stateControlLabel, setStateControlLabel] = useState({
-        "Favorite": false,
-        "Active": false,
-        "Not Activ": false,
-        "For all period": false
-    });
-    const setStateControlLableMy = (name: string, state:boolean) =>{
-        setStateControlLabel({...stateControlLabel, [name]: state})
+    const favourite = searchObject.favourite
+    const [stateControlLable, setStateControlLble] = useState<Boolean>(favourite);
+    
+    const setfavourite = (e) => {
+         setStateControlLble(e);
+         dispatch(setFavourite())
     }
     
-    
     const className = pathname === STATISTIC_ROUTE || pathname === HISTORY_ROUTE ? "container-searchbar modal-searchBar": "container-searchbar";
+    const [time, setTime] = useState({To: undefined, From: undefined});
+
+    useEffect(() => {
+        const end =timeString(time.To)
+        const start =timeString(time.From)
+        time.To && dispatch(setEndDataHistory(end.slice(0,16)+":03.00-00:00"))
+        time.From && dispatch(setStartDataHistory(start.slice(0,16)+":03.00-00:00"))
+    }, [time])
+
+
+     
+
     return (
         <div className={classes.root}>
         <div className={className} >
-
-            <SearchForm handleClick={handleClick}/>
-
-            {pathname !== STATISTIC_ROUTE && <div className="containerFavorite">
-                <ControlLabel lable={t`Favorite`} setStateControlLableMy={setStateControlLableMy}/>
-                {pathname===HISTORY_ROUTE &&  <>
-                <ControlLabel lable={t`Active`} setStateControlLableMy={setStateControlLableMy}/>
-                <ControlLabel lable={t`Not Active`} setStateControlLableMy={setStateControlLableMy} />
-                <ControlLabel lable={t`For all period`} setStateControlLableMy={setStateControlLableMy}/>
-                </>}
-            </div>}
+            {pathname === MAIN_ROUTE && 
+            <>
+                <SearchForm handleClick={handleClick}/>
+                <div className="containerFavorite">
+                    <ControlLabel lable={t`Favorite`} setStateControlLable={setfavourite} stateControlLable={stateControlLable} />
+                </div>
+            </>
+            }
             {pathname !== HISTORY_ROUTE && <>
-
                 <MySelect data={arrCountry? uniqueArr(arrCountry):[]} isCategory={false} clName={"location"} id={'1'} name={`Country`} localName={t`Country`} setAble={setAbleCyti} disabled={false} />
                 <MySelect data={uniqueArr(choiceCity)} clName={"location"}  isCategory={true} name={`City`} localName={t`City`} id={'1'}  disabled={!ableCity} helperText={!ableCity? t`Please choose country`: ""}/>
                 <SelectMultiple data={arrVendorName? arrVendorName: []} isCategory={false} clName={"location"}  name={`Vendor`} localName={t`Vendor`} disabled={false} />
@@ -139,7 +147,10 @@ const SearchBar =()=>{
 
 
             </>}
-            {pathname !== MAIN_ROUTE  &&  <ContainerDataPiker />}
+            {!(pathname === MAIN_ROUTE)  &&  <>
+            <ContainerDataPiker setTime={setTime}/>
+            </>
+            }
         </div>
         </div>
 
