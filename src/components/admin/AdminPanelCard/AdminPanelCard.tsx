@@ -174,7 +174,7 @@ const AdminPanelCard = ({currentCard}) => {
     return data.message
   }
 
-  const [categoryState, setcategoryState] = React.useState([...categoryArr]);
+ const [categoryState, setcategoryState] = React.useState([...categoryArr]);
   const getVendorId = () => (vendor.filter(item => item.name === choeseVendor).map(item => item.id))[0];
   const getCategoryId = (arr) => {
     if(Array.isArray(arr)){
@@ -211,6 +211,7 @@ const AdminPanelCard = ({currentCard}) => {
   useEffect(() => {
     const categoryArr = category?.filter((item: any) => item.deleted === false).map(item => firsLetterToUpperCase(item.name));
     setcategoryState([...categoryArr])
+    console.log(categoryArr)
   }, [category, category.length])
 
   const vendors = vendor?.map(item => firsLetterToUpperCase(item.name));
@@ -235,7 +236,9 @@ const AdminPanelCard = ({currentCard}) => {
       return
     }
     const category  = firsLetterToUpperCase(newCategory)
+    console.log(category)
     const { status, data } = await postCategory({ name: category})
+    console.log(data)
     if (status >= 200 && status <= 299) {
       dispatch(addNewCategory(data))
     }
@@ -250,6 +253,7 @@ const AdminPanelCard = ({currentCard}) => {
   }
 
   const submitTag = async () => {
+    console.log(category)
     setTagInput(false);
     if(!newTag){
       return

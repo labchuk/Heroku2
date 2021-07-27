@@ -3,14 +3,27 @@ import { CardList} from "../../index";
 import "./HistoryPage.scss";
 import {useAppDispatch, useAppSelector} from "../../../store/Redux-toolkit-hook";
 import { setDiscountsHistory} from "../../../store/filtersStore";
-import {getDiscountsHistory} from "../../../http/discountApi"
+import {getDiscountsHistory} from "../../../http/discountApi";
+import { resetUserState } from "../../../store/userSlise";
+import {resetFilteState} from "../../../store/filtersStore";
+import { resetChipState } from "../../../store/chipReducer";
+import {resetHistory} from "../../../store/historySearch";
 
 const HistoryPage = () => {
+    
      const dispatch = useAppDispatch();
-    const historyObj = useAppSelector(state => state.historyObj)
     useEffect(()=>{
-        historyObj && getDiscountsHistory(historyObj).then(resolve=> dispatch(setDiscountsHistory(resolve.data))).catch(f=> console.log(f)); 
-    },[historyObj]);
+        const token = localStorage.getItem("token");
+        if(!token){
+            dispatch(resetUserState());
+            dispatch(resetFilteState());
+            dispatch(resetChipState());
+            dispatch(resetHistory());
+        }
+        getDiscountsHistory({page:0,size:15}).then(resolve=> dispatch(setDiscountsHistory(resolve.data))).catch(f=> console.log(f)); 
+    },[]);
+    
+    
     return (
         <div className="history"> 
            
