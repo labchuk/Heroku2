@@ -242,7 +242,7 @@ const [state, setState] = useState(false)
           <span className={styles.modal_label}>{t`Your Subscription`}</span>
           
           <AdminSelect
-                name={t`Categorys`}
+                name={t`Categories`}
                 data={categoryArr}
                 multi={true}
                 valueArr = {choeseCategory}

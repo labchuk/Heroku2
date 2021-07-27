@@ -13,18 +13,27 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
+/*const getInfo = async function(page: number, size: number){
+    const result = await authHost.get(`/statistic/used_discount/history);
+    console.log("data is = ", result.data);
+    return result;
+}*/
+
+
+
+
 const columns: GridColDef[] = [
     { field: 'vendorName', headerName: 'Vendor', width: 150 },
     { field: 'promoName', headerName: 'Promo', width: 150 },
     { field: 'category', headerName: 'Category', width: 150 },
     { field: 'date', headerName: 'Date of Use', width: 170 },
     { field: 'userName', headerName: 'User', width: 130 },
-    { field: 'department', headerName: 'Department', width: 180 },
+    /*{ field: 'department', headerName: 'Department', width: 180 },*/
     { field: 'location', headerName: 'Location', width: 150 },
-    { field: 'link', headerName: 'Link', width: 130 },
-
-
+    /*{ field: 'link', headerName: 'Link', width: 130 },*/
 ];
+
+
 
 const rows = [
     { id: 1, vendorName: 'Faberlic', promoName: 'Chanel #5', category: 'Beauty', date: '12.07.2021', location: 'Kyiv', department: 'HR', userName: 'Jon', link: 'www.faberlic.com' },
@@ -44,7 +53,13 @@ const rows = [
 
 
 const AdditionalDate = () => {
-    const classes = useStyles()
+    const classes = useStyles();
+    
+ /*   const [addData, setAddData] = useState(null);
+    getInfo().then((result) => {
+        setAddData(result.data);
+    })*/
+
     return (
         <div>
             <ExportInFile csvData={rows} fileName={'statistic'}/>

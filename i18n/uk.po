@@ -117,6 +117,30 @@ msgstr "Скоро закінчуються"
 msgid "Popular"
 msgstr "Популярні"
 
+#: src/components/common/Subscribe/Subscribe.tsx:298
+msgid "My Subscription"
+msgstr "Мої підписки"
+
+#: src/components/common/Subscribe/Subscribe.tsx:242
+msgid "Your Subscription"
+msgstr "Ваші підписки"
+
+#: src/components/common/Subscribe/Subscribe.tsx:245
+msgid "Categories"
+msgstr "Категорії"
+
+#: src\components\common\Sort\Sort.tsx:51
+msgid "Sorting not selected"
+msgstr "Скинути сортування"
+
+#: src\components\common\Sort\Sort.tsx:54
+msgid "New Discounts"
+msgstr "Останні додані"
+
+#: src\components\common\Sort\Sort.tsx:51
+msgid "Sorting not selected"
+msgstr "Скинути сортування"
+
 #: src\components\common\Sort\Sort.tsx:46
 msgid "New"
 msgstr "Нові"
@@ -230,6 +254,27 @@ msgstr "Електронна пошта"
 msgid "Description"
 msgstr "Опис"
 
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:647
+msgid "+ Add or delete category"
+msgstr "+ Додати або видалити категорію"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:681
+msgid "+ Add or delete tag"
+msgstr "+ Додати або видалити підкатегорію"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:682
+msgid "Vendor Name"
+msgstr "Постачальник"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:700
+msgid "Should be minimum 1 location: country, city and address. If location is online - please choose 'Online'"
+msgstr "Має бути обрана мінімум 1 локаці: країна, місто, адреса. В разі онлайн сервісу - вкажіть 'У мережі'"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:728
+msgid "Min length 50, max length 2000"
+msgstr "мін. кількість символів 50, макс. 200"
+
 #: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:306
 #: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:316
 #: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:360
@@ -243,6 +288,49 @@ msgstr "Опис"
 #: src\components\admin\DelateVendorMenu\DelateVendorMenu.tsx:427
 msgid "Submit"
 msgstr "Застосувати"
+
+
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:459
+msgid "Add location"
+msgstr "Додати"
+
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:460
+msgid "Should be minimum 1 location: country, city and address"
+msgstr "Має бути додана мінімум одна локація (країна, місто, адреса)"
+
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:465
+msgid "Example: example@gmail.com"
+msgstr "Наприклад: example@gmail.com"
+
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:476
+msgid "Min length 50, max length 200"
+msgstr "Кількість символів: мін. 50 макс. 200"
+
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:476
+msgid "Min length 50, max length 200"
+msgstr "Кількість символів: мін. 50 макс. 200"
+
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:497
+msgid "Please, check all fields"
+msgstr "Перевірте чи заповнені усі поля"
+
+#: src/components/common/AlertZeroPromo/AlertZeroPromo.tsx:24
+msgid "No results found for your request. Please try again with other search options!"
+msgstr "Немає даних для відображення. Змініть критерії пошуку!"
+
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:502
+msgid "Vendor is successfully created"
+msgstr "Постачальник заведений у систему"
+
+
+#: src/components/card/SaleCard/SaleCard.tsx:71
+msgid "Not Active"
+msgstr "Не активна"
+
+#: src/components/card/SaleCard/SaleCard.tsx:72
+msgid "Coming soon"
+msgstr "Очікуйте"
+
 
 #: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:307
 #: src\components\admin\AdminEditCardPanel\AdminEditCardPanel.tsx:317

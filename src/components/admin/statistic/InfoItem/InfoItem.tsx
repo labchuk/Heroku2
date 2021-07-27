@@ -2,8 +2,8 @@ import React from 'react';
 import "./InfoItem.scss";
 
 interface InfoItemProps {
-    title: string;
-    value: string;
+    title: any
+    value: any
 
 }
 

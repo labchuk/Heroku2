@@ -648,7 +648,7 @@ const AdminPanelCard = ({currentCard}) => {
                   <Button onClick={cancelCategory} className={styles.address_cancel}>{t`Cancel`}</Button>
                 </div>
               </>
-              : <span className={styles.address__span} onClick={addCategory}>{t`+ Add or delaete category`}</span>}
+              : <span className={styles.address__span} onClick={addCategory}>{t`+ Add or delete category`}</span>}
             <AdminSelect
               name={t`Tags`}
               data={tags}
@@ -656,7 +656,7 @@ const AdminPanelCard = ({currentCard}) => {
               multi={true}
               valueArr = {choeseTag}
               handleChange={setChoeseTag}
-              helpText='Please choose category' />
+              helpText={t`Please choose category`} />
             {tagInput ?
               <>
                 <TextField
@@ -701,8 +701,7 @@ const AdminPanelCard = ({currentCard}) => {
                 })}
                 
                   <span className={styles.helperTetxtSpan}>
-                    Should be minimum 1 location: country, city and address. <br />
-                    If location is online - please choose 'Online'
+                    {t`Should be minimum 1 location: country, city and address. If location is online - please choose 'Online'`}
                   </span>
                 
               </>
@@ -729,7 +728,7 @@ const AdminPanelCard = ({currentCard}) => {
               label={t`Description`}
               onKeyDown={handleKeyDownForDescription}
               onChange={(e: any) => setDescription(e.target.value)}
-              helperText='Min length 50, max length 2000'
+              helperText={t`Min length 50, max length 2000`}
               variant="outlined"
               value={description}
               inputProps={{

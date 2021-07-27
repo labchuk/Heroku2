@@ -1,6 +1,7 @@
 import React from 'react';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+import { t } from 'ttag';
 
 function Alert(props: AlertProps) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -20,7 +21,7 @@ export default function AlertZeroPromo() {
 
     return (
         <div className={classes.root}>
-            <Alert severity="info">No results found for your request. Please try again with other search options!</Alert>
+            <Alert severity="info">{t`No results found for your request. Please try again with other search options!`}</Alert>
         </div>
     );
 }

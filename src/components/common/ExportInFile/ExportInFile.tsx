@@ -6,6 +6,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import './ExportInFile.scss'
 import { t } from 'ttag';
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         button: {
@@ -20,6 +21,7 @@ interface IExportCSV {
     fileName: string;
 }
 
+
 export const ExportInFile: React.FunctionComponent<IExportCSV> = ({csvData, fileName}) => {
     const classes = useStyles();
     const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
@@ -30,9 +32,10 @@ export const ExportInFile: React.FunctionComponent<IExportCSV> = ({csvData, file
         const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const data = new Blob([excelBuffer], {type: fileType});
         FileSaver.saveAs(data, fileName + fileExtension);
+
+
     };
     return (
-
         <Button
             variant="contained"
             color="secondary"
@@ -43,7 +46,6 @@ export const ExportInFile: React.FunctionComponent<IExportCSV> = ({csvData, file
         >
             {t`Export In File`}
         </Button>
-
 
     );
 };

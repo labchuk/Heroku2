@@ -107,6 +107,85 @@ msgstr "Статыстыка"
 msgid "Sort by"
 msgstr "Сартаваць"
 
+#: src\components\common\Sort\Sort.tsx:51
+msgid "Sorting not selected"
+msgstr "Сартаванне не выбрана"
+
+#: src\components\common\Sort\Sort.tsx:54
+msgid "New Discounts"
+msgstr "Новы"
+
+#: src/components/common/Subscribe/Subscribe.tsx:298
+msgid "My Subscription"
+msgstr "Рассылка прома"
+
+#: src/components/common/Subscribe/Subscribe.tsx:242
+msgid "Your Subscription"
+msgstr "Мая прома-рассылка"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:647
+msgid "+ Add or delete category"
+msgstr "+ Дадайце або выдаліце ​​катэгорыю"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:681
+msgid "+ Add or delete tag"
+msgstr "+ Дадайце або выдаліце ​​падкатэгорыю"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:682
+msgid "Vendor Name"
+msgstr "Пастаўшчык"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:700
+msgid "Should be minimum 1 location: country, city and address. If location is online - please choose 'Online'"
+msgstr "Трэба выбраць мінімум 1 месца: краіна, горад, адрас. У выпадку Інтэрнэт-паслугі ўкажыце `у Інтэрнэце`"
+
+#: src\components\admin\AdminPanelCard\AdminPanelCard.tsx:728
+msgid "Min length 50, max length 2000"
+msgstr "мін колькасць сімвалаў 50, макс. 200 "
+
+
+
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:459
+msgid "Add location"
+msgstr "Дадаць"
+
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:460
+msgid "Should be minimum 1 location: country, city and address"
+msgstr "Трэба дадаць па меншай меры адно месца (краіна, горад, адрас) "
+
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:465
+msgid "Example: example@gmail.com"
+msgstr "Прыклад: example@gmail.com"
+
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:497
+msgid "Please, check all fields"
+msgstr "Праверце, ці запоўнены ўсе палі"
+
+#: src/components/common/AlertZeroPromo/AlertZeroPromo.tsx:24
+msgid "No results found for your request. Please try again with other search options!"
+msgstr "Няма дадзеных для адлюстравання. Зменіце крытэрыі пошуку!"
+
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:502
+msgid "Vendor is successfully created"
+msgstr "Пастаўшчык усталяваны ў сістэме"
+
+#: src/components/card/SaleCard/SaleCard.tsx:71
+msgid "Not Active"
+msgstr "Неактыўная"
+
+#: src/components/card/SaleCard/SaleCard.tsx:72
+msgid "Coming soon"
+msgstr "Пачакайце"
+
+#: src\components\admin\AdminPanelVendor\AdminPanelVendor.tsx:476
+msgid "Min length 50, max length 200"
+msgstr "мін колькасць сімвалаў 50, макс. 200"
+
+
+#: src/components/common/Subscribe/Subscribe.tsx:245
+msgid "Categories"
+msgstr "Катэгорыі"
+
 #: src\components\common\Sort\Sort.tsx:44
 msgid "Ending soon"
 msgstr "Хутка скончацца"
