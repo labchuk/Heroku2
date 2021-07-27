@@ -35,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
-    // console.log(discount)
     const {pathname} = useLocation();
     const {vendor} = useAppSelector(state=>state.filters);
     const {vendorLocations} = discount;

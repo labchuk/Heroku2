@@ -12,7 +12,7 @@ import {useAppDispatch, useAppSelector} from "../../../../store/Redux-toolkit-ho
 import {setDiscountsHistory} from "../../../../store/filtersStore";
 import {getDiscountsHistory} from "../../../../http/discountApi";
 import {timeString} from "../../../../helpers/functionHelpers";
-import {setEndDataHistory, setStartDataHistory, setTimeDatePicker} from "./../../../../store/historySearch";
+import {setEndDataHistory, setStartDataHistory, setTimeDatePicker, setPageHistory} from "./../../../../store/historySearch";
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -37,22 +37,21 @@ const ContainerDataPiker = ({setTime, time}:{setTime:any, time:any } ) => {
     const [counter, setCounter] = useState(0)
 
     useEffect(() => {
-        console.log(counter)
         if(pathname === HISTORY_ROUTE ){
             if(selectedDate.To){
-                console.log("to")
-                const end =(timeString(selectedDate.To))
-                dispatch(setEndDataHistory(end.slice(0,16)+":03.00-00:00"))}
+                const end =(timeString(selectedDate.To));
+                dispatch(setEndDataHistory(end.slice(0,16)+":03.00-00:00"));
+                dispatch(setPageHistory(0));
+            }
             if(selectedDate.From){
-                console.log("From")
-                const start =(timeString(selectedDate.From))
-                dispatch(setStartDataHistory(start.slice(0,16)+":03.00-00:00"))
+                const start =(timeString(selectedDate.From));
+                dispatch(setStartDataHistory(start.slice(0,16)+":03.00-00:00"));
+                dispatch(setPageHistory(0));
             }
             if(!selectedDate.To){
-                console.log("!to")
-                dispatch(setEndDataHistory(undefined))}
+                dispatch(setEndDataHistory(undefined))
+            }
             if(!selectedDate.From){
-                console.log("!From")
                 dispatch(setStartDataHistory(undefined))
             }   
         }
@@ -61,17 +60,18 @@ const ContainerDataPiker = ({setTime, time}:{setTime:any, time:any } ) => {
     
     useEffect(()=>{
         if(counter > 1 && pathname === HISTORY_ROUTE){
-            console.log(selectedDate)
-            console.log(searchObjectHistory)
             getDiscountsHistory(searchObjectHistory).then(resolve=> dispatch(setDiscountsHistory(resolve.data))).catch(f=> console.log(f));     
         }
     },[counter]);
     
     const [helperText, setHelperText] = useState("");
     useEffect(() => {
-        selectedDate.From - selectedDate.To > 0 ? setHelperText("start date must be earlier then end date") : setHelperText("")
+        selectedDate.From - selectedDate.To < 0 ?  setHelperText("") : setHelperText("start date must be earlier then end date")
     }, [selectedDate])
 
+    useEffect(()=>{
+        return () => setHelperText("")
+    },[])
     const handleClick = () =>{
         setSelectedDate({From: undefined,To : undefined,})
         pathname === MAIN_ROUTE && setTime({From: undefined,To : undefined,})

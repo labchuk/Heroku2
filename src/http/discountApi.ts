@@ -108,3 +108,8 @@ export const deletefavoriteDiscount = async(idDiscount: string)=>{
     const data = await authHost.delete (`/discount/${idDiscount}/favorite`);
     return data;
 }
+
+export const getStatistic = async()=>{
+    const data = await authHost.get (`/statistic/used_discount/history`);
+    return data;
+}

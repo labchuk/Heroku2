@@ -22,10 +22,10 @@
   &__place{
     font-size: 12px;
     margin-top: 5px;
-    //color: #000;
     display: flex;
-    align-items: center;
-    
+    align-items: center;    
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 

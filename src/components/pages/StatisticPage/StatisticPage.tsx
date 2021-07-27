@@ -9,6 +9,7 @@ import {resetFilteState} from "../../../store/filtersStore";
 import { resetChipState } from "../../../store/chipReducer";
 import {resetHistory} from "../../../store/historySearch";
 import {useAppDispatch} from "../../../store/Redux-toolkit-hook";
+import {getStatistic} from "../../../http/discountApi"
 
 const StatisticPage = () => {
     const dispatch = useAppDispatch();
@@ -20,6 +21,7 @@ const StatisticPage = () => {
             dispatch(resetChipState());
             dispatch(resetHistory());
         }
+        getStatistic().then(resolve=>console.log(resolve))
     },[]);
     return (
         <div className={"statistic"}>
