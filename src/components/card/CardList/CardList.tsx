@@ -33,8 +33,9 @@ const useStyles = makeStyles((theme) =>
 const CardList: React.FC = (props) => {
     const dispatch = useAppDispatch();
     const {searchObject, discounds, numberOfElements, discountsHistory, numberOfElementsHistory} = useAppSelector(state=>state.filters);
-    const historyObj = useAppSelector(state=>state.historyObj);
-    
+    const historyObj = useAppSelector(state => state.historyObj);
+    const {page : p, size, startDate, endDate} = historyObj;
+    const searchObjectHistory = {page : p, size : size, startDate : startDate, endDate : endDate};
     const {pathname} = useLocation();
     const NUMBER_CARD = 15;
 
@@ -44,11 +45,11 @@ const CardList: React.FC = (props) => {
     },[discounds, discountsHistory])
     
     const classes = useStyles();
-    const [page, setPage] = React.useState(pathname === HISTORY_ROUTE ? historyObj?.page +1 : searchObject?.page + 1);
-    setTimeout(() => setPage(pathname === HISTORY_ROUTE ? historyObj?.page +1 : searchObject?.page + 1),50)
+    const [page, setPage] = React.useState(pathname === HISTORY_ROUTE ? searchObjectHistory?.page +1 : searchObject?.page + 1);
+    setTimeout(() => setPage(pathname === HISTORY_ROUTE ? searchObjectHistory?.page +1 : searchObject?.page + 1),50)
     const loadingDiscount = async()=>{
             if(pathname === HISTORY_ROUTE){
-                const resolve = await getDiscountsHistory(historyObj);
+                const resolve = await getDiscountsHistory(searchObjectHistory);
                 resolve?.data && dispatch(setDiscountsHistory(resolve.data));
             }else{
                 const resolve = await getDiscounts(searchObject);
@@ -59,7 +60,7 @@ const CardList: React.FC = (props) => {
     useEffect(()=>{
         loadingDiscount()
         setPage(searchObject.page+1)
-    },[searchObject?.page, historyObj?.page])
+    },[searchObject?.page, searchObjectHistory?.page])
 
     const handleChange = async (event: React.ChangeEvent<unknown>, value: number) => {
         pathname === HISTORY_ROUTE ? dispatch(setPageHistory(value-1)) : dispatch(setSearchObjectPage(value-1));
@@ -117,7 +118,6 @@ const CardList: React.FC = (props) => {
         }
     };
     const isAdmin = useAppSelector(state => state.user.admine);
-    
     return (
             <div className="card-list">
 
