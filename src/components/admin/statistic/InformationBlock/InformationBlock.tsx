@@ -5,6 +5,8 @@ import { t } from 'ttag';
 import {makeStyles} from "@material-ui/core/styles";
 import {authHost} from "../../../../http";
 
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: theme.palette.secondary.main
@@ -12,36 +14,11 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-
-
-
-
-const sInfo: any = {
-    totalUser: null,
-    crActives: null,
-    lastActivity: null,
-    location: null,
-    vendorsNumber: null,
-    promoNumbers: null,
-    activePromo: null,
-};
-
-/*(async function(){
-    const result = await authHost.get(`/statistic/main_statistic`);
-    console.log("result is = ", result.data);
-    return result;
-
-
-})()*/
-
-
-
 const getStatistic = async function(){
     const result = await authHost.get(`/statistic/main_statistic`);
-    console.log("result is = ", result.data);
+    /*console.log("result is = ", result.data);*/
     return result;
 }
-
 
 const InformationBlock: React.FunctionComponent = () => {
     const classes = useStyles();
@@ -61,6 +38,16 @@ const InformationBlock: React.FunctionComponent = () => {
     getStatistic().then((result) => {
         setCountPromo(result.data.userSize);
         setCountCr(result.data.amountOfUsedDiscount);
+        setLastAct(result.data.lastUsedDiscountDate);
+        setActLocation(result.data.mostPopularCity);
+        setVendors(result.data.vendorSize);
+        setPromos(result.data.discountSize);
+        setActpromos(result.data.activeDiscountsSize);
+        setDuration(result.data.lastEndingDiscountDate);
+        setVendor(result.data.theMostPopularVendor.name);
+        setPromo(result.data.theMostPopularDiscount.name);
+        setCategory(result.data.theMostPopularCategory.name);
+        setSubcat(result.data.theMostPopularSubCategory.name);
             })
 
 
@@ -69,24 +56,21 @@ const InformationBlock: React.FunctionComponent = () => {
             <div className={`InfoBlock ${classes.root}`}>
                 <InfoItem title={t`Users actives:`} value={countPromo} />
                 <InfoItem title={t`Users CR actives:`} value={countCr} />
-                <InfoItem title={t`Last activity:`} value="15 min ago" />
-                <InfoItem title={t`Most active location:`} value="London" />
+                <InfoItem title={t`Last activity:`} value={new Date(lastAct! * 1000).toLocaleDateString()} />
+                <InfoItem title={t`Most active location:`} value={actLocation} />
             </div>
             <div className={`InfoBlock ${classes.root}`}>
-                <InfoItem title={t`Number of Vendors:`} value="54" />
-                <InfoItem title={t`Number of promos:`} value="213" />
-                <InfoItem title={t`Number of active promos:`} value="39" />
-                <InfoItem title={t`Promotions durations:`} value="17 days" />
+                <InfoItem title={t`Number of Vendors:`} value={vendors} />
+                <InfoItem title={t`Number of promos:`} value={promos} />
+                <InfoItem title={t`Number of active promos:`} value={actpromos} />
+                <InfoItem title={t`Promotions durations:`} value={new Date(duration! * 1000).toLocaleDateString()} />
             </div>
             <div className={`InfoBlock ${classes.root}`}>
-                <InfoItem title={t`The most popular Vendor:`} value="Cassio" />
-                <InfoItem title={t`The most popular Promo:`} value="Hail LITRA!!" />
-                <InfoItem title={t`The most popular category:`} value="Sport" />
-                <InfoItem title={t`The most popular subcategory:`} value="Shoes" />
+                <InfoItem title={t`The most popular Vendor:`} value={vendor} />
+                <InfoItem title={t`The most popular Promo:`} value={promo} />
+                <InfoItem title={t`The most popular category:`} value={category} />
+                <InfoItem title={t`The most popular subcategory:`} value={subcat} />
             </div>
-
-
-
         </div>
     );
 };
