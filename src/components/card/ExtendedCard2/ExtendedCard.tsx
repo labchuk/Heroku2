@@ -88,8 +88,8 @@ const ExtendedCard: React.FC<ExtendedCardProps> = ({discount}) => {
     };
 
     const center = {
-        lat: discount?.vendorLocations[0].latitude,
-        lng: discount?.vendorLocations[0].longitude
+        lat: discount?.vendorLocations[0]?.latitude,
+        lng: discount?.vendorLocations[0]?.longitude
     };
     const now = new Date()
     const {endDate, startDate} = discount;

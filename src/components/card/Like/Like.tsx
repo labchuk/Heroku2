@@ -115,35 +115,6 @@ const Like: FC<LikeProps> = (props) => {
                     </svg>
                 </button>
                 <div className="settings-wrapper">
-                    <button className="card-buttons__item" aria-describedby={id} onClick={handleChange}>
-                        <img src="image/icons/Share.svg" alt="" />
-                    </button>
-                    <Popover id={id}
-                             open={Boolean(anchorShareEl)}
-                             anchorEl={anchorShareEl}
-                             onClose={handleClose}
-                             anchorOrigin={{
-                                 vertical: 'center',
-                                 horizontal: 'left',
-                             }}
-                             transformOrigin={{
-                                 vertical: 'center',
-                                 horizontal: 'right',
-                             }}
-                             className={style.root}>
-                        <FacebookShareButton
-                            url="https://github.com/khramyka/front-end-team2/tree/SearchBar/public">
-                            <FacebookIcon size={45} round={true}></FacebookIcon>
-                        </FacebookShareButton>
-                        <TelegramShareButton
-                            url="https://github.com/khramyka/front-end-team2/tree/SearchBar/public">
-                            <TelegramIcon size={45} round={true}></TelegramIcon>
-                        </TelegramShareButton>
-                        <VKShareButton
-                            url="https://github.com/khramyka/front-end-team2/tree/SearchBar/public">
-                            <VKIcon size={45} round={true}></VKIcon>
-                        </VKShareButton>
-                    </Popover>
                 </div>
                 <div className="settings-wrapper">
                     <button aria-describedby={id} onClick={handleClick} className='settings'>

@@ -277,7 +277,6 @@ const AdminPanelCard = ({currentCard}) => {
 
   const useStyles = makeStyles({
     wrapper: {
-      background: '#F7F9FB',
       height: '100%',
       width: 700,
       paddingRight: 25,

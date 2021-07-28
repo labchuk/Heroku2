@@ -29,6 +29,12 @@ const useStyles = makeStyles((theme: Theme) =>
             margin: theme.spacing(0.5),
             backgroundColor: "#AAF4C3",
             color: '#000',
+            '& > svg': {
+                color: '#606060',
+            },
+            '& > :hover': {
+                color: '#303030'
+            }
         },
 
     }),

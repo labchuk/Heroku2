@@ -1,13 +1,15 @@
-import React from 'react';
+import React  from 'react';
 import './Discount.scss'
 import {createStyles, makeStyles} from "@material-ui/core/styles";
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import {t} from "ttag";
+
 interface DiscountProps {
     discount: {
         place: string,
         nameDiscount: string,
         sizeDiscount: string,
-        date: string
+        date: string,
     },
     handleClick: (e: any) => void
 }
@@ -36,6 +38,7 @@ const Discount: React.FC<DiscountProps> = ({ discount, handleClick }) => {
                     <><LocationOnIcon style={{color: "red"}}/>{ (location[0])}</>
                 </p>
             </div>
+
 
     );
 };
